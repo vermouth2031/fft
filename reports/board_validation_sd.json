@@ -1,0 +1,72 @@
+{
+  "verified_at": "2026-09-17T20:26:36.023035+08:00",
+  "status": "PASS",
+  "board_tested": true,
+  "scope": "SD boot and finite internal-IQ replay: 8 vectors x 2 windows x 4 runs",
+  "board": "Zybo Z7-20 / xc7z020",
+  "source": "D:\\fft\\iq_analyzer\\captures\\sd_board_20260917_202436\\raw",
+  "run_count": 4,
+  "test_cases": 64,
+  "frequency_records": 256,
+  "burst_records": 56,
+  "input_iq_pairs": 2097152,
+  "hardware_error_status_all_zero": true,
+  "capture_complete_all_true": true,
+  "snapshots_present": 64,
+  "maximum_analysis_latency_cycles": 19978,
+  "maximum_analysis_latency_us": 199.78,
+  "maximum_publish_latency_cycles": 20012,
+  "maximum_publish_latency_us": 200.12,
+  "latency_timebase": "Hardware source-clock counters divided by nominal 100 MHz; no independent clock calibration",
+  "latest_last_case_matches_prior_jtag_readback": {
+    "frequency.bin": true,
+    "burst.bin": true
+  },
+  "boot_sha256": "cca3ff08ef9f845150d5683dca5c8dc89e98860d97dc62f34590e4ed15b8d654",
+  "runs": [
+    {
+      "run": "RUN0000",
+      "status": "PASS",
+      "cases": 16,
+      "frequency_records": 64,
+      "burst_records": 14,
+      "max_analysis_us": 199.78,
+      "max_publish_us": 200.12
+    },
+    {
+      "run": "RUN0001",
+      "status": "PASS",
+      "cases": 16,
+      "frequency_records": 64,
+      "burst_records": 14,
+      "max_analysis_us": 199.78,
+      "max_publish_us": 200.12
+    },
+    {
+      "run": "RUN0002",
+      "status": "PASS",
+      "cases": 16,
+      "frequency_records": 64,
+      "burst_records": 14,
+      "max_analysis_us": 199.78,
+      "max_publish_us": 200.12
+    },
+    {
+      "run": "RUN0003",
+      "status": "PASS",
+      "cases": 16,
+      "frequency_records": 64,
+      "burst_records": 14,
+      "max_analysis_us": 199.78,
+      "max_publish_us": 200.12
+    }
+  ],
+  "pending": [
+    "Ethernet finite capture",
+    "10 s and 60 s continuous throughput",
+    "5000 bursts/s service pressure",
+    "Packet loss and recovery",
+    "Independent input-rate/timebase measurement"
+  ],
+  "uart_startup_log_captured": false
+}

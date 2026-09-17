@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "script": "tests/check_host.py",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "script": "tests/test_host_protocol.py",
+      "returncode": 0,
+      "stdout": "{\n  \"source\": \"Synthetic protocol unit test\",\n  \"frequency_records\": 1,\n  \"burst_records\": 0,\n  \"duplicate_frequency_records\": 0,\n  \"maximum_received_latency_us\": 0.0\n}\n",
+      "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 0.023s\n\nOK\n"
+    },
+    {
+      "script": "scripts/package_release.py",
+      "returncode": 0,
+      "stdout": "PACKAGE_CHECK_PASS\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,1162 @@
+{
+  "reference_scope": "Software reference: exact integer time metrics; FFT input/window quantization and output-only rounding. NOT AMD bit-accurate FFT, RTL simulation, or FPGA measurement.",
+  "sample_rate_hz": 100000000,
+  "fft_length": 8192,
+  "record_samples": 32768,
+  "hann_rom": "hann_u18_f17.mem",
+  "packing": "little-endian signed int16 I then signed int16 Q; mem word[15:0]=I, word[31:16]=Q",
+  "detector": {
+    "moving_sum_length": 16,
+    "Ton": 1048576,
+    "Toff": 262144,
+    "Kon": 8,
+    "Koff": 32,
+    "start_comparison": ">",
+    "end_comparison": "<"
+  },
+  "cases": {
+    "zero": {
+      "metadata": {
+        "kind": "zero"
+      },
+      "binary": "zero.bin",
+      "mem": "zero.mem",
+      "sha256_bin": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+      "max_abs_component": 0,
+      "bursts": [],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        }
+      ]
+    },
+    "tone_pos_fs4": {
+      "metadata": {
+        "kind": "continuous complex tone",
+        "frequency_hz": 25000000.0,
+        "amplitude_codes": 8192
+      },
+      "binary": "tone_pos_fs4.bin",
+      "mem": "tone_pos_fs4.mem",
+      "sha256_bin": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+      "max_abs_component": 8192,
+      "bursts": [
+        {
+          "start": 0,
+          "complete": false,
+          "reason": "capture ended before a confirmed trailing gap"
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        }
+      ]
+    },
+    "tone_neg_fs4": {
+      "metadata": {
+        "kind": "continuous complex tone",
+        "frequency_hz": -25000000.0,
+        "amplitude_codes": 8192
+      },
+      "binary": "tone_neg_fs4.bin",
+      "mem": "tone_neg_fs4.mem",
+      "sha256_bin": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
+      "max_abs_component": 8192,
+      "bursts": [
+        {
+          "start": 0,
+          "complete": false,
+          "reason": "capture ended before a confirmed trailing gap"
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 2048,
+            "q_low": 2048,
+            "q_high": 2048,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25000000.0,
+            "f_high_hz": -25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 2048,
+            "q_low": 2047,
+            "q_high": 2049,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25012207.03125,
+            "f_high_hz": -24987792.96875,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 2048,
+            "q_low": 2048,
+            "q_high": 2048,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25000000.0,
+            "f_high_hz": -25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 2048,
+            "q_low": 2047,
+            "q_high": 2049,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25012207.03125,
+            "f_high_hz": -24987792.96875,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 2048,
+            "q_low": 2048,
+            "q_high": 2048,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25000000.0,
+            "f_high_hz": -25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 2048,
+            "q_low": 2047,
+            "q_high": 2049,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25012207.03125,
+            "f_high_hz": -24987792.96875,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 2048,
+            "q_low": 2048,
+            "q_high": 2048,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25000000.0,
+            "f_high_hz": -25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 2048,
+            "q_low": 2047,
+            "q_high": 2049,
+            "f_peak_hz": -25000000.0,
+            "f_low_hz": -25012207.03125,
+            "f_high_hz": -24987792.96875,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": -25000000.0,
+            "resolution_limited": false
+          }
+        }
+      ]
+    },
+    "burst_fs4": {
+      "metadata": {
+        "kind": "rectangular-envelope tone burst",
+        "waveform_interval": [
+          2048,
+          26624
+        ],
+        "true_samples": 24576
+      },
+      "binary": "burst_fs4.bin",
+      "mem": "burst_fs4.mem",
+      "sha256_bin": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
+      "max_abs_component": 8192,
+      "bursts": [
+        {
+          "start": 2048,
+          "end_exclusive": 26639,
+          "samples": 24591,
+          "energy": 1649267441664,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536707146,
+          "complete": true
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 412316860416,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 464943848,
+          "rect": {
+            "valid_power": true,
+            "total_power": 824633895048,
+            "q_peak": 6144,
+            "q_low": 6130,
+            "q_high": 6158,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24829101.5625,
+            "f_high_hz": 25170898.4375,
+            "obw99_bin_center_hz": 341796.875,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 396750688195,
+            "q_peak": 6144,
+            "q_low": 6140,
+            "q_high": 6148,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24951171.875,
+            "f_high_hz": 25048828.125,
+            "obw99_bin_center_hz": 97656.25,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 549755813888,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 536870912,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1099511627776,
+            "q_peak": 6144,
+            "q_low": 6144,
+            "q_high": 6144,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 25000000.0,
+            "f_high_hz": 25000000.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412316860416,
+            "q_peak": 6144,
+            "q_low": 6143,
+            "q_high": 6145,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24987792.96875,
+            "f_high_hz": 25012207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 25000000.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 137438953472,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 268435456,
+          "rect": {
+            "valid_power": true,
+            "total_power": 274878081160,
+            "q_peak": 6144,
+            "q_low": 6102,
+            "q_high": 6183,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 24487304.6875,
+            "f_high_hz": 25476074.21875,
+            "obw99_bin_center_hz": 988769.53125,
+            "f_bandcenter_hz": 24981689.453125,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 15566050409,
+            "q_peak": 6144,
+            "q_low": 6051,
+            "q_high": 6230,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 23864746.09375,
+            "f_high_hz": 26049804.6875,
+            "obw99_bin_center_hz": 2185058.59375,
+            "f_bandcenter_hz": 24957275.390625,
+            "resolution_limited": false
+          }
+        }
+      ]
+    },
+    "qpsk_sps4": {
+      "metadata": {
+        "kind": "RRC-QPSK",
+        "sps": 4,
+        "rolloff": 0.25,
+        "rrc_span_symbols": 10,
+        "rrc_taps": 41,
+        "seed": 20260919,
+        "carrier_offset_hz": 8000000,
+        "symbol_rate_baud": 25000000.0,
+        "ideal_support_hz": 31250000.0,
+        "waveform_interval": [
+          2048,
+          26664
+        ],
+        "interval_definition": "finite convolution array including filter transients and padded upsampling zeros"
+      },
+      "binary": "qpsk_sps4.bin",
+      "mem": "qpsk_sps4.mem",
+      "sha256_bin": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
+      "max_abs_component": 13777,
+      "bursts": [
+        {
+          "start": 2062,
+          "end_exclusive": 26669,
+          "samples": 24607,
+          "energy": 1651951957054,
+          "peak_uq16_16": 942653578,
+          "rms_uq16_16": 536969109,
+          "complete": true
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 411671751943,
+          "peak_uq16_16": 924543670,
+          "rms_uq16_16": 464579981,
+          "rect": {
+            "valid_power": true,
+            "total_power": 823343327718,
+            "q_peak": 5294,
+            "q_low": 3625,
+            "q_high": 5872,
+            "f_peak_hz": 14624023.4375,
+            "f_low_hz": -5749511.71875,
+            "f_high_hz": 21679687.5,
+            "obw99_bin_center_hz": 27429199.21875,
+            "f_bandcenter_hz": 7965087.890625,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 396722074493,
+            "q_peak": 5294,
+            "q_low": 3625,
+            "q_high": 5881,
+            "f_peak_hz": 14624023.4375,
+            "f_low_hz": -5749511.71875,
+            "f_high_hz": 21789550.78125,
+            "obw99_bin_center_hz": 27539062.5,
+            "f_bandcenter_hz": 8020019.53125,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 550772118185,
+          "peak_uq16_16": 921377812,
+          "rms_uq16_16": 537366925,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1101544739123,
+            "q_peak": 4716,
+            "q_low": 3626,
+            "q_high": 5874,
+            "f_peak_hz": 7568359.375,
+            "f_low_hz": -5737304.6875,
+            "f_high_hz": 21704101.5625,
+            "obw99_bin_center_hz": 27441406.25,
+            "f_bandcenter_hz": 7983398.4375,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412980780654,
+            "q_peak": 4716,
+            "q_low": 3623,
+            "q_high": 5876,
+            "f_peak_hz": 7568359.375,
+            "f_low_hz": -5773925.78125,
+            "f_high_hz": 21728515.625,
+            "obw99_bin_center_hz": 27502441.40625,
+            "f_bandcenter_hz": 7977294.921875,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 550739642289,
+          "peak_uq16_16": 942653578,
+          "rms_uq16_16": 537351082,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1101479720522,
+            "q_peak": 4117,
+            "q_low": 3621,
+            "q_high": 5878,
+            "f_peak_hz": 256347.65625,
+            "f_low_hz": -5798339.84375,
+            "f_high_hz": 21752929.6875,
+            "obw99_bin_center_hz": 27551269.53125,
+            "f_bandcenter_hz": 7977294.921875,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412915975279,
+            "q_peak": 4282,
+            "q_low": 3630,
+            "q_high": 5875,
+            "f_peak_hz": 2270507.8125,
+            "f_low_hz": -5688476.5625,
+            "f_high_hz": 21716308.59375,
+            "obw99_bin_center_hz": 27404785.15625,
+            "f_bandcenter_hz": 8013916.015625,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 138769144110,
+          "peak_uq16_16": 906656491,
+          "rms_uq16_16": 269731342,
+          "rect": {
+            "valid_power": true,
+            "total_power": 277538053175,
+            "q_peak": 4504,
+            "q_low": 3617,
+            "q_high": 5876,
+            "f_peak_hz": 4980468.75,
+            "f_low_hz": -5847167.96875,
+            "f_high_hz": 21728515.625,
+            "obw99_bin_center_hz": 27575683.59375,
+            "f_bandcenter_hz": 7940673.828125,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 16207865607,
+            "q_peak": 5388,
+            "q_low": 3638,
+            "q_high": 5863,
+            "f_peak_hz": 15771484.375,
+            "f_low_hz": -5590820.3125,
+            "f_high_hz": 21569824.21875,
+            "obw99_bin_center_hz": 27160644.53125,
+            "f_bandcenter_hz": 7989501.953125,
+            "resolution_limited": false
+          }
+        }
+      ]
+    },
+    "qpsk_sps2": {
+      "metadata": {
+        "kind": "RRC-QPSK",
+        "sps": 2,
+        "rolloff": 0.25,
+        "rrc_span_symbols": 10,
+        "rrc_taps": 21,
+        "seed": 20260917,
+        "carrier_offset_hz": 8000000,
+        "symbol_rate_baud": 50000000.0,
+        "ideal_support_hz": 62500000.0,
+        "waveform_interval": [
+          2048,
+          26644
+        ],
+        "interval_definition": "finite convolution array including filter transients and padded upsampling zeros"
+      },
+      "binary": "qpsk_sps2.bin",
+      "mem": "qpsk_sps2.mem",
+      "sha256_bin": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
+      "max_abs_component": 14348,
+      "bursts": [
+        {
+          "start": 2054,
+          "end_exclusive": 26652,
+          "samples": 24598,
+          "energy": 1650606763144,
+          "peak_uq16_16": 940879025,
+          "rms_uq16_16": 536848621,
+          "complete": true
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 412102908644,
+          "peak_uq16_16": 931041976,
+          "rms_uq16_16": 464823202,
+          "rect": {
+            "valid_power": true,
+            "total_power": 824205318177,
+            "q_peak": 3432,
+            "q_low": 2504,
+            "q_high": 6998,
+            "f_peak_hz": -8105468.75,
+            "f_low_hz": -19433593.75,
+            "f_high_hz": 35424804.6875,
+            "obw99_bin_center_hz": 54858398.4375,
+            "f_bandcenter_hz": 7995605.46875,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 396844107773,
+            "q_peak": 4110,
+            "q_low": 2511,
+            "q_high": 7003,
+            "f_peak_hz": 170898.4375,
+            "f_low_hz": -19348144.53125,
+            "f_high_hz": 35485839.84375,
+            "obw99_bin_center_hz": 54833984.375,
+            "f_bandcenter_hz": 8068847.65625,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 550182031130,
+          "peak_uq16_16": 921240698,
+          "rms_uq16_16": 537078985,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1100363936097,
+            "q_peak": 6353,
+            "q_low": 2507,
+            "q_high": 7003,
+            "f_peak_hz": 27551269.53125,
+            "f_low_hz": -19396972.65625,
+            "f_high_hz": 35485839.84375,
+            "obw99_bin_center_hz": 54882812.5,
+            "f_bandcenter_hz": 8044433.59375,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412671852229,
+            "q_peak": 5623,
+            "q_low": 2520,
+            "q_high": 6998,
+            "f_peak_hz": 18640136.71875,
+            "f_low_hz": -19238281.25,
+            "f_high_hz": 35424804.6875,
+            "obw99_bin_center_hz": 54663085.9375,
+            "f_bandcenter_hz": 8093261.71875,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 550108151013,
+          "peak_uq16_16": 940879025,
+          "rms_uq16_16": 537042924,
+          "rect": {
+            "valid_power": true,
+            "total_power": 1100216138540,
+            "q_peak": 4794,
+            "q_low": 2501,
+            "q_high": 7005,
+            "f_peak_hz": 8520507.8125,
+            "f_low_hz": -19470214.84375,
+            "f_high_hz": 35510253.90625,
+            "obw99_bin_center_hz": 54980468.75,
+            "f_bandcenter_hz": 8020019.53125,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 412523575849,
+            "q_peak": 5122,
+            "q_low": 2510,
+            "q_high": 6999,
+            "f_peak_hz": 12524414.0625,
+            "f_low_hz": -19360351.5625,
+            "f_high_hz": 35437011.71875,
+            "obw99_bin_center_hz": 54797363.28125,
+            "f_bandcenter_hz": 8038330.078125,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 138214452841,
+          "peak_uq16_16": 888461765,
+          "rms_uq16_16": 269191714,
+          "rect": {
+            "valid_power": true,
+            "total_power": 276428832019,
+            "q_peak": 4071,
+            "q_low": 2474,
+            "q_high": 6989,
+            "f_peak_hz": -305175.78125,
+            "f_low_hz": -19799804.6875,
+            "f_high_hz": 35314941.40625,
+            "obw99_bin_center_hz": 55114746.09375,
+            "f_bandcenter_hz": 7757568.359375,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 15898442617,
+            "q_peak": 4072,
+            "q_low": 2487,
+            "q_high": 6984,
+            "f_peak_hz": -292968.75,
+            "f_low_hz": -19641113.28125,
+            "f_high_hz": 35253906.25,
+            "obw99_bin_center_hz": 54895019.53125,
+            "f_bandcenter_hz": 7806396.484375,
+            "resolution_limited": false
+          }
+        }
+      ]
+    },
+    "short512_boundary": {
+      "metadata": {
+        "kind": "short tone burst at FFT boundary",
+        "waveform_interval": [
+          7936,
+          8448
+        ],
+        "true_samples": 512
+      },
+      "binary": "short512_boundary.bin",
+      "mem": "short512_boundary.mem",
+      "sha256_bin": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "max_abs_component": 8192,
+      "bursts": [
+        {
+          "start": 7936,
+          "end_exclusive": 8463,
+          "samples": 527,
+          "energy": 34359738368,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 529175278,
+          "complete": true
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 17179869184,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 94906265,
+          "rect": {
+            "valid_power": true,
+            "total_power": 34359836008,
+            "q_peak": 6144,
+            "q_low": 5776,
+            "q_high": 6427,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 20507812.5,
+            "f_high_hz": 28454589.84375,
+            "obw99_bin_center_hz": 7946777.34375,
+            "f_bandcenter_hz": 24481201.171875,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 644215,
+            "q_peak": 6144,
+            "q_low": 3496,
+            "q_high": 6775,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": -7324218.75,
+            "f_high_hz": 32702636.71875,
+            "obw99_bin_center_hz": 40026855.46875,
+            "f_bandcenter_hz": 12689208.984375,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 17179869184,
+          "peak_uq16_16": 536870912,
+          "rms_uq16_16": 94906265,
+          "rect": {
+            "valid_power": true,
+            "total_power": 34359952528,
+            "q_peak": 6144,
+            "q_low": 5776,
+            "q_high": 6427,
+            "f_peak_hz": 25000000.0,
+            "f_low_hz": 20507812.5,
+            "f_high_hz": 28454589.84375,
+            "obw99_bin_center_hz": 7946777.34375,
+            "f_bandcenter_hz": 24481201.171875,
+            "resolution_limited": false
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 632831,
+            "q_peak": 6142,
+            "q_low": 3483,
+            "q_high": 6780,
+            "f_peak_hz": 24975585.9375,
+            "f_low_hz": -7482910.15625,
+            "f_high_hz": 32763671.875,
+            "obw99_bin_center_hz": 40246582.03125,
+            "f_bandcenter_hz": 12640380.859375,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 0,
+          "peak_uq16_16": 0,
+          "rms_uq16_16": 0,
+          "rect": {
+            "valid_power": false,
+            "total_power": 0
+          },
+          "hann": {
+            "valid_power": false,
+            "total_power": 0
+          }
+        }
+      ]
+    },
+    "negative_fullscale_dc": {
+      "metadata": {
+        "kind": "both IQ components at negative fullscale"
+      },
+      "binary": "negative_fullscale_dc.bin",
+      "mem": "negative_fullscale_dc.mem",
+      "sha256_bin": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
+      "max_abs_component": 32768,
+      "bursts": [
+        {
+          "start": 0,
+          "complete": false,
+          "reason": "capture ended before a confirmed trailing gap"
+        }
+      ],
+      "windows": [
+        {
+          "window_id": 0,
+          "first_sample": 0,
+          "energy": 17592186044416,
+          "peak_uq16_16": 3037000499,
+          "rms_uq16_16": 3037000499,
+          "rect": {
+            "valid_power": true,
+            "total_power": 35184372088832,
+            "q_peak": 4096,
+            "q_low": 4096,
+            "q_high": 4096,
+            "f_peak_hz": 0.0,
+            "f_low_hz": 0.0,
+            "f_high_hz": 0.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 13194139533312,
+            "q_peak": 4096,
+            "q_low": 4095,
+            "q_high": 4097,
+            "f_peak_hz": 0.0,
+            "f_low_hz": -12207.03125,
+            "f_high_hz": 12207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 1,
+          "first_sample": 8192,
+          "energy": 17592186044416,
+          "peak_uq16_16": 3037000499,
+          "rms_uq16_16": 3037000499,
+          "rect": {
+            "valid_power": true,
+            "total_power": 35184372088832,
+            "q_peak": 4096,
+            "q_low": 4096,
+            "q_high": 4096,
+            "f_peak_hz": 0.0,
+            "f_low_hz": 0.0,
+            "f_high_hz": 0.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 13194139533312,
+            "q_peak": 4096,
+            "q_low": 4095,
+            "q_high": 4097,
+            "f_peak_hz": 0.0,
+            "f_low_hz": -12207.03125,
+            "f_high_hz": 12207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 2,
+          "first_sample": 16384,
+          "energy": 17592186044416,
+          "peak_uq16_16": 3037000499,
+          "rms_uq16_16": 3037000499,
+          "rect": {
+            "valid_power": true,
+            "total_power": 35184372088832,
+            "q_peak": 4096,
+            "q_low": 4096,
+            "q_high": 4096,
+            "f_peak_hz": 0.0,
+            "f_low_hz": 0.0,
+            "f_high_hz": 0.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 13194139533312,
+            "q_peak": 4096,
+            "q_low": 4095,
+            "q_high": 4097,
+            "f_peak_hz": 0.0,
+            "f_low_hz": -12207.03125,
+            "f_high_hz": 12207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": false
+          }
+        },
+        {
+          "window_id": 3,
+          "first_sample": 24576,
+          "energy": 17592186044416,
+          "peak_uq16_16": 3037000499,
+          "rms_uq16_16": 3037000499,
+          "rect": {
+            "valid_power": true,
+            "total_power": 35184372088832,
+            "q_peak": 4096,
+            "q_low": 4096,
+            "q_high": 4096,
+            "f_peak_hz": 0.0,
+            "f_low_hz": 0.0,
+            "f_high_hz": 0.0,
+            "obw99_bin_center_hz": 0.0,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": true
+          },
+          "hann": {
+            "valid_power": true,
+            "total_power": 13194139533312,
+            "q_peak": 4096,
+            "q_low": 4095,
+            "q_high": 4097,
+            "f_peak_hz": 0.0,
+            "f_low_hz": -12207.03125,
+            "f_high_hz": 12207.03125,
+            "obw99_bin_center_hz": 24414.0625,
+            "f_bandcenter_hz": 0.0,
+            "resolution_limited": false
+          }
+        }
+      ]
+    }
+  },
+  "figure": null
+}
