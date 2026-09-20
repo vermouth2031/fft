@@ -240,7 +240,7 @@ def main():
                     input=board["input"], metrology_calibrated=False,
                     baseline_tag="2023-09-17", files=files)
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    archive = out.with_suffix(".zip")
+    archive = out.parent / (out.name + ".zip")
     require(not archive.exists(), "Archive already exists")
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as target:
         for name in sorted(files):
