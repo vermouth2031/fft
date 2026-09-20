@@ -7,12 +7,20 @@ sys.path[:0]=[str(ROOT/'host'),str(ROOT/'tests')]
 import iq_client as h
 import numpy as np
 from generate_iq_vectors import burst_reference
+from frame_length_reference import reference_digital_zero
+from package_release import check as check_build
+from package_validated import check_board
+from record_build_stage import sha
 
 def save(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
 def check_bursts(folder,vector,cyclic):
-    m=json.loads((folder/'capture.json').read_text());iq=np.fromfile(vector,dtype='<i2').reshape(-1,2)
+    m=json.loads((folder/'capture.json').read_text(encoding='utf-8'));iq=np.fromfile(vector,dtype='<i2').reshape(-1,2)
     refs=burst_reference(iq);n=len(iq);count=0;cache={}
+    if m.get('detector_mode')=='digital-zero':
+        refs=[dict(start=r['start_sample'],end_exclusive=r['end_sample'],
+                   complete=not(r['flags']&256),flags=r['flags']) for r in
+              reference_digital_zero(iq[:,0],iq[:,1],gap_min=m['gap_min'])]
     with (folder/'burst.bin').open('rb') as stream:
         for offset in range(0,m['input_samples'],n):
             for r in refs:
@@ -27,7 +35,7 @@ def check_bursts(folder,vector,cyclic):
                 energy,peak,rms=cache[key]
                 assert (a['raw_energy'],a['peak_codes']*65536,a['rms_codes']*65536)==(energy,peak,rms)
                 partial=not r['complete'] or offset+r.get('end_exclusive',n)>m['input_samples']
-                assert a['flags_raw']==(256 if partial else 0)
+                assert a['flags_raw']==(r.get('flags',0)|(256 if partial else 0))
                 count+=1
             if not cyclic:break
         assert not stream.read(1)
@@ -55,9 +63,13 @@ class ImpairedSocket:
             return packet
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();out=a.out
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--board',default='192.168.1.10');a=p.parse_args();out=a.out
+    check_build();accepted=check_board()
+    assert accepted['board']==a.board,'Target differs from accepted board'
+    identity=sha(ROOT/'reports/current_board_validation.json')
     out.mkdir(parents=True,exist_ok=False);(out/'vectors').mkdir();results=[]
-    def capture(name,vector,seconds=0,mode=None):
+    def capture(name,vector,seconds=0,mode=None,detector='threshold',gap_min=32,overload=False):
         folder=out/name;original=h.Client;created=[]
         if mode:
             class FaultClient(original):
@@ -68,12 +80,23 @@ def main():
             h.Client=FaultClient
         error=None
         try:
-            h.capture(SimpleNamespace(board='192.168.1.10',port=5001,vector=str(vector),out=str(folder),window='hann',cyclic=seconds>0,seconds=seconds or 1))
+            h.capture(SimpleNamespace(board=a.board,port=5001,vector=str(vector),out=str(folder),window='hann',cyclic=seconds>0,seconds=seconds or 1,
+                                      detector=detector,gap_min=gap_min))
         except RuntimeError as exc:error=str(exc)
+        except ValueError as exc:
+            if not overload:raise
+            error=str(exc)
         finally:h.Client=original
-        m=json.loads((folder/'capture.json').read_text())
-        row={'name':name,'metadata':m,'exception':error}
-        if mode:
+        m=json.loads((folder/'capture.json').read_text(encoding='utf-8'))
+        row={'name':name,'folder':str(folder.resolve()),'metadata':m,'exception':error}
+        assert m['hardware_version']==accepted['hardware']['hardware_version']
+        row['files']={f.name:sha(f) for f in folder.iterdir() if f.name in
+                      ('capture.json','frequency.bin','burst.bin','snapshot.json','snapshot.bin')}
+        if overload:
+            assert error and not m['capture_complete'] and (m['error_status']&0x20004), 'Overload was not explicitly detected'
+            row['status']='EXPECTED_OVERLOAD_DETECTED'
+            row['scope']='50 million one-sample events/s intentionally exceeds supported result service rate; not a lossless operating point'
+        elif mode:
             shim=created[0].sock;row.update(injection=mode,injected=shim.triggered,discarded_by_shim=shim.dropped)
             assert shim.triggered
             if mode!='drop_start_reply':
@@ -92,18 +115,24 @@ def main():
     iq=np.fromfile(tone,dtype='<i2').reshape(-1,2).copy()
     iq//=2;v=out/'vectors/tone_half.bin';iq.tofile(v)
     folder,row=capture('half_amplitude',v)
-    fr=json.loads((folder/'frequency.json').read_text());assert all(r['rms_codes']==4096 and r['peak_codes']==4096 and r['peak_hz']==25000000 for r in fr)
+    fr=json.loads((folder/'frequency.json').read_text(encoding='utf-8'));assert all(r['rms_codes']==4096 and r['peak_codes']==4096 and r['peak_hz']==25000000 for r in fr)
     iq=np.zeros((32768,2),dtype='<i2')
     for start in (2048,18432):
         for k in range(start,start+4096):iq[k]=(8192,0) if k%4==0 else (0,8192) if k%4==1 else (-8192,0) if k%4==2 else (0,-8192)
     v=out/'vectors/pressure_two_bursts.bin';iq.tofile(v)
     folder,row=capture('pressure_20s',v,20);row.update(check_bursts(folder,v,True))
     assert row['burst_rate_per_nominal_second']>5000
+    folder,row=capture('digital_pressure_20s',v,20,detector='digital-zero');row.update(check_bursts(folder,v,True))
+    assert row['burst_rate_per_nominal_second']>5000
+    overloaded=np.zeros((32768,2),dtype='<i2');overloaded[::2,0]=8192
+    overload_vector=out/'vectors/digital_event_overload.bin';overloaded.tofile(overload_vector)
+    capture('digital_event_overload',overload_vector,detector='digital-zero',gap_min=1,overload=True)
+    capture('digital_overload_recovery',ROOT/'data/vectors/burst_fs4.bin',detector='digital-zero')
     for mode in ('drop_one','blackhole','pause_receiver','drop_start_reply'):
         capture(mode,qpsk,2,mode)
         capture(mode+'_recovery',tone)
     # Independent PC performance counter, with network-latency bounds for every hardware latch.
-    c=h.Client('192.168.1.10')
+    c=h.Client(a.board)
     def sample():
         lo=time.perf_counter_ns();c.request(5,[0]);w=c.read(0x110,2);hi=time.perf_counter_ns()
         return {'host_lo_ns':lo,'host_hi_ns':hi,'ticks':w[0]|w[1]<<32}
@@ -119,7 +148,11 @@ def main():
         save(out/'host_clock_comparison.json',clock)
         assert c.read(8)[0]&7==0 and c.read(0x60)[0]==0
     finally:c.close()
+    check_build();check_board()
+    assert identity==sha(ROOT/'reports/current_board_validation.json'),'Accepted build changed during extended tests'
     report={'status':'PASS','source':'Real Zybo Z7-20 UDP hardware, synthetic receiver faults explicitly labelled',
-            'cases':results,'host_clock_comparison':clock,'physical_cable_unplug_test':False}
+            'board':a.board,'current_board_validation_sha256':identity,
+            'folder':str(out.resolve()),'cases':results,'host_clock_comparison':clock,'physical_cable_unplug_test':False}
     save(out/'extended_validation.json',report);print('EXTENDED_BOARD_PASS',out,flush=True)
+    save(ROOT/'reports/current_extended_validation.json',report)
 if __name__=='__main__':main()

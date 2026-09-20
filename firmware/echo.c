@@ -12,6 +12,7 @@
 #define BASE 0x40000000U
 #define MAGIC 0x49515531U
 #define PORT 5001
+#define DETECTOR_VERSION 0x00010001U
 static struct udp_pcb *pcb;
 static ip_addr_t peer;
 static uint16_t peer_port;
@@ -39,6 +40,7 @@ static int readable(uint32_t o){
     case 0x50:case 0x54:case 0x58:case 0x5c:case 0x60:case 0x68:case 0x6c:
     case 0x7c:case 0x80:case 0x110:case 0x114:case 0x118:case 0x11c:
     case 0x120:case 0x124:case 0x128:case 0x12c:case 0x130:return 1;
+    case 0x84:case 0x88:case 0x8c:return rd(4)>=DETECTOR_VERSION;
     default:return 0;
     }
 }
@@ -78,16 +80,21 @@ static void receive(void *arg,struct udp_pcb *up,struct pbuf *p,const ip_addr_t 
         else if((rd(8)&7)!=0)error=3;
         else for(uint32_t i=0;i<count;i++)wr(0x10000+rx[4]+4*i,rx[5+i]);
     }else if(type==4){ /* config: length, cyclic, window, ROI, thresholds, confirmations, max */
-        if(bytes!=68||count!=13)error=1;
+        if((count!=13&&count!=15)||bytes!=16+4*count)error=1;
         else if((rd(8)&7)!=0)error=3;
         else{
             uint32_t *v=&rx[4];uint64_t on=((uint64_t)v[6]<<32)|v[5],off=((uint64_t)v[8]<<32)|v[7];
+            uint32_t mode=count==15?v[13]:0,gap=count==15?v[14]:32;
+            int extended=rd(4)>=DETECTOR_VERSION;
             if(v[0]<8192||v[0]>32768||(v[0]&8191)||v[1]>1||v[2]>1||v[3]>v[4]||v[4]>8191||
                 v[6]>15||v[8]>15||on<=off||!v[9]||v[9]>65535||!v[10]||v[10]>65535||
-                v[11]<v[9]||v[11]>1048576||v[12]!=0)error=2;
+                v[11]<(mode?1:v[9])||v[11]>1048576||v[12]!=0||mode>1||!gap||gap>65535)error=2;
+            else if(count==15&&(!extended||(mode==1&&!(rd(0x8c)&1))))error=4;
             else{
                 const uint32_t offsets[]={0x1c,0x24,0x28,0x2c,0x30,0x34,0x38,0x3c,0x40,0x44,0x48,0x4c,0x20};
                 for(unsigned i=0;i<13;i++)wr(offsets[i],v[i]);
+                /* Legacy requests must not inherit a previous digital-zero mode. */
+                if(extended){wr(0x84,mode);wr(0x88,gap);}
                 wr(0x70,1);
             }
         }

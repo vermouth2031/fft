@@ -48,7 +48,10 @@ static int capture(const char *run,unsigned c){
     int e=load_vector(v,&samples);if(e)return e;
     wr(0x1c,samples);wr(0x20,0);wr(0x24,0);wr(0x28,mode);
     wr(0x2c,0);wr(0x30,8191);wr(0x34,1048576);wr(0x38,0);wr(0x3c,262144);wr(0x40,0);
-    wr(0x44,8);wr(0x48,32);wr(0x4c,1048576);wr(0x70,1);wr(0x0c,1);
+    wr(0x44,8);wr(0x48,32);wr(0x4c,1048576);
+    /* Keep this established 16-case suite in threshold mode explicitly. */
+    if(rd(4)>=0x00010001U){wr(0x84,0);wr(0x88,32);}
+    wr(0x70,1);wr(0x0c,1);
     unsigned poll;
     for(poll=0;poll<100000;poll++){if((rd(8)&7)==3)break;}
     if(poll==100000){wr(0xc,4);return 41;}
@@ -62,15 +65,18 @@ static int capture(const char *run,unsigned c){
     snprintf(path,sizeof path,"%s/FREQ.BIN",dir);if((e=save_mmio(path,0x30000,nf*32)))return e;
     snprintf(path,sizeof path,"%s/BURST.BIN",dir);if((e=save_mmio(path,0x38000,nb*16)))return e;
     if(snap&1){snprintf(path,sizeof path,"%s/SNAP.BIN",dir);if((e=save_mmio(path,0x3a000,2048)))return e;}
-    unsigned complete=!errors&&nf==samples/8192&&rd(0x118)==samples&&rd(0x11c)==0&&rd(0x120)==nf&&
-        rd(0x12c)==0&&rd(0x130)==0&&rd(0x128)<=200000;
+    uint32_t rate=rd(0x10);
+    unsigned complete=rate&&!errors&&nf==samples/8192&&rd(0x118)==samples&&rd(0x11c)==0&&rd(0x120)==nf&&
+        rd(0x12c)==0&&rd(0x130)==0&&rd(0x124)>0&&rd(0x128)>0&&
+        (uint64_t)rd(0x124)*1000<=(uint64_t)rate*2&&(uint64_t)rd(0x128)*1000<=(uint64_t)rate*2;
     int len=snprintf(meta,sizeof meta,
         "{\n\"source\":\"Zybo SD board capture\",\"case\":%u,\"vector\":\"%s\",\"window\":\"%s\","
-        "\"sample_rate_hz\":100000000,\"input_samples\":%u,\"epoch\":%u,\"config_id\":%u,"
+        "\"sample_rate_hz\":%u,\"hardware_version\":%u,\"detector_mode\":\"threshold\",\"gap_min\":32,"
+        "\"input_samples\":%u,\"epoch\":%u,\"config_id\":%u,"
         "\"frequency_records\":%u,\"burst_records\":%u,\"error_status\":%u,"
         "\"hardware_max_latency_cycles\":%u,\"hardware_max_publish_latency_cycles\":%u,"
         "\"snapshot_valid\":%s,\"snapshot_window\":%u,\"capture_complete\":%s\n}\n",
-        c,names[v],mode?"hann":"rect",samples,(unsigned)rd(0x68),(unsigned)rd(0x6c),
+        c,names[v],mode?"hann":"rect",(unsigned)rate,(unsigned)rd(4),samples,(unsigned)rd(0x68),(unsigned)rd(0x6c),
         (unsigned)nf,(unsigned)nb,(unsigned)errors,(unsigned)rd(0x124),(unsigned)rd(0x128),
         (snap&1)?"true":"false",(unsigned)snap_id,complete?"true":"false");
     if(len<0||(unsigned)len>=sizeof meta)return 45;

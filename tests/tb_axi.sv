@@ -44,6 +44,17 @@ module tb_axi;
  initial begin
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
+   rd('h004,value,0);if(value!==32'h00010001)$fatal(1,"version");
+   rd('h08c,value,0);if(value!==1)$fatal(1,"digital-zero capability");
+   rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
+   rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
+   wr('h08c,0,15,0,2); // Capability register is read-only.
+   wr('h084,2,15,0,0);wr('h070,1,15,0,2); // Reserved detector mode.
+   wr('h084,1,15,0,0);wr('h088,0,15,0,0);wr('h070,1,15,0,2);
+   wr('h088,65536,15,0,0);wr('h070,1,15,0,2); // Must not truncate to 16 bits.
+   wr('h088,32,15,0,0);wr('h04c,1,15,0,0);wr('h070,1,15,0,0);
+   wr('h084,0,15,0,0);wr('h070,1,15,0,2); // Legacy max still >= Kon.
+   wr('h04c,1048576,15,0,0);wr('h070,1,15,0,0);
    wr('h10000,32'h11223344,15,3,0);wr('h10000,32'haabbccdd,5,-4,0);
    rd('h10000,value,0);if(value!==32'h11bb33dd)$fatal(1,"WSTRB %h",value);
    wr('h01c,0,0,0,0);rd('h01c,value,0);if(value!=32768)$fatal(1,"zero WSTRB changed config");
@@ -58,6 +69,7 @@ module tb_axi;
    wr('h078,1,15,0,0);
    wr('h10000,0,15,0,2); // Immutable replay while running.
    wr('h028,1,15,0,2);   // Immutable configuration while running.
+   wr('h084,1,15,0,2);wr('h088,1,15,0,2); // New mode/gap are also immutable.
    wait(dut.run_state==0);
    rd('h050,producer,0);if(producer!=1)$fatal(1,"producer %d",producer);
    for(j=0;j<32;j=j+1)rd('h30000+j*4,records[j],0);
@@ -76,10 +88,23 @@ module tb_axi;
    rd('h30000+14*4,value,0);if(value!=25000000)$fatal(1,"Hann peak");
    rd('h30000+17*4,value,0);if(value!=24414)$fatal(1,"Hann bandwidth %d",value);
    rd('h060,value,0);if(value!=0)$fatal(1,"Hann errors %h",value);
+   wr('h054,1,15,0,0);wr('h05c,1,15,0,0);
+   // End-to-end digital support: exact 64 samples, crossing the power pipeline.
+   wr('h084,1,15,0,0);wr('h088,32,15,0,0);wr('h070,1,15,0,0);
+   for(n=0;n<8192;n=n+1)dut.replay_mem[n]=(n>=40&&n<104)?32'h00002000:0;
+   wr('h00c,1,15,0,0);wait(dut.run_state==3);wait(dut.run_state==0);
+   rd('h058,value,0);if(value!=1)$fatal(1,"digital-zero burst count");
+   rd('h38000+1*4,value,0);if(value!=32'h1000)$fatal(1,"digital-zero flags %h",value);
+   rd('h38000+6*4,value,0);if(value!=40)$fatal(1,"digital-zero start");
+   rd('h38000+8*4,value,0);if(value!=104)$fatal(1,"digital-zero end");
+   rd('h38000+10*4,value,0);if(value!=64)$fatal(1,"digital-zero length");
+   rd('h38000+11*4,value,0);if(value!=32'h20000000)$fatal(1,"digital-zero peak");
+   rd('h38000+12*4,value,0);if(value!=32'h20000000)$fatal(1,"digital-zero RMS");
+   rd('h060,value,0);if(value!=0)$fatal(1,"digital-zero errors %h",value);
    // Abort must return to STOPPED without silently starting another replay.
    wr('h00c,4,15,0,0);repeat(100)@(negedge clk);rd('h008,value,0);
    if(value[2:0]!=0)$fatal(1,"abort restarted acquisition");
-   $display("AXI_PASS independent_aw_w wstrb response_stalls replay_lock rect_hann_restart snapshot consumer_bounds abort");$finish;
+   $display("AXI_PASS independent_aw_w wstrb response_stalls replay_lock rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
  initial begin #1000000;$fatal(1,"AXI timeout");end
 endmodule

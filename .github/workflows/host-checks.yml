@@ -17,3 +17,7 @@ jobs:
         run: python -m compileall -q host scripts tests
       - name: Check UDP protocol and socket recovery
         run: python tests/test_host_protocol.py
+      - name: Check independent digital waveform interval reference
+        run: python tests/test_frame_length_reference.py
+      - name: Check detector compatibility and record semantics
+        run: python tests/test_detector_host.py

@@ -21,3 +21,7 @@ vendor/** -whitespace
 data/**/*.mem linguist-generated=true
 data/*.mem linguist-generated=true
 reports/*.rpt linguist-generated=true
+# Preserve byte-level hashes in generated evidence and numerical fixtures.
+reports/** -text -whitespace
+data/** -text -whitespace
+vendor/boards/** -text

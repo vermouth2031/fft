@@ -4,7 +4,7 @@ module tb_burst_edges;
  reg rst=1,valid=0,finish=0;reg [31:0] iq=0,maximum=8;reg [15:0] kon=8,koff=1;
  wire bv;wire [287:0] bd;integer n,c=0,count=0;
  time_measure dut(.clk(clk),.rst(rst),.valid(valid),.iq(iq),.tick(64'd0),.finish(finish),
- .ton(36'd1048576),.toff(36'd262144),.kon(kon),.koff(koff),.max_burst(maximum),
+ .ton(36'd1048576),.toff(36'd262144),.kon(kon),.koff(koff),.max_burst(maximum),.detector_mode(1'b0),.gap_min(16'd32),
  .window_valid(),.window_data(),.burst_valid(bv),.burst_data(bd),.samples());
  always @(posedge clk)if(!rst&&bv)begin
    if(c<2)begin

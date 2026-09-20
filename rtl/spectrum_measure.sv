@@ -6,9 +6,9 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  output reg snap_we,output reg [9:0] snap_addr,output reg [63:0] snap_data,
  input wire snap_request,output reg snap_done,output reg [31:0] snap_window);
  reg signed [47:0] rr,ii;
- reg [47:0] power;
- reg [12:0] q0,q1;
- reg [1:0] v,l,ov;
+ reg [47:0] power,roi_power;
+ reg [12:0] q0,q1,q2;
+ reg [2:0] v,l,ov;
  reg write_bank;
  reg [63:0] total;
  reg [47:0] peak;
@@ -23,11 +23,14 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  reg [31:0] bank_frame[0:1];
  (* ram_style="block" *) reg [47:0] b0even[0:4095],b0odd[0:4095],b1even[0:4095],b1odd[0:4095];
  wire in_roi=q1>=roi_low&&q1<=roi_high;
- wire [47:0] wp=in_roi?power:48'd0;
+ // Register the ROI-masked power before accumulation/peak selection. This
+ // breaks the config -> ROI comparison -> peak comparison path. Carry the
+ // bin index and all qualifiers through the same stage (one added clock).
+ wire [47:0] wp=roi_power;
  wire [63:0] tnext=total+{16'b0,wp};
- wire better=wp>peak||(wp==peak&&q1<peakq);
+ wire better=wp>peak||(wp==peak&&q2<peakq);
  wire [47:0] pnext=better?wp:peak;
- wire [12:0] qnext=better?q1:peakq;
+ wire [12:0] qnext=better?q2:peakq;
  localparam WAIT_BANK=0,DIV_START=1,DIV_WAIT=2,SCAN=3,PUBLISH=4;
  reg [2:0] state;
  reg read_bank;
@@ -55,9 +58,9 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  wire [47:0] group_next=pair_addr[1:0]==0?pair_max_reg:(pair_max_reg>group_max?pair_max_reg:group_max);
  // No RAM reset: each bank is fully overwritten before becoming ready.
  always @(posedge clk) begin
-   if(v[1]&&!rst) begin
-     if(!write_bank) begin if(!q1[0]) b0even[q1[12:1]]<=wp;else b0odd[q1[12:1]]<=wp;end
-     else begin if(!q1[0]) b1even[q1[12:1]]<=wp;else b1odd[q1[12:1]]<=wp;end
+   if(v[2]&&!rst) begin
+     if(!write_bank) begin if(!q2[0]) b0even[q2[12:1]]<=wp;else b0odd[q2[12:1]]<=wp;end
+     else begin if(!q2[0]) b1even[q2[12:1]]<=wp;else b1odd[q2[12:1]]<=wp;end
    end
    if(scan_request&&!read_bank) begin a0<=b0even[request_count[11:0]];a1<=b0odd[request_count[11:0]];end
    if(scan_request&&read_bank) begin c0<=b1even[request_count[11:0]];c1<=b1odd[request_count[11:0]];end
@@ -65,7 +68,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  always @(posedge clk) begin
    result_valid<=0;snap_we<=0;snap_done<=0;
    if(rst) begin
-     rr<=0;ii<=0;power<=0;q0<=0;q1<=0;v<=0;l<=0;ov<=0;write_bank<=0;
+     rr<=0;ii<=0;power<=0;roi_power<=0;q0<=0;q1<=0;q2<=0;v<=0;l<=0;ov<=0;write_bank<=0;
      total<=0;peak<=0;peakq<=8191;overflow<=0;frame<=0;bank_ready<=0;
      state<=WAIT_BANK;read_bank<=0;rt<=0;rpeak<=0;rid<=0;rflags<=0;rq<=0;
      lower<=0;upper<=0;cdf<=0;lowq<=0;highq<=0;found_low<=0;found_high<=0;
@@ -76,15 +79,16 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
    end else begin
      rr<=$signed(data[23:0])*$signed(data[23:0]);ii<=$signed(data[47:24])*$signed(data[47:24]);
      power<=rr+ii;q0<=user[12:0]^13'd4096;q1<=q0;
-     v<={v[0],valid};l<={l[0],last};ov<={ov[0],user[16]};
-     if(v[1]) begin
+     roi_power<=in_roi?power:48'd0;q2<=q1;
+     v<={v[1:0],valid};l<={l[1:0],last};ov<={ov[1:0],user[16]};
+     if(v[2]) begin
        if(bank_ready[write_bank]||(state!=WAIT_BANK&&read_bank==write_bank)) fault<=1;
-       if(l[1]) begin
+       if(l[2]) begin
          bank_total[write_bank]<=tnext;bank_peak[write_bank]<=pnext;bank_q[write_bank]<=qnext;
-         bank_overflow[write_bank]<=overflow|ov[1];bank_frame[write_bank]<=frame;
+         bank_overflow[write_bank]<=overflow|ov[2];bank_frame[write_bank]<=frame;
          bank_ready[write_bank]<=1;write_bank<=!write_bank;frame<=frame+1;
          total<=0;peak<=0;peakq<=8191;overflow<=0;
-       end else begin total<=tnext;peak<=pnext;peakq<=qnext;overflow<=overflow|ov[1];end
+       end else begin total<=tnext;peak<=pnext;peakq<=qnext;overflow<=overflow|ov[2];end
      end
      if(!snap_request) snap_armed<=1;
      response_valid<=scan_request;

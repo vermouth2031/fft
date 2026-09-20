@@ -6,7 +6,7 @@ module tb_measurements;
  always @(posedge clk)tick<=tick+1;
  wire wv,bv,rv,fault;wire [191:0] wd;wire [287:0] bd;wire [255:0] rd;wire [63:0] samples;
  time_measure tm(.clk(clk),.rst(rst),.valid(tv),.iq(iq),.tick(tick),.finish(finish),
- .ton(36'd1048576),.toff(36'd262144),.kon(16'd8),.koff(16'd32),.max_burst(32'd1048576),
+ .ton(36'd1048576),.toff(36'd262144),.kon(16'd8),.koff(16'd32),.max_burst(32'd1048576),.detector_mode(1'b0),.gap_min(16'd32),
  .window_valid(wv),.window_data(wd),.burst_valid(bv),.burst_data(bd),.samples(samples));
  reg [47:0] data=0;reg [23:0] user=0;
  spectrum_measure sm(.clk(clk),.rst(rst),.data(data),.user(user),.valid(sv),.last(last),

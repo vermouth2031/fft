@@ -2,8 +2,9 @@
 module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
  input wire [63:0] tick,input wire finish,
  input wire [35:0] ton,toff,input wire [15:0] kon,koff,input wire [31:0] max_burst,
+ input wire detector_mode,input wire [15:0] gap_min,
  output reg window_valid,output reg [191:0] window_data,
- output reg burst_valid,output reg [287:0] burst_data,
+ output wire burst_valid,output wire [287:0] burst_data,
  output reg [63:0] samples);
  reg [31:0] ii,qq,p;
  reg [1:0] pv;
@@ -33,17 +34,24 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
  // Length of the next detector sample, including start confirmation samples.
  reg [31:0] next_burst_length;
  wire [31:0] merged_peak=(bpeak>tail_peak?bpeak:tail_peak)>p_detector?(bpeak>tail_peak?bpeak:tail_peak):p_detector;
+ reg threshold_burst_valid;reg [287:0] threshold_burst_data;
+ wire digital_burst_valid;wire [287:0] digital_burst_data;
+ digital_burst_measure digital_detector(.clk(clk),.rst(rst),.enable(detector_mode),
+   .valid(pv[1]),.power(p),.sample_index(samples),.finish(finishing[2]),
+   .gap_min(gap_min),.max_burst(max_burst),.burst_valid(digital_burst_valid),.burst_data(digital_burst_data));
+ assign burst_valid=detector_mode?digital_burst_valid:threshold_burst_valid;
+ assign burst_data=detector_mode?digital_burst_data:threshold_burst_data;
  task emit_burst(input [63:0] epos,input [63:0] e,input [31:0] pk,input [31:0] flags);
    begin
-     burst_valid<=1;burst_data<={flags,burst_id,bs,epos,e,pk};
+     threshold_burst_valid<=1;threshold_burst_data<={flags,burst_id,bs,epos,e,pk};
      burst_id<=burst_id+1;state<=IDLE;confirm<=0;
    end
  endtask
  always @(posedge clk) begin
-   window_valid<=0;burst_valid<=0;
+   window_valid<=0;threshold_burst_valid<=0;
    if(rst) begin
      ii<=0;qq<=0;p<=0;pv<=0;finishing<=0;t0<=0;t1<=0;samples<=0;
-     energy<=0;peak<=0;first_tick<=0;window_id<=0;window_pos<=0;window_data<=0;burst_data<=0;
+     energy<=0;peak<=0;first_tick<=0;window_id<=0;window_pos<=0;window_data<=0;threshold_burst_data<=0;
      hp<=0;filled<=0;sliding<=0;state<=IDLE;confirm<=0;bs<=0;be<=0;benergy<=0;bpeak<=0;
      tail_energy<=0;tail_peak<=0;burst_id<=0;
      power_delta<=0;detector_valid<=0;p_delta<=0;p_sum<=0;p_detector<=0;
@@ -82,7 +90,7 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
            next_burst_length<=2;
            state<=kon==1?ACTIVE:START_CAND;
            if(kon==1&&max_burst==1)begin
-             burst_valid<=1;burst_data<={32'h400,burst_id,n_detector,n_detector+64'd1,32'd0,p_detector,p_detector};
+             threshold_burst_valid<=1;threshold_burst_data<={32'h400,burst_id,n_detector,n_detector+64'd1,32'd0,p_detector,p_detector};
              burst_id<=burst_id+1;state<=IDLE;confirm<=0;
            end
          end

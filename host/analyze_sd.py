@@ -10,6 +10,10 @@ def analyze(run,out,*,simulation_fixture=False):
     reports=[]
     for c,g in enumerate(gold):
         d=run/f'C{c:02d}';meta=json.loads((d/'META.JSON').read_text())
+        # Historic files predate detector metadata and are the threshold suite.
+        # Never compare a digital-zero run with threshold-mode golden lengths.
+        if meta.get('detector_mode','threshold')!='threshold':
+            raise ValueError('This 16-case SD oracle is threshold-only; use the digital-zero interval reference for this capture')
         freq=(d/'FREQ.BIN').read_bytes();burst=(d/'BURST.BIN').read_bytes()
         assert len(freq)==512 and len(burst)%64==0,(c,'record file length')
         assert meta['source']==expected_source and meta['capture_complete'],(c,'capture did not complete')
@@ -28,10 +32,11 @@ def analyze(run,out,*,simulation_fixture=False):
             assert a['peak_codes']*65536==e['peak_uq16_16'] and a['rms_codes']*65536==e['rms_uq16_16']
             flags=(1 if e['total']==0 else 0)|(32 if e['total'] and e['q_low']==e['q_high'] else 0)|(16 if e['total'] and (e['q_low']==0 or e['q_high']==8191) else 0)
             assert a['flags_raw']==flags and a['first_sample']==8192*n
-            assert 0<a['latency_cycles']<=200000 and a['done_tick']-a['start_tick']==a['latency_cycles']
+            assert 0<a['latency_us']<=2000 and a['done_tick']-a['start_tick']==a['latency_cycles']
         iq=list(struct.iter_unpack('<hh',(ROOT/'data/vectors'/(g['name']+'.bin')).read_bytes()))
         for n,r in enumerate(br):
             a=decode_record(r,'burst');e=g['bursts'][n];start=e['start'];end=e['end_exclusive'] if e['complete'] else len(iq)
+            assert a['detector_mode']=='threshold',(c,n,'wrong detector for the SD oracle')
             assert a['epoch']==meta['epoch'] and a['config_id']==meta['config_id'] and a['sample_rate_hz']==100000000
             assert a['id']==n and a['sequence']==n
             p=[i*i+q*q for i,q in iq[start:end]];energy=sum(p)

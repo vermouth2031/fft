@@ -11,7 +11,7 @@ module tb_core;
  wire [63:0] samples;wire [31:0] completed,max_latency;wire [7:0] errors;
  analyzer_core dut(.src_clk(src_clk),.fft_clk(fft_clk),.rst(rst),.valid(valid),.iq(iq),.finish(finish),.tick(tick),
  .hann(hann),.roi_low(13'd0),.roi_high(13'd8191),.ton(36'd1048576),.toff(36'd262144),.kon(16'd8),.koff(16'd32),
- .max_burst(32'd1048576),.epoch(32'd1),.config_id(32'd1),.ready(ready),.freq_valid(fv),.freq_record(frec),
+ .max_burst(32'd1048576),.detector_mode(1'b0),.gap_min(16'd32),.epoch(32'd1),.config_id(32'd1),.ready(ready),.freq_valid(fv),.freq_record(frec),
  .burst_valid(bv),.burst_record(brec),.samples(samples),.completed(completed),.max_latency(max_latency),.errors(errors),
  .snap_request(1'b1),.snap_we(),.snap_addr(),.snap_data(),.snap_done(),.snap_window());
  reg [31:0] vectors[0:524287];reg [47:0] golden[0:524287];

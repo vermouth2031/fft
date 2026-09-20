@@ -1,9 +1,15 @@
 """Gate, assemble and hash local deliverables. Never writes a physical SD card."""
 from pathlib import Path
 import argparse,hashlib,json,shutil,zipfile,datetime,stat
+from record_build_stage import verify as verify_stage
+from record_boot_stage import verify_boot
 ROOT=Path(__file__).resolve().parents[1]
+SD_VECTOR_NAMES=dict(zero='ZERO',tone_pos_fs4='POS25',tone_neg_fs4='NEG25',burst_fs4='BURST',
+  qpsk_sps4='QPSK4',qpsk_sps2='QPSK2',short512_boundary='SHORT512',negative_fullscale_dc='FULLNEG')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def check():
+    verify_stage('simulation')
+    verify_stage('hardware')
     hw=json.loads((ROOT/'reports/hardware_validation.json').read_text())
     sw=json.loads((ROOT/'reports/software_validation.json').read_text())
     core=json.loads((ROOT/'reports/core_validation.json').read_text())
@@ -18,21 +24,23 @@ def check():
     assert (ROOT/'artifacts/iq_analyzer.bit').stat().st_mtime>rtl_time,'RTL newer than implemented bitstream'
     assert sha(ROOT/'artifacts/iq_analyzer.bit')==sha(ROOT/'build/board/iq_board.runs/impl_1/system_wrapper.bit')
     for script,marker in [('sim_core','CORE_PASS'),('sim_axi','AXI_PASS'),('sim_units','UNITS_PASS'),
-                           ('sim_builder','BUILDER_PASS'),('sim_measurements','MEASUREMENTS_PASS')]:
-        logs=sorted(ROOT.glob(script+'*.log'),key=lambda p:p.stat().st_mtime,reverse=True)
-        passing=[p for p in logs if marker in p.read_text(errors='replace') and 'Fatal:' not in p.read_text(errors='replace')]
-        assert passing,('Missing successful regression',script)
-        if script in ('sim_core','sim_axi','sim_measurements'):assert passing[0].stat().st_mtime>rtl_time,('Stale regression',script)
+                           ('sim_builder','BUILDER_PASS'),('sim_measurements','MEASUREMENTS_PASS'),
+                           ('sim_digital_burst','DIGITAL_BURST_PASS'),('sim_spectrum_edges','SPECTRUM_EDGES_PASS')]:
+        log=ROOT/'build/logs'/(script+'.log')
+        assert log.is_file(),('Missing current regression',script)
+        contents=log.read_text(errors='replace')
+        assert marker in contents and 'Fatal:' not in contents,('Current regression failed',script)
+        if script in ('sim_core','sim_axi','sim_measurements'):assert log.stat().st_mtime>rtl_time,('Stale regression',script)
     return hw,sw,core
 
 def package():
+    verify_boot()
     hw,sw,core=check();release=ROOT/'release';release.mkdir(exist_ok=True)
     sd=release/'sd_card';sd.mkdir(exist_ok=True);(sd/'VECTORS').mkdir(exist_ok=True)
     net=release/'ethernet_sd_card';net.mkdir(exist_ok=True)
     shutil.copyfile(ROOT/'artifacts/BOOT_sd.BIN',sd/'BOOT.BIN')
     shutil.copyfile(ROOT/'artifacts/BOOT_udp.BIN',net/'BOOT.BIN')
-    names=dict(zero='ZERO',tone_pos_fs4='POS25',tone_neg_fs4='NEG25',burst_fs4='BURST',
-      qpsk_sps4='QPSK4',qpsk_sps2='QPSK2',short512_boundary='SHORT512',negative_fullscale_dc='FULLNEG')
+    names=SD_VECTOR_NAMES
     golden=json.loads((ROOT/'data/golden_results.json').read_text())['cases']
     assert [c['name'] for c in golden[:8]]==list(names),'SD fixture order and reference order differ'
     for long,short in names.items():shutil.copyfile(ROOT/'data/vectors'/(long+'.bin'),sd/'VECTORS'/(short+'.BIN'))
@@ -43,14 +51,15 @@ def package():
       source={p.relative_to(ROOT).as_posix():sha(p) for folder in ('rtl','constraints','scripts','firmware','tests','host','vendor/boards')
               for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts})
     (release/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    shutil.copyfile(ROOT/'reports/离线验证报告.md',release/'离线验证报告.md')
+    shutil.copyfile(ROOT/'reports/构建验证报告.md',release/'构建验证报告.md')
     evidence=release/'evidence';evidence.mkdir(exist_ok=True)
     for name in ('hardware_validation.json','software_validation.json','core_validation.json',
+                 'simulation_provenance.json','hardware_provenance.json','boot_provenance.json',
                  'timing_summary.rpt','utilization_flat.rpt','cdc.rpt','drc.rpt','bus_skew.rpt','methodology.rpt'):
         shutil.copyfile(ROOT/'reports'/name,evidence/name)
     shutil.copyfile(ROOT/'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt',evidence/'rtl_core_results.txt')
     for dest,mode in [(sd,'SD 自动运行 16 个有限采集测试并保存结果'),(net,'以太网交互与连续采集')]:
-        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n不需要烧写磁盘镜像，也不要同时复制两套 BOOT.BIN。\n实际板测尚未执行；操作详见工程 docs/使用与设计说明.md。\n',encoding='utf-8')
+        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见 docs/使用与设计说明.md，当前状态见 docs/验收状态.md。\n',encoding='utf-8')
         # Some vendor license files carry a Windows read-only attribute.
         # Keep their text intact, but permit rebuilding our generated copies.
         for p in (dest/'LICENSES').glob('*'):
@@ -60,10 +69,11 @@ def package():
             for p in dest.rglob('*'):
                 if p.is_file():z.write(p,p.relative_to(dest))
     with zipfile.ZipFile(release/'iq_analyzer_source.zip','w',zipfile.ZIP_DEFLATED) as z:
-        for folder in ('rtl','constraints','scripts','tests','firmware','host','docs','vendor','data'):
+        for folder in ('rtl','constraints','scripts','tests','firmware','host','docs','vendor','data','.github'):
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
-        for name in ('README.md','PROJECT_STATUS.md','requirements.txt'):
+        for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
+                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 

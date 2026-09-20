@@ -3,6 +3,7 @@ module analyzer_core(input wire src_clk,fft_clk,input wire rst,
  input wire valid,input wire [31:0] iq,input wire finish,input wire [63:0] tick,
  input wire hann,input wire [12:0] roi_low,roi_high,input wire [35:0] ton,toff,
  input wire [15:0] kon,koff,input wire [31:0] max_burst,epoch,config_id,
+ input wire detector_mode,input wire [15:0] gap_min,
  output wire ready,output wire fft_reset,output wire freq_valid,output wire [1023:0] freq_record,
  output wire burst_valid,output wire [511:0] burst_record,
  output wire [63:0] samples,output wire [31:0] completed,max_latency,output wire [7:0] errors,
@@ -36,7 +37,7 @@ module analyzer_core(input wire src_clk,fft_clk,input wire rst,
  wire [191:0] raw_window,ctx_data;wire [287:0] raw_burst,burst_data;
  wire ctx_full,ctx_empty,ctx_pop,burst_full,burst_empty,burst_pop;
  time_measure tm(.clk(src_clk),.rst(rst),.valid(valid),.iq(iq),.tick(tick),.finish(finish),
- .ton(ton),.toff(toff),.kon(kon),.koff(koff),.max_burst(max_burst),
+ .ton(ton),.toff(toff),.kon(kon),.koff(koff),.max_burst(max_burst),.detector_mode(detector_mode),.gap_min(gap_min),
  .window_valid(raw_window_valid),.window_data(raw_window),.burst_valid(raw_burst_valid),.burst_data(raw_burst),.samples(samples));
  small_fifo #(.W(192),.AW(4)) contexts(.clk(src_clk),.rst(rst),.push(raw_window_valid),.din(raw_window),.full(ctx_full),.pop(ctx_pop),.dout(ctx_data),.empty(ctx_empty));
  small_fifo #(.W(288),.AW(4)) bursts(.clk(src_clk),.rst(rst),.push(raw_burst_valid),.din(raw_burst),.full(burst_full),.pop(burst_pop),.dout(burst_data),.empty(burst_empty));

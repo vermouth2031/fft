@@ -2,6 +2,7 @@ set root [file normalize [file join [file dirname [info script]] ..]]
 set_param general.maxThreads 4
 set_param board.repoPaths [list $root/vendor/boards]
 open_project $root/build/board/iq_board.xpr
+add_files -norecurse [glob $root/rtl/*.sv]
 add_files -fileset constrs_1 -norecurse $root/constraints/cdc.xdc
 set_property used_in_synthesis false [get_files cdc.xdc]
 open_bd_design [get_files system.bd]
