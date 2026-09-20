@@ -111,6 +111,35 @@ def supplementary_evidence():
             for name, value in capture['files'].items():
                 checked(Path(capture['folder']) / name, value)
             checked(Path(capture['folder']) / 'measurement_validation.json')
+    cold_path = ROOT / 'reports/current_cold_boot_validation.json'
+    if cold_path.exists():
+        cold = json.loads(cold_path.read_text(encoding='utf-8'))
+        require(cold['status'] == 'PASS', 'Cold boot verification failed')
+        require(cold['previous_board_validation_sha256'] == board_hash,
+                'Cold boot capture belongs to another board acceptance')
+        require(cold['previous_sd_update_sha256'] == sha(sd_path),
+                'Cold boot capture belongs to another SD update')
+        require(not cold['jtag_used'] and not cold['program_download_performed'],
+                'Cold boot validation must not download a program')
+        require(cold['state_after'] == 0 and cold['errors_after'] == 0,
+                'Cold boot validation did not finish idle and clean')
+        for name, value in cold['artifacts'].items():
+            require(sha(ROOT / 'artifacts' / name) == value, f'Cold boot artifact changed: {name}')
+        checked(cold_path)
+        checked(ROOT / 'reports/冷启动验证报告.md')
+        folder = Path(cold['folder'])
+        checked(folder / 'cold_boot_validation.json', sha(cold_path))
+        require(len(cold['cases']) == 3, 'Cold boot verification requires its three recorded cases')
+        for row in cold['cases']:
+            require(row['status'] == 'PASS', 'Cold boot numerical case failed')
+            case_folder = Path(row['folder'])
+            for name, value in row['files'].items():
+                checked(case_folder / name, value)
+            checked(case_folder / 'measurement_validation.json', row['measurement_report_sha256'])
+            checked(folder / (row['case'] + '.log'), row['capture_log_sha256'])
+            meta = json.loads((case_folder / 'capture.json').read_text(encoding='utf-8'))
+            checked(Path(meta['vector']), row['input_sha256'])
+            checked(ROOT / 'data/golden_results.json', row['golden_sha256'])
     return files, boot_verified
 
 
@@ -158,7 +187,8 @@ def main():
                  'BOOT_udp.BIN', 'boot_sd.bif', 'boot_udp.bif'):
         add(ROOT / 'artifacts' / name)
     for name in ("README.md", "CHANGELOG.md", "VERSION.json", "THIRD_PARTY_NOTICES.md",
-                 "requirements.txt", "Open_IQ_Monitor.cmd", "Run_Network_Tests.cmd", '.gitattributes', '.gitignore'):
+                 "requirements.txt", "Open_IQ_Monitor.cmd", "Run_Network_Tests.cmd", '.gitattributes', '.gitignore',
+                 '第二阶段优化实施方案.md'):
         add(ROOT / name)
     for mode in ("sd_card", "ethernet_sd_card"):
         for path in (ROOT / "release" / mode).rglob("*"):
@@ -195,7 +225,7 @@ def main():
                 add(path)
     start = out / "START_HERE.md"
     start.write_text(
-        "# 已验证工程交付\n\n先阅读 README.md 和 docs/验收状态.md。\n\n"
+        "# 已验证工程交付\n\n先阅读 README.md、reports/本轮优化验收报告.md 和 reports/冷启动验证报告.md。\n\n"
         "本包源于当前完整仿真、静态时序、软件构建和双模式实板数值验收。\n"
         "100MSPS为电脑装载后板内回放速率；FFT使用AMD IP。\n"
         "boot_packages内两套启动文件每次选择一套，实体SD是否已更新见当前验收状态。\n"

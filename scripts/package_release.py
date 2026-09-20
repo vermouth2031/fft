@@ -59,7 +59,7 @@ def package():
         shutil.copyfile(ROOT/'reports'/name,evidence/name)
     shutil.copyfile(ROOT/'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt',evidence/'rtl_core_results.txt')
     for dest,mode in [(sd,'SD 自动运行 16 个有限采集测试并保存结果'),(net,'以太网交互与连续采集')]:
-        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见 docs/使用与设计说明.md，当前状态见 docs/验收状态.md。\n',encoding='utf-8')
+        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见工程根目录 README.md，当前状态见 reports/本轮优化验收报告.md 及冷启动验证报告.md。\n',encoding='utf-8')
         # Some vendor license files carry a Windows read-only attribute.
         # Keep their text intact, but permit rebuilding our generated copies.
         for p in (dest/'LICENSES').glob('*'):
@@ -73,7 +73,7 @@ def package():
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
         for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
-                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd'):
+                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 

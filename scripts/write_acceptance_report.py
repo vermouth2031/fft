@@ -93,7 +93,7 @@ def main():
               'SD系统复位不等同手动断电冷启动。网络启动包与SD自动测试启动包每次选择一套BOOT.BIN。', '',
               '使用 `python scripts/package_validated.py` 生成含源码、启动包、原始记录、截图和散列清单的已验证交付包。只通过构建的包与经过实板验证的包明确分开。', '',
               '## 证据与适用范围', '',
-              '- [当前验收状态](../docs/验收状态.md)、[参赛技术报告](../docs/参赛技术报告.md)。',
+              '- [工程入口](../README.md)、[冷启动验证报告](冷启动验证报告.md)。',
               '- `core_validation.json`、`hardware_validation.json`、`software_validation.json`、三份provenance记录。',
               '- `current_deployment.json`、`current_board_validation.json`、`current_extended_validation.json`、`current_gui_validation.json`。',
               '- `frame_length_validation.json`、`current_sd_validation.json`、`sd_boot_update.json`及每条报告指向的原始采集。', '',

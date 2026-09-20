@@ -17,7 +17,7 @@ def main():
     software = read("software_validation.json")
     lines = ["# 当前构建验证报告", "",
              f"生成时间：{datetime.datetime.now().astimezone().isoformat(timespec='seconds')}。",
-             "", "本报告证明RTL仿真、布局布线和软件构建；实际板测状态见 docs/验收状态.md 及对应的实板证据。",
+             "", "本报告证明RTL仿真、布局布线和软件构建；实际板测状态见 reports/本轮优化验收报告.md 及冷启动验证报告.md。",
              "不会从历史板测报告推断当前代码已上板，也不猜测用户是否连接了开发板。", "",
              "| 项目 | 本次构建结果 |", "|---|---|",
              f"| 核心数值回归 | {core['status']}；FFT点数 {core['exact_fft_points']} |",
@@ -42,4 +42,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
