@@ -25,3 +25,6 @@ reports/*.rpt linguist-generated=true
 reports/** -text -whitespace
 data/** -text -whitespace
 vendor/boards/** -text
+
+# Keep the original reference generator byte-identical to its build provenance.
+tests/generate_iq_vectors.py -text
