@@ -19,9 +19,9 @@ def check():
     assert sw['status']=='BUILD_PASS' and sw['xsa_sha256']==sha(ROOT/'artifacts/iq_analyzer.xsa'),'Software targets another XSA'
     for name,digest in sw['artifacts'].items():assert sha(ROOT/'artifacts'/name)==digest,('ELF changed',name)
     for name,digest in sw['firmware_sources'].items():assert sha(ROOT/'firmware'/name)==digest,('Firmware changed',name)
-    rtl_time=max(p.stat().st_mtime for p in (ROOT/'rtl').glob('*.sv'))
-    assert (ROOT/'reports/core_validation.json').stat().st_mtime>rtl_time,'Core numerical report predates RTL'
-    assert (ROOT/'artifacts/iq_analyzer.bit').stat().st_mtime>rtl_time,'RTL newer than implemented bitstream'
+    # Git checkout and archive extraction change modification times without
+    # changing contents. The verified stage manifests above bind every source,
+    # regression log, report and hardware artifact by SHA-256 instead.
     assert sha(ROOT/'artifacts/iq_analyzer.bit')==sha(ROOT/'build/board/iq_board.runs/impl_1/system_wrapper.bit')
     for script,marker in [('sim_core','CORE_PASS'),('sim_axi','AXI_PASS'),('sim_units','UNITS_PASS'),
                            ('sim_builder','BUILDER_PASS'),('sim_measurements','MEASUREMENTS_PASS'),
@@ -30,7 +30,6 @@ def check():
         assert log.is_file(),('Missing current regression',script)
         contents=log.read_text(errors='replace')
         assert marker in contents and 'Fatal:' not in contents,('Current regression failed',script)
-        if script in ('sim_core','sim_axi','sim_measurements'):assert log.stat().st_mtime>rtl_time,('Stale regression',script)
     return hw,sw,core
 
 def package():
