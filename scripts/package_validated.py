@@ -147,6 +147,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--measurements", type=Path,
+                        help="Verified phase-two measurement directory to include in this new package")
+    parser.add_argument("--measurement-suite", type=Path,
+                        help="Aggregate S1/S2/S3 report; reverify every linked run before packaging")
     args = parser.parse_args()
     check()
     verify_boot()
@@ -159,6 +163,68 @@ def main():
                 sha(ROOT / 'data/vectors' / (long_name + '.bin')), 'SD package vector is stale')
     board = check_board()
     extra_files, boot_verified = supplementary_evidence()
+    measurement_report = None
+    suite_report = None
+    require(not (args.measurements and args.measurement_suite), 'Choose a pilot or a complete suite')
+    if args.measurement_suite:
+        from summarize_phase2 import STAGES, summarize
+        suite_path = args.measurement_suite.resolve()
+        suite_report = json.loads(suite_path.read_text(encoding='utf-8'))
+        require(suite_report['status']=='PASS', 'Measurement suite has not passed')
+        require([r['stage'] for r in suite_report['stages']]==list(STAGES), 'Incomplete suite stages')
+        root = Path(suite_report['stages'][0]['folder']).parent
+        actual = summarize(root)
+        for key in ('stages','detection_groups','bandwidth_groups','normal_frequency_error_bins','source_sha256'):
+            require(actual[key]==suite_report[key], f'Suite summary changed: {key}')
+        extra_files.add(suite_path)
+        for name, value in suite_report['evidence'].items():
+            path = (ROOT/name).resolve()
+            require(path.is_relative_to(ROOT) and sha(path)==value, 'Suite evidence changed: '+name)
+            extra_files.add(path)
+        for row in suite_report['stages']:
+            index_path = Path(row['references'])
+            index = json.loads(index_path.read_text(encoding='utf-8'))
+            for directory in (Path(row['folder']), index_path.parent, Path(index['manifest']).parent):
+                require(directory.resolve().is_relative_to(ROOT), 'Suite evidence outside project')
+                # Decoded per-record arrays can be recreated from the exact binary
+                # streams. Keep originals, metadata, errors and verification reports.
+                extra_files.update(p for p in directory.rglob('*') if p.is_file()
+                    and p.name not in ('frequency.json','frequency.csv','burst.json','burst.csv'))
+        baseline_path = ROOT/'reports/phase2_baseline.json'
+        extra_files.add(baseline_path)
+        baseline = json.loads(baseline_path.read_text(encoding='utf-8'))
+        for name, value in baseline['archives'].items():
+            source = ROOT/'build/phase2_baseline_20260920'/name
+            require(sha(source)==value, 'Frozen baseline archive changed')
+            extra_files.add(source)
+    if args.measurements:
+        from validate_measurements import verify_run
+        measurement_report = verify_run(args.measurements)
+        index_path = Path(measurement_report['references'])
+        index = json.loads(index_path.read_text(encoding='utf-8'))
+        for directory in (args.measurements.resolve(), index_path.parent, Path(index['manifest']).parent):
+            require(directory.is_relative_to(ROOT), 'Measurement evidence outside project')
+            extra_files.update(p for p in directory.rglob('*') if p.is_file())
+        extra_files.add(ROOT / 'reports/第二阶段测量与性能报告.md')
+        measurement_summary = ROOT / 'reports/phase2_measurement_validation.json'
+        require(json.loads(measurement_summary.read_text(encoding='utf-8'))==measurement_report,
+                'Published measurement summary differs from raw validation')
+        extra_files.add(measurement_summary)
+        portability_path = ROOT / 'reports/phase2_portability_validation.json'
+        portability = json.loads(portability_path.read_text(encoding='utf-8'))
+        require(portability['status']=='PASS', 'Portable qualification tests failed')
+        extra_files.add(portability_path)
+        for name, value in portability['files'].items():
+            source = ROOT / name
+            require(sha(source)==value, 'Portable qualification evidence changed')
+            extra_files.add(source)
+        baseline_path = ROOT / 'reports/phase2_baseline.json'
+        baseline = json.loads(baseline_path.read_text(encoding='utf-8'))
+        extra_files.add(baseline_path)
+        for name, value in baseline['archives'].items():
+            source = ROOT / 'build/phase2_baseline_20260920' / name
+            require(sha(source)==value, 'Frozen baseline archive changed')
+            extra_files.add(source)
     if args.check:
         print("VALIDATED_PACKAGE_CHECK_PASS")
         return
@@ -233,12 +299,29 @@ def main():
         "在解压目录运行 python scripts/verify_delivery.py . 可重查所有交付文件SHA-256。\n"
         "历史采集报告保留实际采集时的本机绝对路径；包内同名captures相对目录保存原始证据。\n",
         encoding="utf-8")
+    if measurement_report:
+        with start.open('a', encoding='utf-8') as stream:
+            stream.write('\n本包另含 S0/S1 首批有限测量扩展，见 reports/第二阶段测量与性能报告.md。\n'
+                         '新矩阵不代表 S2～S6 或新的硬件／冷启动验收；原硬件历史证据保持独立。\n')
+    if suite_report:
+        with start.open('a', encoding='utf-8') as stream:
+            stream.write('\n本包包括完整 S1/S2/S3 测量矩阵、原始实板记录和逐窗误差表。\n'
+                         '阅读 reports/第二阶段完整验收报告.md；S4/S5/S6 的实验和决策单独列出。\n'
+                         '硬件和 SD 启动文件保持原验收版本；低信噪比检出失败已明确统计。\n'
+                         '新增矩阵保留全部原始二进制；重复的逐记录 JSON/CSV 数组可由 host/iq_client.py decode 重新导出。\n')
     files["START_HERE.md"] = dict(bytes=start.stat().st_size, sha256=sha(start))
     manifest = dict(created_at=datetime.datetime.now().astimezone().isoformat(),
                     hardware_version="0x00010001", board_tested=True,
                     validation_scope=board["scope"], boot_medium_verified=boot_verified,
                     input=board["input"], metrology_calibrated=False,
                     baseline_tag="2023-09-17", files=files)
+    if measurement_report:
+        manifest['phase2_measurement_scope'] = measurement_report['scope']
+        manifest['phase2_measurement_status'] = measurement_report['status']
+    if suite_report:
+        manifest['phase2_measurement_scope'] = suite_report['scope']
+        manifest['phase2_measurement_status'] = suite_report['status']
+        manifest['phase2_suite_report'] = str(args.measurement_suite.resolve().relative_to(ROOT))
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     archive = out.parent / (out.name + ".zip")
     require(not archive.exists(), "Archive already exists")

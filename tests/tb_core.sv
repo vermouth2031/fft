@@ -17,6 +17,39 @@ module tb_core;
  reg [31:0] vectors[0:524287];reg [47:0] golden[0:524287];
  integer c=0,n,j,fd,bin_count=0,window_count=0,results=0,total_results=0;
  integer frame_out=0,k;
+ // S5 diagnostics use one simulator timebase (ns), never subtract clock counters
+ // from different domains. Events describe the edge at which each consumer acts.
+ integer latency_fd,lat_input=0,lat_fft_bin=0,lat_fft_window=0;
+ always @(posedge src_clk)begin
+   if(rst)lat_input=0;
+   else begin
+     if(valid)begin
+       if(lat_input%8192==0)$fwrite(latency_fd,"%0d,%0d,input_first,%0.3f\n",c,lat_input/8192,$realtime);
+       if(lat_input%8192==8191)$fwrite(latency_fd,"%0d,%0d,input_last,%0.3f\n",c,lat_input/8192,$realtime);
+       lat_input=lat_input+1;
+     end
+     if(dut.rb.state==9&&!dut.rb.is_burst)
+       $fwrite(latency_fd,"%0d,%0d,analysis_done,%0.3f\n",c,dut.rb.cr[191:160],$realtime);
+     if(fv)$fwrite(latency_fd,"%0d,%0d,record_observed,%0.3f\n",c,frec[3*32+:32],$realtime);
+   end
+ end
+ always @(posedge fft_clk)begin
+   if(dut.frst)begin lat_fft_bin=0;lat_fft_window=0;end
+   else begin
+     if(dut.fft_valid)begin
+       if(lat_fft_bin==0)$fwrite(latency_fd,"%0d,%0d,fft_first,%0.3f\n",c,lat_fft_window,$realtime);
+       if(dut.fft_last)begin
+         $fwrite(latency_fd,"%0d,%0d,fft_last,%0.3f\n",c,lat_fft_window,$realtime);
+         lat_fft_bin=0;lat_fft_window=lat_fft_window+1;
+       end else lat_fft_bin=lat_fft_bin+1;
+     end
+     if(dut.sm.v[2]&&dut.sm.l[2])$fwrite(latency_fd,"%0d,%0d,bank_ready,%0.3f\n",c,dut.sm.frame,$realtime);
+     if(dut.sm.scan_request&&dut.sm.request_count==0)$fwrite(latency_fd,"%0d,%0d,scan_first,%0.3f\n",c,dut.sm.rid,$realtime);
+     if(dut.sm.state==3&&dut.sm.compare_valid&&dut.sm.compare_addr==4095)
+       $fwrite(latency_fd,"%0d,%0d,scan_last,%0.3f\n",c,dut.sm.rid,$realtime);
+     if(dut.sm.state==4)$fwrite(latency_fd,"%0d,%0d,scan_result,%0.3f\n",c,dut.sm.rid,$realtime);
+   end
+ end
  always @(posedge fft_clk)begin
    if(rst)begin frame_out=0;bin_count=0;end
    else if(dut.fft_valid)begin
@@ -41,6 +74,7 @@ module tb_core;
  end
  initial begin
    $readmemh("test_iq.mem",vectors);$readmemh("golden_fft.mem",golden);fd=$fopen("core_results.txt","w");
+   latency_fd=$fopen("latency_events.csv","w");$fwrite(latency_fd,"case,window,event,time_ns\n");
    for(c=0;c<16;c=c+1)begin
      @(negedge src_clk);rst=1;valid=0;finish=0;hann=c>=8;results=0;
      repeat(24)@(negedge src_clk);rst=0;wait(ready);
@@ -51,7 +85,7 @@ module tb_core;
      if(samples!=32768)$fatal(1,"sample count");
      $display("CASE_PASS case=%0d fft_frames=%0d results=%0d latency_cycles=%0d",c,frame_out,results,max_latency);
    end
-   $fclose(fd);$display("CORE_PASS cases=16 exact_fft_points=524288 frequency_records=%0d",total_results);$finish;
+   $fclose(fd);$fclose(latency_fd);$display("CORE_PASS cases=16 exact_fft_points=524288 frequency_records=%0d",total_results);$finish;
  end
  initial begin #15000000;$fatal(1,"timeout");end
 endmodule
