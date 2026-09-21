@@ -25,7 +25,7 @@ def inputs(stage):
         files += list((ROOT / "vendor/boards").rglob("*.xml"))
         files += [ROOT / "data/hann_u18_f17.mem"]
         files += [ROOT / "scripts" / name for name in
-                  ("create_fft.tcl", "build_board.tcl", "rebuild_board.tcl", "finish_board.tcl")]
+                  ("create_fft.tcl", "build_board.tcl", "rebuild_board.tcl", "finish_board.tcl", "phase3_replication_hook.tcl")]
     elif stage == "simulation":
         files += [p for folder in ("tests", "host") for p in (ROOT / folder).glob("*")
                   if p.suffix in (".py", ".sv")]

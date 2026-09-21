@@ -45,7 +45,7 @@ module tb_core;
      end
      if(dut.sm.v[2]&&dut.sm.l[2])$fwrite(latency_fd,"%0d,%0d,bank_ready,%0.3f\n",c,dut.sm.frame,$realtime);
      if(dut.sm.scan_request&&dut.sm.request_count==0)$fwrite(latency_fd,"%0d,%0d,scan_first,%0.3f\n",c,dut.sm.rid,$realtime);
-     if(dut.sm.state==3&&dut.sm.compare_valid&&dut.sm.compare_addr==4095)
+     if(dut.sm.state==3&&dut.sm.compare_valid&&dut.sm.compare_addr==2047)
        $fwrite(latency_fd,"%0d,%0d,scan_last,%0.3f\n",c,dut.sm.rid,$realtime);
      if(dut.sm.state==4)$fwrite(latency_fd,"%0d,%0d,scan_result,%0.3f\n",c,dut.sm.rid,$realtime);
    end

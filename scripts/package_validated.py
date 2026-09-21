@@ -151,6 +151,8 @@ def main():
                         help="Verified phase-two measurement directory to include in this new package")
     parser.add_argument("--measurement-suite", type=Path,
                         help="Aggregate S1/S2/S3 report; reverify every linked run before packaging")
+    parser.add_argument('--phase3-suite',type=Path,
+                        help='Verified Phase 3 aggregate with current hardware and robust-profile evidence')
     args = parser.parse_args()
     check()
     verify_boot()
@@ -165,7 +167,29 @@ def main():
     extra_files, boot_verified = supplementary_evidence()
     measurement_report = None
     suite_report = None
-    require(not (args.measurements and args.measurement_suite), 'Choose a pilot or a complete suite')
+    phase3_report = None
+    require(sum(bool(x) for x in (args.measurements,args.measurement_suite,args.phase3_suite))<=1,
+            'Choose one measurement suite')
+    if args.phase3_suite:
+        from summarize_phase3 import verify_suite
+        suite_path=args.phase3_suite.resolve()
+        phase3_report=verify_suite(suite_path)
+        require(boot_verified, 'Phase 3 release requires verified SD installation and reset boot')
+        cold=json.loads((ROOT/'reports/current_cold_boot_validation.json').read_text(encoding='utf-8'))
+        require(cold['status']=='PASS' and cold['previous_board_validation_sha256']==sha(ROOT/'reports/current_board_validation.json'),
+                'Phase 3 release requires current physical cold-start evidence')
+        extra_files.add(suite_path)
+        extra_files.update(ROOT/name for name in phase3_report['evidence'])
+        for row in phase3_report['stages']:
+            index_path=Path(row['references']);index=json.loads(index_path.read_text(encoding='utf-8'))
+            for directory in (Path(row['folder']),index_path.parent,Path(index['manifest']).parent):
+                require(directory.resolve().is_relative_to(ROOT),'Phase 3 evidence outside project')
+                extra_files.update(p for p in directory.rglob('*') if p.is_file()
+                    and p.name not in ('frequency.json','frequency.csv','burst.json','burst.csv'))
+        for name in ('第三阶段完整验收报告.md','第三阶段条件性优化决策.md','参赛演示提纲.md'):
+            path=ROOT/'reports'/name
+            require(path.is_file(),'Missing Phase 3 report: '+name)
+            extra_files.add(path)
     if args.measurement_suite:
         from summarize_phase2 import STAGES, summarize
         suite_path = args.measurement_suite.resolve()
@@ -254,7 +278,7 @@ def main():
         add(ROOT / 'artifacts' / name)
     for name in ("README.md", "CHANGELOG.md", "VERSION.json", "THIRD_PARTY_NOTICES.md",
                  "requirements.txt", "Open_IQ_Monitor.cmd", "Run_Network_Tests.cmd", '.gitattributes', '.gitignore',
-                 '第二阶段优化实施方案.md'):
+                 '第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
         add(ROOT / name)
     for mode in ("sd_card", "ethernet_sd_card"):
         for path in (ROOT / "release" / mode).rglob("*"):
@@ -309,6 +333,12 @@ def main():
                          '阅读 reports/第二阶段完整验收报告.md；S4/S5/S6 的实验和决策单独列出。\n'
                          '硬件和 SD 启动文件保持原验收版本；低信噪比检出失败已明确统计。\n'
                          '新增矩阵保留全部原始二进制；重复的逐记录 JSON/CSV 数组可由 host/iq_client.py decode 重新导出。\n')
+    if phase3_report:
+        with start.open('a',encoding='utf-8') as stream:
+            stream.write('\n当前交付为第三阶段四路扫描及带噪门限优化版本。优先阅读 reports/第三阶段完整验收报告.md。\n'
+                         '新增矩阵及历史回归原始数据、独立seed和条件性研究均已收录。\n'
+                         'robust 要求有效的前导静默区；0dB、非平稳噪声和较大DC偏置不属于通用保证。\n'
+                         '采样率仍为100MSPS；板内DC补偿、可变能量窗及125MSPS未实现。\n')
     files["START_HERE.md"] = dict(bytes=start.stat().st_size, sha256=sha(start))
     manifest = dict(created_at=datetime.datetime.now().astimezone().isoformat(),
                     hardware_version="0x00010001", board_tested=True,
@@ -322,6 +352,9 @@ def main():
         manifest['phase2_measurement_scope'] = suite_report['scope']
         manifest['phase2_measurement_status'] = suite_report['status']
         manifest['phase2_suite_report'] = str(args.measurement_suite.resolve().relative_to(ROOT))
+    if phase3_report:
+        manifest.update(phase3_measurement_scope=phase3_report['scope'],phase3_measurement_status='PASS',
+                        phase3_suite_report=str(args.phase3_suite.resolve().relative_to(ROOT)),physical_cold_boot_verified=True)
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     archive = out.parent / (out.name + ".zip")
     require(not archive.exists(), "Archive already exists")

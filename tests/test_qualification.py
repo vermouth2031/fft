@@ -183,19 +183,73 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
 
     def test_qualification_config_payload_and_readback(self):
         from unittest.mock import patch
+        from types import SimpleNamespace
         import iq_client
         from qualification_capture import capture
+        from threshold_config import resolve
         detector=dict(DEFAULT_DETECTOR,ton=2**33+123,toff=2**32+456)
-        meta={}
-        class FakeClient:
-            def configure(self,config,*args):self.config=config
-            def read(self,offset,count):return self.config[5:12]
+        received=[]
         def fake_capture(args):
-            client=iq_client.Client();client.configure([32768,0,1,0,8191]+[0]*8,'threshold',32,meta)
-        with patch.object(iq_client,'Client',FakeClient),patch.object(iq_client,'capture',fake_capture):
-            capture(None,detector)
-        self.assertEqual(meta['applied_detector'],detector)
-        self.assertEqual(meta['threshold_registers_before_start'][:4],[123,2,456,1])
+            received.append(resolve(args,bytes(32768*4))[0])
+        with patch.object(iq_client,'capture',fake_capture):
+            capture(SimpleNamespace(detector='threshold',gap_min=32),detector)
+        self.assertEqual(received,[detector])
+
+    def test_production_threshold_profiles_and_conflicts(self):
+        from types import SimpleNamespace
+        from threshold_config import resolve
+        data=np.tile(np.array([[3,4]],dtype='<i2'),(8192,1)).tobytes()
+        d,meta=resolve(SimpleNamespace(threshold_profile='robust'),data)
+        self.assertEqual((d['ton'],d['toff'],d['kon'],d['koff']),(1200,700,16,8))
+        self.assertEqual(meta['estimated_background_power'],25)
+        d,_=resolve(SimpleNamespace(),data)
+        self.assertEqual(d,DEFAULT_DETECTOR)
+        for args in [dict(ton=10),dict(ton=2,toff=3),dict(kon=0),
+                     dict(threshold_profile='robust',ton=1,toff=0),
+                     dict(threshold_profile='robust',quiet_samples=8193),
+                     dict(detector='digital-zero',threshold_profile='robust')]:
+            with self.assertRaises(ValueError):resolve(SimpleNamespace(**args),data)
+
+    def test_noise_only_has_explicit_power_and_no_snr(self):
+        from make_phase2_specs import case
+        c=case('noise_only',{'kind':'zero'},intervals=[],seed=130000,policy='quiet-prefix')
+        c['noise']={'kind':'awgn','power_codes2':2*1024**2}
+        _,iq,meta=waveform_details(c)
+        self.assertEqual(meta['truth_intervals'],[])
+        self.assertNotIn('measured_snr_after_quantization_db',meta)
+        self.assertLess(abs(meta['measured_noise_power_codes2']/(2*1024**2)-1),.03)
+        self.assertTrue(np.any(iq))
+
+    def test_capture_configuration_readback_rejects_any_mismatch(self):
+        from types import SimpleNamespace
+        from iq_client import verify_capture_config
+        config=[32768,1,1,0,8191,123,2,45,1,16,8,1048576,0]
+        expected=[config[0],0,*config[1:12]]
+        def client(values):
+            def read(offset,count):
+                self.assertEqual((offset,count),(0x1c,13))
+                return values
+            return SimpleNamespace(read=read)
+        self.assertEqual(verify_capture_config(client(expected),config),expected)
+        for i in range(13):
+            changed=list(expected);changed[i]^=1
+            with self.assertRaisesRegex(RuntimeError,'before START'):
+                verify_capture_config(client(changed),config)
+
+    def test_zero_quiet_background_can_confirm_burst_end(self):
+        from types import SimpleNamespace
+        from threshold_config import resolve
+        from make_phase2_specs import case,tone
+        c=case('quiet_zero',tone(amplitude=8),intervals=[[2048,4096]],policy='quiet-prefix',windows=['hann'])
+        c['threshold_policy'].update(on_multiple=3,off_multiple=1.75)
+        c['detector'].update(kon=16,koff=8)
+        _,iq,details=waveform_details(c)
+        applied,_=resolve(SimpleNamespace(threshold_profile='robust'),iq.tobytes())
+        self.assertEqual(applied,details['applied_detector'])
+        self.assertEqual((applied['ton'],applied['toff']),(2,1))
+        bursts=reference_threshold(iq,applied)
+        self.assertEqual(len(bursts),1)
+        self.assertEqual((bursts[0]['start_sample'],bursts[0]['end_sample'],bursts[0]['flags']),(2048,4111,0))
 
 
 if __name__=='__main__':

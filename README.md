@@ -4,7 +4,9 @@
 
 **处理规格：I/Q 各 16 位 · 100 MSPS · 8192 点 FFT · ARM + FPGA + 电脑客户端。**
 
-当前版本 `0x00010001` 已通过双模式实板验收，实体SD已更新，并通过复位启动及用户确认断电上电后的数值采集验证。新增数字零背景测长，原门限模式继续保留。完整结果见[本轮优化验收报告](reports/本轮优化验收报告.md)。
+当前工作分支正在验收第三阶段四路频谱扫描、FFT高扇出复制和robust门限档位。完整仿真、时序、SD测试固件和36组基础网络板测已通过；1653组扩展矩阵及新镜像的SD安装、物理冷启动验收仍在进行。接口版本沿用 `0x00010001`。
+
+原双模式版本的实体SD及冷启动证据属于前一阶段，见[前阶段验收报告](reports/本轮优化验收报告.md)，不能据此证明本轮新镜像已完成冷启动。
 
 电脑先装载 I/Q 文件，FPGA 从本地 RAM 高速回放并完成分析。FFT 使用 AMD IP；此工程不含外部 ADC。
 
@@ -17,12 +19,14 @@
 - [第二阶段测量与性能报告](reports/第二阶段测量与性能报告.md)：S0 基线、S1 参考接口与首批有限测量；后续阶段单独验收。
 - [第二阶段完整验收报告](reports/第二阶段完整验收报告.md)：S1～S3 共 466 组新增实板测试，约 81～82MHz 最宽档及 60 秒连续验证。
 - [性能优化决策](reports/第二阶段性能优化决策.md)：两次时序实验、延迟分解，以及四点扫描和可选 125MSPS 的实施边界。
+- [第三阶段优化方案](第三阶段优化实施方案.md)：带噪门限、正式主机配置、高扇出复制、四路扫描及晋升条件。
+- [第三阶段条件性优化决策](reports/第三阶段条件性优化决策.md)：DC、能量窗、噪声变化、Realtime FFT和125MSPS的实际研究与适用边界。
 - [参赛演示提纲](reports/参赛演示提纲.md)：硬指标、适用范围、原理框图和演示流程。
 - [第三方声明](THIRD_PARTY_NOTICES.md)：厂商 IP、驱动及板级定义的使用范围。
 
 ## GitHub 版本与下载
 
-当前发布：**v2026.09.20**，硬件版本 `0x00010001`。该已发布版本纳入双模式优化、完整实板与冷启动后验证及第二阶段方案。本工作分支已完成 S1～S3 测量验证，详见[第二阶段完整验收报告](reports/第二阶段完整验收报告.md)。本地交付包为 `release/phase2-complete-20260921.zip`；尚未发布为新的 GitHub 版本。
+GitHub已发布版本：**v2026.09.20**，硬件接口版本 `0x00010001`。该发布包含前阶段双模式优化、完整实板与冷启动后验证。本工作分支在已完成的[第二阶段验收](reports/第二阶段完整验收报告.md)基础上推进第三阶段。本地冻结包 `release/phase2-complete-20260921.zip` 保留；第三阶段尚未发布为新的 GitHub 版本。
 
 - [GitHub 仓库](https://github.com/vermouth2031/fft)
 - [本版 Release](https://github.com/vermouth2031/fft/releases/tag/v2026.09.20)：下载完整工程交付包和SHA-256清单。
@@ -41,6 +45,16 @@ python host/iq_client.py capture --board 192.168.1.10 --vector data/vectors/qpsk
 
 每次使用新的采集目录；GUI 与命令行不要同时控制板卡。默认网络为电脑 `192.168.1.20/24`、板卡 `192.168.1.10`。
 
+带噪输入且前1024点**确认为背景静默区**时，可选择 `robust` 档位。完整第三阶段交付包中的实测向量示例：
+
+```powershell
+python host/iq_client.py capture --vector build/phase3_final_20260921/validation/vectors/robust_snr5_120000.bin --out captures/robust_example --window hann --threshold-profile robust
+```
+
+该档位使用16点能量窗，ton=ceil(16×3×背景均方功率)、toff=ceil(16×1.75×背景均方功率)、kon/koff=16/8。自动估计保留最小ton/toff=2/1，确保全零背景时严格关断条件仍可满足。`--quiet-samples`可指定已知静默前导长度。默认命令仍采用原固定门限；人工配置使用成对的 `--ton`、`--toff`，以及可选 `--kon`、`--koff`。GUI提供相同控件，采集记录保存请求、估计和实际生效值，START前校验硬件读回。
+
+静默前导并非自动识别。没有可靠静默区、较大DC偏置、显著变化的噪声或0dB输入不能直接套用robust的验收结论；数字零模式不接受门限档位选项。新旧参数均不等于通信协议帧识别。
+
 ## 首次连接与启动
 
 1. 安装Python依赖：`python -m pip install -r requirements.txt`。已有环境可直接使用。
@@ -57,7 +71,7 @@ python host/iq_client.py capture --board 192.168.1.10 --vector data/vectors/qpsk
 - 单次记录数值核验：`python scripts/verify_board_capture.py captures/你的采集目录`；现有校验器支持固定黄金向量，不能对任意输入假定有效。
 - 解压完整交付后校验：`python scripts/verify_delivery.py .`。
 - [板上SD维护说明](scripts/maintenance/操作说明.md)：在板写入、读回与SD自动测试导出。
-- 标称最大分析延迟199.79µs；当前setup/hold裕量0.030/0.004ns。数字零模式仅适用于精确零背景，协议帧同步、125MSPS及外部ADC不属于已实现功能。
+- 本轮基础板测最大分析延迟183.41µs，setup/hold裕量0.542/0.016ns；扩展矩阵仍在验收。数字零模式仅适用于精确零背景，协议帧同步、125MSPS及外部ADC不属于已实现功能。
 
 ## 构建
 

@@ -28,3 +28,8 @@ vendor/boards/** -text
 
 # Keep the original reference generator byte-identical to its build provenance.
 tests/generate_iq_vectors.py -text
+
+# Preserve the Phase 3 checkout line endings bound by the build manifests.
+.gitattributes text eol=lf
+rtl/spectrum_measure.sv text eol=crlf
+tests/tb_core.sv text eol=crlf

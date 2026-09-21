@@ -28,9 +28,15 @@ def validate_case(case):
             w not in ('rect', 'hann') for w in case['windows']):
         raise ValueError('Invalid windows')
     noise=case['noise']
-    if noise.get('kind') not in ('none','awgn') or (noise['kind']=='awgn' and
-            (not isinstance(noise.get('snr_db'),(int,float)) or not np.isfinite(noise['snr_db']) or type(case['seed']) is not int)):
-        raise ValueError('AWGN needs an explicit finite SNR and integer seed')
+    if noise.get('kind') not in ('none','awgn'):
+        raise ValueError('Unsupported noise kind')
+    if noise['kind']=='awgn':
+        keys=[k for k in ('snr_db','power_codes2') if k in noise]
+        if len(keys)!=1 or type(case['seed']) is not int:
+            raise ValueError('AWGN needs exactly one SNR or absolute power and an integer seed')
+        value=noise[keys[0]]
+        if not isinstance(value,(int,float)) or not np.isfinite(value) or (keys[0]=='power_codes2' and value<=0):
+            raise ValueError('Invalid noise level')
     if len(case['offset_iq'])!=2 or any(type(v) is not int for v in case['offset_iq']):
         raise ValueError('DC offset must be two integer codes')
     signal = case['signal']
@@ -97,9 +103,12 @@ def waveform_details(case):
     for a,b in shaped:active[a:b]=True
     added=np.zeros(len(value),dtype=complex)
     if case['noise']['kind']=='awgn':
-        if not np.any(active):raise ValueError('SNR requires a nonzero designed signal interval')
-        power=float(np.mean(np.abs(clean[active])**2))
-        sigma=np.sqrt(power/10**(case['noise']['snr_db']/10)/2)
+        if 'power_codes2' in case['noise']:
+            sigma=np.sqrt(case['noise']['power_codes2']/2)
+        else:
+            if not np.any(active):raise ValueError('SNR requires a nonzero designed signal interval')
+            power=float(np.mean(np.abs(clean[active])**2))
+            sigma=np.sqrt(power/10**(case['noise']['snr_db']/10)/2)
         noise_rng=np.random.default_rng(np.random.SeedSequence([case['seed'],0x4157474e]))
         added=sigma*(noise_rng.standard_normal(len(value))+1j*noise_rng.standard_normal(len(value)))
     value=clean+added+complex(*case['offset_iq'])
@@ -119,9 +128,12 @@ def waveform_details(case):
     if signal['kind']=='rrc-qpsk':
         details.update(symbol_rate_baud=FS/signal['sps'],rrc_tap_count=signal['span_symbols']*signal['sps']+1,
                        ideal_support_hz=(1+signal['rolloff'])*FS/signal['sps'])
-    if case['noise']['kind']=='awgn':
+    if case['noise']['kind']=='awgn' and np.any(active):
         details.update(measured_snr_before_quantization_db=float(10*np.log10(np.mean(np.abs(clean[active])**2)/np.mean(np.abs(added[active])**2))),
             measured_snr_after_quantization_db=float(10*np.log10(np.mean(np.sum(noiseless[active]**2,axis=1))/np.mean(np.sum(noise_quantized[active]**2,axis=1)))))
+    if 'power_codes2' in case['noise']:
+        details.update(configured_noise_power_codes2=case['noise']['power_codes2'],
+                       measured_noise_power_codes2=float(np.mean(np.sum(noise_quantized**2,axis=1))))
     applied=dict(case['detector'])
     policy=case.get('threshold_policy',{'kind':'fixed'})
     if policy['kind']=='quiet-prefix':
@@ -129,8 +141,8 @@ def waveform_details(case):
         if not 16<=length<=len(iq) or any(a<length for a,b in shaped):
             raise ValueError('Noise estimation requires the declared leading quiet interval')
         background=float(np.mean(np.sum(iq[:length].astype(np.int64)**2,axis=1)))
-        applied['ton']=max(1,int(np.ceil(16*background*policy['on_multiple'])))
-        applied['toff']=min(applied['ton']-1,max(0,int(np.ceil(16*background*policy['off_multiple']))))
+        applied['ton']=max(2,int(np.ceil(16*background*policy['on_multiple'])))
+        applied['toff']=max(1,min(applied['ton']-1,int(np.ceil(16*background*policy['off_multiple']))))
         details['estimated_background_power']=background
     elif policy['kind']!='fixed':raise ValueError('Unknown threshold policy')
     validate_detector(applied);details['applied_detector']=applied

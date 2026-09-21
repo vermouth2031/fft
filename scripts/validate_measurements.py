@@ -25,6 +25,7 @@ from qualification_capture import capture as capture_configured
 from detection_metrics import evaluate as evaluate_detection
 from verify_board_capture import verify as verify_capture, require
 from package_release import check as check_build
+from package_validated import check_board
 from record_boot_stage import verify_boot
 
 
@@ -41,7 +42,7 @@ def bindings():
              'tests/generate_iq_vectors.py', 'tests/frame_length_reference.py',
              'scripts/validate_measurements.py', 'scripts/verify_board_capture.py',
              'scripts/qualification_capture.py','tests/threshold_reference.py','tests/detection_metrics.py',
-             'scripts/create_fft.tcl', 'host/iq_client.py', 'data/vectors/hann_u18_f17.mem']
+             'scripts/create_fft.tcl', 'host/iq_client.py', 'host/threshold_config.py', 'data/vectors/hann_u18_f17.mem']
     return {str((ROOT / name).resolve()): digest(ROOT / name) for name in files}
 
 
@@ -249,6 +250,8 @@ def capture_matrix(index_path, out, board, port):
     index = load_index(index_path)
     check_build()
     verify_boot()
+    accepted = check_board()
+    require(accepted['board'] == board, 'Qualification target differs from accepted deployment')
     out.mkdir(parents=True, exist_ok=False)
     report = dict(status='RUNNING', scope='Manifest-driven measurement qualification; no hardware/SD modification',
         started_at=datetime.datetime.now().astimezone().isoformat(), references=str(index_path),
@@ -257,7 +260,7 @@ def capture_matrix(index_path, out, board, port):
         artifacts={str(p):digest(p) for p in (ROOT/'artifacts').glob('*') if p.is_file()},
         build_evidence={str(ROOT/'reports'/name):digest(ROOT/'reports'/name) for name in
             ('hardware_provenance.json','simulation_provenance.json','boot_provenance.json',
-             'current_board_validation.json','current_cold_boot_validation.json')})
+             'current_board_validation.json','current_deployment.json')})
     errors = []
     current = None
     try:

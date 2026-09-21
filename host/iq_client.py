@@ -3,8 +3,10 @@ python host/iq_client.py capture --vector data.bin --board 192.168.1.10 --out ca
 python host/iq_client.py decode --freq freq.bin --burst burst.bin --out captures/decoded
 """
 from __future__ import annotations
-import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util
+import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util, sys
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from threshold_config import resolve as resolve_threshold
 MAGIC=0x49515531
 DETECTOR_VERSION=0x00010001
 DETECTOR_MODES={'threshold':0,'digital-zero':1}
@@ -213,16 +215,26 @@ def export(out,frequency,bursts,metadata):
     (out/'结果说明.md').write_text('\n'.join(text)+'\n',encoding='utf-8')
     print(json.dumps(metadata,ensure_ascii=False,indent=2))
 
+def verify_capture_config(client,config):
+    # Registers contain replay_start between length and cyclic mode.
+    expected=[config[0],0,*config[1:12]]
+    actual=list(client.read(0x1c,13))
+    if actual!=expected:raise RuntimeError('Capture CONFIG readback mismatch before START')
+    return actual
+
+
 def capture(args):
     detector=getattr(args,'detector','threshold');gap_min=getattr(args,'gap_min',32)
     validate_detector(detector,gap_min)
     data=Path(args.vector).read_bytes();n=len(data)//4
     if len(data)%4 or n not in (8192,16384,24576,32768):raise ValueError('Replay must contain 8192/16384/24576/32768 signed I16,Q16 pairs')
+    threshold,threshold_request=resolve_threshold(args,data)
     client=Client(args.board,args.port);meta={'source':'Zybo UDP board capture','board':args.board,
       'vector':str(Path(args.vector).resolve()),'vector_sha256':hashlib.sha256(data).hexdigest(),'cyclic':args.cyclic,
       'detector_mode':detector,'gap_min':gap_min,'length_semantics':LENGTH_SEMANTICS[detector],
       'length_definition':'Waveform boundary measurement; not communication protocol frame recognition',
       'max_burst_samples':1048576}
+    meta.update(applied_detector=threshold,threshold_request=threshold_request)
     callback=getattr(args,'on_update',None);stop_event=getattr(args,'stop_event',None)
     snapshot=None
     started=False
@@ -244,7 +256,13 @@ def capture(args):
             if struct.pack('<'+'I'*len(actual),*actual)!=expected:raise ValueError(f'Replay read-back mismatch at {offset}')
         meta['replay_readback_verified']=True
         config=[n,int(args.cyclic),int(args.window=='hann'),0,8191,1048576,0,262144,0,8,32,1048576,0]
-        client.configure(config,detector,gap_min,meta);client.control(1);started=True
+        config[5:12]=[threshold['ton']&0xffffffff,threshold['ton']>>32,threshold['toff']&0xffffffff,
+                      threshold['toff']>>32,threshold['kon'],threshold['koff'],threshold['max_burst_samples']]
+        client.configure(config,detector,gap_min,meta)
+        actual=verify_capture_config(client,config)
+        meta['configuration_registers_before_start']=actual
+        meta['threshold_registers_before_start']=actual[6:13]
+        client.control(1);started=True
         actual_epoch=client.read(0x68)[0]
         if actual_epoch!=client.active_epoch:raise RuntimeError('Acquisition epoch changed unexpectedly')
         meta['epoch']=client.active_epoch;meta['config_id']=client.read(0x6c)[0]
@@ -326,6 +344,10 @@ def main():
     c.add_argument('--cyclic',action='store_true');c.add_argument('--seconds',type=float,default=1)
     c.add_argument('--detector',choices=DETECTOR_MODES,default='threshold',help='Waveform length detector; not protocol frame recognition')
     c.add_argument('--gap-min',type=int,default=32,help='Consecutive zero samples required by digital-zero (1..65535)')
+    c.add_argument('--threshold-profile',choices=['legacy','robust'],default='legacy')
+    c.add_argument('--threshold-policy',choices=['fixed','quiet-prefix'],help='quiet-prefix declares that the leading samples contain background only')
+    c.add_argument('--quiet-samples',type=int,default=1024)
+    for name in ('ton','toff','kon','koff'):c.add_argument('--'+name,type=int)
     d=sub.add_parser('decode');d.add_argument('--freq',required=True);d.add_argument('--burst');d.add_argument('--out',required=True)
     d.add_argument('--metadata',type=Path,help='Original capture.json or META.JSON; defaults to the frequency file directory')
     s=sub.add_parser('stop');s.add_argument('--board',default='192.168.1.10');s.add_argument('--abort',action='store_true')

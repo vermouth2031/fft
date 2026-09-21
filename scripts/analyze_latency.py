@@ -39,8 +39,8 @@ def analyze(path):
     return dict(status='PASS',timebase='simulation real time, ns; 100MHz source and 125MHz FFT',
         accumulation_definition='last accepted edge minus first = 81910ns; inclusive 8192-sample duration = 81920ns',
         publication_definition='record_observed is the core consumer edge, not the peripheral ring commit or PC/UDP latency',
-        hypothetical_four_lane_scan_saving_ns=16384,
-        scope='Measured baseline stages; no four-lane implementation or hardware acceleration claimed',
+        scan_implementation='four-lane' if summary['scan_first_to_last_ns']['max']<20000 else 'two-lane',
+        scope='Measured RTL simulator stages; physical board performance requires separate capture evidence',
         input_sha256=sha(Path(path)),summary=summary,windows=rows)
 
 

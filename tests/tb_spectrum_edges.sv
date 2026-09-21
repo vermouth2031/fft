@@ -2,7 +2,7 @@
 // Independent bin-domain oracle: no DUT internals or pipeline assumptions.
 // Exercise FFT bit-reversed arrival order, ping-pong reuse, ROI and snapshot.
 module tb_spectrum_edges;
- localparam CASES=12;
+ localparam CASES=20;
  reg clk=0;always #4 clk=~clk;
  reg rst=1,valid=0,last=0,snap_request=0;
  reg [47:0] data=0;
@@ -52,6 +52,8 @@ module tb_spectrum_edges;
      8:real_for=q==7000?19:(q==7001?500:0);
      9:real_for=-33;
      10:real_for=((q*8191+113)&16777215)-8388608;
+     12,13,14,15:real_for=q==1000+f-12?10:(q==4000+15-f?100:0);
+     16,17,18,19:real_for=(q==2000+f-16||q==2004+f-16)?100:0;
      default:real_for=42;
    endcase
  endfunction
@@ -180,7 +182,7 @@ module tb_spectrum_edges;
    for(f=0;f<CASES;f=f+1)begin
      // ROI configuration is constant until all results using it have drained,
      // as required by the core's stopped-run configuration contract.
-     if(f==6||f==9||f==10||f==11)begin
+     if(f==6||f==9||f==10||f==11||f==12)begin
        @(negedge clk);valid=0;last=0;
        wait(results==f);repeat(8)@(negedge clk);
        roi_low=13'(low_for(f));roi_high=13'(high_for(f));

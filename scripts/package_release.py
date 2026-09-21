@@ -72,7 +72,7 @@ def package():
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
         for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
-                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md'):
+                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 
