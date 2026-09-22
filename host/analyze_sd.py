@@ -2,6 +2,7 @@
 from pathlib import Path
 import argparse,json,struct,math,shutil
 from iq_client import export,decode_record
+from build_rates import SAMPLE_RATE_HZ
 ROOT=Path(__file__).resolve().parents[1]
 
 def analyze(run,out,*,simulation_fixture=False):
@@ -23,7 +24,7 @@ def analyze(run,out,*,simulation_fixture=False):
         for n,r in enumerate(fr):
             a=decode_record(r,'frequency');e=g['windows'][n]
             assert a['epoch']==meta['epoch'] and a['config_id']==meta['config_id'],(c,n,'record association')
-            assert a['sample_rate_hz']==100000000 and a['fft_length']==8192 and a['window']==g['mode']
+            assert a['sample_rate_hz']==SAMPLE_RATE_HZ and a['fft_length']==8192 and a['window']==g['mode']
             assert a['sequence']==n
             mapping={'id':'window_id','total_spectrum_power':'total','peak_spectrum_power':'peak_power',
               'q_peak':'q_peak','q_low':'q_low','q_high':'q_high','peak_hz':'f_peak_hz','low_hz':'f_low_hz',
@@ -37,7 +38,7 @@ def analyze(run,out,*,simulation_fixture=False):
         for n,r in enumerate(br):
             a=decode_record(r,'burst');e=g['bursts'][n];start=e['start'];end=e['end_exclusive'] if e['complete'] else len(iq)
             assert a['detector_mode']=='threshold',(c,n,'wrong detector for the SD oracle')
-            assert a['epoch']==meta['epoch'] and a['config_id']==meta['config_id'] and a['sample_rate_hz']==100000000
+            assert a['epoch']==meta['epoch'] and a['config_id']==meta['config_id'] and a['sample_rate_hz']==SAMPLE_RATE_HZ
             assert a['id']==n and a['sequence']==n
             p=[i*i+q*q for i,q in iq[start:end]];energy=sum(p)
             assert (a['start_sample'],a['end_sample_exclusive'],a['length_samples'])==(start,end,end-start)

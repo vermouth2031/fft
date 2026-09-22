@@ -82,7 +82,8 @@ def main():
         f"三个用例全部通过，共{report['frequency_records']}条频域记录、{report['burst_records']}条突发记录；"
         f"最大分析延迟{report['maximum_analysis_us']:.2f}µs，结束状态空闲、错误寄存器为0。\n\n"
         f"当前BOOT_udp.BIN SHA-256：`{report['artifacts']['BOOT_udp.BIN']}`。\n\n"
-        '物理断电行为依据用户确认；当前硬件没有运行时bitstream散列寄存器，身份由已验证SD读回、启动流程及数值验收共同绑定。\n',encoding='utf-8')
+        f"运行时构建 ID：`{report['hardware_before']['build_id']}`。它标识构建输入，不是 bitstream 散列。\n\n"
+        '物理断电行为依据用户此次确认；镜像身份由构建 ID、已验证 SD 读回、启动流程及数值验收共同绑定。\n',encoding='utf-8')
     print('COLD_BOOT_PASS',out)
 
 

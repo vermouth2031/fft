@@ -10,6 +10,7 @@ from pathlib import Path
 from package_release import check, SD_VECTOR_NAMES
 from record_build_stage import sha
 from record_boot_stage import verify_boot
+from phase4_identity import check_identity
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,7 +23,8 @@ def require(ok, message):
 def check_board():
     report = json.loads((ROOT / "reports/current_board_validation.json").read_text(encoding="utf-8"))
     require(report["status"] == "PASS" and report["suite"] == "full", "Full current-board suite has not passed")
-    require(report["hardware"]["hardware_version"] == 0x00010001, "Unexpected verified hardware version")
+    check_identity(report['hardware'])
+    require(report['hardware'] == report['deployment']['hardware'], 'Board/deployment identity mismatch')
     require(sha(ROOT / 'reports/current_deployment.json') == report['deployment_sha256'], 'Deployment evidence changed')
     require(sha(Path(report['deployment']['log'])) == report['deployment']['log_sha256'], 'Deployment log changed')
     for name, value in report["artifacts"].items():
@@ -271,7 +273,7 @@ def main():
         require(sha(destination) == value, f"Copy verification failed: {relative}")
         files[relative.as_posix()] = dict(bytes=source.stat().st_size, sha256=value)
 
-    for folder in ("rtl", "constraints", "firmware", "host", "tests", "scripts", "docs", "vendor", "data", '.github'):
+    for folder in ("rtl", "constraints", "firmware", "host", "tests", "scripts", "docs", "vendor", "data", '.github', 'config'):
         for path in (ROOT / folder).rglob("*"):
             add(path)
     for name in ('iq_analyzer.bit', 'iq_analyzer.xsa', 'iq_udp.elf', 'iq_sd.elf',
@@ -344,7 +346,7 @@ def main():
                          '采样率仍为100MSPS；板内DC补偿、可变能量窗及125MSPS未实现。\n')
     files["START_HERE.md"] = dict(bytes=start.stat().st_size, sha256=sha(start))
     manifest = dict(created_at=datetime.datetime.now().astimezone().isoformat(),
-                    hardware_version="0x00010001", board_tested=True,
+                    hardware_version=board['hardware']['hardware_version_hex'], board_tested=True,
                     validation_scope=board["scope"], boot_medium_verified=boot_verified,
                     input=board["input"], metrology_calibrated=False,
                     baseline_tag="2023-09-17", files=files)

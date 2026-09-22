@@ -18,7 +18,9 @@ def sha(path):
 
 def inputs(stage):
     check_fft()
+    subprocess.run([sys.executable,str(ROOT/"scripts/phase4_build_config.py"),"--check"],check=True)
     files = list((ROOT / "rtl").glob("*.sv"))
+    files += [ROOT/'config/build_profile.json',ROOT/'scripts/phase4_build_config.py',ROOT/'build/config/build_identity.json']
     files.append(XCI)
     if stage == "hardware":
         files += list((ROOT / "constraints").glob("*"))

@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
-// Two spectra, each split into even/odd RAMs: one write or two reads/clock.
+// Two ping-pong spectra, each split into eight 1024x48 RAM lanes.
+// All bins contribute to the CDF; snapshots retain the maximum of each 8 bins.
 module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  input wire [23:0] user,input wire valid,last,input wire [12:0] roi_low,roi_high,
  output reg result_valid,output reg [255:0] result_data,output reg fault,
@@ -21,7 +22,8 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  reg [12:0] bank_q[0:1];
  reg bank_overflow[0:1];
  reg [31:0] bank_frame[0:1];
- (* ram_style="block" *) reg [47:0] b00[0:2047],b01[0:2047],b02[0:2047],b03[0:2047],b10[0:2047],b11[0:2047],b12[0:2047],b13[0:2047];
+ (* ram_style="block" *) reg [47:0] b00[0:1023],b01[0:1023],b02[0:1023],b03[0:1023],b04[0:1023],b05[0:1023],b06[0:1023],b07[0:1023];
+ (* ram_style="block" *) reg [47:0] b10[0:1023],b11[0:1023],b12[0:1023],b13[0:1023],b14[0:1023],b15[0:1023],b16[0:1023],b17[0:1023];
  wire in_roi=q1>=roi_low&&q1<=roi_high;
  // Register the ROI-masked power before accumulation/peak selection. This
  // breaks the config -> ROI comparison -> peak comparison path. Carry the
@@ -38,48 +40,70 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  reg [31:0] rid,rflags;
  reg [15:0] rq,lowq,highq;
  reg found_low,found_high;
- reg [11:0] request_count;
- reg [10:0] response_addr;
+ reg [10:0] request_count;
+ reg [9:0] response_addr;
  reg response_valid;
- reg [47:0] a0,a1,a2,a3,c0,c1,c2,c3;
- wire [47:0] pa=read_bank?c0:a0,pb=read_bank?c1:a1,pc=read_bank?c2:a2,pd=read_bank?c3:a3;
- reg [47:0] pa_pipe,pb_pipe,pc_pipe,pd_pipe,first_power,third_power;
- reg [48:0] pair01,pair23;
- reg [47:0] pairmax01,pairmax23,quad_max;
- reg [49:0] prefix0,prefix1,prefix2,prefix3;
- reg [63:0] cdf0,cdf1,cdf2,cdf3;
- reg pipe_valid,pair_valid,prefix_valid,compare_valid;
- reg [10:0] pipe_addr,pair_addr,prefix_addr,compare_addr;
- wire scan_request=state==SCAN&&request_count<2048;
+ reg [47:0] a[0:7],b[0:7],power_pipe[0:7];
+ reg [48:0] pair_prefix[0:7];
+ reg [49:0] quad_prefix[0:7];
+ reg [50:0] prefix[0:7];
+ reg [47:0] pair_max[0:3],quad_max[0:1],octet_max;
+ reg [63:0] cdf_bin[0:7];
+ reg pipe_valid,pair_valid,quad_valid,prefix_valid,compare_valid;
+ reg [9:0] pipe_addr,pair_addr,quad_addr,prefix_addr,compare_addr;
+ wire scan_request=state==SCAN&&request_count<1024;
+ integer j;
  wire div_done;
  wire [63:0] quotient,remainder;
  udiv64 div200(.clk(clk),.rst(rst),.start(state==DIV_START),.numerator(rt),.denominator(64'd200),
    .busy(),.done(div_done),.divide_by_zero(),.quotient(quotient),.remainder(remainder));
  reg capturing,snap_armed;
- reg [47:0] group_max;
- wire [47:0] group_next=prefix_addr[0]==0?quad_max:(quad_max>group_max?quad_max:group_max);
- // No RAM reset: each bank is fully overwritten before becoming ready.
+ // No RAM reset: a bank is completely written before it becomes ready.
  always @(posedge clk) begin
    if(v[2]&&!rst) begin
      if(!write_bank) begin
-       case(q2[1:0])
-         0:b00[q2[12:2]]<=wp;1:b01[q2[12:2]]<=wp;
-         2:b02[q2[12:2]]<=wp;3:b03[q2[12:2]]<=wp;
+       case(q2[2:0])
+         0:b00[q2[12:3]]<=wp;
+         1:b01[q2[12:3]]<=wp;
+         2:b02[q2[12:3]]<=wp;
+         3:b03[q2[12:3]]<=wp;
+         4:b04[q2[12:3]]<=wp;
+         5:b05[q2[12:3]]<=wp;
+         6:b06[q2[12:3]]<=wp;
+         7:b07[q2[12:3]]<=wp;
        endcase
      end else begin
-       case(q2[1:0])
-         0:b10[q2[12:2]]<=wp;1:b11[q2[12:2]]<=wp;
-         2:b12[q2[12:2]]<=wp;3:b13[q2[12:2]]<=wp;
+       case(q2[2:0])
+         0:b10[q2[12:3]]<=wp;
+         1:b11[q2[12:3]]<=wp;
+         2:b12[q2[12:3]]<=wp;
+         3:b13[q2[12:3]]<=wp;
+         4:b14[q2[12:3]]<=wp;
+         5:b15[q2[12:3]]<=wp;
+         6:b16[q2[12:3]]<=wp;
+         7:b17[q2[12:3]]<=wp;
        endcase
      end
    end
-   if(scan_request&&!read_bank) begin
-     a0<=b00[request_count[10:0]];a1<=b01[request_count[10:0]];
-     a2<=b02[request_count[10:0]];a3<=b03[request_count[10:0]];
+   if(scan_request&&!read_bank)begin
+     a[0]<=b00[request_count[9:0]];
+     a[1]<=b01[request_count[9:0]];
+     a[2]<=b02[request_count[9:0]];
+     a[3]<=b03[request_count[9:0]];
+     a[4]<=b04[request_count[9:0]];
+     a[5]<=b05[request_count[9:0]];
+     a[6]<=b06[request_count[9:0]];
+     a[7]<=b07[request_count[9:0]];
    end
-   if(scan_request&&read_bank) begin
-     c0<=b10[request_count[10:0]];c1<=b11[request_count[10:0]];
-     c2<=b12[request_count[10:0]];c3<=b13[request_count[10:0]];
+   if(scan_request&&read_bank)begin
+     b[0]<=b10[request_count[9:0]];
+     b[1]<=b11[request_count[9:0]];
+     b[2]<=b12[request_count[9:0]];
+     b[3]<=b13[request_count[9:0]];
+     b[4]<=b14[request_count[9:0]];
+     b[5]<=b15[request_count[9:0]];
+     b[6]<=b16[request_count[9:0]];
+     b[7]<=b17[request_count[9:0]];
    end
  end
  always @(posedge clk) begin
@@ -90,12 +114,12 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      state<=WAIT_BANK;read_bank<=0;rt<=0;rpeak<=0;rid<=0;rflags<=0;rq<=0;
      lower<=0;upper<=0;cdf<=0;lowq<=0;highq<=0;found_low<=0;found_high<=0;
      request_count<=0;response_valid<=0;response_addr<=0;fault<=0;result_data<=0;
-     capturing<=0;snap_armed<=1;group_max<=0;snap_addr<=0;snap_data<=0;snap_window<=0;
-     pa_pipe<=0;pb_pipe<=0;pc_pipe<=0;pd_pipe<=0;first_power<=0;third_power<=0;
-     pair01<=0;pair23<=0;pairmax01<=0;pairmax23<=0;quad_max<=0;
-     prefix0<=0;prefix1<=0;prefix2<=0;prefix3<=0;cdf0<=0;cdf1<=0;cdf2<=0;cdf3<=0;
-     pipe_valid<=0;pair_valid<=0;prefix_valid<=0;compare_valid<=0;
-     pipe_addr<=0;pair_addr<=0;prefix_addr<=0;compare_addr<=0;
+     capturing<=0;snap_armed<=1;snap_addr<=0;snap_data<=0;snap_window<=0;
+     // Datapath contents are ignored until their reset-cleared valid bits
+     // advance. Leave these wide payload registers unreset to remove
+     // the measured synchronized-reset fanout bottleneck.
+     pipe_valid<=0;pair_valid<=0;quad_valid<=0;prefix_valid<=0;compare_valid<=0;
+     pipe_addr<=0;pair_addr<=0;quad_addr<=0;prefix_addr<=0;compare_addr<=0;
    end else begin
      rr<=$signed(data[23:0])*$signed(data[23:0]);ii<=$signed(data[47:24])*$signed(data[47:24]);
      power<=rr+ii;q0<=user[12:0]^13'd4096;q1<=q0;
@@ -112,30 +136,44 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      end
      if(!snap_request) snap_armed<=1;
      response_valid<=scan_request;
-     if(scan_request) begin response_addr<=request_count[10:0];request_count<=request_count+1;end
-     // RAM -> data -> two pair sums -> four prefixes -> CDF -> comparisons.
-     // CDF feedback has a single 64-bit adder. Snapshots still cover 8 bins.
-     pipe_valid<=response_valid;pair_valid<=pipe_valid;prefix_valid<=pair_valid;compare_valid<=prefix_valid;
+     if(scan_request)begin response_addr<=request_count[9:0];request_count<=request_count+1;end
+     // Registered balanced inclusive prefixes: 2 bins, 4 bins, 8 bins.
+     // Only one 64-bit adder lies on the running-CDF feedback path.
+     pipe_valid<=response_valid;pair_valid<=pipe_valid;quad_valid<=pair_valid;
+     prefix_valid<=quad_valid;compare_valid<=prefix_valid;
      if(response_valid)begin
-       pa_pipe<=pa;pb_pipe<=pb;pc_pipe<=pc;pd_pipe<=pd;pipe_addr<=response_addr;
+       for(j=0;j<8;j=j+1)power_pipe[j]<=read_bank?b[j]:a[j];
+       pipe_addr<=response_addr;
      end
      if(pipe_valid)begin
-       first_power<=pa_pipe;third_power<=pc_pipe;
-       pair01<={1'b0,pa_pipe}+{1'b0,pb_pipe};pair23<={1'b0,pc_pipe}+{1'b0,pd_pipe};
-       pairmax01<=pa_pipe>pb_pipe?pa_pipe:pb_pipe;pairmax23<=pc_pipe>pd_pipe?pc_pipe:pd_pipe;
+       for(j=0;j<8;j=j+1)begin
+         if(j%2==0)pair_prefix[j]<={1'b0,power_pipe[j]};
+         else pair_prefix[j]<={1'b0,power_pipe[j-1]}+{1'b0,power_pipe[j]};
+       end
+       for(j=0;j<4;j=j+1)pair_max[j]<=power_pipe[j*2]>power_pipe[j*2+1]?power_pipe[j*2]:power_pipe[j*2+1];
        pair_addr<=pipe_addr;
      end
      if(pair_valid)begin
-       prefix0<={2'b0,first_power};prefix1<={1'b0,pair01};
-       prefix2<={1'b0,pair01}+{2'b0,third_power};prefix3<={1'b0,pair01}+{1'b0,pair23};
-       quad_max<=pairmax01>pairmax23?pairmax01:pairmax23;prefix_addr<=pair_addr;
+       for(j=0;j<8;j=j+1)begin
+         if(j%4<2)quad_prefix[j]<={1'b0,pair_prefix[j]};
+         else quad_prefix[j]<={1'b0,pair_prefix[(j/4)*4+1]}+{1'b0,pair_prefix[j]};
+       end
+       for(j=0;j<2;j=j+1)quad_max[j]<=pair_max[j*2]>pair_max[j*2+1]?pair_max[j*2]:pair_max[j*2+1];
+       quad_addr<=pair_addr;
+     end
+     if(quad_valid)begin
+       for(j=0;j<8;j=j+1)begin
+         if(j<4)prefix[j]<={1'b0,quad_prefix[j]};
+         else prefix[j]<={1'b0,quad_prefix[3]}+{1'b0,quad_prefix[j]};
+       end
+       octet_max<=quad_max[0]>quad_max[1]?quad_max[0]:quad_max[1];
+       prefix_addr<=quad_addr;
      end
      if(prefix_valid)begin
-       cdf<=cdf+{14'b0,prefix3};
-       cdf0<=cdf+{14'b0,prefix0};cdf1<=cdf+{14'b0,prefix1};
-       cdf2<=cdf+{14'b0,prefix2};cdf3<=cdf+{14'b0,prefix3};compare_addr<=prefix_addr;
-       group_max<=group_next;
-       if(capturing&&prefix_addr[0])begin snap_we<=1;snap_addr<=prefix_addr[10:1];snap_data<={16'b0,group_next};end
+       cdf<=cdf+{13'b0,prefix[7]};
+       for(j=0;j<8;j=j+1)cdf_bin[j]<=cdf+{13'b0,prefix[j]};
+       compare_addr<=prefix_addr;
+       if(capturing)begin snap_we<=1;snap_addr<=prefix_addr;snap_data<={16'b0,octet_max};end
      end
      case(state)
        WAIT_BANK: if(bank_ready!=0) begin
@@ -150,20 +188,28 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
        end
        DIV_START: state<=DIV_WAIT;
        DIV_WAIT: if(div_done) begin lower<=quotient+(remainder!=0);upper<=rt-quotient;state<=SCAN;end
-       SCAN: if(compare_valid) begin
-         if(!found_low&&rt!=0) begin
-           if(cdf0>=lower) begin lowq<={3'b0,compare_addr,2'd0};found_low<=1;end
-           else if(cdf1>=lower) begin lowq<={3'b0,compare_addr,2'd1};found_low<=1;end
-           else if(cdf2>=lower) begin lowq<={3'b0,compare_addr,2'd2};found_low<=1;end
-           else if(cdf3>=lower) begin lowq<={3'b0,compare_addr,2'd3};found_low<=1;end
+       SCAN: if(compare_valid)begin
+         if(!found_low&&rt!=0)begin
+           if(cdf_bin[0]>=lower)begin lowq<={3'b0,compare_addr,3'd0};found_low<=1;end
+           else if(cdf_bin[1]>=lower)begin lowq<={3'b0,compare_addr,3'd1};found_low<=1;end
+           else if(cdf_bin[2]>=lower)begin lowq<={3'b0,compare_addr,3'd2};found_low<=1;end
+           else if(cdf_bin[3]>=lower)begin lowq<={3'b0,compare_addr,3'd3};found_low<=1;end
+           else if(cdf_bin[4]>=lower)begin lowq<={3'b0,compare_addr,3'd4};found_low<=1;end
+           else if(cdf_bin[5]>=lower)begin lowq<={3'b0,compare_addr,3'd5};found_low<=1;end
+           else if(cdf_bin[6]>=lower)begin lowq<={3'b0,compare_addr,3'd6};found_low<=1;end
+           else if(cdf_bin[7]>=lower)begin lowq<={3'b0,compare_addr,3'd7};found_low<=1;end
          end
-         if(!found_high&&rt!=0) begin
-           if(cdf0>=upper) begin highq<={3'b0,compare_addr,2'd0};found_high<=1;end
-           else if(cdf1>=upper) begin highq<={3'b0,compare_addr,2'd1};found_high<=1;end
-           else if(cdf2>=upper) begin highq<={3'b0,compare_addr,2'd2};found_high<=1;end
-           else if(cdf3>=upper) begin highq<={3'b0,compare_addr,2'd3};found_high<=1;end
+         if(!found_high&&rt!=0)begin
+           if(cdf_bin[0]>=upper)begin highq<={3'b0,compare_addr,3'd0};found_high<=1;end
+           else if(cdf_bin[1]>=upper)begin highq<={3'b0,compare_addr,3'd1};found_high<=1;end
+           else if(cdf_bin[2]>=upper)begin highq<={3'b0,compare_addr,3'd2};found_high<=1;end
+           else if(cdf_bin[3]>=upper)begin highq<={3'b0,compare_addr,3'd3};found_high<=1;end
+           else if(cdf_bin[4]>=upper)begin highq<={3'b0,compare_addr,3'd4};found_high<=1;end
+           else if(cdf_bin[5]>=upper)begin highq<={3'b0,compare_addr,3'd5};found_high<=1;end
+           else if(cdf_bin[6]>=upper)begin highq<={3'b0,compare_addr,3'd6};found_high<=1;end
+           else if(cdf_bin[7]>=upper)begin highq<={3'b0,compare_addr,3'd7};found_high<=1;end
          end
-         if(compare_addr==2047) state<=PUBLISH;
+         if(compare_addr==1023)state<=PUBLISH;
        end
        PUBLISH: begin
          result_valid<=1;

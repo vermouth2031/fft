@@ -138,6 +138,7 @@ class Client:
     def control(self,value):return self.request(2,[value])
     def hardware_info(self,detector='threshold'):
         version=self.read(4)[0];rate=self.read(0x10)[0]
+        if version>>16 != 1:raise RuntimeError('Unsupported hardware register/record major version')
         if not rate:raise ValueError('Board sample_rate_hz must be positive')
         capabilities=0
         if version>=DETECTOR_VERSION:
@@ -146,8 +147,31 @@ class Client:
                 raise RuntimeError('Hardware and UDP firmware versions disagree; install the matching BOOT.BIN') from error
         if detector=='digital-zero' and (version<DETECTOR_VERSION or not capabilities&1):
             raise RuntimeError('digital-zero requires hardware version 0x00010001 or newer and capability bit 0; install the matching new BOOT.BIN')
-        return dict(hardware_version=version,hardware_version_hex=f'0x{version:08x}',
+        result=dict(hardware_version=version,hardware_version_hex=f'0x{version:08x}',
             hardware_capabilities=capabilities,sample_rate_hz=rate)
+        if version>=0x00010002:
+            if not capabilities&2:raise RuntimeError('Missing build identity/diagnostic capability')
+            fields=self.read(0x90,7)
+            if fields[5]!=1:raise RuntimeError('Unsupported measurement record format')
+            if fields[4]<=0:raise RuntimeError('Invalid timestamp clock')
+            result.update(build_id=''.join(f'{v:08x}' for v in reversed(fields[:4])),
+                timestamp_clock_hz=fields[4],record_format_version=fields[5],scan_lanes=fields[6],
+                fft_clock_hz=self.read(0x14)[0])
+        else:
+            result.update(timestamp_clock_hz=rate,record_format_version=1,fft_clock_hz=self.read(0x14)[0])
+        return result
+    def diagnostics(self):
+        deadline=time.monotonic()+2
+        while self.read(0x134)[0]!=1:
+            if time.monotonic()>deadline:raise TimeoutError('Clock-domain diagnostic snapshot timeout')
+        sequence=self.read(0x138)[0];d=self.read(0x140,15)
+        if self.read(0x138)[0]!=sequence:raise RuntimeError('Diagnostic snapshot changed during read')
+        pair=lambda i:d[i]|d[i+1]<<32
+        return dict(snapshot_sequence=sequence,issued_samples=pair(0),accepted_samples=pair(2),
+            input_rejected=d[4],input_fifo_high_water=d[5],fft_snapshot_arrival_tick=pair(6),
+            fft_input_samples=pair(8),fft_output_samples=pair(10),fft_output_windows=d[12],
+            result_queue_rejected=d[13],input_underreads=d[14],
+            semantics='Native-domain snapshots at different instants; conservation checked only after STOPPED/drain')
     def configure(self,config,detector='threshold',gap_min=32,hardware=None):
         validate_detector(detector,gap_min)
         info=hardware if hardware is not None else self.hardware_info(detector)
@@ -296,6 +320,12 @@ def capture(args):
         meta.update(source_ticks=counters[0]|counters[1]<<32,input_samples=counters[2]|counters[3]<<32,
           completed_windows=counters[4],hardware_max_latency_cycles=counters[5],hardware_max_publish_latency_cycles=counters[6],
           frequency_queue_dropped=counters[7],burst_queue_dropped=counters[8])
+        if meta['hardware_capabilities']&2:
+            d=client.diagnostics();meta['throughput_diagnostics']=d
+            meta['throughput_conservation_valid']=(d['issued_samples']==d['accepted_samples']==d['fft_input_samples']==
+                d['fft_output_samples']==meta['input_samples']==8192*d['fft_output_windows'] and
+                d['fft_output_windows']==meta['completed_windows'] and 0<d['input_fifo_high_water']<4096 and
+                not(d['input_rejected'] or d['result_queue_rejected'] or d['input_underreads']))
         seq=client.packet_sequences
         # Signed modular distance handles both reordering and 32-bit wrap.
         meta['udp_missing_packet_count']=packet_loss_count(seq)
@@ -305,7 +335,7 @@ def capture(args):
         meta['frequency_sequence_valid']=sorted(ids)==list(range(meta['completed_windows']))
         meta['sample_count_valid']=meta['completed_windows']>0 and meta['input_samples']==8192*meta['completed_windows']
         for key in ('hardware_max_latency','hardware_max_publish_latency'):
-            meta[key+'_us']=cycles_to_us(meta[key+'_cycles'],meta['sample_rate_hz'])
+            meta[key+'_us']=cycles_to_us(meta[key+'_cycles'],meta['timestamp_clock_hz'])
         meta['analysis_deadline_met']=all(0<meta[k]<=2000 for k in ('hardware_max_latency_us','hardware_max_publish_latency_us'))
         meta['record_configuration_valid']=all(words(r)[5]==meta['sample_rate_hz'] and words(r)[4]==meta['config_id']
             for records in (client.frequency,client.bursts) for r in records)
@@ -314,6 +344,7 @@ def capture(args):
             'udp_missing_packet_count','frequency_queue_dropped','burst_queue_dropped')) and all(meta[k] for k in
             ('frequency_sequence_valid','sample_count_valid','analysis_deadline_met','record_configuration_valid','detector_mode_valid'))
         meta['numerical_reference_validation']=dict(status='NOT_RUN',scope='Capture integrity is distinct from numerical reference verification')
+        meta['capture_complete']=meta['capture_complete'] and meta.get('throughput_conservation_valid',True)
         if detector=='digital-zero' and not args.cyclic:
             meta['numerical_reference_validation']=dict(status='FAIL',scope='finite digital-zero reference')
             meta['numerical_reference_validation']=verify_finite_digital_zero(data,client.bursts,gap_min)

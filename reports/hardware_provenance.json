@@ -1,41 +1,45 @@
 {
   "stage": "hardware",
-  "captured_at": "2026-09-21T20:08:46.752526+08:00",
+  "captured_at": "2026-09-22T12:33:17.308607+08:00",
   "inputs": {
+    "build/config/build_identity.json": "2589c5cf50b6801425a589786a3f3b3750c4950ffb1a170322cb92cc55eed696",
     "build/vivado/iq_analyzer.srcs/sources_1/ip/fft8192/fft8192.xci": "f91f1d81f712134a655388d28c17e5151188a261f5804db322d35e8589b57b3b",
-    "constraints/cdc.xdc": "d130b32b8c4fc6cfd313e44970e93f25bfcae8134844530607ddd31d9ce88435",
+    "config/build_profile.json": "76d752714f07b70769ac6a96a4928d8b24a1b8c82b01a05ad6d22ee8f8988296",
+    "constraints/cdc.xdc": "9278180172ecbdf7c64dd87e12e27d471b99532ea6323bd10e3a488f13a95b88",
     "data/hann_u18_f17.mem": "d510b2dc644bc65b50b5b02aadce40adb20946dc8927822df43312cbd4c675bd",
-    "rtl/analyzer_core.sv": "535a6778da1347a4c099f2700d5aaa146bafc269eef97e6637ba30edc4c5e93c",
+    "rtl/analyzer_core.sv": "fc59b4a9f2e959e1a1484b4ed34db35cda10df6319d1746e8a1cef9be4f90eaa",
     "rtl/digital_burst_measure.sv": "30473c5ab0563b7dcd3a8da3f68928e0821f883f677a607662bbd82ca616e4ea",
-    "rtl/iq_peripheral.sv": "c24180dee3973290d6047f9472b0cd37e8487f3ac57d62ffb806b8bb73ae68a2",
+    "rtl/iq_build_config.sv": "8757b7ea3b19326e002f88bc55d84fdd995711c83af407d1397b9f1ef8496dce",
+    "rtl/iq_peripheral.sv": "b95a5f59e3c8b78af13c3a77b4ae7f9e2039a1d93eb61979ff807a9ecdad83df",
     "rtl/math_units.sv": "6260ca3a34251f94e07b488016f1509771fe75af6f443f6f083be8e320dc0e0f",
     "rtl/record_ring.sv": "6c0fef72bc0e7f48a4166f9694b5858009ba1ba15d0ccd039e9a42556b69ac89",
-    "rtl/result_builder.sv": "f18c8311aef6e7e9724a17fa6a5f74d25cf3fdd084125e0be916f684e09a9f14",
+    "rtl/result_builder.sv": "e4b20cbcb1b50bd099f6879b7029773d38c7aa688d2786ca0c1e134ce1f62169",
     "rtl/small_fifo.sv": "ed6f49e0a6f8da1f24549c6d3db628847345488cf1fd8b1aeae123c7398b621b",
-    "rtl/spectrum_measure.sv": "ae16361559a2237783d4c6465a9d0875aeebda515fb52e1ebaf353890a10beb3",
+    "rtl/spectrum_measure.sv": "fcd337dcbc47afd3fa787f0733d078e9f6499b17c4760d5f7f213bda0f7cce39",
     "rtl/time_measure.sv": "2bb6b3bc433d49e9c4aa3205dac1cf36ee48d5f1d21547d67b4c7a84d36d46fd",
     "rtl/window_fft.sv": "97b379df80058e5cc616ca2602fe54e78ee930b97bb911b71298fc8028b47f21",
     "scripts/build_board.tcl": "b7ca1ef89c2ba2b5449ba860c05c84154a82b9894452a0ceb85e4e02d462391b",
     "scripts/create_fft.tcl": "9e26833d0dd2b9b4f5881c7b7bcae13a7f5ad1c0b6bab71ac33b571cc71ac186",
     "scripts/finish_board.tcl": "cde7514f27006555c3aaa5000bd8712e1d37e8a0510bd95ed0b33c777aef446c",
     "scripts/phase3_replication_hook.tcl": "b432cc7ec64bbadb4ae32259f8d61d96ca0b6fff4f5138839429fe725e230e0a",
+    "scripts/phase4_build_config.py": "583a4cf6eef164bbbe793bb2cf0e463598f15da088634078f7540acd3a64442b",
     "scripts/rebuild_board.tcl": "dabd51f5c5295b583f9d0594f6e1f5ca19c30aa6434bb4c9c7108d0a4055cc05",
     "vendor/boards/zybo-z7-20/A.0/board.xml": "650c4ca19979c156f059eee2b2f9a1862cbc1eb25927f2ab1d1904968ab342cc",
     "vendor/boards/zybo-z7-20/A.0/part0_pins.xml": "62a5f2d025828c3a400734e457e75584db43e40e6065a26a4e5351cd50989ad3",
     "vendor/boards/zybo-z7-20/A.0/preset.xml": "f1da413772d4be2d6c2a703ceb54502304840e11fe8fd8c2b02dc450c86335e6"
   },
   "artifacts": {
-    "artifacts/iq_analyzer.bit": "eca5820880274cb7fc2fdddc6d5e409a9295890760521ca18c777e8cbe8732a2",
-    "artifacts/iq_analyzer.xsa": "be0fae3d3462f2c01e70426dac3ad02d34b9080e96d26753136a2ccbab75dc22"
+    "artifacts/iq_analyzer.bit": "5708f4296387465042af7705905c7ea08469ee955042fb4a2191d117483aa1b9",
+    "artifacts/iq_analyzer.xsa": "1736f007a08e1da5edd8ecbf97b4443906a7d240ea3fd5ae5e38b133eca06d89"
   },
   "evidence": {
-    "reports/hardware_validation.json": "8a7e234d5971320b24710e07e3c8f990c120030ffef59bd83dcfcdf7006bdb4d",
-    "reports/timing_summary.rpt": "fd28782a66b9ce436999f021f53da242a67f2936578c65c6c08ba20b8dec0576",
-    "reports/utilization_flat.rpt": "184a956d239699dfd0e12cd16449339b37e4f141dae4b157fa9462105d7c5acb",
-    "reports/cdc.rpt": "8e20bec8b3267d6d77893cfb114db90e595fbb4c2f75ac36ab8880571aefccb1",
-    "reports/drc.rpt": "bf61984525dc0bbd81936e52ff69fe8370b4ba07b55f6ebf1b404b2ae4acc170",
-    "reports/bus_skew.rpt": "9c2d83b919ff8218b94ce3404cf2c59b402739858e2331c95df16b57a47273f7",
-    "reports/worst_paths.rpt": "e2f4a2877b68b95e5c40aaae0eaa2aefc1f348eca686116ccee34274c83a1b47"
+    "reports/hardware_validation.json": "f36ce23599379a4fa3891c9f97a352085e016f172eaefe6cdc1fb42c5ede349e",
+    "reports/timing_summary.rpt": "55df260317dd8d530565bb182b5a4cb4f55d3b5a4d7776debde060ce2f10b33e",
+    "reports/utilization_flat.rpt": "aff3256febef38e29976b60febda2ec0fbbafc516f0543573255174738f0d234",
+    "reports/cdc.rpt": "ec0e0c9de9f4dfdd833733f1b3e43d1da7bfd74e52c14a93938c6e52c5ec176f",
+    "reports/drc.rpt": "112c6e0d45c48e4ab2983e0bc6d2861bb78a3a7b52326070e69bba5113786b6d",
+    "reports/bus_skew.rpt": "c980be04cc7b861df165f400e82c0eb32e801d9f6973734356b2b027cf55cedf",
+    "reports/worst_paths.rpt": "f4240416746d58c20dc28ea2907201bc7c57ef8f61d77bd1f04a9c03069a1908"
   },
   "scope": "Completed build stage; does not assert board validation"
 }

@@ -27,6 +27,8 @@ from verify_board_capture import verify as verify_capture, require
 from package_release import check as check_build
 from package_validated import check_board
 from record_boot_stage import verify_boot
+from phase4_identity import check_identity
+from build_rates import FFT_CLOCK_HZ
 
 
 def read(path):
@@ -42,7 +44,9 @@ def bindings():
              'tests/generate_iq_vectors.py', 'tests/frame_length_reference.py',
              'scripts/validate_measurements.py', 'scripts/verify_board_capture.py',
              'scripts/qualification_capture.py','tests/threshold_reference.py','tests/detection_metrics.py',
-             'scripts/create_fft.tcl', 'host/iq_client.py', 'host/threshold_config.py', 'data/vectors/hann_u18_f17.mem']
+             'scripts/create_fft.tcl', 'host/iq_client.py', 'host/threshold_config.py', 'data/vectors/hann_u18_f17.mem',
+             'scripts/phase4_identity.py', 'scripts/phase4_build_config.py',
+             'config/build_profile.json', 'build/config/build_identity.json', 'host/build_rates.py']
     return {str((ROOT / name).resolve()): digest(ROOT / name) for name in files}
 
 
@@ -161,15 +165,15 @@ def configuration(board, port):
 def verify_configuration(folder, case, mode):
     actual, meta = read(Path(folder)/'configuration.json'), read(Path(folder)/'capture.json')
     d = case['applied_detector']
-    expected = [FS, 125000000, N, case['samples'], 0, int(case['replay']=='cyclic'), int(mode=='hann'), 0, N-1,
+    expected = [FS, FFT_CLOCK_HZ, N, case['samples'], 0, int(case['replay']=='cyclic'), int(mode=='hann'), 0, N-1,
                 d['ton']&0xffffffff, d['ton']>>32, d['toff']&0xffffffff, d['toff']>>32, d['kon'], d['koff'], d['max_burst_samples']]
     require(actual['registers'] == expected, 'Actual register configuration mismatch')
     require(actual['detector'] == [iq_client.DETECTOR_MODES[d['mode']], d['gap_min']], 'Actual detector mismatch')
     require(actual['config_id'] == meta['config_id'] and actual['epoch'] == meta['epoch'],
             'Readback belongs to a different capture')
     require(actual['state'] & 7 == 0, 'Readback requires completed finite capture')
-    require(actual['hardware']['hardware_version'] == meta['hardware_version'] == 0x00010001,
-            'Unexpected hardware identity')
+    check_identity(actual['hardware'])
+    check_identity(meta)
 
 
 def error_rows(folder, case, oracle):
@@ -266,7 +270,8 @@ def capture_matrix(index_path, out, board, port):
     try:
         info = configuration(board, port)
         require(info['state'] & 7 == 0, 'Another controller is running the board')
-        require(info['hardware']['hardware_version']==0x00010001, 'Unqualified hardware version')
+        check_identity(info['hardware'])
+        require(info['hardware'] == accepted['hardware'], 'Hardware differs from board acceptance')
         report['initial_hardware'] = info
         save(out/'measurement_validation.json', report)
         # Gate each new matrix by fresh finite captures of all 16 legacy combinations.

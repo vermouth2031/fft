@@ -8,12 +8,15 @@ import ctypes as C
 import hashlib
 import math
 import os
+import sys
 from pathlib import Path
 import zipfile
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-N, FS = 8192, 100_000_000
+sys.path.insert(0,str(ROOT/'host'))
+from build_rates import SAMPLE_RATE_HZ
+N, FS = 8192, SAMPLE_RATE_HZ
 SCALE = (3, 2, 2, 2, 2, 2, 1)
 
 
@@ -60,7 +63,7 @@ def checked_iq(iq):
 class FFTReference:
     def __init__(self, *, sample_rate_hz=FS, vivado=None, model_dir=None, hann_path=None):
         if sample_rate_hz != FS:
-            raise ValueError('Only the actual 100 MSPS configuration is supported')
+            raise ValueError('Reference rate must match the selected build profile')
         self.state = None
         self.dll_dir = None
         vivado = Path(vivado or os.environ.get('VIVADO_ROOT', r'D:\VivadoMM\2026.1\Vivado'))

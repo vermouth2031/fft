@@ -19,6 +19,7 @@ function Run-Vivado([string]$Script) {
  & (Join-Path $VivadoRoot 'bin\vivado.bat') -mode batch -notrace -nojournal -log $logName -source $Script
  if($LASTEXITCODE -ne 0){throw "Vivado failed: $Script (see $logName)"}
 }
+Run-Python -Arguments @('scripts/phase4_build_config.py')
 if($Action -in @('All','Reference')) {
  Run-Python -Arguments @('-X','utf8','tests/generate_iq_vectors.py')
  Run-Python -Arguments @('tests/make_golden.py')

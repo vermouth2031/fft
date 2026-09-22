@@ -43,7 +43,7 @@ static int load_vector(unsigned v,unsigned *samples){
     *samples=size/4;return 0;
 }
 static int capture(const char *run,unsigned c){
-    char dir[64],path[96],meta[1024];unsigned samples=0,v=c%8,mode=c/8;
+    char dir[64],path[96],meta[1536];unsigned samples=0,v=c%8,mode=c/8;
     if((rd(8)&7)!=0)return 40;
     int e=load_vector(v,&samples);if(e)return e;
     wr(0x1c,samples);wr(0x20,0);wr(0x24,0);wr(0x28,mode);
@@ -59,6 +59,8 @@ static int capture(const char *run,unsigned c){
     for(poll=0;poll<100000;poll++){if((rd(8)&7)==0)break;}
     if(poll==100000){wr(0xc,4);return 42;}
     wr(0x100,1);
+    for(poll=0;poll<100000;poll++){if((rd(0x134)&3)==1)break;}
+    if(poll==100000)return 47;
     uint32_t nf=rd(0x50),nb=rd(0x58),errors=rd(0x60),snap=rd(0x7c),snap_id=rd(0x80);
     if(nf>4||nb>128)return 43;
     snprintf(dir,sizeof dir,"%s/C%02u",run,c);if(f_mkdir(dir)!=FR_OK)return 44;
@@ -69,14 +71,27 @@ static int capture(const char *run,unsigned c){
     unsigned complete=rate&&!errors&&nf==samples/8192&&rd(0x118)==samples&&rd(0x11c)==0&&rd(0x120)==nf&&
         rd(0x12c)==0&&rd(0x130)==0&&rd(0x124)>0&&rd(0x128)>0&&
         (uint64_t)rd(0x124)*1000<=(uint64_t)rate*2&&(uint64_t)rd(0x128)*1000<=(uint64_t)rate*2;
+    complete=complete&&rd(0x140)==samples&&!rd(0x144)&&rd(0x148)==samples&&!rd(0x14c)&&
+        rd(0x160)==samples&&!rd(0x164)&&rd(0x168)==samples&&!rd(0x16c)&&rd(0x170)==nf&&
+        !rd(0x150)&&!rd(0x174)&&!rd(0x178)&&rd(0x154)>0&&rd(0x154)<4096;
     int len=snprintf(meta,sizeof meta,
         "{\n\"source\":\"Zybo SD board capture\",\"case\":%u,\"vector\":\"%s\",\"window\":\"%s\","
         "\"sample_rate_hz\":%u,\"hardware_version\":%u,\"detector_mode\":\"threshold\",\"gap_min\":32,"
+        "\"hardware_capabilities\":%u,\"timestamp_clock_hz\":%u,\"fft_clock_hz\":%u,"
+        "\"record_format_version\":%u,\"scan_lanes\":%u,\"build_id\":\"%08x%08x%08x%08x\","
+        "\"issued_samples\":%u,\"accepted_samples\":%u,\"fft_input_samples\":%u,\"fft_output_samples\":%u,"
+        "\"fft_output_windows\":%u,\"input_fifo_high_water\":%u,\"input_rejected\":%u,"
+        "\"result_queue_rejected\":%u,\"input_underreads\":%u,"
         "\"input_samples\":%u,\"epoch\":%u,\"config_id\":%u,"
         "\"frequency_records\":%u,\"burst_records\":%u,\"error_status\":%u,"
         "\"hardware_max_latency_cycles\":%u,\"hardware_max_publish_latency_cycles\":%u,"
         "\"snapshot_valid\":%s,\"snapshot_window\":%u,\"capture_complete\":%s\n}\n",
-        c,names[v],mode?"hann":"rect",(unsigned)rate,(unsigned)rd(4),samples,(unsigned)rd(0x68),(unsigned)rd(0x6c),
+        c,names[v],mode?"hann":"rect",(unsigned)rate,(unsigned)rd(4),
+        (unsigned)rd(0x8c),(unsigned)rd(0xa0),(unsigned)rd(0x14),(unsigned)rd(0xa4),(unsigned)rd(0xa8),
+        (unsigned)rd(0x9c),(unsigned)rd(0x98),(unsigned)rd(0x94),(unsigned)rd(0x90),
+        (unsigned)rd(0x140),(unsigned)rd(0x148),(unsigned)rd(0x160),(unsigned)rd(0x168),
+        (unsigned)rd(0x170),(unsigned)rd(0x154),(unsigned)rd(0x150),(unsigned)rd(0x174),(unsigned)rd(0x178),
+        samples,(unsigned)rd(0x68),(unsigned)rd(0x6c),
         (unsigned)nf,(unsigned)nb,(unsigned)errors,(unsigned)rd(0x124),(unsigned)rd(0x128),
         (snap&1)?"true":"false",(unsigned)snap_id,complete?"true":"false");
     if(len<0||(unsigned)len>=sizeof meta)return 45;
@@ -88,8 +103,10 @@ static int capture(const char *run,unsigned c){
 }
 int main(void){
     Xil_ICacheEnable();Xil_DCacheEnable();
-    xil_printf("\r\nIQ analyzer SD acceptance capture / 100 MSPS / FFT8192\r\n");
+    xil_printf("\r\nIQ analyzer SD acceptance capture / sample_rate=%u Hz / FFT=%u\r\n",rd(0x10),rd(0x18));
     if(rd(0)!=0x49514131U){xil_printf("FAIL: wrong PL design\r\n");return 1;}
+    if((rd(4)>>16)!=1||rd(4)<0x00010002U||!(rd(0x8c)&2)){
+        xil_printf("FAIL: build identity and throughput counters required\r\n");return 6;}
     FRESULT e=f_mount(&fs,"0:/",1);
     if(e!=FR_OK){xil_printf("FAIL: FAT mount=%u; use FAT32 SD\r\n",e);return 2;}
     char run[32];FILINFO info;unsigned id;

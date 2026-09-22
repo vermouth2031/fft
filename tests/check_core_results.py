@@ -1,6 +1,7 @@
 from pathlib import Path
 import argparse,json,math
 import numpy as np
+from fft_reference import FS
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('--partial',action='store_true');args=parser.parse_args()
 gold=json.loads((ROOT/'data/golden_results.json').read_text())['cases']
@@ -21,9 +22,9 @@ for line in path.read_text().splitlines():
           energy=u64(27),peak_uq16_16=w[21],rms_uq16_16=w[22])
         for field,value in e.items():assert actual[field]==value,(key,field,actual[field],value)
         flags=(1 if e['total']==0 else 0)|(32 if e['total'] and e['q_low']==e['q_high'] else 0)|(16 if e['total'] and (e['q_low']==0 or e['q_high']==8191) else 0)
-        assert w[0]==0x46525131 and w[1]==flags and w[5]==100000000 and w[13]==8192
+        assert w[0]==0x46525131 and w[1]==flags and w[5]==FS and w[13]==8192
         assert u64(6)==w[3]*8192 and u64(10)-u64(8)==w[12]
-        assert 0<w[12]<=200000
+        assert 0<w[12]*1000<=FS*2
         latencies.append(w[12])
     elif kind=='B':
         expected=gold[c]['bursts'][len(bursts.get(c,[]))].copy()
@@ -40,7 +41,7 @@ if not args.partial:
     for c,g in enumerate(gold):assert len(bursts.get(c,[]))==len(g['bursts']),(c,'burst count')
 report=dict(status='PARTIAL' if args.partial else 'PASS',frequency_records=len(seen),burst_records=sum(map(len,bursts.values())),
   exact_fft_points=len(seen)*8192,maximum_analysis_latency_cycles=max(latencies,default=0),
-  maximum_analysis_latency_us=max(latencies,default=0)/100,oracle='AMD FFT bit-accurate C model + independent integer time/burst reference')
+  maximum_analysis_latency_us=max(latencies,default=0)*1e6/FS,oracle='AMD FFT bit-accurate C model + independent integer time/burst reference')
 print(json.dumps(report,indent=2))
 if not args.partial:
     (ROOT/'reports').mkdir(exist_ok=True)

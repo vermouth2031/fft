@@ -17,7 +17,7 @@ def validate_case(case):
     if not re.fullmatch(r'[a-z0-9_]+', case['id']):
         raise ValueError('Case id must contain lowercase letters, digits and underscores')
     if case['sample_rate_hz'] != FS or case['fft_length'] != N:
-        raise ValueError('Only 100 MSPS / 8192-point FFT is supported')
+        raise ValueError('Sample rate and FFT length must match the selected build profile')
     if case['samples'] not in (8192, 16384, 24576, 32768) or case['replay'] not in ('finite','cyclic'):
         raise ValueError('Only whole-window replay up to 32768 pairs is supported')
     if case['replay']=='cyclic' and (case.get('seconds') not in (10,60) or case.get('seam')!='quiet'):

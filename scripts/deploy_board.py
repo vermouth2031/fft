@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "host"))
 from iq_client import Client
 from package_release import check
 from record_build_stage import sha
+from phase4_identity import check_identity
 
 
 def main():
@@ -49,6 +50,7 @@ def main():
             client = Client(args.board)
             try:
                 info = client.hardware_info("digital-zero")
+                check_identity(info)
                 state, errors = client.read(8)[0] & 7, client.read(0x60)[0]
                 if state or errors:
                     raise RuntimeError(f"Loaded design is not idle/clean: state={state}, errors={errors}")

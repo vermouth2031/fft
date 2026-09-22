@@ -45,7 +45,7 @@ module tb_core;
      end
      if(dut.sm.v[2]&&dut.sm.l[2])$fwrite(latency_fd,"%0d,%0d,bank_ready,%0.3f\n",c,dut.sm.frame,$realtime);
      if(dut.sm.scan_request&&dut.sm.request_count==0)$fwrite(latency_fd,"%0d,%0d,scan_first,%0.3f\n",c,dut.sm.rid,$realtime);
-     if(dut.sm.state==3&&dut.sm.compare_valid&&dut.sm.compare_addr==2047)
+     if(dut.sm.state==3&&dut.sm.compare_valid&&dut.sm.compare_addr==1023)
        $fwrite(latency_fd,"%0d,%0d,scan_last,%0.3f\n",c,dut.sm.rid,$realtime);
      if(dut.sm.state==4)$fwrite(latency_fd,"%0d,%0d,scan_result,%0.3f\n",c,dut.sm.rid,$realtime);
    end
@@ -83,6 +83,9 @@ module tb_core;
      @(negedge src_clk);finish=0;
      wait(results==4);repeat(600)@(negedge src_clk);
      if(samples!=32768)$fatal(1,"sample count");
+     if(dut.accepted_samples!=32768||dut.fft_input_samples!=32768||dut.fft_output_samples!=32768||
+        dut.fft_output_windows!=4||dut.input_rejected!=0||dut.result_queue_rejected!=0||dut.input_high_water>=4096)
+       $fatal(1,"Throughput counters or FIFO high-water mismatch");
      $display("CASE_PASS case=%0d fft_frames=%0d results=%0d latency_cycles=%0d",c,frame_out,results,max_latency);
    end
    $fclose(fd);$fclose(latency_fd);$display("CORE_PASS cases=16 exact_fft_points=524288 frequency_records=%0d",total_results);$finish;

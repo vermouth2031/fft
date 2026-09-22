@@ -1,0 +1,156 @@
+{
+  "schema": "iq-phase4-existing-hardware-experiments-v1",
+  "status": "PASS",
+  "scope": "Completed Q2 board experiments and Q6 offline baseline; Q3/Q4/Q5 hardware candidates are NOT promoted by this report",
+  "baseline_commit": "f871b999d642e7d4a76a070b7b48b48d3790073c",
+  "hardware": {
+    "hardware_version": 65537,
+    "hardware_version_hex": "0x00010001",
+    "hardware_capabilities": 1,
+    "sample_rate_hz": 100000000
+  },
+  "evidence": {
+    "captures/phase4_ofdm_20260922/finite/measurement_validation.json": "b62762db7e219040c67edeca7eeef6b513c2377b61b4c07ff57115726a9ffc88",
+    "captures/phase4_ofdm_20260922/boundary/measurement_validation.json": "cbc6b70214b0b7248aeccbe49f067db2207435498b4262b319ffdca2c532dd08",
+    "captures/phase4_ofdm_20260922/continuous/measurement_validation.json": "94dfb9c50467bcefa4d9215f66bc9138c5d937faa32ca1b1ace3ed2d7dbeb05c",
+    "captures/phase4_noise_20260922/measurement_validation.json": "1b54e6be79b7c7278b4d11f53eb217ed977c3a581ded1a1e79adf247d18c49d1",
+    "build/phase4_noise_20260922/study.json": "089b052b0c3c12107af1ea4a24db716fbfad73d553592da8223ec6597c6422a8",
+    "build/phase4_frequency_20260922_v2/study.json": "36615a22425a7cf9ce7ac90d7b58e606190cfa8023fb58ca39dc65bb1522584b",
+    "reports/phase4_baseline.json": "96d119ccaab4257af9163edbd4c05d6d7e25ef844b7a175e95c0ccaa6b48e58d",
+    "reports/phase4_requirements.json": "c25bb146c578fd14262eb26519de8c30761fd6e39555d1f97c91f7195843ec87"
+  },
+  "bandwidth": {
+    "b85_qpsk_rect": {
+      "internal_windows": 40,
+      "min_hz": 84033203,
+      "median_hz": 84130859.0,
+      "p95_hz": 84204712.35,
+      "max_hz": 84228516
+    },
+    "b85_qpsk_hann": {
+      "internal_windows": 40,
+      "min_hz": 84020996,
+      "median_hz": 84136962.5,
+      "p95_hz": 84204102.0,
+      "max_hz": 84252930
+    },
+    "b85_qam16_rect": {
+      "internal_windows": 40,
+      "min_hz": 83972168,
+      "median_hz": 84155273.0,
+      "p95_hz": 84302368.35,
+      "max_hz": 84350586
+    },
+    "b85_qam16_hann": {
+      "internal_windows": 40,
+      "min_hz": 83959961,
+      "median_hz": 84167480.0,
+      "p95_hz": 84267578.4,
+      "max_hz": 84350586
+    },
+    "b90_qpsk_rect": {
+      "internal_windows": 40,
+      "min_hz": 89001465,
+      "median_hz": 89135742.0,
+      "p95_hz": 89211425.45,
+      "max_hz": 89282227
+    },
+    "b90_qpsk_hann": {
+      "internal_windows": 40,
+      "min_hz": 88964844,
+      "median_hz": 89099121.0,
+      "p95_hz": 89172973.35,
+      "max_hz": 89208984
+    },
+    "b90_qam16_rect": {
+      "internal_windows": 40,
+      "min_hz": 88964844,
+      "median_hz": 89129638.5,
+      "p95_hz": 89246215.4,
+      "max_hz": 89282227
+    },
+    "b90_qam16_hann": {
+      "internal_windows": 40,
+      "min_hz": 88830566,
+      "median_hz": 89123535.0,
+      "p95_hz": 89246825.75,
+      "max_hz": 89294434
+    },
+    "b95_qpsk_rect": {
+      "internal_windows": 40,
+      "min_hz": 93920898,
+      "median_hz": 94042969.0,
+      "p95_hz": 94129638.7,
+      "max_hz": 94152832
+    },
+    "b95_qpsk_hann": {
+      "internal_windows": 40,
+      "min_hz": 93908691,
+      "median_hz": 94055176.0,
+      "p95_hz": 94153442.35,
+      "max_hz": 94189453
+    },
+    "b95_qam16_rect": {
+      "internal_windows": 40,
+      "min_hz": 93859863,
+      "median_hz": 94024658.5,
+      "p95_hz": 94152832.0,
+      "max_hz": 94189453
+    },
+    "b95_qam16_hann": {
+      "internal_windows": 40,
+      "min_hz": 93786621,
+      "median_hz": 94042969.0,
+      "p95_hz": 94190063.35,
+      "max_hz": 94226074
+    }
+  },
+  "finite_cases": 240,
+  "boundary_cases": 24,
+  "continuous_cases": 7,
+  "continuous_replay_seconds": 460,
+  "noise_board_cases": 9,
+  "legacy_check_cases": 64,
+  "maximum_analysis_us": 183.41,
+  "maximum_publish_us": 183.75,
+  "unique_noise_seconds": 1.03317504,
+  "post_calibration_noise_seconds": 1.00088832,
+  "noise_strata": [
+    {
+      "component_std_codes": 256,
+      "unique_blocks": 1051,
+      "unique_seconds": 0.34439168,
+      "post_calibration_seconds": 0.33362944,
+      "false_events": 0,
+      "post_calibration_false_events": 0,
+      "poisson_95_upper_per_second_if_model_applicable": 8.979220399596603
+    },
+    {
+      "component_std_codes": 1024,
+      "unique_blocks": 1051,
+      "unique_seconds": 0.34439168,
+      "post_calibration_seconds": 0.33362944,
+      "false_events": 0,
+      "post_calibration_false_events": 0,
+      "poisson_95_upper_per_second_if_model_applicable": 8.979220399596603
+    },
+    {
+      "component_std_codes": 4096,
+      "unique_blocks": 1051,
+      "unique_seconds": 0.34439168,
+      "post_calibration_seconds": 0.33362944,
+      "false_events": 0,
+      "post_calibration_false_events": 0,
+      "poisson_95_upper_per_second_if_model_applicable": 8.979220399596603
+    }
+  ],
+  "frequency_study_cases": 900,
+  "frequency_half_bin_cases": 280,
+  "tone_offline_candidate": {
+    "valid": true,
+    "p95_error_bins": 0.015655045876327513,
+    "target_met": true,
+    "production_exposed": false
+  },
+  "official_additional_definitions_confirmed": false
+}

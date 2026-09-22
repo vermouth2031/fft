@@ -4,11 +4,12 @@ import copy
 import json
 from pathlib import Path
 from generate_qualification_vectors import DEFAULT_DETECTOR
+from fft_reference import FS,N
 
 
 def case(label, signal, *, intervals=None, seed=None, category='integer-tone', windows=None,
          snr=None, offset=(0,0), policy='fixed', detector='threshold', seconds=None, group=None):
-    result=dict(id=label,category=category,sample_rate_hz=100000000,fft_length=8192,samples=32768,
+    result=dict(id=label,category=category,sample_rate_hz=FS,fft_length=N,samples=32768,
         replay='cyclic' if seconds else 'finite',windows=windows or ['rect','hann'],
         detector=dict(DEFAULT_DETECTOR,mode=detector),seed=seed,noise={'kind':'none'} if snr is None else {'kind':'awgn','snr_db':snr},
         offset_iq=list(offset),design_intervals=intervals if intervals is not None else [[0,32768]],signal=signal,

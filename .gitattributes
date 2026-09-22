@@ -33,3 +33,20 @@ tests/generate_iq_vectors.py -text
 .gitattributes text eol=lf
 rtl/spectrum_measure.sv text eol=crlf
 tests/tb_core.sv text eol=crlf
+
+# Preserve the exact tested Phase 4 source bytes in checkouts and Git archives.
+rtl/analyzer_core.sv -text
+rtl/iq_build_config.sv -text
+rtl/iq_peripheral.sv -text
+rtl/result_builder.sv -text
+rtl/spectrum_measure.sv -text
+firmware/echo.c -text
+tests/tb_axi.sv -text
+tests/tb_core.sv -text
+tests/tb_spectrum_edges.sv -text
+scripts/analyze_latency.py -text
+scripts/record_build_stage.py -text
+scripts/sim_builder.tcl -text
+scripts/run.ps1 -text
+config/build_profile.json -text
+scripts/phase4_* -text

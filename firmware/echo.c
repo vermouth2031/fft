@@ -40,6 +40,10 @@ static int readable(uint32_t o){
     case 0x50:case 0x54:case 0x58:case 0x5c:case 0x60:case 0x68:case 0x6c:
     case 0x7c:case 0x80:case 0x110:case 0x114:case 0x118:case 0x11c:
     case 0x120:case 0x124:case 0x128:case 0x12c:case 0x130:return 1;
+    case 0x90:case 0x94:case 0x98:case 0x9c:case 0xa0:case 0xa4:case 0xa8:
+    case 0x134:case 0x138:case 0x140:case 0x144:case 0x148:case 0x14c:
+    case 0x150:case 0x154:case 0x158:case 0x15c:case 0x160:case 0x164:
+    case 0x168:case 0x16c:case 0x170:case 0x174:case 0x178:return rd(4)>=0x00010002U;
     case 0x84:case 0x88:case 0x8c:return rd(4)>=DETECTOR_VERSION;
     default:return 0;
     }
@@ -100,7 +104,10 @@ static void receive(void *arg,struct udp_pcb *up,struct pbuf *p,const ip_addr_t 
         }
     }else if(type==5){ /* counters latch; snapshot request/release */
         if(bytes!=20||count!=1)error=1;
-        else if(rx[4]==0)wr(0x100,1);
+        else if(rx[4]==0){
+            if(rd(4)>=0x00010002U && (rd(0x134)&2))error=3;
+            else wr(0x100,1);
+        }
         else if(rx[4]==1 && rd(0x7c)==0)wr(0x78,1);
         else if(rx[4]==2)wr(0x78,2);
         else error=3;
@@ -109,7 +116,7 @@ static void receive(void *arg,struct udp_pcb *up,struct pbuf *p,const ip_addr_t 
     tx[3]=nout;cached_length=16+4*nout;memcpy(cached,tx,cached_length);
     last_command=seq;have_last=1;send_bytes(cached,cached_length);
 }
-void print_app_header(void){xil_printf("\r\nIQ analyzer: UDP 5001, 100 MSPS, FFT8192\r\n");}
+void print_app_header(void){xil_printf("\r\nIQ analyzer: UDP 5001, sample_rate=%u Hz, FFT=%u\r\n",rd(0x10),rd(0x18));}
 int start_application(void){
     if(rd(0)!=0x49514131U){xil_printf("Analyzer magic mismatch\r\n");return -1;}
     pcb=udp_new_ip_type(IPADDR_TYPE_V4);if(!pcb)return -1;

@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from iq_client import capture,decode_record,cycles_to_us,validate_detector,LENGTH_SEMANTICS
 from threshold_config import resolve as resolve_threshold
+from build_rates import SAMPLE_RATE_HZ
 ROOT=Path(__file__).resolve().parents[1]
 
 def enable_dpi_awareness():
@@ -28,7 +29,7 @@ class Monitor:
         self.quiet_samples=tk.StringVar(value='1024')
         self.threshold_values={name:tk.StringVar(value='') for name in ('ton','toff','kon','koff')}
         self.cyclic=tk.BooleanVar(value=True)
-        self.sample_rate_hz=100000000
+        self.sample_rate_hz=SAMPLE_RATE_HZ
         form=ttk.Frame(root,padding=12);form.pack(fill='x')
         for col,(label,var,width) in enumerate([('板卡 IP',self.board,18),('持续秒数',self.seconds,8)]):
             ttk.Label(form,text=label).grid(row=0,column=col*2,padx=4)
@@ -62,7 +63,7 @@ class Monitor:
             ttk.Entry(manual_form,textvariable=self.threshold_values[name],width=11).pack(side='left')
         ttk.Label(manual_form,text='留空使用档位参数；ton/toff 为16点能量，kon/koff 为点数').pack(side='left',padx=6)
         form.columnconfigure(4,weight=1)
-        self.status=tk.StringVar(value='等待连接。100 MSPS / 8192 点；展示数值来自 PL。')
+        self.status=tk.StringVar(value='等待连接。输入为板内预装载回放，I/Q 各 16bit；采集后显示实际速率与配置。')
         status_label=ttk.Label(root,textvariable=self.status,padding=12,wraplength=1050);status_label.pack(fill='x')
         root.bind('<Configure>',lambda e:status_label.configure(wraplength=max(500,e.width-30)) if e.widget is root else None)
         self.metrics=tk.StringVar(value='幅度、波形长度、频率、99% 带宽和处理延迟将在采集后显示。长度测量不识别通信协议帧。')
@@ -129,7 +130,8 @@ class Monitor:
                 final_text+=f"\n实际门限 ton/toff={d['ton']}/{d['toff']}，确认 kon/koff={d['kon']}/{d['koff']} 点"
         self.metrics.set(
           f"RMS {r['rms_codes']:.3f}  峰值 {r['peak_codes']:.3f}  |  峰频率 {r['peak_hz']/1e6:.6f} MHz\n"
-          f"99% 带宽 {r['bandwidth_hz']/1e6:.6f} MHz  中心 {r['bandcenter_hz']/1e6:.6f} MHz  |  延迟 {r['latency_us']:.2f} µs\n"
+          f"99% 带宽 {r['bandwidth_hz']/1e6:.6f} MHz  带宽中心 {r['bandcenter_hz']/1e6:.6f} MHz  |  PL 分析延迟 {r['latency_us']:.2f} µs\n"
+          f"板内回放 I16/Q16  |  {r['sample_rate_hz']/1e6:g} M 对 IQ/秒  |  FFT {r['fft_length']} 点  |  窗 {r['window']}\n"
           f"窗口 {r['id']}  已收频域 {u['frequency_records']} / 突发 {u['burst_records']}  |  标志 {', '.join(r['flags']) or '无'}\n{burst_text}{final_text}")
         shot=u.get('snapshot')
         if shot:

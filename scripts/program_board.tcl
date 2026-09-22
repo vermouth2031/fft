@@ -13,6 +13,9 @@ fpga -file $root/artifacts/iq_analyzer.bit
 source $root/artifacts/ps7_init.tcl
 ps7_init
 ps7_post_config
+# Enter the standalone ELF from reset processor state, not a prior exception.
+rst -processor -stop
+puts "JTAG_PROCESSOR_RESET_BEFORE_ELF"
 dow $root/artifacts/iq_udp.elf
 con
 puts "Firmware started. UART 115200 8N1; board IP 192.168.1.10; UDP port 5001."
