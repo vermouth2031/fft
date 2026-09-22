@@ -35,6 +35,17 @@ def summarize(root,reverify=True):
             burst_records=sum(c['burst_records'] for c in report['cases']),
             maximum_analysis_us=max(c['maximum_analysis_us'] for c in report['cases']),
             maximum_publish_us=max(c['maximum_publish_us'] for c in report['cases'])))
+        if stage=='wide_continuous':
+            bandwidth=[]
+            for case in report['cases']:
+                records=np.fromfile(Path(case['folder'])/'frequency.bin',dtype='<u4').reshape(-1,32)
+                require(len(records)==case['frequency_records'],'Wide capture length changed')
+                normal=records[records[:,1]==0,17]
+                require(len(normal)>0,'No normal wideband records')
+                bandwidth.append(dict(label=case['label'],normal_records=len(normal),
+                    flagged_records=int(np.count_nonzero(records[:,1])),
+                    minimum_hz=int(normal.min()),median_hz=float(np.median(normal)),maximum_hz=int(normal.max())))
+            stages[-1]['bandwidth']=bandwidth
         print('PHASE3_STAGE_VERIFIED',stage,expected,flush=True)
     detection=[]
     for (stage,name),rows in sorted(groups.items()):
@@ -107,8 +118,24 @@ def main():
     result=summarize(a.captures)
     campaign=a.captures.resolve()/'campaign.json'
     if campaign.exists():
-        require(read(campaign)['status']=='PASS','Campaign did not complete')
+        campaign_data=read(campaign)
+        require(campaign_data['status']=='PASS','Campaign did not complete')
         result['evidence'][campaign.relative_to(ROOT).as_posix()]=sha(campaign)
+        for row in campaign_data['stages']:
+            log=Path(row['log'])
+            require(row['status']=='PASS' and sha(log)==row['log_sha256'],'Campaign stage log changed')
+            result['evidence'][log.relative_to(ROOT).as_posix()]=sha(log)
+        if 'recovery' in campaign_data:
+            recovery=campaign_data['recovery']
+            deployment_path=Path(recovery['deployment']);deployment=read(deployment_path)
+            require(sha(deployment_path)==recovery['deployment_sha256'] and deployment['status']=='PASS','Recovery deployment changed')
+            require(deployment['artifacts']==read(ROOT/'reports/current_deployment.json')['artifacts'],'Recovered different artifacts')
+            log=Path(deployment['log'])
+            require(sha(log)==deployment['log_sha256'],'Recovery deployment log changed')
+            prior=campaign.parent/'campaign_interrupted_20260921.json'
+            require(sha(prior)==recovery['prior_campaign_sha256'],'Interrupted campaign record changed')
+            for item in (deployment_path,log,prior,campaign.parent/'wide_continuous_interrupted_20260921.log'):
+                result['evidence'][item.relative_to(ROOT).as_posix()]=sha(item)
     for directory in ('build/phase3_training_20260921','build/phase3_detector_study_20260921',
                       'build/phase3_background_study_20260921','build/phase3_clock_feasibility_20260921',
                       'build/phase3_clock_feasibility_final_20260921','build/phase3_baseline_20260921',
@@ -117,6 +144,7 @@ def main():
             if path.is_file():result['evidence'][path.relative_to(ROOT).as_posix()]=sha(path)
     for name in ('reports/第三阶段完整验收报告.md','reports/第三阶段条件性优化决策.md',
                  'reports/phase2_latency_validation.json','reports/phase3_candidate_import.json','reports/phase3_reference_regeneration.json',
+                 'reports/phase3_source_checkout_validation.json',
                  'build/phase3_qualification_20260921/independent_offline_validation.json'):
         path=ROOT/name
         if path.is_file():result['evidence'][name]=sha(path)

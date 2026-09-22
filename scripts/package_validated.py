@@ -186,7 +186,9 @@ def main():
                 require(directory.resolve().is_relative_to(ROOT),'Phase 3 evidence outside project')
                 extra_files.update(p for p in directory.rglob('*') if p.is_file()
                     and p.name not in ('frequency.json','frequency.csv','burst.json','burst.csv'))
-        for name in ('第三阶段完整验收报告.md','第三阶段条件性优化决策.md','参赛演示提纲.md'):
+        for name in ('第三阶段完整验收报告.md','第三阶段条件性优化决策.md','参赛演示提纲.md',
+                     '第二阶段测量与性能报告.md','第二阶段完整验收报告.md','第二阶段性能优化决策.md',
+                     'qualification_tool_validation.json'):
             path=ROOT/'reports'/name
             require(path.is_file(),'Missing Phase 3 report: '+name)
             extra_files.add(path)
@@ -314,8 +316,9 @@ def main():
                               "snapshot.json", "measurement_validation.json"):
                 add(path)
     start = out / "START_HERE.md"
+    acceptance = '第三阶段完整验收报告.md' if phase3_report else '本轮优化验收报告.md'
     start.write_text(
-        "# 已验证工程交付\n\n先阅读 README.md、reports/本轮优化验收报告.md 和 reports/冷启动验证报告.md。\n\n"
+        f"# 已验证工程交付\n\n先阅读 README.md、reports/{acceptance} 和 reports/冷启动验证报告.md。\n\n"
         "本包源于当前完整仿真、静态时序、软件构建和双模式实板数值验收。\n"
         "100MSPS为电脑装载后板内回放速率；FFT使用AMD IP。\n"
         "boot_packages内两套启动文件每次选择一套，实体SD是否已更新见当前验收状态。\n"

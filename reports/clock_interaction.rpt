@@ -1,9 +1,9 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
-| Date         : Fri Sep 18 18:32:22 2026
+| Date         : Mon Sep 21 20:08:28 2026
 | Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
-| Command      : report_clock_interaction -file D:/fft/iq_analyzer/reports/clock_interaction.rpt
+| Command      : report_clock_interaction -file D:/fft/iq_phase3_scan/reports/clock_interaction.rpt
 | Design       : system_wrapper
 | Device       : 7z020-clg400
 | Speed File   : -1  PRODUCTION 1.12 2019-11-22
@@ -18,9 +18,9 @@ Clock Interaction Table
                             WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock              
 From Clock    To Clock      Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints              
 ------------  ------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -----------------------  
-clk_fpga_0    clk_fpga_0    rise - rise     0.41     0.00            0        30971            10.00  Clean                Timed                    
-clk_fpga_0    clk_fpga_1    rise - rise     8.27     0.00            0           48            10.00  Ignored              Max Delay Datapath Only  
-clk_fpga_1    clk_fpga_0    rise - rise     4.92     0.00            0          246             8.00  Ignored              Max Delay Datapath Only  
-clk_fpga_1    clk_fpga_1    rise - rise     0.03     0.00            0        36541             8.00  Clean                Timed                    
+clk_fpga_0    clk_fpga_0    rise - rise     0.54     0.00            0        30971            10.00  Clean                Timed                    
+clk_fpga_0    clk_fpga_1    rise - rise     8.72     0.00            0           48            10.00  Ignored              Max Delay Datapath Only  
+clk_fpga_1    clk_fpga_0    rise - rise     4.90     0.00            0          246             8.00  Ignored              Max Delay Datapath Only  
+clk_fpga_1    clk_fpga_1    rise - rise     0.59     0.00            0        38610             8.00  Clean                Timed                    
 
 

@@ -21,6 +21,7 @@ from record_build_stage import sha
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--board", default="192.168.1.10")
+    parser.add_argument("--out", type=Path, help="Separate recovery deployment record; preserve existing campaign bindings")
     parser.add_argument("--xsdb", type=Path, default=Path(r"D:\VivadoMM\2026.1\Vitis\bin\xsdb.bat"))
     args = parser.parse_args()
     check()
@@ -31,7 +32,11 @@ def main():
                   artifacts=before)
     log = ROOT / "build/logs" / ("deploy_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".log")
     report["log"] = str(log)
-    destination = ROOT / "reports/current_deployment.json"
+    destination = args.out.resolve() if args.out else ROOT / "reports/current_deployment.json"
+    if args.out:
+        if not destination.is_relative_to(ROOT) or destination.exists():
+            raise ValueError("Use a new project-local recovery record")
+        destination.parent.mkdir(parents=True, exist_ok=True)
     try:
         with log.open("w", encoding="utf-8") as stream:
             result = subprocess.run([str(args.xsdb), str(ROOT / "scripts/program_board.tcl")],
@@ -69,4 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
