@@ -1,0 +1,529 @@
+{
+  "sample_rate_hz": 100000000,
+  "fft_length": 8192,
+  "detector": "digital-zero",
+  "gap_min": 32,
+  "cases": [
+    {
+      "id": "tone",
+      "name": "单音",
+      "explanation": "一个固定音调：+12.5 MHz，幅度8000码值。",
+      "spec": {
+        "sample_rate_hz": 100000000,
+        "fft_length": 8192,
+        "samples": 32768,
+        "replay": "finite",
+        "windows": [
+          "rect",
+          "hann"
+        ],
+        "noise": {
+          "kind": "none"
+        },
+        "offset_iq": [
+          0,
+          0
+        ],
+        "detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        },
+        "design_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "id": "tone",
+        "seed": 230901,
+        "signal": {
+          "kind": "tone",
+          "tones": [
+            {
+              "bin": 1024,
+              "amplitude": 8000
+            }
+          ]
+        }
+      },
+      "details": {
+        "symbol_intervals": [],
+        "shaped_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "quantized_nonzero_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "noiseless_quantized_nonzero_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "truth_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "papr_db": 1.928654933106574e-15,
+        "component_peak_codes": 8000,
+        "component_headroom_codes": 24767,
+        "applied_detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        }
+      },
+      "vector": "D:\\fft\\iq_analyzer\\captures\\five_signals_20260923\\vectors\\tone.bin",
+      "sha256": "35b0c9782a4ea7f99c0aea64f6573f219b721c203c8c01fe15a7ef9ab144eb1c",
+      "quantized_support": [
+        2048,
+        26624
+      ],
+      "component_peak": 8000
+    },
+    {
+      "id": "two_tone",
+      "name": "双音",
+      "explanation": "同时存在−12.5 MHz和+18.75 MHz两个音调，幅度分别为6000和3000。",
+      "spec": {
+        "sample_rate_hz": 100000000,
+        "fft_length": 8192,
+        "samples": 32768,
+        "replay": "finite",
+        "windows": [
+          "rect",
+          "hann"
+        ],
+        "noise": {
+          "kind": "none"
+        },
+        "offset_iq": [
+          0,
+          0
+        ],
+        "detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        },
+        "design_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "id": "two_tone",
+        "seed": 230902,
+        "signal": {
+          "kind": "two-tone",
+          "tones": [
+            {
+              "bin": -1024,
+              "amplitude": 6000
+            },
+            {
+              "bin": 1536,
+              "amplitude": 3000
+            }
+          ]
+        }
+      },
+      "details": {
+        "symbol_intervals": [],
+        "shaped_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "quantized_nonzero_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "noiseless_quantized_nonzero_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "truth_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "papr_db": 2.5527250510330584,
+        "component_peak_codes": 9000,
+        "component_headroom_codes": 23767,
+        "applied_detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        }
+      },
+      "vector": "D:\\fft\\iq_analyzer\\captures\\five_signals_20260923\\vectors\\two_tone.bin",
+      "sha256": "eb77dbf2972425fbf17efc9602541c0439957d825ebad576ce483d021bd06575",
+      "quantized_support": [
+        2048,
+        26624
+      ],
+      "component_peak": 9000
+    },
+    {
+      "id": "chirp",
+      "name": "扫频信号",
+      "explanation": "音调从−20 MHz逐渐升至接近+20 MHz；每个短窗口只看到其中一段。",
+      "spec": {
+        "sample_rate_hz": 100000000,
+        "fft_length": 8192,
+        "samples": 32768,
+        "replay": "finite",
+        "windows": [
+          "rect",
+          "hann"
+        ],
+        "noise": {
+          "kind": "none"
+        },
+        "offset_iq": [
+          0,
+          0
+        ],
+        "detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        },
+        "design_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "id": "chirp",
+        "seed": null,
+        "signal": {
+          "kind": "linear-chirp",
+          "start_hz": -20000000,
+          "stop_hz_exclusive": 20000000,
+          "amplitude": 7000,
+          "sweep_duration_samples": 24576
+        }
+      },
+      "details": {
+        "signal_interval": [
+          2048,
+          26624
+        ]
+      },
+      "vector": "D:\\fft\\iq_analyzer\\captures\\five_signals_20260923\\vectors\\chirp.bin",
+      "sha256": "67fd70a74ceff13277bc03abe4d9098ee08d791256472f608ed76ab816c8cd16",
+      "quantized_support": [
+        2048,
+        26624
+      ],
+      "component_peak": 7000
+    },
+    {
+      "id": "qpsk",
+      "name": "QPSK通信信号",
+      "explanation": "随机QPSK数据，25 M符号/秒，RRC滚降0.35；类似连续说话而不是一个固定音。",
+      "spec": {
+        "sample_rate_hz": 100000000,
+        "fft_length": 8192,
+        "samples": 32768,
+        "replay": "finite",
+        "windows": [
+          "rect",
+          "hann"
+        ],
+        "noise": {
+          "kind": "none"
+        },
+        "offset_iq": [
+          0,
+          0
+        ],
+        "detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        },
+        "design_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "id": "qpsk",
+        "seed": 230904,
+        "signal": {
+          "kind": "rrc-qpsk",
+          "sps": 4,
+          "normalization": "rms",
+          "amplitude": 5000,
+          "rolloff": 0.35,
+          "span_symbols": 10,
+          "carrier_hz": 0
+        }
+      },
+      "details": {
+        "symbol_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "shaped_intervals": [
+          [
+            2048,
+            26664
+          ]
+        ],
+        "quantized_nonzero_intervals": [
+          [
+            2048,
+            5342
+          ],
+          [
+            5343,
+            7334
+          ],
+          [
+            7335,
+            12562
+          ],
+          [
+            12563,
+            15982
+          ],
+          [
+            15983,
+            16374
+          ],
+          [
+            16375,
+            20066
+          ],
+          [
+            20067,
+            22106
+          ],
+          [
+            22107,
+            26661
+          ]
+        ],
+        "noiseless_quantized_nonzero_intervals": [
+          [
+            2048,
+            5342
+          ],
+          [
+            5343,
+            7334
+          ],
+          [
+            7335,
+            12562
+          ],
+          [
+            12563,
+            15982
+          ],
+          [
+            15983,
+            16374
+          ],
+          [
+            16375,
+            20066
+          ],
+          [
+            20067,
+            22106
+          ],
+          [
+            22107,
+            26661
+          ]
+        ],
+        "truth_intervals": [
+          [
+            2048,
+            26624
+          ]
+        ],
+        "papr_db": 3.7206269716696956,
+        "component_peak_codes": 5589,
+        "component_headroom_codes": 27178,
+        "symbol_rate_baud": 25000000.0,
+        "rrc_tap_count": 41,
+        "ideal_support_hz": 33750000.0,
+        "applied_detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        }
+      },
+      "vector": "D:\\fft\\iq_analyzer\\captures\\five_signals_20260923\\vectors\\qpsk.bin",
+      "sha256": "0a95c04746957634ae6120fa9a4aef1be01d210720a6ab40ec30696ce0d063c7",
+      "quantized_support": [
+        2048,
+        26661
+      ],
+      "component_peak": 5589
+    },
+    {
+      "id": "ofdm",
+      "name": "宽带OFDM信号",
+      "explanation": "许多子载波同时传数据，使用16QAM；像很多不同音调同时出现。",
+      "spec": {
+        "id": "ofdm_b95_qam16_s230905_f0",
+        "signal": {
+          "kind": "ofdm",
+          "ifft_length": 4096,
+          "cyclic_prefix": 256,
+          "symbols": 6,
+          "active_half": 1945,
+          "modulation": "qam16",
+          "gain": 4500,
+          "carrier_hz": 0,
+          "pilot_period": 32,
+          "dc_null": true
+        },
+        "seed": 230905,
+        "samples": 32768,
+        "sample_rate_hz": 100000000,
+        "fft_length": 8192,
+        "design_intervals": [
+          [
+            1024,
+            27136
+          ]
+        ],
+        "windows": [
+          "rect",
+          "hann"
+        ],
+        "replay": "finite",
+        "seconds": 1,
+        "detector": {
+          "mode": "digital-zero",
+          "ton": 1048576,
+          "toff": 262144,
+          "kon": 8,
+          "koff": 32,
+          "gap_min": 32,
+          "max_burst_samples": 1048576
+        },
+        "design_span_mhz": 95,
+        "boundary_test": false,
+        "crosses_nyquist": false
+      },
+      "details": {
+        "active_subcarriers": 3890,
+        "pilot_subcarriers_per_symbol": 122,
+        "data_subcarriers_per_symbol": 3768,
+        "active_extreme_hz": [
+          -47485351.5625,
+          47485351.5625
+        ],
+        "subcarrier_spacing_hz": 24414.0625,
+        "active_span_hz": 94970703.125,
+        "symbol_length_samples": 4352,
+        "complete_symbols": 6,
+        "cropped_symbols": 0,
+        "signal_interval": [
+          1024,
+          27136
+        ],
+        "quiet_prefix": 1024,
+        "quiet_suffix": 5632,
+        "papr_db": 10.855198856868393,
+        "rms_codes": 4386.468964692241,
+        "component_peak_codes": 14992,
+        "component_headroom_codes": 17775,
+        "windows": [
+          {
+            "window_id": 0,
+            "region": "edge",
+            "symbol_boundaries": [
+              1024,
+              5376
+            ]
+          },
+          {
+            "window_id": 1,
+            "region": "internal",
+            "symbol_boundaries": [
+              9728,
+              14080
+            ]
+          },
+          {
+            "window_id": 2,
+            "region": "internal",
+            "symbol_boundaries": [
+              18432,
+              22784
+            ]
+          },
+          {
+            "window_id": 3,
+            "region": "edge",
+            "symbol_boundaries": [
+              27136
+            ]
+          }
+        ]
+      },
+      "vector": "D:\\fft\\iq_analyzer\\captures\\five_signals_20260923\\vectors\\ofdm.bin",
+      "sha256": "c2c691a3a070e23505cc76a14cc42e9ee5252adfe30a60e7556ce08deb2a7f1d",
+      "quantized_support": [
+        1024,
+        27136
+      ],
+      "component_peak": 14992
+    }
+  ]
+}

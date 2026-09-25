@@ -2,9 +2,10 @@
 // Independent bin-domain oracle: no DUT internals or pipeline assumptions.
 // Exercise FFT bit-reversed arrival order, ping-pong reuse, ROI and snapshot.
 module tb_spectrum_edges;
- localparam CASES=12;
+ localparam CASES=36;
  reg clk=0;always #4 clk=~clk;
  reg rst=1,valid=0,last=0,snap_request=0;
+ reg checking=0;
  reg [47:0] data=0;
  reg [23:0] user=0;
  reg [12:0] roi_low=0,roi_high=8191;
@@ -52,6 +53,10 @@ module tb_spectrum_edges;
      8:real_for=q==7000?19:(q==7001?500:0);
      9:real_for=-33;
      10:real_for=((q*8191+113)&16777215)-8388608;
+     12,13,14,15:real_for=q==1000+f-12?10:(q==4000+15-f?100:0);
+     16,17,18,19:real_for=(q==2000+f-16||q==2004+f-16)?100:0;
+     20,21,22,23,24,25,26,27:real_for=q==1000+f-20?10:(q==4000+27-f?100:0);
+     28,29,30,31,32,33,34,35:real_for=(q==2000+f-28||q==2008+f-28)?100:0;
      default:real_for=42;
    endcase
  endfunction
@@ -123,7 +128,7 @@ module tb_spectrum_edges;
 
  always @(posedge clk)begin
    cycles=cycles+1;
-   if(!rst)begin
+   if(!rst&&checking)begin
      if(fault)$fatal(1,"Unexpected spectrum bank overwrite");
      if(rv)begin
        if(results>=CASES)$fatal(1,"Unexpected extra spectrum");
@@ -177,10 +182,20 @@ module tb_spectrum_edges;
    captured_frame[3]=7;captured_frame[4]=9;captured_frame[5]=11;
    for(f=0;f<CASES;f=f+1)build_oracle(f);
    repeat(8)@(negedge clk);rst=0;
+   // Interrupt a nonzero scan with live payload in every prefix stage.
+   drive_frame(4);@(negedge clk);valid=0;last=0;
+   wait(dut.compare_valid);repeat(4)@(negedge clk);
+   rst=1;snap_request=0;repeat(8)@(negedge clk);rst=0;
+   repeat(1200)begin
+     @(negedge clk);
+     if(rv||snap_we||snap_done||fault)$fatal(1,"Stale spectrum output after reset");
+   end
+   checking=1;
+   $display("SPECTRUM_MIDSCAN_RESET_PASS");
    for(f=0;f<CASES;f=f+1)begin
      // ROI configuration is constant until all results using it have drained,
      // as required by the core's stopped-run configuration contract.
-     if(f==6||f==9||f==10||f==11)begin
+     if(f==6||f==9||f==10||f==11||f==12)begin
        @(negedge clk);valid=0;last=0;
        wait(results==f);repeat(8)@(negedge clk);
        roi_low=13'(low_for(f));roi_high=13'(high_for(f));
@@ -194,5 +209,5 @@ module tb_spectrum_edges;
             results,snapshots*1024,minimum_latency,maximum_latency);
    $finish;
  end
- initial begin #2000000;$fatal(1,"Spectrum edge test timeout");end
+ initial begin #4000000;$fatal(1,"Spectrum edge test timeout");end
 endmodule

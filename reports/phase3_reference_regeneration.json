@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "scope": "Final reference regeneration changes zero-background automatic thresholds only; all raw inputs and nonzero-noise selected parameters unchanged",
+  "stages": [
+    {
+      "stage": "validation",
+      "input_cases": 625,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [],
+      "old_manifest_sha256": "9032b58b0cd8b970bc8df60d5db7f9cee4a243c5242b2b9cba35a4d4cff8d7e9",
+      "final_manifest_sha256": "8bd1d61871a5f8c34e393fd99de8a34720da0649731ef00ccccb8187c7ffe19b"
+    },
+    {
+      "stage": "noise_only",
+      "input_cases": 256,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [],
+      "old_manifest_sha256": "812703dba9ad814dcc95d9b1c81e8dc713b098f31e6ace792f90e10aebec50ec",
+      "final_manifest_sha256": "ef76156a72c4cdea524c249c8c39918803fc50d6c76cc3a754d52534d61a089e"
+    },
+    {
+      "stage": "legacy_regression",
+      "input_cases": 329,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [],
+      "old_manifest_sha256": "49d40428b8a12674e0aabc3a679766f91135ade925774e6a979cff8c5c9f2ed9",
+      "final_manifest_sha256": "6c0ddedf133369226253b52221fe31d00d050fc248b936c7163e92fbb79c24ca"
+    },
+    {
+      "stage": "robust_regression",
+      "input_cases": 212,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [
+        "robust_regression_gap_7_threshold",
+        "robust_regression_gap_8_threshold",
+        "robust_regression_gap_15_threshold",
+        "robust_regression_gap_31_threshold",
+        "robust_regression_gap_32_threshold",
+        "robust_regression_gap_33_threshold",
+        "robust_regression_gap_64_threshold",
+        "robust_regression_gap_256_threshold",
+        "robust_regression_shaped_boundaries_threshold"
+      ],
+      "old_manifest_sha256": "e6ebb2ac0cd0d937625938ccbca195c73782d6dbf10c9cb9bd3981947d8d3495",
+      "final_manifest_sha256": "2e23afdc4bfc58888b02068adc1dd654bf8549a557f4ffbb1c2658e4632ae275"
+    },
+    {
+      "stage": "wide_continuous",
+      "input_cases": 17,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [],
+      "old_manifest_sha256": "8689e260574df70bf73c6e20b70e0e0eb9c7286fc3e2cf21b4d60ae0b1b4628e",
+      "final_manifest_sha256": "fd0006a3c51aaad7b7c8cc8fbea5662f7e0fd380ef0c47d17b761eb5cc3e9418"
+    },
+    {
+      "stage": "sensitivity",
+      "input_cases": 112,
+      "all_raw_iq_unchanged": true,
+      "zero_background_threshold_floor_cases": [],
+      "old_manifest_sha256": "7e40ba9a952586f85f473522cd48f067ef6c66b1521d05a53d998e5537cd2126",
+      "final_manifest_sha256": "30dadffab97db0fc0c7e67caab03d0df682f7c0145352b809c8e08fba1165ab7"
+    }
+  ]
+}

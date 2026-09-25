@@ -1,6 +1,6 @@
 set root [file normalize [file join [file dirname [info script]] ..]]
 create_project builder_test $root/build/builder_test -part xc7z020clg400-1 -force
-add_files -norecurse [list $root/rtl/math_units.sv $root/rtl/result_builder.sv]
+add_files -norecurse [list $root/rtl/iq_build_config.sv $root/rtl/math_units.sv $root/rtl/result_builder.sv]
 add_files -fileset sim_1 -norecurse $root/tests/tb_result_builder.sv
 set_property top tb_result_builder [get_filesets sim_1]
 set_property xsim.simulate.runtime all [get_filesets sim_1]

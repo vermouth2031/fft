@@ -5,6 +5,8 @@ import json, math, queue, struct, threading, time
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from iq_client import capture,decode_record,cycles_to_us,validate_detector,LENGTH_SEMANTICS
+from threshold_config import resolve as resolve_threshold
+from build_rates import SAMPLE_RATE_HZ
 ROOT=Path(__file__).resolve().parents[1]
 
 def enable_dpi_awareness():
@@ -23,8 +25,11 @@ class Monitor:
         self.vector=tk.StringVar(value=str(ROOT/'data/vectors/qpsk_sps4.bin'))
         self.window=tk.StringVar(value='hann');self.seconds=tk.StringVar(value='10')
         self.detector=tk.StringVar(value='threshold');self.gap_min=tk.StringVar(value='32')
+        self.threshold_profile=tk.StringVar(value='legacy');self.threshold_policy=tk.StringVar(value='fixed')
+        self.quiet_samples=tk.StringVar(value='1024')
+        self.threshold_values={name:tk.StringVar(value='') for name in ('ton','toff','kon','koff')}
         self.cyclic=tk.BooleanVar(value=True)
-        self.sample_rate_hz=100000000
+        self.sample_rate_hz=SAMPLE_RATE_HZ
         form=ttk.Frame(root,padding=12);form.pack(fill='x')
         for col,(label,var,width) in enumerate([('板卡 IP',self.board,18),('持续秒数',self.seconds,8)]):
             ttk.Label(form,text=label).grid(row=0,column=col*2,padx=4)
@@ -43,17 +48,34 @@ class Monitor:
         ttk.Label(detector_form,text='零间隔确认点数').pack(side='left',padx=8)
         ttk.Entry(detector_form,textvariable=self.gap_min,width=7).pack(side='left')
         ttk.Label(detector_form,text='threshold：门限突发；digital-zero：数字零背景波形').pack(side='left',padx=8)
+        threshold_form=ttk.Frame(form);threshold_form.grid(row=4,column=0,columnspan=6,sticky='w',pady=4)
+        ttk.Label(threshold_form,text='门限档位').pack(side='left',padx=4)
+        profile_box=ttk.Combobox(threshold_form,textvariable=self.threshold_profile,values=['legacy','robust'],state='readonly',width=9)
+        profile_box.pack(side='left')
+        profile_box.bind('<<ComboboxSelected>>',lambda e:self.threshold_policy.set('quiet-prefix' if self.threshold_profile.get()=='robust' else 'fixed'))
+        ttk.Combobox(threshold_form,textvariable=self.threshold_policy,values=['fixed','quiet-prefix'],state='readonly',width=13).pack(side='left',padx=6)
+        ttk.Label(threshold_form,text='前导静默点数').pack(side='left')
+        ttk.Entry(threshold_form,textvariable=self.quiet_samples,width=7).pack(side='left',padx=4)
+        ttk.Label(threshold_form,text='quiet-prefix 要求输入确有前导静默；robust 为带噪档位').pack(side='left')
+        manual_form=ttk.Frame(form);manual_form.grid(row=5,column=0,columnspan=6,sticky='w',pady=4)
+        for name in ('ton','toff','kon','koff'):
+            ttk.Label(manual_form,text=name).pack(side='left',padx=4)
+            ttk.Entry(manual_form,textvariable=self.threshold_values[name],width=11).pack(side='left')
+        ttk.Label(manual_form,text='留空使用档位参数；ton/toff 为16点能量，kon/koff 为点数').pack(side='left',padx=6)
         form.columnconfigure(4,weight=1)
-        self.status=tk.StringVar(value='等待连接。100 MSPS / 8192 点；展示数值来自 PL。')
+        self.status=tk.StringVar(value='等待连接。输入为板内预装载回放，I/Q 各 16bit；采集后显示实际速率与配置。')
         status_label=ttk.Label(root,textvariable=self.status,padding=12,wraplength=1050);status_label.pack(fill='x')
         root.bind('<Configure>',lambda e:status_label.configure(wraplength=max(500,e.width-30)) if e.widget is root else None)
         self.metrics=tk.StringVar(value='幅度、波形长度、频率、99% 带宽和处理延迟将在采集后显示。长度测量不识别通信协议帧。')
         ttk.Label(root,textvariable=self.metrics,padding=12,font=('Microsoft YaHei UI',11)).pack(fill='x')
-        self.env=tk.Canvas(root,height=190,bg='#f7f9fc',highlightthickness=0);self.env.pack(fill='both',expand=True,padx=14,pady=6)
-        self.spec=tk.Canvas(root,height=280,bg='#f7f9fc',highlightthickness=0);self.spec.pack(fill='both',expand=True,padx=14,pady=6)
+        ttk.Label(root,text='频谱：PL 每 8 个 bin 取最大值的显示快照；99% 带宽由完整 8192 点计算。',padding=8).pack(side='bottom',fill='x')
+        plots=ttk.Frame(root);plots.pack(fill='both',expand=True,padx=14,pady=6)
+        plots.columnconfigure(0,weight=1)
+        for row in (0,1):plots.rowconfigure(row,weight=1,uniform='plots')
+        self.env=tk.Canvas(plots,height=140,bg='#f7f9fc',highlightthickness=0);self.env.grid(row=0,column=0,sticky='nsew',pady=(0,6))
+        self.spec=tk.Canvas(plots,height=180,bg='#f7f9fc',highlightthickness=0);self.spec.grid(row=1,column=0,sticky='nsew',pady=(6,0))
         for canvas in (self.env,self.spec):
             canvas.bind('<Configure>',lambda e:self.draw(e.widget,*e.widget._last_plot) if hasattr(e.widget,'_last_plot') else None)
-        ttk.Label(root,text='频谱：PL 每 8 个 bin 取最大值的显示快照；99% 带宽由完整 8192 点计算。',padding=12).pack(fill='x')
         root.after(150,self.poll);root.protocol('WM_DELETE_WINDOW',self.close)
 
     def choose_vector(self):
@@ -62,13 +84,17 @@ class Monitor:
 
     def draw(self,canvas,values,title,unit,xleft,xright,fixed=None):
         canvas._last_plot=(values,title,unit,xleft,xright,fixed)
-        canvas.delete('all');w=max(canvas.winfo_width(),700);h=max(canvas.winfo_height(),180)
+        canvas.delete('all');w=max(canvas.winfo_width(),700);h=canvas.winfo_height()
+        if h<110:
+            canvas.create_text(16,14,anchor='nw',text='放大窗口以查看完整图形',fill='#51647b')
+            return
         canvas.create_text(16,14,anchor='nw',text=title,fill='#193353',font=('Microsoft YaHei UI',10))
         left,top,right,bottom=90,45,w-24,h-35
         low,high=fixed or (min(values,default=0),max(values,default=1))
         if high==low:low=0;high=max(1,high)
-        for j in range(5):
-            y=top+(bottom-top)*j/4;value=high-(high-low)*j/4
+        ticks=3 if h<200 else 5
+        for j in range(ticks):
+            y=top+(bottom-top)*j/(ticks-1);value=high-(high-low)*j/(ticks-1)
             canvas.create_line(left,y,right,y,fill='#dce3ec')
             canvas.create_text(left-8,y,text=f'{value:.1f}',anchor='e',fill='#51647b')
         canvas.create_text(left,bottom+17,text=xleft,anchor='w');canvas.create_text(right,bottom+17,text=xright,anchor='e')
@@ -99,9 +125,13 @@ class Monitor:
             reference_text={'PASS':'通过','FAIL':'失败','NOT_RUN':'未执行（与采集完整性分开）'}.get(reference,reference)
             final_text=(f"\n采集完整性：{'通过' if meta.get('capture_complete') else '失败'}  |  UDP 缺包 {meta.get('udp_missing_packet_count', '?')}  |  硬件错误 {meta.get('error_status', '?')}  |  最大发布延迟 {cycles_to_us(meta.get('hardware_max_publish_latency_cycles',0),rate):.2f} µs"
                 f"\n数值参考核验：{reference_text}  |  波形长度不等于协议帧识别")
+            if meta.get('applied_detector'):
+                d=meta['applied_detector']
+                final_text+=f"\n实际门限 ton/toff={d['ton']}/{d['toff']}，确认 kon/koff={d['kon']}/{d['koff']} 点"
         self.metrics.set(
           f"RMS {r['rms_codes']:.3f}  峰值 {r['peak_codes']:.3f}  |  峰频率 {r['peak_hz']/1e6:.6f} MHz\n"
-          f"99% 带宽 {r['bandwidth_hz']/1e6:.6f} MHz  中心 {r['bandcenter_hz']/1e6:.6f} MHz  |  延迟 {r['latency_us']:.2f} µs\n"
+          f"99% 带宽 {r['bandwidth_hz']/1e6:.6f} MHz  带宽中心 {r['bandcenter_hz']/1e6:.6f} MHz  |  PL 分析延迟 {r['latency_us']:.2f} µs\n"
+          f"板内回放 I16/Q16  |  {r['sample_rate_hz']/1e6:g} M 对 IQ/秒  |  FFT {r['fft_length']} 点  |  窗 {r['window']}\n"
           f"窗口 {r['id']}  已收频域 {u['frequency_records']} / 突发 {u['burst_records']}  |  标志 {', '.join(r['flags']) or '无'}\n{burst_text}{final_text}")
         shot=u.get('snapshot')
         if shot:
@@ -116,6 +146,9 @@ class Monitor:
             seconds=float(self.seconds.get())
             if not 0<seconds<=3600:raise ValueError('持续时间应在 0–3600 秒之间')
             gap_min=int(self.gap_min.get());validate_detector(self.detector.get(),gap_min)
+            threshold_options=dict(threshold_profile=self.threshold_profile.get(),threshold_policy=self.threshold_policy.get(),
+                quiet_samples=int(self.quiet_samples.get()),**{k:int(v.get()) if v.get().strip() else None for k,v in self.threshold_values.items()})
+            resolve_threshold(SimpleNamespace(detector=self.detector.get(),gap_min=gap_min,**threshold_options),Path(self.vector.get()).read_bytes())
             self.envelope()
         except Exception as e:messagebox.showerror('配置错误',str(e));return
         self.stop_event.clear();self.start_button.state(['disabled'])
@@ -123,6 +156,7 @@ class Monitor:
         args=SimpleNamespace(board=self.board.get(),port=5001,vector=self.vector.get(),out=str(out),
             window=self.window.get(),cyclic=self.cyclic.get(),seconds=seconds,stop_event=self.stop_event,
             detector=self.detector.get(),gap_min=gap_min,
+            **threshold_options,
             on_update=lambda u:self.messages.put(('update',u)))
         self.status.set(f'正在连接、装载并读回验证 IQ 文件；结果将保存到 {out}')
         def run():
@@ -151,6 +185,16 @@ class Monitor:
             if meta and meta.get('vector') and Path(meta['vector']).exists():self.vector.set(meta['vector'])
             if meta and meta.get('detector_mode') in LENGTH_SEMANTICS:self.detector.set(meta['detector_mode'])
             if meta and meta.get('gap_min') is not None:self.gap_min.set(str(meta['gap_min']))
+            request=(meta or {}).get('threshold_request',{})
+            profile=request.get('profile','legacy');policy=request.get('policy','fixed')
+            explicit=profile=='explicit'
+            self.threshold_profile.set(profile if profile in ('legacy','robust') else 'legacy')
+            self.threshold_policy.set(policy if policy in ('fixed','quiet-prefix') else 'fixed')
+            self.quiet_samples.set(str(request.get('quiet_interval',[0,1024])[1]))
+            requested=(meta or {}).get('applied_detector',{}) if explicit else request.get('requested_parameters',{})
+            for key,value in self.threshold_values.items():
+                setting=requested.get(key)
+                value.set(str(setting) if setting is not None and self.detector.get()=='threshold' else '')
             shot=None
             if (d/'snapshot.json').exists():shot=json.loads((d/'snapshot.json').read_text())
             elif (d/'SNAP.BIN').exists():
