@@ -8,6 +8,8 @@ I/Q 各 16bit，100 MSPS 板内回放，8192 点 AMD FFT，八路完整功率谱
 
 ## 从这里开始
 
+- [五组新信号测试与图解](reports/five_signals_20260923/测试报告.md)：单音、双音、扫频、QPSK、OFDM的10次真板结果及原始数据。
+- [GitHub版本与证据维护](docs/GitHub维护说明.md)：开发分支、正式Release、自动检查和完整交付包的区别。
 - [完整验收报告](reports/第四阶段完整验收报告.md)：结果、未晋升实验和比赛要求对照。
 - [电路设计说明](reports/最终电路设计说明.md)：架构、定点表示、跨域和测量语义。
 - [完整测量清单](reports/phase4_final_measurements.json)：2020 组矩阵及原始证据散列。
@@ -53,6 +55,8 @@ python host/iq_client.py capture --vector data/phase4_demo/robust_snr5_120000.bi
 新构建不会自动获得旧实板或冷启动的验收资格。每次修改硬件/固件须重新建立部署与原始采集证据，再考虑 SD 安装。[板上 SD 维护说明](scripts/maintenance/操作说明.md)给出操作入口。
 
 ## 交付核验与历史证据
+
+GitHub源码仓库包含五组信号的小型完整证据，可运行 `python scripts/check_five_signals_archive.py` 离线核验。完整硬件回归中的 `captures/`、`build/` 及启动镜像随本地完整交付包保存；源码下载不包含这些全部产物。现有 `v2026.09.20` Release 对应旧发布版本，当前开发分支成果通过 Pull Request 审阅。
 
 解压最终包后可运行 `python scripts/verify_delivery.py .` 核验所有文件 SHA-256。原始记录为 `frequency.bin`、`burst.bin` 和元数据；重复的逐条 JSON/CSV 可重新导出。
 

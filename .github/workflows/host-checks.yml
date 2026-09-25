@@ -21,3 +21,5 @@ jobs:
         run: python tests/test_frame_length_reference.py
       - name: Check detector compatibility and record semantics
         run: python tests/test_detector_host.py
+      - name: Check archived five-signal evidence and report links
+        run: python scripts/check_five_signals_archive.py
