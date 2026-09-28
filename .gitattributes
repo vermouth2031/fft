@@ -50,3 +50,6 @@ scripts/sim_builder.tcl -text
 scripts/run.ps1 -text
 config/build_profile.json -text
 scripts/phase4_* -text
+
+# Preserve the exact GUI bytes bound by the 2026-09-25/28 regression records.
+host/monitor.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

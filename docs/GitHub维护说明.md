@@ -25,6 +25,8 @@ python scripts/check_five_signals_archive.py
 
 ## 大文件与正式交付
 
+9月28日新增本地收尾包 `release/phase4-closeout-20260928.zip`，包含下述旧包的冻结硬件证据、五类信号、新版上位机与本次实板回归。准确源码提交及逐文件散列见包内 `manifest.json`，ZIP散列见同名 `_check.json`。本次本地提交与交付不代表已推送、合并远端分支或发布新Release。
+
 `build/`、`captures/`、`artifacts/`和`release/`继续作为本地产物目录。硬件镜像和大规模原始回归证据通过完整交付包管理，不加入普通Git历史。
 
 当前本地完整交付包为`release/phase4-complete-20260922.zip`，935528645字节，SHA-256：

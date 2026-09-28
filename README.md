@@ -8,6 +8,9 @@ I/Q 各 16bit，100 MSPS 板内回放，8192 点 AMD FFT，八路完整功率谱
 
 ## 从这里开始
 
+- [项目工程总结](项目工程总结.md)：从整体流程、单音例子到正式指标、操作方法和能力边界。
+- [9月28日收尾验收](reports/closeout_20260928/收尾验收说明.md)：新版界面18项复测、4项实板数值核验及新版完整包的验证范围。
+- [新版上位机使用说明](docs/新版上位机使用说明.md)：赛题四项测量卡片、指标对照、完整参数与数据入口，以及本次界面实板验证。
 - [五组新信号测试与图解](reports/five_signals_20260923/测试报告.md)：单音、双音、扫频、QPSK、OFDM的10次真板结果及原始数据。
 - [GitHub版本与证据维护](docs/GitHub维护说明.md)：开发分支、正式Release、自动检查和完整交付包的区别。
 - [完整验收报告](reports/第四阶段完整验收报告.md)：结果、未晋升实验和比赛要求对照。
@@ -27,6 +30,10 @@ python scripts/phase4_demo.py
 ```
 
 菜单提供零背景测长、5 dB robust、单音峰频和最宽 OFDM 四个冻结预设。普通监视器仍可双击 `Open_IQ_Monitor.cmd` 打开。每次采集使用新目录，GUI 与命令行只保留一个控制端。
+
+当前工作区上位机已改为四项结果卡片与四个标签页。2026-09-25 的独立界面回归通过 10 组历史记录显示、4 项真板采集及状态/兼容性检查；对应 [界面回归记录](reports/gui_redesign_20260925/gui_validation.json)。页首第四阶段完整验收描述的是冻结版本，原报告及发布包保留原状；本次界面回归不替代完整系统重新验收。
+
+2026-09-28 对当前界面再次完成18项回归，4项真板采集全部通过独立数值核验、UDP缺包为0，结束后板卡空闲。新本地交付包 `release/phase4-closeout-20260928.zip` 包含冻结硬件证据、五类信号、新版界面及本次记录；具体源码提交和验证范围以包内 `manifest.json` 为准。
 
 ```powershell
 python host/iq_client.py capture --board 192.168.1.10 --vector data/vectors/burst_fs4.bin --window hann --detector digital-zero --out captures/example_run
