@@ -15,7 +15,7 @@ update_compile_order -fileset sources_1
 set iq_run [get_runs -quiet system_iq_0_0_synth_1]
 if {[llength $iq_run]} {reset_run $iq_run}
 reset_run synth_1
-set_property strategy Performance_ExplorePostRoutePhysOpt [get_runs impl_1]
+set_property strategy Performance_NetDelay_high [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
 launch_runs synth_1 -jobs 2
 wait_on_run synth_1

@@ -51,8 +51,67 @@
     }
   },
   "R2_attempt2": {
-    "status": "IN_PROGRESS",
-    "change": "Two synchronizer stages plus one equivalent-cycle replicable reset distribution stage"
+    "status": "NOT_PROMOTED",
+    "setup_ns": 0.182,
+    "hold_ns": 0.016,
+    "source_domain_setup_ns": 0.588,
+    "required_setup_ns": 0.4,
+    "reason": "Reset distribution improved; critical path moved to CDF comparison; route share 68.258%",
+    "simulation": {
+      "digital_cases": 344,
+      "full_core_completed": false,
+      "passed_core_cases": 4,
+      "reason": "Stopped obsolete candidate before final full regression"
+    },
+    "board_programmed": false,
+    "evidence": {
+      "phase5_sim_attempt2.log": "310b6a4928c78c1c04f6438a7720b10581a356367f0f0e261509d19bacfbae4e",
+      "phase5_hardware_attempt2.log": "15160a46d5d80164d24deb0d5934a26525db6d3d535d84dddd9d70e1e8d0b820",
+      "reports/hardware_validation.json": "2f987a8d13a9540177493f9ce621c9b5c37afd9d59f73062cfeb3d0666339daf",
+      "reports/hardware_provenance.json": "cff8648dd1a4d137a5af9139e5b15747ee6b2264dcb4fbc7b2d53be726046adc",
+      "reports/timing_summary.rpt": "c8e3c1e00ba5a787a3035d11ade6541325d41d53205c159294b3d88ab79db8b2",
+      "reports/worst_paths.rpt": "3ae23ebaddc6a115a339fe75f9d94ad90c0901316a2a20481b33848d2155feb2",
+      "reports/utilization_flat.rpt": "1a49342f5f4eb9bf5dcbd0e00e4229fd50944dd762e747ac9fc250b764d24089",
+      "reports/cdc.rpt": "25d7adfe70564c479b9b23da064bcc1ae2b3de1de3bf8f199cb72954e7ce4b8f",
+      "reports/drc.rpt": "e9342440b205f4b78b42e8f99f5282ee532cc64fd8f8034cc26de5f402393e59",
+      "reports/bus_skew.rpt": "3016e50c3fd11c49d426101b9c1d3d0a31dbfb20dc4e3c2f003e858d021764c2",
+      "rtl/analyzer_core.sv": "ad97a84908e3b1658d652624f34cac0bf4f59df3ab04eb0a1fd47a5df896dca4",
+      "rtl/digital_burst_measure.sv": "be9229519aaf83eaaf1886262205784cb7479a346b546789c2c573bcc048e50c",
+      "rtl/iq_build_config.sv": "73c368ee4777df13c12b8e05b6d2426945ea813aacf9a693c5500cf536c1556f",
+      "rtl/iq_peripheral.sv": "b95a5f59e3c8b78af13c3a77b4ae7f9e2039a1d93eb61979ff807a9ecdad83df",
+      "rtl/math_units.sv": "6260ca3a34251f94e07b488016f1509771fe75af6f443f6f083be8e320dc0e0f",
+      "rtl/record_ring.sv": "6c0fef72bc0e7f48a4166f9694b5858009ba1ba15d0ccd039e9a42556b69ac89",
+      "rtl/result_builder.sv": "e4b20cbcb1b50bd099f6879b7029773d38c7aa688d2786ca0c1e134ce1f62169",
+      "rtl/small_fifo.sv": "ed6f49e0a6f8da1f24549c6d3db628847345488cf1fd8b1aeae123c7398b621b",
+      "rtl/spectrum_measure.sv": "fcd337dcbc47afd3fa787f0733d078e9f6499b17c4760d5f7f213bda0f7cce39",
+      "rtl/time_measure.sv": "2bb6b3bc433d49e9c4aa3205dac1cf36ee48d5f1d21547d67b4c7a84d36d46fd",
+      "rtl/window_fft.sv": "97b379df80058e5cc616ca2602fe54e78ee930b97bb911b71298fc8028b47f21",
+      "constraints/cdc.xdc": "9278180172ecbdf7c64dd87e12e27d471b99532ea6323bd10e3a488f13a95b88",
+      "build/config/build_identity.json": "8e4476b2f540e547378fe25c8074659a393c7d24b331bb9cce80a39cb9d6d185",
+      "build/config/generated_clocks.tcl": "02c2552d9be04b30a321bec06053214c04a3f2234dd3f89b8ca905f16ebbf83f",
+      "build/logs/build_board.log": "495c2ee034bc1d49d0589728f2665b2a53c659c0c274ad2e823b69149c16b82d",
+      "build/logs/create_fft.log": "20149400f935e864a8ca1df79462094d51fa4741273e31af653fd5968b20842b",
+      "build/logs/rebuild_board.log": "b62285a61a52d15136c8a155098f917464971937a9a6ef52ea8f94989e0896fb",
+      "build/logs/sim_builder.log": "9a75e894a845a3fd31cc89e0f576510b2dd1684f0165ea821db6c4ade66ff0a8",
+      "build/logs/sim_builder_55032.backup.log": "6dfb202bc109089187bda55dc8e06394a6a27c8a193c6d37aa18eb9fa90f9755",
+      "build/logs/sim_core.log": "1722d5d65a01c8cde147dc665c824a76dd3acf0ed751f8efab873329663e2b8c",
+      "build/logs/sim_core_56388.backup.log": "3895a77506e637dc2e6687f22f49adc93850d11ba55f0fdc48a902704f73aab3",
+      "build/logs/sim_digital_burst.log": "16db5ea62f13eb52c03c2eb066d7b8fbee7d3278af41bf05bafb11a47cb50970",
+      "build/logs/sim_digital_burst_48120.backup.log": "604f38c8530e17be5971fa9bedda80c11c31b8a96f7b86c6a23ce2156be2bff2",
+      "build/logs/sim_measurements.log": "e85746b15f05eed19e39ce28c47b8c57c8a584aebb0509f8de7509c6aa98cc69",
+      "build/logs/sim_measurements_60268.backup.log": "991e13a79e5bd04752bb9a9d1a84cc6f83887a570877df353040a812ed5f9343",
+      "build/logs/sim_spectrum_edges.log": "2cbac44571aace5cd1a951db23ae46409465fcc13533448daf207fc85a709bd0",
+      "build/logs/sim_spectrum_edges_19876.backup.log": "03cf1e7a1e289e696649fc245834e34d458e7794e4c12bb51cad2d6c103d4e88",
+      "build/logs/sim_units.log": "f052f1f19ca48759a3b099cf2d6e98d45472ca243c696d15751fe33fa28bdb7c",
+      "build/logs/sim_units_20408.backup.log": "21b667fb2c57dff2f939b4909551f27a406a9eb0124d3cbaa9ee811ee77cc07b",
+      "scripts/build_board.tcl": "b7ca1ef89c2ba2b5449ba860c05c84154a82b9894452a0ceb85e4e02d462391b",
+      "scripts/rebuild_board.tcl": "dabd51f5c5295b583f9d0594f6e1f5ca19c30aa6434bb4c9c7108d0a4055cc05",
+      "scripts/finish_board.tcl": "cde7514f27006555c3aaa5000bd8712e1d37e8a0510bd95ed0b33c777aef446c",
+      "scripts/phase3_replication_hook.tcl": "b432cc7ec64bbadb4ae32259f8d61d96ca0b6fff4f5138839429fe725e230e0a",
+      "scripts/phase4_build_config.py": "583a4cf6eef164bbbe793bb2cf0e463598f15da088634078f7540acd3a64442b",
+      "tests/generate_digital_burst_vectors.py": "92d5cf3b09aa753d216a4b61dca6a19f5686e74c169e6b4bbfb06d4a855ac5e4",
+      "tests/tb_digital_burst.sv": "22aa6b7ec3e3ce15e513b3a9a9dabb90876ef2e209ecee10acfecaafb10f1a5e"
+    }
   },
   "R4": {
     "status": "COMPLETE_OFFLINE_STUDY",
@@ -70,5 +129,10 @@
   "R5": {
     "status": "DEFERRED",
     "reason": "No concrete external interface/protocol/self-FFT requirement"
+  },
+  "R2_attempt3": {
+    "status": "IN_PROGRESS",
+    "change": "Performance_NetDelay_high physical implementation strategy targets routed CDF comparator delay",
+    "final_allowed_attempt": true
   }
 }
