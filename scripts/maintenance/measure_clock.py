@@ -12,6 +12,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out', type=Path, required=True)
     p.add_argument('--compare', type=Path, help='Previous independent-clock report; require unchanged CPU PLL/divider')
+    p.add_argument('--build-only', action='store_true', help='Compile the probe without accessing the board')
     a = p.parse_args()
     check()
     workspace, gcc, xsdb, bsp = discover()
@@ -35,6 +36,9 @@ def main():
     artifacts = {n: sha(ROOT / 'artifacts' / n) for n in
                  ('iq_analyzer.bit', 'iq_analyzer.xsa', 'ps7_init.tcl')}
     save(out / 'inputs.json', dict(sources=inputs, artifacts=artifacts, elf_sha256=sha(elf), workspace=str(workspace)))
+    if a.build_only:
+        print('CLOCK_PROBE_BUILD_PASS', elf)
+        return
     run_logged([xsdb, HERE / 'measure_clock.tcl', elf, ROOT / 'artifacts/iq_analyzer.bit',
                 ROOT / 'artifacts/iq_analyzer.xsa', ROOT / 'artifacts/ps7_init.tcl', out / 'mailbox.bin'],
                out / 'probe.log', 120)
