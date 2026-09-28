@@ -122,6 +122,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--board', default='192.168.1.10')
+    parser.add_argument('--robust-reference-index', type=Path,
+                        help='Use freshly generated local robust references for this build')
     args = parser.parse_args()
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -192,10 +194,19 @@ def main():
                     and all(not w.instate(['disabled']) for w, _ in app.config_widgets),
                     'Controls were not restored after capture')
             print('BOARD_PASS: ' + name, flush=True)
-        rows = json.loads((ROOT / 'data/phase4_demo/presets.json').read_text(encoding='utf-8'))['presets']
-        robust = next(row for row in rows if row['id'] == 'robust')
-        runner.capture('robust_5db_finite', 'threshold', str(ROOT / robust['vector']), False, 1,
-                       threshold_profile='robust', qualification=ROOT / robust['reference'])
+        if args.robust_reference_index:
+            from validate_measurements import load_index
+            index = load_index(args.robust_reference_index)
+            robust = next(row for row in index['cases'] if row['case']['id'] == 'robust_snr5_120000')
+            robust_vector = robust['vector']
+            robust_reference = args.robust_reference_index.parent / robust['reference']
+        else:
+            rows = json.loads((ROOT / 'data/phase4_demo/presets.json').read_text(encoding='utf-8'))['presets']
+            robust = next(row for row in rows if row['id'] == 'robust')
+            robust_vector = str(ROOT / robust['vector'])
+            robust_reference = ROOT / robust['reference']
+        runner.capture('robust_5db_finite', 'threshold', robust_vector, False, 1,
+                       threshold_profile='robust', qualification=robust_reference)
         check_display(app)
         print('BOARD_PASS: robust_5db_finite', flush=True)
 

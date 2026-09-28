@@ -8,12 +8,15 @@ import sys
 from record_build_stage import ROOT,sha
 from package_release import check
 from record_boot_stage import verify_boot
+from package_validated import check_board
 from summarize_phase3 import STAGES
 
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--references-root',type=Path,required=True)
-    p.add_argument('--out',type=Path,required=True);p.add_argument('--board',default='192.168.1.10');a=p.parse_args()
+    p.add_argument('--out',type=Path,required=True);p.add_argument('--board',default='192.168.1.10')
+    p.add_argument('--reuse-board',action='store_true',help='Verify and reuse the existing identical-build full basic suite')
+    a=p.parse_args()
     check();verify_boot();out=a.out.resolve();refs=a.references_root.resolve()
     if not out.is_relative_to(ROOT/'captures'):raise ValueError('Campaign must stay in project captures/')
     out.mkdir(parents=True,exist_ok=False)
@@ -24,6 +27,15 @@ def main():
           ('extended',['scripts/board_extended_validation.py','--out',str(out/'extended'),'--board',a.board]),
           ('gui',['scripts/check_monitor_board.py','--out',str(out/'gui'),'--board',a.board,
                   '--robust-reference-index',str(refs/'validation/references/index.json')])]
+    if a.reuse_board:
+        accepted=check_board()
+        if accepted['board']!=a.board or len(accepted['cases'])!=36:
+            raise ValueError('Cannot reuse a different or incomplete board suite')
+        jobs=jobs[1:]
+        (out/'board').mkdir()
+        (out/'board/board_validation.json').write_bytes((ROOT/'reports/current_board_validation.json').read_bytes())
+        report['stages'].append(dict(stage='board',status='PASS',reused=True,
+            report=str(ROOT/'reports/current_board_validation.json'),report_sha256=sha(ROOT/'reports/current_board_validation.json')))
     for stage in STAGES:
         jobs.append((stage,['scripts/validate_measurements.py','capture','--references',str(refs/stage/'references/index.json'),
                             '--out',str(out/stage),'--board',a.board]))

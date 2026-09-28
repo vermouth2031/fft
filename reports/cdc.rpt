@@ -1,13 +1,13 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
-| Date         : Tue Sep 22 12:32:59 2026
+| Date         : Mon Sep 28 21:22:15 2026
 | Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
-| Command      : report_cdc -details -file D:/fft/iq_phase4_combined/reports/cdc.rpt
+| Command      : report_cdc -details -file D:/fft/iq_phase5_rate/reports/cdc.rpt
 | Design       : system_wrapper
 | Device       : 7z020-clg400
 | Speed File   : -1  PRODUCTION 1.12 2019-11-22
-| Design State : Physopt postRoute
+| Design State : Routed
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 CDC Report
@@ -228,7 +228,7 @@ CDC Type: No Common Primary Clock
 Row  ID     Severity  Description                                     Depth  Exception   Source (From)                                                                                                              Destination (To)
 ---  -----  --------  ----------------------------------------------  -----  ----------  -------------------------------------------------------------------------------------------------------------------------  ----------------------------------------------------------------------------------------------------------------------------------------
   1  CDC-6  Warning   Multi-bit synchronized with ASYNC_REG property      3  False Path  system_i/iq_0/inst/core/config_cdc/src_ff_reg[26:0]/C                                                                      system_i/iq_0/inst/core/config_cdc/syncstages_ff_reg[0][26:0]/D
-  2  CDC-3  Info      1-bit synchronized with ASYNC_REG property          3  False Path  system_i/iq_0/inst/core/reset_launch_reg/C                                                                                 system_i/iq_0/inst/core/core_reset_reg[0]/D
+  2  CDC-3  Info      1-bit synchronized with ASYNC_REG property          2  False Path  system_i/iq_0/inst/core/reset_launch_reg/C                                                                                 system_i/iq_0/inst/core/core_reset_reg[0]/D
   3  CDC-3  Info      1-bit synchronized with ASYNC_REG property          3  False Path  system_i/iq_0/inst/core/diagnostic_cdc/dest_req_ff_reg/C                                                                   system_i/iq_0/inst/core/diagnostic_cdc/xpm_cdc_single_dest2src_inst/syncstages_ff_reg[0]/D
   4  CDC-3  Info      1-bit synchronized with ASYNC_REG property          3  False Path  system_i/iq_0/inst/diagnostic_toggle_reg/C                                                                                 system_i/iq_0/inst/core/diagnostic_sync_reg[0]/D
   5  CDC-3  Info      1-bit synchronized with ASYNC_REG property          2  False Path  system_i/iq_0/inst/core/freq_cdc/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.fifo_rd_rst_ic_reg/C    system_i/iq_0/inst/core/freq_cdc/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst/syncstages_ff_reg[0]/D

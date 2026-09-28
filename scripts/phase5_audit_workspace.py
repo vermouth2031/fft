@@ -30,13 +30,14 @@ def main():
         raise ValueError('Reference root is outside this checkout')
     # The AMD numerical oracle archive is an intentional installed-tool input.
     vivado = Path(r'D:\VivadoMM\2026.1\Vivado').resolve()
+    oracle = Path(r'D:\VivadoMM\2026.1\data\ip\xilinx\xfft_v9_1\cmodel\xfft_v9_1_bitacc_cmodel_nt64.zip').resolve()
     paths = set()
     files = []
     for path in refs.rglob('index.json'):
         data = json.loads(path.read_text(encoding='utf-8'))
         for name, digest in data.get('bindings', {}).items():
             dep = Path(name).resolve()
-            if not (dep.is_relative_to(ROOT) or dep.is_relative_to(vivado)):
+            if not (dep.is_relative_to(ROOT) or dep.is_relative_to(vivado) or dep == oracle):
                 raise ValueError('External worktree reference dependency: ' + str(dep))
             if sha(dep) != digest:
                 raise ValueError('Stale reference dependency: ' + str(dep))
