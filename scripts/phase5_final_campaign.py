@@ -48,7 +48,9 @@ def capture():
         print('PHASE5_FINAL_STAGE_PASS',name,flush=True)
     save()
     try:
-        stage('regression',['scripts/phase3_board_campaign.py','--references-root',REFS/'regression','--out',CAPTURES/'regression'])
+        stage('regression',['scripts/phase3_board_campaign.py','--reuse-board','--references-root',REFS/'regression','--out',CAPTURES/'regression'])
+        stage('gui_redesign',['scripts/check_monitor_redesign.py','--out',CAPTURES/'gui_redesign',
+                             '--robust-reference-index',REFS/'regression/validation/references/index.json'])
         def ofdm(name,index):stage(name,['scripts/phase4_validate_bandwidth.py','capture','--references',index,'--out',CAPTURES/name])
         ofdm('ofdm_finite',REFS/'ofdm/finite/index.json')
         ofdm('ofdm_boundary',REFS/'ofdm/boundary/index.json')

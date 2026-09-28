@@ -123,15 +123,16 @@
     "report_sha256": "57cfdc9fe75040578a3dba8cb2df2afff95a19b7f6fb8cc8ff6ca3788579b16f"
   },
   "R3": {
-    "status": "WAITING_FOR_R2",
-    "reason": "Requires qualified 100/125MHz timing, complete simulation and 36 basic board cases"
+    "status": "ENTRY_GATE_PASS_OFFLINE_BUILD_STARTED",
+    "reason": "R2 complete simulation, 36 board cases, independent clock and 0.536 ns setup passed",
+    "candidate_workspace": "D:/fft/iq_phase5_rate"
   },
   "R5": {
     "status": "DEFERRED",
     "reason": "No concrete external interface/protocol/self-FFT requirement"
   },
   "R2_attempt3": {
-    "status": "TIMING_PASS_PENDING_FULL_SIMULATION_AND_BOARD",
+    "status": "R2_PASS_ELIGIBLE_FOR_RATE_EXPERIMENT",
     "hardware": {
       "status": "PASS",
       "setup_slack_ns": 0.536,
@@ -157,6 +158,12 @@
       "reports/utilization_flat.rpt": "96fa1da6d325b380fa6d709d6427cfd0f9c78812154fdb9910ffe2579ec90945",
       "reports/cdc.rpt": "d708121c8e3c78eb7c7b92fd318c8df452f5c436cc5503743ab785cfee7a9efe",
       "reports/hardware_provenance.json": "c2df18005f86220f613aa12f07ffdacff1fe5f77fe0151734416b46860e0c8c2"
-    }
+    },
+    "basic_board_cases": 36,
+    "maximum_analysis_us": 175.23,
+    "maximum_publish_us": 175.57,
+    "board_report_sha256": "7e1c0265a24f09a2f6dcdf47657451565f94cd36cf1fff8b72e386c4187d3bcd",
+    "clock_report": "captures/phase5/clock100/clock_validation.json",
+    "limitation": "Full final matrix and SD/cold-start delivery remain separate gates"
   }
 }

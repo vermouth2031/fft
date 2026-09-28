@@ -1,13 +1,13 @@
 {
   "status": "PASS",
-  "created_at": "2026-09-22T13:20:28.660871+08:00",
+  "created_at": "2026-09-28T21:00:06.754653+08:00",
   "board": "192.168.1.10",
   "hardware": {
     "hardware_version": 65538,
     "hardware_version_hex": "0x00010002",
     "hardware_capabilities": 3,
     "sample_rate_hz": 100000000,
-    "build_id": "3bc7d0840b0602203141e9ee228e80e3",
+    "build_id": "e430d567fbc675a926ff0ce5226e53cf",
     "timestamp_clock_hz": 100000000,
     "record_format_version": 1,
     "scan_lanes": 8,
@@ -15,17 +15,17 @@
   },
   "suite": "full",
   "artifacts": {
-    "iq_analyzer.bit": "5708f4296387465042af7705905c7ea08469ee955042fb4a2191d117483aa1b9",
-    "iq_analyzer.xsa": "1736f007a08e1da5edd8ecbf97b4443906a7d240ea3fd5ae5e38b133eca06d89",
-    "iq_udp.elf": "d966af9184cda6a6e0f4c7860d0d783e69db81930e06207d4cf00951e05d74ac",
-    "iq_sd.elf": "8eeb25c8a94f492cee2466f68a0aa8e278751376029acc9dbd382e9eefa700dd",
-    "zynq_fsbl.elf": "fe0426cf6499081c9278df39195de9448da8c94db301f24ee03e02279c5dc00c"
+    "iq_analyzer.bit": "c54f4b90b7f997271d69f802730b06d320a337f20c9866687d390974a8e32aa8",
+    "iq_analyzer.xsa": "094e326602c988c5020e4a5e67d996db7bf59f934afc87dabd68157b6d02b368",
+    "iq_udp.elf": "40e489da229499833f10b4833fc8549d3f093ff8d6a6bfacb15fd3fc66acaa77",
+    "iq_sd.elf": "46ddaeb712baa5f4a6ece77c7859132f7aa14736f425e4b740ca670830573b8b",
+    "zynq_fsbl.elf": "6273907fecc8e470111c6e8e42261e955e405510e31ae981282f6f87ac7e7512"
   },
   "source_files": {
     "rtl": {
-      "rtl/analyzer_core.sv": "fc59b4a9f2e959e1a1484b4ed34db35cda10df6319d1746e8a1cef9be4f90eaa",
-      "rtl/digital_burst_measure.sv": "30473c5ab0563b7dcd3a8da3f68928e0821f883f677a607662bbd82ca616e4ea",
-      "rtl/iq_build_config.sv": "8757b7ea3b19326e002f88bc55d84fdd995711c83af407d1397b9f1ef8496dce",
+      "rtl/analyzer_core.sv": "ad97a84908e3b1658d652624f34cac0bf4f59df3ab04eb0a1fd47a5df896dca4",
+      "rtl/digital_burst_measure.sv": "be9229519aaf83eaaf1886262205784cb7479a346b546789c2c573bcc048e50c",
+      "rtl/iq_build_config.sv": "3157a293b74bdbe07c2b6a5dcb5a876e20dd670412d6a9217a71fb1ed943c124",
       "rtl/iq_peripheral.sv": "b95a5f59e3c8b78af13c3a77b4ae7f9e2039a1d93eb61979ff807a9ecdad83df",
       "rtl/math_units.sv": "6260ca3a34251f94e07b488016f1509771fe75af6f443f6f083be8e320dc0e0f",
       "rtl/record_ring.sv": "6c0fef72bc0e7f48a4166f9694b5858009ba1ba15d0ccd039e9a42556b69ac89",
@@ -43,7 +43,8 @@
       "host/analyze_sd.py": "4065bb5457ccc4628602eddef4b978b75d0df34e1212250b71f632737bfb4f31",
       "host/build_rates.py": "5b997b71b1410bc00e69d1449bda571a2257cdbcd634bfb29897987eab6dd2fd",
       "host/iq_client.py": "fc9e948fb4deff8f268c98c2c4367e6dd27be316ce18a07d694da49045659337",
-      "host/monitor.py": "de1d5d86881cb25519e83f39c041a70d747ae568f27fbe7c1084b64a553719eb",
+      "host/monitor.py": "855c8db8a53d95234656325198731e7651c4bd46b95e7b1f485d0fd25588be6f",
+      "host/monitor_view.py": "f560d3ff4aeef82fd26fc9f1b764316e4d50a50ab027c2a11f77f10ec595b807",
       "host/threshold_config.py": "ddeb04b35c36d8c43ffd6b45c48f168edc75467760745d09b9f8200508334b86"
     }
   },
@@ -51,7 +52,7 @@
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\zero_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\zero_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -63,64 +64,64 @@
       "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "a965bc3d4006dcdbe8f130861158dc427a8b62d04f007e27bf31b2fd0b929f0f",
-        "frequency.bin": "698aad990b2ef42927be5b7c44e7e8eee04c9f1f6d9766545158da5fcbc7bc36",
+        "capture.json": "4c17844ccbfd50de958e389a9fbf0d531d589cb4811229a7bdfdea6bcbadb809",
+        "frequency.bin": "d3ea38b078c7246ac3d5420deaa5c2495358da94847322aacfcff4f5efed9c03",
         "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
         "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
       },
-      "measurement_report_sha256": "9f97a49f0cf7433eec413bef4ce54f7989e53b6236629bc5c59120bed6740d5e"
+      "measurement_report_sha256": "26bd1436da4a067c7d43f963d5c9e06d9d0fc5ceb09a80208a69494570e86ea6"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_pos_fs4_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_pos_fs4_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.22,
-      "maximum_publish_us": 175.56,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "63af0382131230d8b795cb98fa5459333824139d4db64970f5eda78431a0cd30",
-        "frequency.bin": "92b80e92b2681579b127443ba10810d46ddfe9109c0f9bf9f6e3076286c0a679",
+        "capture.json": "e5895ee983c2d547658af8cf4140b448f6287b1790b126402ecf89d728a54059",
+        "frequency.bin": "ed5a9b8d8de133a5f170d95895c92e90a27a934d738d12853c8c297eedeb4291",
         "burst.bin": "180daec8250dfa2d6f50719cea379b4635da8d541715abe4967a21023d8c7849",
         "snapshot.bin": "5f228cb703f9b32bf4f44bb11d752acf0066915972c75a77811e8249a5f481dd",
         "snapshot.json": "cd1791a935ac8d60b899c5953a92d82f53750a3b5c6142606ec20c16ccdbfb6f"
       },
-      "measurement_report_sha256": "3f2af948161eeec9edb2b76dec806d5773749cbbb1ae013e1acd978a1225a3f7"
+      "measurement_report_sha256": "c8976148e36e61157612aab7e5416f6912434649aa39793de19486f79fab38e9"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_neg_fs4_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_neg_fs4_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "a155c4ae24a939f1f51a62062b62d192b11a6e8d33b4d690787afd90d0ebec38",
-        "frequency.bin": "1d83cac96de8b9bcd585bea7f6bfd3c0e49a2b46d063b29e9e92d375408c9d4d",
+        "capture.json": "87f3c728b161424714a07f85c6aabb9d5c8bb440f94b31731d97120c31b11d66",
+        "frequency.bin": "40ccbd683182135ecdc9963c546d014a4da8b093a2b96ab223fe55365bc43f93",
         "burst.bin": "a71b7566cbba66de22b30faea9554197c6f1b667c4a0ea6f35a87d3442c68f4f",
         "snapshot.bin": "de86727e82b474dfd52139cd6a93227ac96422fdeff65f5b60f10dc064331ce8",
         "snapshot.json": "9fb2c05218eeebdc0f6691adc9d15a1bbecc5f24d474f5316c186580e7a88c51"
       },
-      "measurement_report_sha256": "0b5ea98d03150d482eb42825cffff0959ac56eacde487e56de14ab11d2b30899"
+      "measurement_report_sha256": "752dd67c183e2848f2506ed7afc8b2ac4fb2708e13e2640e720137dde126410c"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\burst_fs4_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\burst_fs4_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -132,41 +133,41 @@
       "input_sha256": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "c192272f2a5cca3457ba93eae8ba2290f08c572ff636b50915c877c92ee13052",
-        "frequency.bin": "5f6a734967dbf57247676b8627a066356c94bee57fbd680ac2c8ba7e3cadbc9d",
+        "capture.json": "b47fc8a3820ff1413171c4bbcc817c05486cbc3108c563d0867f8cbe434b327e",
+        "frequency.bin": "ce799ca1ef3768d93d720abc7d63dff9210f7a304071059b8f4fa7fc5868ae5c",
         "burst.bin": "751781057961388bf07d855d450ae3d44bca3b6e0f14ae3bf78e6d9d1d5c94df",
         "snapshot.bin": "8b910d02e050ba741d963ea85a5d5595f3c2eba52aeeec87827158b2f7fb63e2",
         "snapshot.json": "52bdb5669cbdfb7ceee249595c8219a164292fb2c91e4383e72d54be7b10d6f8"
       },
-      "measurement_report_sha256": "3729c0df892b93e7ba4a4e6aa23de1414ca03d715f6a5bc051d76121843ca111"
+      "measurement_report_sha256": "40afc291e93731f6877a3a972e3cc3aa9c8165667c86853b7a446491ccf2c92f"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "f89bfbb2a65bb6ebaa1cd47bbadfeb888cad565cc73bad16234c1b9abeb33fde",
-        "frequency.bin": "54055ee657822be6201519f65183aa1eee37e1dca1a8f792043de71549884f7c",
+        "capture.json": "828a42665047d23a95e4275a8e4313666c54e8512c8e24495c09101b77f49b6c",
+        "frequency.bin": "70627664310be1cae1de71809c43eba503d288ed46031d954d13fc19f63b8371",
         "burst.bin": "f17ce39dfb7595ff57a1de8dd5a2e52de33008a6f92b64944eeffb304c4c93bb",
         "snapshot.bin": "52d01f4a152d12fefa0b46838d28685e6ee78caeed81cd3388365f3feaa0db68",
         "snapshot.json": "1ab0dd2b816bd0df0ddd04263979f42d671bcbfef07b1bcfed7faf9f9956369f"
       },
-      "measurement_report_sha256": "1c9e9ecbe45a7beac8d57768de38540490b9ba2b144ebfe81c19233ea362bafa"
+      "measurement_report_sha256": "0375bb7c4f9d37256b710e80e840cdeea997bcd3272ecd6f9ddad7e955a758ce"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -178,41 +179,41 @@
       "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "5fe15656e5ca20b60d870fb33992e316931c36022fa7fe8a68876389945ce164",
-        "frequency.bin": "af74ba41162838f9afddd4d6a6ee640f271d98781be71601a9398cde745b8966",
+        "capture.json": "fa34bd576b874711eb2ffe7a24c38fd6b267fad4b3f7404b5544f88067364b1c",
+        "frequency.bin": "bc9a201b562f564c524890a90dec987ad909488e660bfbd76c6d5ff5da021932",
         "burst.bin": "9b0986f3f93a3d6aec5cf18f11021b9c722e064071db70f2672b337efeeefccf",
         "snapshot.bin": "981b0c0f25dad1a400437492a56652456add77920160c40a1a6da2cf1e444a41",
         "snapshot.json": "fcdba6185f778c9ba5a8b480246674bcb185329ad65d4e965ee6c49f9493577f"
       },
-      "measurement_report_sha256": "89856aae20dd7fdb691bf2db76b11bec6e2dedde95bf7da3b0cfd0afa5d2a097"
+      "measurement_report_sha256": "6574bef4004ad03d1c01ba78423148a059fd8c63068d0b973797a2a0ac93e984"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\short512_boundary_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\short512_boundary_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.22,
-      "maximum_publish_us": 175.56,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "35ba2f6c86510a4f1f822a6096e1888b2380cd2a023069ced9cdb81ab15cae93",
-        "frequency.bin": "4f628d2deffe2af579329f4e5f51430ab4ab5810fdedc9726603cbcf5bc68742",
+        "capture.json": "598ea8abd6ae7823c813c2a5d448345f8efd23fc7005a11ae80e941a1cf42d7a",
+        "frequency.bin": "527b21617a631cf8e50291a07f8fcc3c0a5061229aceff194940d405161f2530",
         "burst.bin": "8b3a1dfdfe73666ae373e03cb009b77aba291cd27954173c6001d1e14c0e2602",
         "snapshot.bin": "4f6b044879b4f1ad18ec88b5b1c54d2b7f0f6b4b36bfa16631a1b5f85f1dec47",
         "snapshot.json": "dbf630cc36bd1f414b684f84586ef94afe1ffd967c866ed9255324ec1f9b9b0b"
       },
-      "measurement_report_sha256": "04e6621db46ea2d7e54e79e2cbb41e6f87d702c252d18013a25552e32674c31a"
+      "measurement_report_sha256": "c515fafa6853029a93d78c98f5def3cfabc658ed3a3de641c120f28202c974ab"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\negative_fullscale_dc_rect_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\negative_fullscale_dc_rect_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -224,18 +225,18 @@
       "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "9ef4c5ea4bde5fcee17196d69d0923f8a40c699385d63dd998a1d6e89ee7a8fc",
-        "frequency.bin": "978aca084bd623ba6cf85fa33830a8cee5e085534374d0e74fda49a280a3f4cd",
+        "capture.json": "181e74398e245f1dac8422eb4c082adef70765307cacef038a5b8c913241a862",
+        "frequency.bin": "d8fe9d8ccb38e96cc9c9b17883e762ca24ce894c6e6acae2e72e54e639e25f28",
         "burst.bin": "1771c70cd5bc1beb26862e19cef48b21b1127b0bdce41df9e98507126809aada",
         "snapshot.bin": "d2b3b684af68cc0640289f697c924099234fa592c83e381b05b4b1c6836feaef",
         "snapshot.json": "52ca2b7b2a73eb183aee85c02e0593edb2281a0738b9ffda0c9b7ee71eead4f2"
       },
-      "measurement_report_sha256": "ddb702fe6665e9c1b116f89b1e104884eabec0a2f215b61d8d82efd2451e0766"
+      "measurement_report_sha256": "ac0be118b936e1eb83b9e3726618c738e3dc260b69548a1e7999f8308087e983"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\zero_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\zero_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -247,41 +248,41 @@
       "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "eb0269bea46fc0aad486014d990b7b814731aff8e9eb1eed65206528e14af9f8",
-        "frequency.bin": "e2d985c9259d7bdcec1a70919cec2ad2e83eb366b9c685d651b26d54ae0261e1",
+        "capture.json": "0f46387321ef7deaa8ecad2e9f5824249c03f9359e4a9a743cc93ac60922799e",
+        "frequency.bin": "162f0e59d9ea97faf72e87db6d38a2298687499d0a0a26971177dc4a767cf872",
         "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
         "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
       },
-      "measurement_report_sha256": "fee25b8ee5ea06d388213ee92e427d53d5f5995e19e433f86e2467b0cce09cc5"
+      "measurement_report_sha256": "baef9dc2321a00b8588a6268b5076ff0f59f881e5ae1909af41f166b2699fe2a"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_pos_fs4_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_pos_fs4_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "7aaec25c124f69aa8058bfbe414b723c6378a938a4e85ac4b594d260c603bd72",
-        "frequency.bin": "9f41c15f5ce857b1819b1de2bd0f08d8976f3b41a0bf42b47a7f07f918f30d43",
+        "capture.json": "7e33df78f74f5afb955d7a14e5b85154485bca3539473ec4e76ad7c670587393",
+        "frequency.bin": "d5595bfb665fbac556a74b21faa4ad65f5a6e3a4f5060cbd6f834035dabab474",
         "burst.bin": "76257739c28f4d0d97bd28a80441f33a48776e89da84f9ae2bd9105ec13df79d",
         "snapshot.bin": "f066bcad91a5a025192f909db77b3e8758dbcf22bce59252c6054c9b3f6a15a2",
         "snapshot.json": "659708d817022cc7d835bfce912b7b39df4ecfb9503b8db6b15a01421e576552"
       },
-      "measurement_report_sha256": "60f244770b573bc55ebf8c4b3ee05bb6b22635ee6b439d5d1b8fda8671adbab5"
+      "measurement_report_sha256": "de981d144bb2ce8e8bec1e8b0f98c43dab884ca2b4d29d18fdca406ae54e8d02"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_neg_fs4_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_neg_fs4_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -293,41 +294,41 @@
       "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "4cdc073851f8e13af86c3ccafb2f6aa60fa70594b5b6391f05682975264109e9",
-        "frequency.bin": "d0edc0dba7c0525813a608e320f336c81437d40a06fd57e29e5f8f2ef033b2ab",
+        "capture.json": "6e2f4469d69cd3115ffb9788d398304c405abe2b99242e2f1d81f8ccbbd95c02",
+        "frequency.bin": "6feadf19a387128d2f1c8b13785e43dafefb83529485d6b6a73f8bb4d623a611",
         "burst.bin": "7441d9241817f725fe7b24307648e1bd52d2206bbcd923408c4da8c89df1f4b7",
         "snapshot.bin": "7272e54c08136750b4bfd6d593d01e4d6d3d0d77b2231b8d4600a303fbc36362",
         "snapshot.json": "b6d4a664c2ed9e5842f322c14669fac114824962a4477d1b32bb7fc78bbf018d"
       },
-      "measurement_report_sha256": "6b31eca5a1293a40b0026d2458de8f1836f80edb7ddc85d173161fe72dd4a636"
+      "measurement_report_sha256": "a85b47ae4c648ac343b024deab8721f4f7dae6781907bd751733b9782c9a650c"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\burst_fs4_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\burst_fs4_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "4bf6ed3d77f6a48c8e2f1e9fccd14c5f7ba855ab509fc3f8400b346442a5a099",
-        "frequency.bin": "429f43b23e3e6c53217205d9be607327e03e32173c115d2454068ce9e0e8f870",
+        "capture.json": "15b40671eccaa4a93f5606343b4ce0223a7d4c707c8b554a7eeff60fa33f9742",
+        "frequency.bin": "c0d664018ed3519354e62ba387d63929a55e94d39864320dcfbed5076bf36430",
         "burst.bin": "d23b2a21a877a0deb955e243066d9833a2618668e7bd565b825c67cf9bf68d91",
         "snapshot.bin": "5a36cbdb7b77a8ab4413fc683526fa30103053e7dd91f5bbfaeb6d69ce737541",
         "snapshot.json": "1e2bde11fd382aba81b1ae31ac452942df8a1926ba2234c6bfad3a51b277ef9e"
       },
-      "measurement_report_sha256": "ab52ecf9d16b026d2e0a4b93cf2b6cbd900f528e3bd7196d05d30052306d115d"
+      "measurement_report_sha256": "65056a5f0a99d09a0e72f7606ea6467e55601a8fc00ca903725bdc13dd188556"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -339,18 +340,18 @@
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "0d64418b0c03c7f38a134807a61095264cf6dd31387598ce2f795833d78f0827",
-        "frequency.bin": "db82d871362a6c804bd167807f0dc37f5925fdfa5a244eeef46ee98dd3140d79",
+        "capture.json": "1edd7f6a1f2209fb8cf83713b95f2e9fd564c52b82e26828bd667ff218f8be7a",
+        "frequency.bin": "e90007a513ada409b081f2a74855cd4154a58986303138d7559e8723eef513b1",
         "burst.bin": "496b5bac92d9d8340d5a0eca9eb5eccfa4287af0c2604206c6884602c6d52195",
         "snapshot.bin": "8656d483e99c3914323e08d4426ade65171ad74114d17897b5d674071459fd62",
         "snapshot.json": "5cc50054256ffb2cdeda0e8d3eff96e702429b0dd95f46adcd01290d6aa168a4"
       },
-      "measurement_report_sha256": "f590f68632c555524429c2eb1062a034ee12c76bae1610be44a60affd744fee5"
+      "measurement_report_sha256": "39961f674932abbf757ccbb1d09a4df437c376f51c435efd2fb2d41b41991831"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -362,18 +363,18 @@
       "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "4d9ade744185ba02d30e083f7b23f895ecca561aa131f494a60bc6e3216b2024",
-        "frequency.bin": "97a8c67d541237f4cc42b1c2e264b7b3722dc2d470cbace80ad3bb4c60760436",
+        "capture.json": "08f939f28f2afe6acf12295db70609e6d216d6e89aed590c9280936458303efb",
+        "frequency.bin": "6fa951f979cd55ce0190e1ec77c2532d4518d99306e0d3aae11a9afd8b647b95",
         "burst.bin": "4c2715e5dcca9574b1661a18e776152c2e216b01cb8598afc3e6a66337923b58",
         "snapshot.bin": "9a72f92e2fad1ec99bd5d7c22baa4f006dbd670f8cf008865e55aaf0e88f68ab",
         "snapshot.json": "5aa2ddd60ef40ab0d2a833d1b5850a6a23f467488a7848f028d8b65041c3b4dc"
       },
-      "measurement_report_sha256": "2986c66eecfa6b2cb088f61418f3956df84271dcb5489bb014bde23418790bf0"
+      "measurement_report_sha256": "6127ce81e6cbde063099629f67e44fcfe9963a13f38ebdd6d44bdc4897f6e2b3"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\short512_boundary_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\short512_boundary_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -385,87 +386,87 @@
       "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "349cddfb3fa50933786882cf4af46f20c7c20c0576a278bb2a757bff4406f0ec",
-        "frequency.bin": "515fdff3ce174f994f9329940d9a1b66787baffb7685d49933595a923bef17e0",
+        "capture.json": "2e4c361d6888f0d9956ad9d4a51ac2b08fb86ded6349379c2bc0b2025e1b0a6a",
+        "frequency.bin": "e3a1836eda044cc3746080be9376a74f46c0c750b07b74059b77967953379be4",
         "burst.bin": "d8d008b0836deeea081b9dc6764cb438f50ed2085f3daf6e81cd7b825a8356dc",
         "snapshot.bin": "e7db1d02182b642ce6b93649ab3aff32e85c3a1645e2d5f47d657b590c125a7b",
         "snapshot.json": "9a03f17c2c37d4aff789565f9507e3e77dab4c944ddeea1a0c2cbb7264326827"
       },
-      "measurement_report_sha256": "7ec2285c2a9cec44faf276b2f95d5c09635ef80d2d1a8da2385fccca2010fdfb"
+      "measurement_report_sha256": "7a6f735dc7fb7eb976047bc41790fef957c5a674e8aa4a1f5dd0321ba60d9067"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\negative_fullscale_dc_hann_threshold",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\negative_fullscale_dc_hann_threshold",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.22,
-      "maximum_publish_us": 175.56,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "da5b24085c9b1612172f3e2c71b5642c5a7dbf6132ee1dd498bae8d080d859a2",
-        "frequency.bin": "d745d7c3af24d87d668c1596eb314e2c3ad0891520afd8ab1671cc488b6fb0ee",
+        "capture.json": "60bd4f9405d4970dcfc5d9aa2f8a216df12647723828a2afc0e92cd64f31c236",
+        "frequency.bin": "7af2102466092c3d0a447f18454ac7f85238f05eb9bc143b683294d0a2e1b3d1",
         "burst.bin": "4c6ca5535751b38981ee19f1281d40125d2020fcd07f1b799f8cac590c9b37b8",
         "snapshot.bin": "bf18776808a276900f6879ba119cd5c9ef10eef181284595af5d1885adc04107",
         "snapshot.json": "f58c2bd6fcc2a8b6dc3ce5c2ba45ac0ffee6a7fb50eafc56657a03a908f8a064"
       },
-      "measurement_report_sha256": "ad583a2e93e054e8f2ebf6ad492162b1aa51999fec73184e7bf77fb80f1c130e"
+      "measurement_report_sha256": "ccd0ee5fad6d95b423f690727d7143465b3012c19c8424ce36a0ad14e806ba1b"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_hann_threshold_10s",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_hann_threshold_10s",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
-      "frequency_records": 122030,
-      "burst_records": 30508,
+      "frequency_records": 121970,
+      "burst_records": 30493,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "16a86b04e2d99c5703d714dd80278b039ec767baa5e2bc318f5b821c665bc2a7",
-        "frequency.bin": "bf25e5e52c212460ad6f31e877161129388c9aebd3ff5c8135262aed6319aa81",
-        "burst.bin": "707cb52e369cb0d4ebff2968a16bb4262190c9bbc7616d589b1b35d5223a84c9",
+        "capture.json": "4cd8aeb192c80e49fe800e4cb6e13a05854c2a891db381f2d9136a51e7c6668c",
+        "frequency.bin": "ba6637906dd28db8b53b4389413d98d9816ef1a8b3b059851544340f1c2aaf11",
+        "burst.bin": "874492bb7dedb8f174ac4e8156d3d00ef9ad30de8b6e007cb96d8cb03d8a6d2a",
         "snapshot.bin": "8656d483e99c3914323e08d4426ade65171ad74114d17897b5d674071459fd62",
-        "snapshot.json": "f8738b2cf6546a45ab8840aa20e2dfac7665f4cb2c5430791ddc903319cafc7e"
+        "snapshot.json": "c0129ea7e39b2e1aa24b095e74be62e240ff29716d6476a5b65b3659c84f1b9e"
       },
-      "measurement_report_sha256": "f3ae1f72492fb3e7ad9b52713a3d3376c499fcbedd4e2d32c8a59b31beb3d03d"
+      "measurement_report_sha256": "df70695789ab502ea9809137e9551d0cac0435f7a8bacba3909f0c32e143abe1"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_hann_threshold_60s",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_hann_threshold_60s",
       "detector_mode": "threshold",
       "gap_min": 32,
       "hardware_version": 65538,
-      "frequency_records": 732353,
+      "frequency_records": 732356,
       "burst_records": 183089,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.22,
-      "maximum_publish_us": 175.56,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "c7eaa8cc0f8b136c7d2e2e889e9b7a0f1c63cd79cca87a392fe6899236fcb392",
-        "frequency.bin": "f77f747f869aef4c1acbbb26ff4d467d5ffd9c01599d100896a6118c9757bd29",
-        "burst.bin": "685d8405398a52554198fa5946ae846ba262ee675a8aedc5c4f5b28c984939d1",
-        "snapshot.bin": "ef813c54187a50aba46eafdc4e1aca8b57c8315ca882a4ee68bf8e2500938a94",
-        "snapshot.json": "5ccb2240a1b5e47fd8bc2c5a919a3adb9941bbcdae9a11209ea12cf8b4f06b60"
+        "capture.json": "aff27354ca4568e5cb2946bdf0a4d79112df764aeaffc91a1542bee332380010",
+        "frequency.bin": "798642f16f834d0ba93f5db020fa78c499db2c84653546340b50552c5d6b5af7",
+        "burst.bin": "a5a58c1ab503924cf1d9ec1a80dcc2db6ae05dff56dfab536da0ae3b421eed5c",
+        "snapshot.bin": "2fa4df0a52fab6c80800c64069449e0bd8768124490f23482ee6aa0096254fc9",
+        "snapshot.json": "9334477a4f7674d7f96b7744ea67c60e8dbcd4550c2818049a2897f23d575b45"
       },
-      "measurement_report_sha256": "34b417590500d4ee1d4b2faf6cb3112cbc6b705e89c6a806c0d07ae56166662a"
+      "measurement_report_sha256": "791a9b4b97f007762c9a6efb374933ea0f69ae7f9e316a1b9aa30baeb87782ad"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\zero_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\zero_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -477,110 +478,156 @@
       "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "542b04470d235e38be1d3d855ed96958877da17dedcfeb296d7a7cf84566b366",
-        "frequency.bin": "624461dd29c905765339720c9aac51ed55debb5c35cddc6a8c00fa0745c81c09",
+        "capture.json": "6f7d6d6cd997557cf923c28a015c635c0bbe220e6e480a091c552276e71ed1c2",
+        "frequency.bin": "d99cee9e8905dc6316d79d7dc946c8cb109b3b1e74636bfd456fee39d20a4afa",
         "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
         "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
       },
-      "measurement_report_sha256": "b950343dd839c812e82e4aa1514e60a1e803570781559f1938d9e3ede2541bd1"
+      "measurement_report_sha256": "5013b12d3be0509b3818b81a41146ac6b687550e21ed20e8f86cc824a56b11d0"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_pos_fs4_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_pos_fs4_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "a9834e6407ebf7aea6b51b45a0eb01ff70ebdee7386a4ed122e2c1ca89a59df2",
-        "frequency.bin": "1d2d91925b00af981b7df76bc0679d1dcb4e7f5624bbdb1667d2d60d4cd0164d",
+        "capture.json": "308ec29ee46bf9010f98121aef8bdb794eb45a9895e678c729367ded688eec6b",
+        "frequency.bin": "ef90182fafc997ce6f7920e30e01cc3d6677a03d686d28facd7e2eb5b80f73a4",
         "burst.bin": "3128c42c976a01f4f8e45da71fd8cc63da5e11a29f25ec902770fe15d4aead72",
         "snapshot.bin": "5f228cb703f9b32bf4f44bb11d752acf0066915972c75a77811e8249a5f481dd",
         "snapshot.json": "cd1791a935ac8d60b899c5953a92d82f53750a3b5c6142606ec20c16ccdbfb6f"
       },
-      "measurement_report_sha256": "271afbd088185aa5a6ccc783b63b94551e369bb3c8f04327e8e85a25d4fa85a5"
+      "measurement_report_sha256": "17b0007d79851477209bec5f51aec5149a596346f24a67967fc58c516703d908"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_neg_fs4_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_neg_fs4_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.21,
+      "maximum_publish_us": 175.55,
       "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "7b68db37b4436038613f33ba5b4291ab91c63db1cbdaef3161bde42fbd477c89",
-        "frequency.bin": "b311a916bbc6527e9b9a73ec026282de201615485ed5479402c654c148d8aefd",
+        "capture.json": "eefb44cd8e88a4c871809677325bb53ec2011088cbf935d072dfcac825a58468",
+        "frequency.bin": "e23e0633c8270fd3154162c7c35d18da624018fb49626baf9a0f145cacd13cfb",
         "burst.bin": "d6e21ead2219d063de1e5801a9a73fb4bd2a71716189faa2ce7905933abd1762",
         "snapshot.bin": "de86727e82b474dfd52139cd6a93227ac96422fdeff65f5b60f10dc064331ce8",
         "snapshot.json": "9fb2c05218eeebdc0f6691adc9d15a1bbecc5f24d474f5316c186580e7a88c51"
       },
-      "measurement_report_sha256": "8ca5fa32dffe4ba26c7ba4b4ee638eda9b4fee3f57ecac55f6aadb331ae6612e"
+      "measurement_report_sha256": "395197368d003d9bc0cf8e748f1fa98ccd518722ac2ef4e9b817be7fa3af7294"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\burst_fs4_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\burst_fs4_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "e61983b2e820e51f4a8ac7efbfff495056e9a99d01b53b5d8edaf642fb4e6fa2",
-        "frequency.bin": "116bbdecf74ca0c7ece9a0fc3ad053d14c805834c82706856891ee5c8a9ebf60",
+        "capture.json": "64d4ee06605d6e6303b15509af1afdd381d9b306dd4c0b31aec2b06b80e7deb4",
+        "frequency.bin": "4ec5e091affccbc2cc7d6f6c22e28cb589344079df8d0cd371fb8556e6635ff2",
         "burst.bin": "152da63095e9c469cd4249186ce3847e7078b0fe1d0934c2fe1885fcda0cc692",
         "snapshot.bin": "8b910d02e050ba741d963ea85a5d5595f3c2eba52aeeec87827158b2f7fb63e2",
         "snapshot.json": "52bdb5669cbdfb7ceee249595c8219a164292fb2c91e4383e72d54be7b10d6f8"
       },
-      "measurement_report_sha256": "b2b9cf31c8c2e95ce9428c468ea71c7cb7f2224f22e16038a77f53ca7c300ce5"
+      "measurement_report_sha256": "adf072c7393ecb7ecbf4c7c3cd47013974da5c262493328bc6e2e9f96d9ecda8"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "378917e6348add3914771dea1790790c36d4704227b0154ca43a8f632a7d9687",
-        "frequency.bin": "4a295f87bcec0920728cf474e66d2fc5186bee14ba204d3311615341f929b0c4",
+        "capture.json": "f78a2865b98dc5ca831e73931b11bdb2b79764927df6f77fcde6b75260259137",
+        "frequency.bin": "c15ec049a879d5d472c9a5ceab0057679269571388ef443a9a0b2ff8412d4c79",
         "burst.bin": "3a7c1f5acf140c93a42af76fb1bac3ec7a6202cad3a4e03053df4a05682750b7",
         "snapshot.bin": "52d01f4a152d12fefa0b46838d28685e6ee78caeed81cd3388365f3feaa0db68",
         "snapshot.json": "1ab0dd2b816bd0df0ddd04263979f42d671bcbfef07b1bcfed7faf9f9956369f"
       },
-      "measurement_report_sha256": "ca27a28dd76f0d8841ef8535cba040bb901caad5bbeccb417dc2cd346b87d96e"
+      "measurement_report_sha256": "37ddf767ddd728c4e8f86bb186c751386f6bfffe4523e2b3f7db967c64b1b75f"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_rect_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_rect_digital-zero",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65538,
+      "frequency_records": 4,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
+      "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
+      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
+      "files": {
+        "capture.json": "421d7092509f56f71671516df2fec749837de6cfc331f283697fdd251b96d44b",
+        "frequency.bin": "c584d26d6b31e7fae82e4c388141f6c30b369368d2d0a71145e3482051cee30e",
+        "burst.bin": "9ff8d54cb213023ebe88aaf239170ad8d80bf1301f9617e2a0f2e275a367df2d",
+        "snapshot.bin": "981b0c0f25dad1a400437492a56652456add77920160c40a1a6da2cf1e444a41",
+        "snapshot.json": "fcdba6185f778c9ba5a8b480246674bcb185329ad65d4e965ee6c49f9493577f"
+      },
+      "measurement_report_sha256": "ec1fd4c6a64942542d4211debcc99a35bbf0ed98550833e030e5279e7de1241f"
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\short512_boundary_rect_digital-zero",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65538,
+      "frequency_records": 4,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
+      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
+      "files": {
+        "capture.json": "0f5b0009ad53e6a114419e18c5786636fe0ef522b99b6c4645b36965b920955c",
+        "frequency.bin": "4a64daef810fbe502b1597825725822618cd84c34fc18b666204b720a0f67334",
+        "burst.bin": "b62bed1e74c118489dc742bf32593127b1bbe799bff554b42758f4a59c1de287",
+        "snapshot.bin": "4f6b044879b4f1ad18ec88b5b1c54d2b7f0f6b4b36bfa16631a1b5f85f1dec47",
+        "snapshot.json": "dbf630cc36bd1f414b684f84586ef94afe1ffd967c866ed9255324ec1f9b9b0b"
+      },
+      "measurement_report_sha256": "9721d5179b02d56037f51478073bf381a5872b4197ebcaf1c71ad506e3346f4b"
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\negative_fullscale_dc_rect_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -589,67 +636,21 @@
       "exact_snapshot_values": 1024,
       "maximum_analysis_us": 175.22,
       "maximum_publish_us": 175.56,
-      "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
-      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
-      "files": {
-        "capture.json": "742f3acb59e77eefd968788cfb730932ebfba935fe64b02365bbde00ab54c742",
-        "frequency.bin": "45a6c1938bbb5535a60c4fc6536879ec7a2b3f5f8c191549a7d1ac8f6cc404e3",
-        "burst.bin": "9ff8d54cb213023ebe88aaf239170ad8d80bf1301f9617e2a0f2e275a367df2d",
-        "snapshot.bin": "981b0c0f25dad1a400437492a56652456add77920160c40a1a6da2cf1e444a41",
-        "snapshot.json": "fcdba6185f778c9ba5a8b480246674bcb185329ad65d4e965ee6c49f9493577f"
-      },
-      "measurement_report_sha256": "7a728d97341d40df22d3f272a1889a016f6829ec66aba5550f2ca079e21a74f4"
-    },
-    {
-      "status": "PASS",
-      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\short512_boundary_rect_digital-zero",
-      "detector_mode": "digital-zero",
-      "gap_min": 32,
-      "hardware_version": 65538,
-      "frequency_records": 4,
-      "burst_records": 1,
-      "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
-      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
-      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
-      "files": {
-        "capture.json": "d8e1c17e21f94ad7479364082de4fdf9cdbf4631899500408a90bfc6bc2a6245",
-        "frequency.bin": "8a751aa2b80cd108a1bb41fcc2e3894f02fe275cb305ae7207bd2fb5d6c71772",
-        "burst.bin": "b62bed1e74c118489dc742bf32593127b1bbe799bff554b42758f4a59c1de287",
-        "snapshot.bin": "4f6b044879b4f1ad18ec88b5b1c54d2b7f0f6b4b36bfa16631a1b5f85f1dec47",
-        "snapshot.json": "dbf630cc36bd1f414b684f84586ef94afe1ffd967c866ed9255324ec1f9b9b0b"
-      },
-      "measurement_report_sha256": "6c1037c139d75d7ba234d0709b6f92769eed0f398eef1e8bd2e9eba028a49773"
-    },
-    {
-      "status": "PASS",
-      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\negative_fullscale_dc_rect_digital-zero",
-      "detector_mode": "digital-zero",
-      "gap_min": 32,
-      "hardware_version": 65538,
-      "frequency_records": 4,
-      "burst_records": 1,
-      "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
       "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "39ecca39065025781a359d78023713c73c15a43b59658aa1fe2f52614ce10fff",
-        "frequency.bin": "b60ac381605b95cd0a64f21c9dce8e50a4ab893f4275ebcd800e2c6a22cbc766",
+        "capture.json": "a79b217e22b3adb142b12dbf17401e3066a3aee38483141b53b80553b4bf4458",
+        "frequency.bin": "f7e4c72382ebbd8d08544d8e756c68148bb8ae2d449326d665a37f95acc7be30",
         "burst.bin": "e8003d4151540965cb1888ffb78e276bcdc8b775c55fa7eebf16695275b8352d",
         "snapshot.bin": "d2b3b684af68cc0640289f697c924099234fa592c83e381b05b4b1c6836feaef",
         "snapshot.json": "52ca2b7b2a73eb183aee85c02e0593edb2281a0738b9ffda0c9b7ee71eead4f2"
       },
-      "measurement_report_sha256": "de75e75cf432264bd5ba0693d4bff68135bca4bbdd9b7ed52dd45f3504079815"
+      "measurement_report_sha256": "96edeb9623b65bd07b952fd49e4988693cd82e218c7e2f8c659708d61de6daf9"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\zero_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\zero_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -661,41 +662,18 @@
       "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "cb14a13382c6e01e79c80730079b4fd412c11a1d81cd11154da427372d302765",
-        "frequency.bin": "0fa87616343f4b35f589798c97617d6e40299185670191723e02830615c5cecf",
+        "capture.json": "4d7fd4bfae5ffd2b5418c3f9e42a600ec072d43b7b3921b608e9fc1d56b31d20",
+        "frequency.bin": "245bf200e5ea2ceccc4b927d5df393685e2b6ddf322c0a5156440bd154d2f822",
         "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
         "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
       },
-      "measurement_report_sha256": "d78efd556c14415ea3958becf48e9ea2aa4f3ed713468b17c21d54894118a2ad"
+      "measurement_report_sha256": "aafd47a2f0b5db2084181ee466b382bcf2b4a8cd81b45e117d65ae7718cac75d"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_pos_fs4_hann_digital-zero",
-      "detector_mode": "digital-zero",
-      "gap_min": 32,
-      "hardware_version": 65538,
-      "frequency_records": 4,
-      "burst_records": 1,
-      "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
-      "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
-      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
-      "files": {
-        "capture.json": "226777915c3e8484be69d467a10da3991ff8ef9ce7bfe003ed63b3a6d6ffd960",
-        "frequency.bin": "0748b5bfebc4c6e5c3695bca0007d1d30f26844f94fefb7d594df98ae0696f79",
-        "burst.bin": "0e5d9f46e737b79cba349ee1ee4a58c9b70eba46f070b0e98ff254b117bfb510",
-        "snapshot.bin": "f066bcad91a5a025192f909db77b3e8758dbcf22bce59252c6054c9b3f6a15a2",
-        "snapshot.json": "659708d817022cc7d835bfce912b7b39df4ecfb9503b8db6b15a01421e576552"
-      },
-      "measurement_report_sha256": "80ced3cd26ac7097e998d28869578165348a4359a35ee48f50374f5bbe927ace"
-    },
-    {
-      "status": "PASS",
-      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\tone_neg_fs4_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_pos_fs4_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -704,21 +682,44 @@
       "exact_snapshot_values": 1024,
       "maximum_analysis_us": 175.21,
       "maximum_publish_us": 175.55,
-      "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
+      "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "7abe7bf75c3d287334b779c1a4b62a308368662ffcf425d145c0d52016ac2eb5",
-        "frequency.bin": "450197750314eb4f816e744e7da7e998a11f1b0c122dbbc291006a83c6b43890",
-        "burst.bin": "6cf4b9cccee205816fd1366fadf33994d64187f20f0a5e8126e39ad2d1221425",
-        "snapshot.bin": "7272e54c08136750b4bfd6d593d01e4d6d3d0d77b2231b8d4600a303fbc36362",
-        "snapshot.json": "b6d4a664c2ed9e5842f322c14669fac114824962a4477d1b32bb7fc78bbf018d"
+        "capture.json": "267a97cf020c74538d2e81fbdf35f1752093ee53b8a56dc11363b23580288ba8",
+        "frequency.bin": "b0e6fbc4089e0c24ef9a7316efc643037e1f854dd3d926d2e238e0a210a39998",
+        "burst.bin": "0e5d9f46e737b79cba349ee1ee4a58c9b70eba46f070b0e98ff254b117bfb510",
+        "snapshot.bin": "f066bcad91a5a025192f909db77b3e8758dbcf22bce59252c6054c9b3f6a15a2",
+        "snapshot.json": "659708d817022cc7d835bfce912b7b39df4ecfb9503b8db6b15a01421e576552"
       },
-      "measurement_report_sha256": "1191f70b1927026a7375dfe13b83cb1af435e62ff10bf6a8484dc1f64b7632e0"
+      "measurement_report_sha256": "dd59a35fa4ada71fccd792b8416864756e3f8428e11854aa0db6c64c74f1eb38"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\burst_fs4_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\tone_neg_fs4_hann_digital-zero",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65538,
+      "frequency_records": 4,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
+      "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
+      "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
+      "files": {
+        "capture.json": "6bd4096272fbeefcde60822d888b9aac3e0ee9d8610fccdd913a3682197dafcc",
+        "frequency.bin": "dc55a3ee9a510c5259e38084d572d65ab578b5e3641db38c527e3771e04747e0",
+        "burst.bin": "6cf4b9cccee205816fd1366fadf33994d64187f20f0a5e8126e39ad2d1221425",
+        "snapshot.bin": "7272e54c08136750b4bfd6d593d01e4d6d3d0d77b2231b8d4600a303fbc36362",
+        "snapshot.json": "b6d4a664c2ed9e5842f322c14669fac114824962a4477d1b32bb7fc78bbf018d"
+      },
+      "measurement_report_sha256": "49cc8a0f90d285417409e5832dfc428238f88a3014a42a3dffb260e15bbe5a7a"
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\burst_fs4_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -730,18 +731,18 @@
       "input_sha256": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "655ef7341b588a4b79f7f50f98212ac52d56b3b1619ae41c0536a21e227eb114",
-        "frequency.bin": "fb11555a642c74cc2f807004aea610f2b3a161fa9898ffccf1a5d4eb5e5a34a4",
+        "capture.json": "1ba8300076190e3af9922cc998eba99082c1bfeeeb36275654812a47c9032b9b",
+        "frequency.bin": "2d998a732e20aacaa3c1f88ad9d0b6e85b4710e33dd910fdc802ab105b64117f",
         "burst.bin": "faae5886dd294e89dd3ba799c29dcedd418e6d33d40dde2ffeda281651d39150",
         "snapshot.bin": "5a36cbdb7b77a8ab4413fc683526fa30103053e7dd91f5bbfaeb6d69ce737541",
         "snapshot.json": "1e2bde11fd382aba81b1ae31ac452942df8a1926ba2234c6bfad3a51b277ef9e"
       },
-      "measurement_report_sha256": "ae3648c656aafe3fb27e0240a66b7b9a12da0441197e133ad1d70e11a11f0320"
+      "measurement_report_sha256": "deb8081bcfa4624205572cf01de610ae949a195fd76ff1dc2f969722a334682f"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
@@ -753,128 +754,128 @@
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "ea3bbea0e57a2ad5e65e15f5fe91505e2c1b221d1976311ca5a2a5a7c37abb8d",
-        "frequency.bin": "52c11954784ca1a38c45a54042e93002ce203e6679434189a37b9362d0219e81",
+        "capture.json": "8a11c341f8e9863498f5c8435f3aad7a243bae8691d1059664df1de689d2e071",
+        "frequency.bin": "f7c3a783cb723cbc1d436d2ffa10c470cc2e42c3d21c8fd917bc2e95626131de",
         "burst.bin": "c43859206a65d40551455141b998ead84d3d862d139206ee943277b6a75b6504",
         "snapshot.bin": "8656d483e99c3914323e08d4426ade65171ad74114d17897b5d674071459fd62",
         "snapshot.json": "5cc50054256ffb2cdeda0e8d3eff96e702429b0dd95f46adcd01290d6aa168a4"
       },
-      "measurement_report_sha256": "57e9377ecdb060f0fe9a369451353f84db434bd7073faf45d18fb1ffba227dd2"
+      "measurement_report_sha256": "901b2975d184bc3d3ac22275b9796ba203394d351dc8fa7440964dc3d67be875"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "517c0f3910c97c0148922e8f6a4bfd32668949dfc3d7cbf6c57a4a31ed8cf62c",
-        "frequency.bin": "a94494473ddeb603b34ded8b1c5f5a51938f8c116b19a869462f58acd21cf346",
+        "capture.json": "9e46229464297f3c2401cd03fabb36611f1f6021d8e767804113a26b96d76dc0",
+        "frequency.bin": "39739734b4658225df3aa51779af1ab44f1052f64f72f6362ba717c805fb8d62",
         "burst.bin": "d1187be5673af0b2ef7c3e073a0c9d69f0564ce0318e283c62ee65282793684d",
         "snapshot.bin": "9a72f92e2fad1ec99bd5d7c22baa4f006dbd670f8cf008865e55aaf0e88f68ab",
         "snapshot.json": "5aa2ddd60ef40ab0d2a833d1b5850a6a23f467488a7848f028d8b65041c3b4dc"
       },
-      "measurement_report_sha256": "1d21f8f64bd723fdde78107a1ccda9b20d9eb04cfb98023415b3055a25d4a243"
+      "measurement_report_sha256": "f1b97a848f66b6b51b1a8876ac7d97dfdfd6979e48ca39132be656b41733644b"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\short512_boundary_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\short512_boundary_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "42d8978b8b22c742b505073cccd9a58acbc8622c2207d68bea5d4d83f106517a",
-        "frequency.bin": "962211ca8e72e6e9c1eaac93e8c8645b73505c9205f9f0a38faf4007c3af5eaa",
+        "capture.json": "99f7638283fe4ead6c3bca1d3ad74a98284b0eb8a1adaf07d7bf3af9aa8a6fcf",
+        "frequency.bin": "c7cd291baa6446f8ed160245c9ae4a3e760570fc1fd120d9afa24762030b83d4",
         "burst.bin": "2cfd978f5bc65ac8702b38b02434ae695b8da84dc1330fd05fc43880ed830f6e",
         "snapshot.bin": "e7db1d02182b642ce6b93649ab3aff32e85c3a1645e2d5f47d657b590c125a7b",
         "snapshot.json": "9a03f17c2c37d4aff789565f9507e3e77dab4c944ddeea1a0c2cbb7264326827"
       },
-      "measurement_report_sha256": "7f81df4dc4f887b88ba975f85c0aba9a331c187242cdaf06610076afa0512f52"
+      "measurement_report_sha256": "db0396c47872d45bae6613ebc5942c610c4b56112b589549c214e246f80461f2"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\negative_fullscale_dc_hann_digital-zero",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\negative_fullscale_dc_hann_digital-zero",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
       "frequency_records": 4,
       "burst_records": 1,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.21,
-      "maximum_publish_us": 175.55,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "5ffe47e41bce0b9d40389bde98827c20fe2d79ff675d86f5384de1c440230c13",
-        "frequency.bin": "8c4b76c8939eddde310b1b382756fc5772e9e3196c4c346c9b5dbfb4731bf984",
+        "capture.json": "3b3f80e89d0181befc556443f43dfff3711764f9c427a2838c2011b607cde5af",
+        "frequency.bin": "5266d3e7474f716aa79921bd7ef4fe29fdb6da76369a660129aeed0827466897",
         "burst.bin": "4f8e641c5a66b804e80bfc00b861506a8df16904d86f77d408c1ebe1fef3249d",
         "snapshot.bin": "bf18776808a276900f6879ba119cd5c9ef10eef181284595af5d1885adc04107",
         "snapshot.json": "f58c2bd6fcc2a8b6dc3ce5c2ba45ac0ffee6a7fb50eafc56657a03a908f8a064"
       },
-      "measurement_report_sha256": "d21aae67f37bd57050007695a460283135c9797705311ca3d4681620999a3269"
+      "measurement_report_sha256": "ac8824b399e487b7335550e803671c5813a3e44691a7a2602b2455fa66128d30"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps4_hann_digital-zero_10s",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps4_hann_digital-zero_10s",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
-      "frequency_records": 121990,
-      "burst_records": 30498,
+      "frequency_records": 121924,
+      "burst_records": 30481,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.22,
+      "maximum_publish_us": 175.56,
       "input_sha256": "0bb843e8e2c2647e5b86e9b5fcce87be6d14d7d1f69456edc5ef256f0f5f539e",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "d3e40c271db802ed4befbc433ca216d2cde7b48983db6d6c4dc1fd21c7507e3c",
-        "frequency.bin": "74de3a7ddbb371cc2e045c007250d8230b33f3a936e2642c08560eb690d87eb4",
-        "burst.bin": "8f5061631a844da1cb8a050d0100827599ab9d8d8c6b9043bf30ce5cdd73256f",
-        "snapshot.bin": "2e281fe1025940cb327f4e17c7a8807e7952a9bced92e48be91b8c7b4d3a0740",
-        "snapshot.json": "cb79f384e10012d1e8849867645276fec0bdb3b703d0fcf0e670708ff54849c7"
+        "capture.json": "13337644992dbc158b2d739a59ef770d1475ffb55f9939dfac95b18fb3332ed2",
+        "frequency.bin": "000e1f8c9a3d51a15a069c01be49ee5313e26a7ede057c43fc3b6d373c742a15",
+        "burst.bin": "92e007541ddf5b8e8bef649149c774f840b84da4754ebea0fca916fb55a0344e",
+        "snapshot.bin": "8656d483e99c3914323e08d4426ade65171ad74114d17897b5d674071459fd62",
+        "snapshot.json": "164337d1646dfed1569dba77c2ae55ff9ffa05c78a0f18423b201c14a3ddcb8a"
       },
-      "measurement_report_sha256": "db7b74c7dd2085077c95991edee5f42e695075fbfad050b523d1f8fe87aa4b22"
+      "measurement_report_sha256": "883de66632d942d99851b7d536041400618ae79101e463bfe3e437532501dcbc"
     },
     {
       "status": "PASS",
       "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
-      "folder": "D:\\fft\\iq_analyzer\\captures\\phase4_final_20260922\\regression\\board\\qpsk_sps2_hann_digital-zero_60s",
+      "folder": "D:\\fft\\iq_phase5_timing\\captures\\phase5\\basic100\\qpsk_sps2_hann_digital-zero_60s",
       "detector_mode": "digital-zero",
       "gap_min": 32,
       "hardware_version": 65538,
-      "frequency_records": 732260,
-      "burst_records": 183065,
+      "frequency_records": 732326,
+      "burst_records": 183082,
       "exact_snapshot_values": 1024,
-      "maximum_analysis_us": 175.18,
-      "maximum_publish_us": 175.52,
+      "maximum_analysis_us": 175.23,
+      "maximum_publish_us": 175.57,
       "input_sha256": "23a7e95bca6883344d64f940a04e0f94832530f3ee81ad132ba4a0e12cd75146",
       "golden_sha256": "4d0f19847f628925611fcc76edcf2adccd38c2f47c2fa988bf2025f6cce467dc",
       "files": {
-        "capture.json": "4425c6d8c801ebe9e1ca43efaf834198a311793dfa84502d628a3cbcfe43558c",
-        "frequency.bin": "ca3e5bed1bc408a207014fb6b19f6e352073868f739dbc112b19a5836e7e24e1",
-        "burst.bin": "88416fca8f950b5ecfff11692fdff41eba1777d75bda992b68ef6a3da4466eaf",
-        "snapshot.bin": "ef813c54187a50aba46eafdc4e1aca8b57c8315ca882a4ee68bf8e2500938a94",
-        "snapshot.json": "1074f3930d658481fed52a9cafae932321f195de5d179700ad85c16b7a9488c0"
+        "capture.json": "ede312b0f2a78a4eaf143c81c95c4f0f3db7806a8ce84bd99f598a1f26480ecb",
+        "frequency.bin": "70ff4e0ce1d9b711360d38c053e6b0a3208057b3b6e2642dd1297315d7e2b578",
+        "burst.bin": "97d63d1816d5424d3e763a7688424b5aaff6b007554528434e0b0a03d0311210",
+        "snapshot.bin": "3b5bba17b3da25e486edbf1061f67adbc1db5aebd32bde9e5a76323121dc293c",
+        "snapshot.json": "7b7299310028dc62280d196041979003830486cab30b6abd9205e0430710c328"
       },
-      "measurement_report_sha256": "ce6f5c6c603ff4a9ea823fba1d8eb76db7939e42db8c61457a71b3447f51bf13"
+      "measurement_report_sha256": "7556804f2f472420f06b58e9db78950d8b1d97eea2720b41465138dc4fcc74dd"
     }
   ],
   "deployment": {
@@ -882,36 +883,36 @@
     "board": "192.168.1.10",
     "method": "JTAG FPGA and ARM DDR load",
     "boot_medium_written": false,
-    "started_at": "2026-09-22T13:20:08.098475+08:00",
+    "started_at": "2026-09-28T20:59:50.821214+08:00",
     "artifacts": {
-      "iq_analyzer.bit": "5708f4296387465042af7705905c7ea08469ee955042fb4a2191d117483aa1b9",
-      "iq_analyzer.xsa": "1736f007a08e1da5edd8ecbf97b4443906a7d240ea3fd5ae5e38b133eca06d89",
-      "iq_udp.elf": "d966af9184cda6a6e0f4c7860d0d783e69db81930e06207d4cf00951e05d74ac",
+      "iq_analyzer.bit": "c54f4b90b7f997271d69f802730b06d320a337f20c9866687d390974a8e32aa8",
+      "iq_analyzer.xsa": "094e326602c988c5020e4a5e67d996db7bf59f934afc87dabd68157b6d02b368",
+      "iq_udp.elf": "40e489da229499833f10b4833fc8549d3f093ff8d6a6bfacb15fd3fc66acaa77",
       "ps7_init.tcl": "fba10c9427f4736bb115e014cba67207d21cdc529561c9081c679d6c150c69a3"
     },
-    "log": "D:\\fft\\iq_analyzer\\build\\logs\\deploy_20260922_132008.log",
+    "log": "D:\\fft\\iq_phase5_timing\\build\\logs\\deploy_20260928_205950.log",
     "hardware": {
       "hardware_version": 65538,
       "hardware_version_hex": "0x00010002",
       "hardware_capabilities": 3,
       "sample_rate_hz": 100000000,
-      "build_id": "3bc7d0840b0602203141e9ee228e80e3",
+      "build_id": "e430d567fbc675a926ff0ce5226e53cf",
       "timestamp_clock_hz": 100000000,
       "record_format_version": 1,
       "scan_lanes": 8,
       "fft_clock_hz": 125000000
     },
-    "log_sha256": "62c2afa0e866cfa18463315fc2431fadbc5c66ca668dbf58054018fbb94d1086",
-    "finished_at": "2026-09-22T13:20:25.995632+08:00"
+    "log_sha256": "a0ea2a1fedaad7e747b007379d135537aeecaa96eb9877635e94b23161587157",
+    "finished_at": "2026-09-28T21:00:05.723573+08:00"
   },
-  "deployment_sha256": "be301507d5d428b72362955fad858a94dbd4102c02e7dc7296597cc102c51656",
+  "deployment_sha256": "e08cc5a773ea212f1bcda4c8eee403a7826c12c71963cabc2cf4e8f98ccb98ae",
   "input": "PC-preloaded I16/Q16 RAM replay at nominal 100 MSPS",
   "metrology_calibrated": false,
   "boot_medium_verified": false,
   "scope": "New hardware version: finite exact numerical, snapshot and selected continuous acceptance",
-  "finished_at": "2026-09-22T13:24:40.954507+08:00",
-  "frequency_records": 1708761,
-  "burst_records": 427188,
-  "maximum_analysis_us": 175.22,
-  "maximum_publish_us": 175.56
+  "finished_at": "2026-09-28T21:04:13.677872+08:00",
+  "frequency_records": 1708704,
+  "burst_records": 427173,
+  "maximum_analysis_us": 175.23,
+  "maximum_publish_us": 175.57
 }
