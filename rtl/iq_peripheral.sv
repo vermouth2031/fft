@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
-// AXI4-Lite control/replay/results. All bus and source logic uses 100 MHz.
+// AXI4-Lite control/replay/results. All bus and source logic uses the build-profile source clock.
 module iq_peripheral(
- (* X_INTERFACE_PARAMETER="ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 100000000" *)
+ (* X_INTERFACE_PARAMETER="ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 125000000" *)
  (* X_INTERFACE_INFO="xilinx.com:signal:clock:1.0 s_axi_aclk CLK" *) input wire s_axi_aclk,
  (* X_INTERFACE_PARAMETER="POLARITY ACTIVE_LOW" *)
  (* X_INTERFACE_INFO="xilinx.com:signal:reset:1.0 s_axi_aresetn RST" *) input wire s_axi_aresetn,

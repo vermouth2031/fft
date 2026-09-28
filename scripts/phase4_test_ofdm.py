@@ -1,7 +1,7 @@
 """Independent structural checks of the communication source."""
 import unittest
 import numpy as np
-from phase4_ofdm import make_case,symbols,waveform,START,END,SIZE,CP
+from phase4_ofdm import make_case,symbols,waveform,START,END,SIZE,CP,FS
 
 
 class SourceTests(unittest.TestCase):
@@ -33,8 +33,8 @@ class SourceTests(unittest.TestCase):
         a=make_case(85,'qpsk',210004,gain=1)
         b=make_case(85,'qpsk',210004,gain=1,carrier_hz=1000000)
         x=waveform(a)[0];y=waveform(b)[0]
-        np.testing.assert_allclose(y,x*np.exp(2j*np.pi*.01*np.arange(len(x))),atol=1e-11)
-        self.assertTrue(make_case(95,'qpsk',210004,gain=1,carrier_hz=4000000)['crosses_nyquist'])
+        np.testing.assert_allclose(y,x*np.exp(2j*np.pi*(1000000/FS)*np.arange(len(x))),atol=1e-11)
+        self.assertTrue(make_case(95,'qpsk',210004,gain=1,carrier_hz=FS/2)['crosses_nyquist'])
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

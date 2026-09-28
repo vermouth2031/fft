@@ -1,8 +1,8 @@
 `timescale 1ns/1ps
 module tb_core;
  reg src_clk=0,fft_clk=0;
- always #5 src_clk=~src_clk;
- always #4 fft_clk=~fft_clk;
+ always #(500000000.0/iq_build_config::SAMPLE_RATE_HZ) src_clk=~src_clk;
+ always #(500000000.0/iq_build_config::FFT_CLOCK_HZ) fft_clk=~fft_clk;
  reg rst=1,valid=0,finish=0,hann=0;
  reg [31:0] iq=0;
  reg [63:0] tick=0;

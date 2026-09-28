@@ -4,7 +4,7 @@ import argparse
 import json
 import shutil
 import numpy as np
-from fft_reference import FFTReference, N
+from fft_reference import FFTReference, N, FS
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -30,8 +30,8 @@ def generate(output=ROOT / 'data'):
     (output / 'test_iq.mem').write_text(''.join(f'{int(w):08x}\n' for w in input_words), encoding='ascii')
     (output / 'golden_results.json').write_text(json.dumps({
         'oracle': 'AMD xfft v9.1 bit-accurate model from Vivado 2026.1', 'cases': cases}, indent=2), encoding='utf-8')
-    assert cases[1]['windows'][0]['f_peak_hz'] == 25_000_000
-    assert cases[2]['windows'][0]['f_peak_hz'] == -25_000_000
+    assert cases[1]['windows'][0]['f_peak_hz'] == FS//4
+    assert cases[2]['windows'][0]['f_peak_hz'] == -FS//4
     print(f'Generated {len(cases)} cases, {len(out_fft)} exact complex FFT outputs.')
 
 

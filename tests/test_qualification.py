@@ -47,7 +47,7 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
 
     def test_model_boundaries_and_lifetime(self):
         with self.assertRaises(ValueError):
-            FFTReference(sample_rate_hz=125000000)
+            FFTReference(sample_rate_hz=FS+1)
         with FFTReference() as model:
             zero, packed, shot = model.window(np.zeros((N,2), dtype=np.int16))
             self.assertEqual(zero['total'], 0)
@@ -66,7 +66,7 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
             model.window(np.zeros((N,2),dtype=int))
 
     def test_generator_rejects_unsupported_and_overflow(self):
-        for key,value in [('sample_rate_hz',125000000),('replay','cyclic'),('samples',123),
+        for key,value in [('sample_rate_hz',FS+1),('replay','cyclic'),('samples',123),
                           ('noise',{'kind':'awgn'}),('windows',['hann','hann'])]:
             case=copy.deepcopy(self.spec['cases'][0]);case[key]=value
             with self.assertRaises(ValueError):
@@ -100,8 +100,9 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
         self.assertEqual(digest(vector),origin['input_sha256'])
         meta=json.loads((source/'capture.json').read_text())
         mode=__import__('iq_client').decode_record((source/'frequency.bin').read_bytes()[:128],'frequency')['window']
-        chosen=next(c for c in json.loads((ROOT/'data/golden_results.json').read_text())['cases']
-                    if c['name']==origin['vector_case'] and c['mode']==mode)
+        frozen_path=source/'reference_100.json'
+        self.assertEqual(digest(frozen_path),'89b732e5e53ae638ef070f7ae9b590583fe3e7da0abfccd11b17b628960895b6')
+        chosen=json.loads(frozen_path.read_text())['oracle']
         with tempfile.TemporaryDirectory() as folder:
             folder=Path(folder)
             for name in ('capture.json','frequency.bin','burst.bin'):
@@ -110,8 +111,8 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
             shutil.copyfile(vector,renamed)
             from generate_qualification_vectors import DEFAULT_DETECTOR
             oracle=dict(schema='iq-qualification-reference-v1',input_sha256=digest(renamed),
-                sample_rate_hz=FS,detector=DEFAULT_DETECTOR,mode=mode,windows=chosen['windows'],
-                bindings={str(ROOT/'tests/fft_reference.py'):digest(ROOT/'tests/fft_reference.py')})
+                sample_rate_hz=meta['sample_rate_hz'],detector=DEFAULT_DETECTOR,mode=mode,windows=chosen['windows'],
+                bindings={str(frozen_path):digest(frozen_path)})
             path=folder/'reference.json'
             path.write_text(json.dumps(oracle))
             self.assertEqual(verify(folder,renamed,qualification=path)['status'],'PASS')
@@ -126,22 +127,20 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
                 verify(folder,renamed,qualification=path)
 
     def test_error_table_from_real_capture(self):
-        case=next(c for c in self.spec['cases'] if c['id']=='integer_p2048')
-        with tempfile.TemporaryDirectory() as folder:
-            folder=Path(folder)
-            spec=folder/'spec.json'
-            spec.write_text(json.dumps(dict(schema='iq-qualification-spec-v1',cases=[case])))
-            manifest=generate(spec,folder/'vectors')
-            index_path=prepare(manifest,folder/'reference')
-            index=json.loads(index_path.read_text())
-            oracle=json.loads((index_path.parent/index['cases'][0]['reference']).read_text())
-            rows=error_rows(ROOT/'data/qualification/legacy_capture_fixture',index['cases'][0]['case'],oracle)
-            self.assertEqual([r['window_id'] for r in rows],[0,1,2,3])
-            for row in rows:
-                self.assertEqual(row['frequency_error_hz'],0)
-                self.assertEqual(row['hardware_peak_codes'],8192)
-                self.assertEqual(row['hardware_rms_codes'],8192)
-                self.assertTrue(row['nearest_bin_match'])
+        source=ROOT/'data/qualification/legacy_capture_fixture'
+        path=source/'reference_100.json'
+        self.assertEqual(digest(path),'89b732e5e53ae638ef070f7ae9b590583fe3e7da0abfccd11b17b628960895b6')
+        frozen=json.loads(path.read_text())
+        rows=error_rows(source,frozen['case'],frozen['oracle'])
+        self.assertEqual([r['window_id'] for r in rows],[0,1,2,3])
+        for row in rows:
+            self.assertEqual(row['frequency_error_hz'],0)
+            self.assertEqual(row['hardware_peak_codes'],8192)
+            self.assertEqual(row['hardware_rms_codes'],8192)
+            self.assertTrue(row['nearest_bin_match'])
+        wrong=copy.deepcopy(frozen['case']);wrong['sample_rate_hz']+=1
+        with self.assertRaisesRegex(ValueError,'sample rates differ'):
+            error_rows(source,wrong,frozen['oracle'])
 
     def test_threshold_model_matches_all_legacy_vectors(self):
         from verify_board_capture import burst_expectations

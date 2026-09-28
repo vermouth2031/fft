@@ -10,8 +10,8 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');a=parser.parse_args()
     profile=json.loads((ROOT/'config/build_profile.json').read_text())
     if profile['sample_rate_hz']!=profile['timestamp_clock_hz']:raise ValueError('This architecture shares source and timestamp domains')
-    if (profile['sample_rate_hz'],profile['fft_clock_hz'])!=(100000000,125000000):
-        raise ValueError('Physical clock wiring currently validated only for the 100/125MHz compatibility profile')
+    if (profile['sample_rate_hz'],profile['fft_clock_hz']) not in ((100000000,125000000),(125000000,125000000)):
+        raise ValueError('Unsupported compile-time clock candidate; build_board validates actual generated clocks')
     files=list((ROOT/'rtl').glob('*.sv'))+list((ROOT/'constraints').glob('*'))+list((ROOT/'vendor/boards').rglob('*.xml'))
     files += [ROOT/'config/build_profile.json',ROOT/'data/hann_u18_f17.mem',Path(__file__)]
     files += [ROOT/'scripts'/n for n in ('create_fft.tcl','build_board.tcl','rebuild_board.tcl','finish_board.tcl','phase3_replication_hook.tcl')]

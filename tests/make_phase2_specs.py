@@ -41,7 +41,7 @@ def build():
                 k=sign*(base+delta)
                 s1.append(case('fraction_'+str(k).replace('-','m').replace('.','_'),tone(k),category='fractional-tone'))
     for f in (-49e6,-47e6,47e6,49e6):
-        s1.append(case('edge_'+str(int(f/1e6)).replace('-','m'),tone(f*8192/1e8),category='edge-tone'))
+        s1.append(case('edge_'+str(int(f/1e6)).replace('-','m'),tone(f*8192/FS),category='edge-tone'))
     for gap in (1,2,8,64):
         for ratio in (1,.5):
             signal=dict(kind='two-tone',tones=[dict(bin=410,amplitude=4096),dict(bin=410+gap,amplitude=int(4096*ratio))])

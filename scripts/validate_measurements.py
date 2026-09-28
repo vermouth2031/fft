@@ -184,16 +184,18 @@ def error_rows(folder, case, oracle):
     result = []
     for wid in range(len(raw)//128):
         actual = iq_client.decode_record(raw[wid*128:(wid+1)*128], 'frequency')
+        rate=case['sample_rate_hz']
+        require(actual['sample_rate_hz']==oracle['sample_rate_hz']==rate, 'Error-table sample rates differ')
         reference, algorithm = oracle['windows'][wid], oracle['algorithm'][wid]
         signal = case['signal']
-        design_hz = signal['tones'][0]['bin']*FS/N if signal['kind']=='tone' else None
+        design_hz = signal['tones'][0]['bin']*rate/N if signal['kind']=='tone' else None
         eligible = (signal['kind']=='tone' and signal['tones'][0]['amplitude']>=256
                     and case['category'] not in ('edge-tone', 'burst-boundary') and reference['total']>0)
         error_hz = actual['peak_hz']-design_hz if design_hz is not None and reference['total'] else None
         row = dict(algorithm, case=case['id'], category=case['category'], window=oracle['mode'],
             design_frequency_hz=design_hz, numpy_peak_hz=algorithm['numpy_peak_hz'],
             reference_peak_hz=reference['f_peak_hz'], hardware_peak_hz=actual['peak_hz'],
-            frequency_error_hz=error_hz, frequency_error_bins=error_hz/(FS/N) if error_hz is not None else None,
+            frequency_error_hz=error_hz, frequency_error_bins=error_hz/(rate/N) if error_hz is not None else None,
             normal_frequency_statistic=eligible,
             nearest_bin_match=(actual['q_peak'] == int(np.floor(signal['tones'][0]['bin']+0.5))+N//2)
                 if eligible else None,

@@ -4,7 +4,10 @@ import csv
 import json
 from pathlib import Path
 import statistics
-from record_build_stage import sha
+from record_build_stage import sha, ROOT
+import sys
+sys.path.insert(0,str(ROOT/'host'))
+from build_rates import SAMPLE_RATE_HZ, FFT_CLOCK_HZ
 
 
 def analyze(path):
@@ -18,7 +21,7 @@ def analyze(path):
     rows=[]
     for (case,window),events in sorted(groups.items()):
         if set(events)!=expected:raise ValueError(f'Incomplete latency events: {case}/{window}')
-        if events['input_last']-events['input_first']!=81910:raise ValueError('Input accumulation interval differs')
+        if events['input_last']-events['input_first']!=8191*1e9/SAMPLE_RATE_HZ:raise ValueError('Input accumulation interval differs')
         stages={
             'input_first_to_last_ns':events['input_last']-events['input_first'],
             'input_last_to_fft_first_ns':events['fft_first']-events['input_last'],
@@ -36,8 +39,8 @@ def analyze(path):
     if len(rows)!=64:raise ValueError('Expected all 64 legacy windows')
     summary={name:dict(min=min(r[name] for r in rows),median=statistics.median(r[name] for r in rows),
                       max=max(r[name] for r in rows)) for name in rows[0] if name not in ('case','window')}
-    return dict(status='PASS',timebase='simulation real time, ns; 100MHz source and 125MHz FFT',
-        accumulation_definition='last accepted edge minus first = 81910ns; inclusive 8192-sample duration = 81920ns',
+    return dict(status='PASS',timebase=f'simulation real time, ns; {SAMPLE_RATE_HZ/1e6:g}MHz source and {FFT_CLOCK_HZ/1e6:g}MHz FFT',
+        accumulation_definition=f'last accepted edge minus first = {8191*1e9/SAMPLE_RATE_HZ:g}ns; inclusive 8192-sample duration = {8192*1e9/SAMPLE_RATE_HZ:g}ns',
         publication_definition='record_observed is the core consumer edge, not the peripheral ring commit or PC/UDP latency',
         scan_implementation='eight-lane' if summary['scan_first_to_last_ns']['max']<10000 else 'four-lane' if summary['scan_first_to_last_ns']['max']<20000 else 'two-lane',
         scope='Measured RTL simulator stages; physical board performance requires separate capture evidence',

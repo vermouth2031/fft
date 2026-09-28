@@ -1,4 +1,10 @@
 open_run impl_1
+source $root/build/config/generated_clocks.tcl
+foreach pair [list [list clk_fpga_0 $sample_rate_mhz] [list clk_fpga_1 $fft_clock_mhz]] {
+ lassign $pair name mhz
+ set period [get_property PERIOD [get_clocks $name]]
+ if {abs($period-1000.0/$mhz)>0.0001} {error "Implemented clock $name has unexpected period $period"}
+}
 file mkdir $root/reports
 report_timing_summary -delay_type min_max -report_unconstrained -file $root/reports/timing_summary.rpt
 report_utilization -hierarchical -file $root/reports/utilization.rpt

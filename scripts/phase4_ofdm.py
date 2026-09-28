@@ -13,7 +13,7 @@ CP=256
 SYMBOLS=6
 START=1024
 END=START+SYMBOLS*(SIZE+CP)
-HALVES={85:1740,90:1843,95:1945}
+HALVES={band:int(band*1e6*SIZE/(2*FS)) for band in (85,90,95,110,118,122)}
 
 
 def make_case(band,modulation,seed,*,gain,carrier_hz=0,windows=('rect','hann'),seconds=0,boundary=False):
@@ -30,7 +30,7 @@ def make_case(band,modulation,seed,*,gain,carrier_hz=0,windows=('rect','hann'),s
 def symbols(case):
     s=case['signal'];half=s['active_half']
     if not (case['sample_rate_hz']==FS and case['fft_length']==N and case['samples']==32768):
-        raise ValueError('OFDM experiment requires actual 100MSPS/8192 configuration')
+        raise ValueError('OFDM experiment requires the selected sample rate and 8192 FFT configuration')
     if s['ifft_length']!=SIZE or s['cyclic_prefix']!=CP or s['symbols']!=SYMBOLS or not 1<=half<SIZE//2:
         raise ValueError('Unsupported OFDM dimensions')
     if s['modulation'] not in ('qpsk','qam16') or not 0<s['gain']<=32767:

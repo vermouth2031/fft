@@ -85,7 +85,10 @@ def verify(folder, vector=None, *, qualification=None):
     if not meta.get("cyclic"):
         require(accepted == len(iq), "Finite capture length mismatch")
     rate = meta.get("sample_rate_hz", 100000000)
-    require(rate == 100000000, "This oracle is calibrated to the 100 MSPS baseline")
+    if not qualification:
+        require(rate == json.loads((ROOT / "config/build_profile.json").read_text())["sample_rate_hz"], "Oracle rate differs from selected build profile")
+    # Explicit frozen references can verify historical captures at their own
+    # rate. Their rate must match the metadata and every raw record below.
     mode = meta.get("detector_mode", "threshold")
     gap = meta.get("gap_min", 32)
     maximum = meta.get("max_burst_samples", 1048576)
