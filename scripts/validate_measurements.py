@@ -315,7 +315,7 @@ def capture_matrix(index_path, out, board, port):
                 for offset in range(0,len(burst_bytes),64):
                     b=iq_client.decode_record(burst_bytes[offset:offset+64],'burst')
                     intervals.append([b['start_sample'],b['end_sample_exclusive']])
-                metric=evaluate_detection(case['measurement_design']['truth_intervals'],intervals,case['samples'])
+                metric=evaluate_detection(case['measurement_design']['truth_intervals'],intervals,case['samples'],case['sample_rate_hz'])
                 metric['applicability']='NOT_APPLICABLE' if (case['applied_detector']['mode']=='digital-zero' and
                     (case['noise']['kind']!='none' or case['offset_iq']!=[0,0])) else 'APPLICABLE'
                 metric['seed']=case['seed'];metric['noise']=case['noise'];metric['offset_iq']=case['offset_iq']
