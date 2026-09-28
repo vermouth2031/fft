@@ -53,3 +53,8 @@ scripts/phase4_* -text
 
 # Preserve the exact GUI bytes bound by the 2026-09-25/28 regression records.
 host/monitor.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Keep byte identities of the phase-five campaign and its frozen seed spec.
+scripts/phase5_* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+config/phase5_regression_noise_spec.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+rtl/iq_build_config.sv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
