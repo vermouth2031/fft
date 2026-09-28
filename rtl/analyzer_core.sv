@@ -14,15 +14,22 @@ module analyzer_core #(
  output wire [63:0] samples,output wire [31:0] completed,max_latency,output wire [7:0] errors,
  input wire snap_request,output wire snap_we,output wire [9:0] snap_addr,
  output wire [63:0] snap_data,output wire snap_done,output wire [31:0] snap_window);
- (* ASYNC_REG="TRUE" *) reg [2:0] core_reset=3'b111;
+ (* ASYNC_REG="TRUE" *) reg [1:0] core_reset=2'b11;
+ // Keep the original three-cycle reset transfer, but separate synchronization
+ // from local distribution. Unlike the two synchronizer stages, this final
+ // stage can be replicated to shorten the high-fanout synchronous reset net.
+ (* MAX_FANOUT=64 *) reg core_reset_distributed=1'b1;
  // Register the OR/decode in its own domain before crossing it. This prevents
  // source-domain decode glitches reaching the first synchronizer stage.
  (* KEEP="TRUE" *) reg reset_launch=1'b1;
  always @(posedge src_clk)reset_launch<=rst;
  // Both edges enter the FFT clock through a synchronizer; in particular the
  // reverse FIFO reset is synchronous to its own 125 MHz write clock.
- always @(posedge fft_clk) core_reset<={core_reset[1:0],reset_launch};
- wire frst=core_reset[2];
+ always @(posedge fft_clk)begin
+   core_reset<={core_reset[0],reset_launch};
+   core_reset_distributed<=core_reset[1];
+ end
+ wire frst=core_reset_distributed;
  assign fft_reset=frst;
  wire [26:0] fft_config;
  xpm_cdc_array_single #(.WIDTH(27),.DEST_SYNC_FF(3),.SRC_INPUT_REG(1),.INIT_SYNC_FF(1)) config_cdc(

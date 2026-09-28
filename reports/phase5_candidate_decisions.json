@@ -1,0 +1,74 @@
+{
+  "R2_attempt1": {
+    "status": "NOT_PROMOTED",
+    "setup_ns": 0.092,
+    "hold_ns": 0.009,
+    "source_domain_setup_ns": 0.472,
+    "required_setup_ns": 0.4,
+    "reason": "Critical path moved to FFT reset distribution; fanout 1488, route 6.309ns",
+    "simulation": "344 digital cases passed; full core simulation intentionally stopped after six passing cases because physical candidate was rejected. No full simulation qualification claimed.",
+    "board_programmed": false,
+    "evidence": {
+      "phase5_sim.log": "64ae8e558b45e861fec20e9fdf22e229ac96ff1a142c3aceb4335c020006b3be",
+      "phase5_hardware.log": "e3c7b038212e0286eae89e265dc1b160f35266e8036ae4046d115a3c0f479721",
+      "reports/hardware_validation.json": "0d54794dd634da8ab803a7d28358836886930f02f4e9e3754463f9d608be1db2",
+      "reports/hardware_provenance.json": "25330381eb84f1abe7f0c9524f0421afece664c758dca878702cade18f717f1b",
+      "reports/timing_summary.rpt": "641ecacca28e00487f714321534ae0a7c1e50c9abefdb43839dacd13daa67a6e",
+      "reports/worst_paths.rpt": "821f0b1e1fe14715fad94cdbb56c9dbc1e9e3cf476d06e64ba8e7b22dba0e3e1",
+      "reports/utilization_flat.rpt": "9bb76da2c8316e7c56bb9658f4fd2d1691532deb8012d8151f790e95d13147ed",
+      "reports/cdc.rpt": "83558dd2e34239c496099e63a1a3b82cbb96b8f8c3262228d63714cbed3628b5",
+      "reports/drc.rpt": "1452f8ed20979c7f79beaa123ee8661a1ca8bf596c1b062381e1fa447376e117",
+      "reports/bus_skew.rpt": "4a4902156e9686b5022f8b7d293fb1a21960acbea160014323bb07c94074fc6b",
+      "rtl/analyzer_core.sv": "fc59b4a9f2e959e1a1484b4ed34db35cda10df6319d1746e8a1cef9be4f90eaa",
+      "rtl/digital_burst_measure.sv": "be9229519aaf83eaaf1886262205784cb7479a346b546789c2c573bcc048e50c",
+      "rtl/iq_build_config.sv": "c52fbe67928f5fc886d6f32b46623f0602fe13a286cfca45a49f9eb95ad81eea",
+      "rtl/iq_peripheral.sv": "b95a5f59e3c8b78af13c3a77b4ae7f9e2039a1d93eb61979ff807a9ecdad83df",
+      "rtl/math_units.sv": "6260ca3a34251f94e07b488016f1509771fe75af6f443f6f083be8e320dc0e0f",
+      "rtl/record_ring.sv": "6c0fef72bc0e7f48a4166f9694b5858009ba1ba15d0ccd039e9a42556b69ac89",
+      "rtl/result_builder.sv": "e4b20cbcb1b50bd099f6879b7029773d38c7aa688d2786ca0c1e134ce1f62169",
+      "rtl/small_fifo.sv": "ed6f49e0a6f8da1f24549c6d3db628847345488cf1fd8b1aeae123c7398b621b",
+      "rtl/spectrum_measure.sv": "fcd337dcbc47afd3fa787f0733d078e9f6499b17c4760d5f7f213bda0f7cce39",
+      "rtl/time_measure.sv": "2bb6b3bc433d49e9c4aa3205dac1cf36ee48d5f1d21547d67b4c7a84d36d46fd",
+      "rtl/window_fft.sv": "97b379df80058e5cc616ca2602fe54e78ee930b97bb911b71298fc8028b47f21",
+      "constraints/cdc.xdc": "9278180172ecbdf7c64dd87e12e27d471b99532ea6323bd10e3a488f13a95b88",
+      "build/config/build_identity.json": "5b8a4726eb3de44b8142448bf249f05c76d565a7299eb431eb699926027939e6",
+      "build/config/generated_clocks.tcl": "02c2552d9be04b30a321bec06053214c04a3f2234dd3f89b8ca905f16ebbf83f",
+      "build/logs/build_board.log": "495c2ee034bc1d49d0589728f2665b2a53c659c0c274ad2e823b69149c16b82d",
+      "build/logs/create_fft.log": "20149400f935e864a8ca1df79462094d51fa4741273e31af653fd5968b20842b",
+      "build/logs/sim_builder.log": "6dfb202bc109089187bda55dc8e06394a6a27c8a193c6d37aa18eb9fa90f9755",
+      "build/logs/sim_core.log": "3895a77506e637dc2e6687f22f49adc93850d11ba55f0fdc48a902704f73aab3",
+      "build/logs/sim_digital_burst.log": "604f38c8530e17be5971fa9bedda80c11c31b8a96f7b86c6a23ce2156be2bff2",
+      "build/logs/sim_measurements.log": "991e13a79e5bd04752bb9a9d1a84cc6f83887a570877df353040a812ed5f9343",
+      "build/logs/sim_spectrum_edges.log": "03cf1e7a1e289e696649fc245834e34d458e7794e4c12bb51cad2d6c103d4e88",
+      "build/logs/sim_units.log": "21b667fb2c57dff2f939b4909551f27a406a9eb0124d3cbaa9ee811ee77cc07b",
+      "scripts/build_board.tcl": "b7ca1ef89c2ba2b5449ba860c05c84154a82b9894452a0ceb85e4e02d462391b",
+      "scripts/rebuild_board.tcl": "dabd51f5c5295b583f9d0594f6e1f5ca19c30aa6434bb4c9c7108d0a4055cc05",
+      "scripts/finish_board.tcl": "cde7514f27006555c3aaa5000bd8712e1d37e8a0510bd95ed0b33c777aef446c",
+      "scripts/phase3_replication_hook.tcl": "b432cc7ec64bbadb4ae32259f8d61d96ca0b6fff4f5138839429fe725e230e0a",
+      "scripts/phase4_build_config.py": "583a4cf6eef164bbbe793bb2cf0e463598f15da088634078f7540acd3a64442b",
+      "tests/generate_digital_burst_vectors.py": "92d5cf3b09aa753d216a4b61dca6a19f5686e74c169e6b4bbfb06d4a855ac5e4",
+      "tests/tb_digital_burst.sv": "22aa6b7ec3e3ce15e513b3a9a9dabb90876ef2e209ecee10acfecaafb10f1a5e"
+    }
+  },
+  "R2_attempt2": {
+    "status": "IN_PROGRESS",
+    "change": "Two synchronizer stages plus one equivalent-cycle replicable reset distribution stage"
+  },
+  "R4": {
+    "status": "COMPLETE_OFFLINE_STUDY",
+    "algorithm_changed": false,
+    "stationary_unique_effective_seconds": 9,
+    "stationary_false_events": 0,
+    "nonstationary_failures_retained": true,
+    "report": "reports/phase5_noise_validation.json",
+    "report_sha256": "57cfdc9fe75040578a3dba8cb2df2afff95a19b7f6fb8cc8ff6ca3788579b16f"
+  },
+  "R3": {
+    "status": "WAITING_FOR_R2",
+    "reason": "Requires qualified 100/125MHz timing, complete simulation and 36 basic board cases"
+  },
+  "R5": {
+    "status": "DEFERRED",
+    "reason": "No concrete external interface/protocol/self-FFT requirement"
+  }
+}

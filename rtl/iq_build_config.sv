@@ -7,5 +7,5 @@ package iq_build_config;
  localparam integer CAPABILITIES = 3;
  localparam integer RECORD_FORMAT_VERSION = 1;
  localparam integer SCAN_LANES = 8;
- localparam logic [127:0] BUILD_ID = 128'h3bc7d0840b0602203141e9ee228e80e3;
+ localparam logic [127:0] BUILD_ID = 128'hfe61443baf47b017c19c3ecfe84deaf1;
 endpackage
