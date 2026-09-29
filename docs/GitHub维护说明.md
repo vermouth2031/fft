@@ -11,6 +11,21 @@
 
 带工作目录的候选分支仍保留为实验记录。125 MSPS 候选未晋升，不能把候选性能与正式版本混写。
 
+## 2026-09-29 版本登记
+
+本次 GitHub 同步按独立分支和不可变标签管理，不覆盖既有分支、标签或 Release：
+
+| 版本 | 分支 | 标签 | 状态 |
+|---|---|---|---|
+| 第五阶段 100 MSPS 时序版 | `optimization/phase5-timing` | `v2026.09.29-phase5-100msps` | 同一构建 ID `e430d567fbc675a926ff0ce5226e53cf`，2020 组矩阵、SD 和物理冷启动通过 |
+| 第五阶段 125 MSPS 候选 | `optimization/phase5-rate` | `v2026.09.29-phase5-125msps-candidate` | 仿真/时序通过，未进行实板验证，不计入 100 MSPS 成绩 |
+| 第四阶段历史组合版 | `optimization/phase4-competition-performance` | `v2026.09.28-phase4-history` | 历史版本，保留原提交和原 Release |
+| 旧正式发布版 | `main` | `v2026.09.20` | 既有正式 Release，不被本次版本覆盖 |
+
+GitHub 源码仓库不上传约 4 GB 的完整实板交付 ZIP；该 ZIP 保留在本地 `release/`，其 SHA-256、逐文件散列和 CRC 记录在同名 `_check.json` 及最终验收报告中。GitHub 中保存源码、脚本、报告摘要和版本关系；`build/`、`captures/`、`artifacts/` 等大规模产物继续由本地交付包管理。
+
+2026-09-29 工作区整理后，`D:\fft\iq_phase5_timing` 是完整 100 MSPS 交付工作区。其余同仓库工作树仅用于旧阶段或候选版本；对应分支和标签已登记后可移除本地副本，不影响 Git 历史或 GitHub 版本。
+
 ## Git 仓库包含什么
 
 源码、构建脚本、验收报告、答辩材料和约3.2 MB的[五组信号完整证据](../reports/five_signals_20260923/测试报告.md)纳入版本管理。
