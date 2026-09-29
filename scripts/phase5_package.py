@@ -54,6 +54,26 @@ def validate():
     board_rows = [row for row in gui['tests'] if 'capture' in row]
     require(len(board_rows)==4 and all(row['numerical_verification']['status']=='PASS' for row in board_rows),
             'Four exact GUI board captures are required')
+    demo_path=gui_folder.parent/'demo/gui_validation.json'
+    demo=read(demo_path)
+    demo_rows=[row for row in demo['tests'] if row['name'] in ('digital','robust','tone','ofdm')]
+    presets_path=ROOT/'data/phase4_demo/presets.json'
+    presets=read(presets_path)
+    require({row['name'] for row in demo_rows}=={'digital','robust','tone','ofdm'} and
+            all(row['status']=='PASS' for row in demo['tests']), 'Incomplete demo preset coverage')
+    require(demo['status']=='PASS' and demo['cleanup']['status']=='PASS' and len(demo_rows)==4 and
+            demo['wrapper_sha256']==sha(ROOT/'scripts/phase4_demo.py') and
+            presets['build_id']==board['hardware']['build_id'] and presets['qualification_status']=='qualified',
+            'Current demonstration presets have not passed')
+    for row in demo_rows:
+        result=row['numerical_verification']
+        require(result['status']=='PASS' and row['metadata']['build_id']==board['hardware']['build_id'],
+                'Demo capture has another image or failed numerically')
+        for name,digest in result['files'].items():
+            require(sha(Path(result['folder'])/name)==digest,'Demo raw evidence changed')
+    for row in presets['presets']:
+        require(sha(ROOT/row['vector'])==row['sha256'],'Demo input changed')
+        if row.get('reference'):require(sha(ROOT/row['reference'])==row['reference_sha256'],'Demo reference changed')
     noise = read(ROOT/'reports/phase5_noise_validation.json')
     require(noise['status']=='COMPLETE' and noise['self_test']['status']=='PASS', 'Noise study incomplete')
     for row in noise['cases']:
@@ -63,11 +83,12 @@ def validate():
         require(sha(ROOT/'release'/mode/'BOOT.BIN')==sha(ROOT/'artifacts'/artifact), 'Boot package is stale')
     report = dict(status='PASS', hardware=board['hardware'], physical_cold_boot_verified=True,
         matrix_cases=measurements['matrix_cases'], legacy_check_cases=measurements['legacy_check_cases'],
-        basic_board_cases=len(board['cases']), gui_tests=18, sd_cases=16, cold_boot_cases=3,
+        basic_board_cases=len(board['cases']), gui_tests=18, demo_board_cases=4, sd_cases=16, cold_boot_cases=3,
         maximum_analysis_us=measurements['maximum_analysis_us'], maximum_publish_us=measurements['maximum_publish_us'],
         minimum_widest_internal_obw_hz=measurements['minimum_widest_internal_obw_hz'],
         measurements_sha256=sha(measurements_path), gui_report_sha256=sha(gui_folder/'gui_validation.json'),
-        cold_report_sha256=sha(cold_path), source_sha256=sha(Path(__file__)),
+        cold_report_sha256=sha(cold_path), demo_report_sha256=sha(demo_path), presets_sha256=sha(presets_path),
+        source_sha256=sha(Path(__file__)),
         scope='One 100 MSPS Phase 5 timing image; separate rejected/experimental candidates are not combined into its scores')
     return report, extra
 
@@ -122,19 +143,24 @@ def package(archive, report, extra):
         hardware_version=report['hardware']['hardware_version_hex'],build_id=report['hardware']['build_id'],
         source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         physical_cold_boot_verified=True,files=files)
+    print('PHASE5_ARCHIVE_WRITE_START',len(files),'files',flush=True)
     with zipfile.ZipFile(archive,'x',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         for path in sorted(selected):
             name=path.relative_to(ROOT).as_posix()
             require(sha(path)==files[name]['sha256'], 'Source changed during packaging: '+name)
+            if files[name]['bytes']>=100000000:print('PHASE5_ARCHIVE_LARGE_FILE',name,flush=True)
             z.write(path,name)
         z.writestr('START_HERE.md',start)
         z.writestr('manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    print('PHASE5_ARCHIVE_VERIFY_START',flush=True)
     with zipfile.ZipFile(archive) as z:
         require(set(z.namelist())==set(files)|{'manifest.json'}, 'Unexpected archive entries')
+        require(json.loads(z.read('manifest.json'))==manifest,'Archive manifest differs')
         for name, row in files.items():
             with z.open(name) as stream:
                 require(hashlib.file_digest(stream,'sha256').hexdigest()==row['sha256'], 'ZIP SHA mismatch: '+name)
-        require(z.testzip() is None, 'ZIP CRC mismatch')
+        # Reading every entry to EOF above also checks its ZIP CRC; do not
+        # decompress several gigabytes a second time solely for testzip().
     receipt=dict(status='PASS',archive=str(archive),bytes=archive.stat().st_size,sha256=sha(archive),
                  file_count=len(files)+1,crc_checked=True,all_archive_sha256_checked=True)
     archive.with_name(archive.stem+'_check.json').write_text(json.dumps(receipt,indent=2)+'\n')

@@ -21,15 +21,15 @@
       "label": "5dB 带噪 robust",
       "vector": "data/phase4_demo/robust_snr5_120000.bin",
       "sha256": "4d2dca3bad0c833dbb38ffcfe721380af39c6e3ccb3e1a832a6e35264b88b913",
-      "source_vector": "build/phase4_final_20260922/regression/validation/vectors/robust_snr5_120000.bin",
+      "source_vector": "build/phase5/final_r2_3/regression/validation/vectors/robust_snr5_120000.bin",
       "detector": "threshold",
       "profile": "robust",
       "window": "hann",
       "cyclic": false,
       "seconds": 1,
-      "reference": "build/phase4_final_20260922/regression/validation/references/robust_snr5_120000_hann.json",
+      "reference": "build/phase5/final_r2_3/regression/validation/references/robust_snr5_120000_hann.json",
       "meaning": "已知 1024 点前导静默估计背景，门限为 16 点能量。",
-      "reference_sha256": "533ce11d7778d15cc7fc2cd39ec66a8108e184f5f261fcd5434d91b1b97f2ce2"
+      "reference_sha256": "30219a007255a84b868c930352017ac6425a85119fa3bf7f639937729fffc25a"
     },
     {
       "id": "tone",
@@ -51,16 +51,18 @@
       "label": "宽带 OFDM QPSK",
       "vector": "data/phase4_demo/ofdm_b98p14_qpsk_s212100_f0_t10.bin",
       "sha256": "7af1abebf7e7b2965729679e66384777e3c7694291fe79bcc29cedb6a59ab371",
-      "source_vector": "build/phase4_final_20260922/widest/continuous/vectors/ofdm_b98p14_qpsk_s212100_f0_t10.bin",
+      "source_vector": "build/phase5/final_r2_3/widest/continuous/vectors/ofdm_b98p14_qpsk_s212100_f0_t10.bin",
       "detector": "threshold",
       "profile": "legacy",
       "window": "hann",
       "cyclic": true,
       "seconds": 10,
-      "reference": "build/phase4_final_20260922/widest/continuous/references/ofdm_b98p14_qpsk_s212100_f0_t10_hann.json",
-      "meaning": "设计跨度约 98.14 MHz；99% 占用带宽使用全部 8192 点功率谱，边沿窗另列。",
-      "reference_sha256": "8826be751d1e177a6520ca09b6b64888d196bf10229b164d01a1b5174bb2c13b"
+      "reference": "build/phase5/final_r2_3/widest/continuous/references/ofdm_b98p14_qpsk_s212100_f0_t10_hann.json",
+      "meaning": "100 MSPS，设计跨度 98.1445 MHz；99% 占用带宽以实测内部窗为准，边沿窗另列。",
+      "reference_sha256": "5a669f90ad3cc64d82c8744fed38d4941963bf8807869d3c61ca287ff09d84c2"
     }
   ],
-  "build_id": "3bc7d0840b0602203141e9ee228e80e3"
+  "build_id": "e430d567fbc675a926ff0ce5226e53cf",
+  "sample_rate_hz": 100000000,
+  "qualification_status": "qualified"
 }

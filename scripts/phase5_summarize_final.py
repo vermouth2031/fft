@@ -14,11 +14,39 @@ def read(p):return json.loads(Path(p).read_text(encoding='utf-8'))
 def require(ok,message):
     if not ok:raise ValueError(message)
 
+def check_campaign():
+    campaign=read(CAPTURES/'phase5_campaign.json')
+    expected=['regression','gui_redesign','ofdm_finite','ofdm_boundary',
+              'prepare_ofdm_continuous','ofdm_continuous','widest_finite','widest_continuous','noise']
+    require(campaign['status']=='PASS' and [r['stage'] for r in campaign['stages']]==expected,
+            'Final campaign is incomplete')
+    def bound(name,digest):
+        p=(ROOT/name).resolve()
+        require(p.is_relative_to(ROOT) and p.is_file() and digest and sha(p)==digest,
+                'Campaign evidence changed: '+str(name))
+    bound('scripts/phase5_final_campaign.py',campaign['driver_sha256'])
+    for row in campaign['stages']:
+        require(row['status']=='PASS','Campaign stage failed: '+row['stage'])
+        bound(row['log'],row['log_sha256'])
+        if 'matrix' in row:
+            bound(row['matrix'],row['matrix_sha256'])
+        for name,digest in row.get('capture_logs',{}).items():bound(name,digest)
+        if 'interrupted_log' in row:bound(row['interrupted_log'],row['interrupted_log_sha256'])
+    if 'recovery' in campaign:
+        recovery=campaign['recovery']
+        for key in ('deployment','prior_campaign'):bound(recovery[key],recovery[key+'_sha256'])
+        deployment=read(ROOT/recovery['deployment'])
+        require(deployment['status']=='PASS' and deployment['hardware']==check_board()['hardware'],
+                'Recovered board identity differs')
+        bound(deployment['log'],deployment['log_sha256'])
+    return campaign
+
 def verify_report(path):
     report=read(path)
     require(report['status']=='PASS' and report['schema']=='iq-phase5-final-measurements-v1','Incomplete final evidence')
     check();board=check_board()
     require(board['hardware']==report['hardware'],'Final report hardware mismatch')
+    check_campaign()
     for name,digest in report['evidence'].items():
         p=(ROOT/name).resolve();require(p.is_relative_to(ROOT) and sha(p)==digest,'Evidence changed: '+name)
     return report
@@ -27,8 +55,7 @@ def summarize():
     from summarize_phase3 import summarize as regression_summary
     from phase4_prepare_bandwidth import load_index
     from validate_measurements import load_manifest,check_bindings
-    check();board=check_board();campaign=read(CAPTURES/'phase5_campaign.json')
-    require(campaign['status']=='PASS','Final campaign did not complete')
+    check();board=check_board();check_campaign()
     require(board['hardware']['scan_lanes']==8,'Expected combined eight-lane build')
     evidence={}
     def add(p,expected=None):
@@ -38,6 +65,11 @@ def summarize():
         evidence[p.relative_to(ROOT).as_posix()]=digest
     regression=regression_summary(CAPTURES/'regression',False)
     require(regression['targets_met'],'A regression target failed')
+    protected={g['group']:g for g in regression['detection_groups'] if g['stage']=='validation'}
+    for snr, minimum in ((30,500),(20,500),(10,500),(5,496)):
+        group=protected[f'robust_snr{snr}']
+        require(group['known_bursts']==500 and group['normal_matches']>=minimum,
+                f'Frozen detection protection failed at {snr} dB')
     regression['scope']='Known Phase 3 seed sets rerun on the Phase 5 100 MSPS timing build; not new independent seeds'
     matrices=[];all_cases=list(board['cases'])
     for row in regression['stages']:
