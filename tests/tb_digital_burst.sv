@@ -9,7 +9,7 @@ module tb_digital_burst;
    .ton(36'd1048576),.toff(36'd262144),.kon(16'd8),.koff(16'd32),.max_burst(maximum),
    .detector_mode(1'b1),.gap_min(gap),.window_valid(wv),.window_data(),
    .burst_valid(bv),.burst_data(bd),.samples(samples));
- reg [287:0] expected[0:32767];
+ reg [287:0] expected[0:262143];
  integer fd,code,case_count,c,n,count=0,wcount=0,expected_count,sample_count;
  integer gap_value,maximum_value,simultaneous_finish;
  integer total_samples=0,total_bursts=0;
@@ -29,7 +29,7 @@ module tb_digital_burst;
    for(c=0;c<case_count;c=c+1)begin
      @(negedge clk);rst=1;valid=0;finish=0;count=0;wcount=0;
      code=$fscanf(fd,"%d %d %d %d %d",sample_count,gap_value,maximum_value,expected_count,simultaneous_finish);
-     if(code!=5||expected_count>32768)$fatal(1,"fixture case header %0d",c);
+     if(code!=5||expected_count>262144)$fatal(1,"fixture case header %0d",c);
      gap=gap_value;maximum=maximum_value;
      for(n=0;n<expected_count;n=n+1)begin
        code=$fscanf(fd,"%h",expected[n]);if(code!=1)$fatal(1,"fixture expected");
@@ -52,5 +52,5 @@ module tb_digital_burst;
    $display("DIGITAL_BURST_PASS cases=%0d samples=%0d bursts=%0d gaps full_scale finish_both_forms forced_segments valid_bubbles",case_count,total_samples,total_bursts);
    $finish;
  end
- initial begin #40000000;$fatal(1,"digital burst timeout");end
+ initial begin #200000000;$fatal(1,"digital burst timeout");end
 endmodule

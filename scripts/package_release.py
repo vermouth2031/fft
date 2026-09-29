@@ -47,7 +47,7 @@ def package():
       hardware=hw,software=sw,simulation=core,board_tested=False,
       artifacts={name:sha(ROOT/'artifacts'/name) for name in ('iq_analyzer.bit','iq_analyzer.xsa','iq_udp.elf','iq_sd.elf',
         'zynq_fsbl.elf','ps7_init.tcl','BOOT.BIN','BOOT_sd.BIN','BOOT_udp.BIN')},
-      source={p.relative_to(ROOT).as_posix():sha(p) for folder in ('rtl','constraints','scripts','firmware','tests','host','vendor/boards')
+      source={p.relative_to(ROOT).as_posix():sha(p) for folder in ('rtl','constraints','scripts','firmware','tests','host','vendor/boards','config')
               for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts})
     (release/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     shutil.copyfile(ROOT/'reports/构建验证报告.md',release/'构建验证报告.md')
@@ -68,11 +68,11 @@ def package():
             for p in dest.rglob('*'):
                 if p.is_file():z.write(p,p.relative_to(dest))
     with zipfile.ZipFile(release/'iq_analyzer_source.zip','w',zipfile.ZIP_DEFLATED) as z:
-        for folder in ('rtl','constraints','scripts','tests','firmware','host','docs','vendor','data','.github'):
+        for folder in ('rtl','constraints','scripts','tests','firmware','host','docs','vendor','data','.github','config'):
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
         for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
-                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md'):
+                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 

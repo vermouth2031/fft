@@ -18,7 +18,7 @@ set_property -dict [list \
  CONFIG.xk_index {true} \
  CONFIG.ovflo {true} \
  CONFIG.target_clock_frequency {125} \
- CONFIG.target_data_throughput {100}] [get_ips fft8192]
+ CONFIG.target_data_throughput {125}] [get_ips fft8192]
 generate_target all [get_ips fft8192]
 export_ip_user_files -of_objects [get_ips fft8192] -no_script -sync -force -quiet
 close_project

@@ -26,7 +26,7 @@ class DetectorHostTests(unittest.TestCase):
         c=h.Client.__new__(h.Client);c.requests=[]
         def read(offset,count=1):
             if offset==0x84:return tuple(c.requests[-1][1][-2:])
-            return ({4:version,0x8c:capabilities,0x10:rate}[offset],)
+            return ({4:version,0x8c:capabilities,0x10:rate,0x14:125000000}[offset],)
         c.read=read;c.request=lambda *args:c.requests.append(args)
         return c
 
@@ -94,6 +94,23 @@ class DetectorHostTests(unittest.TestCase):
         for gap in (0,65536,-1,1.5):
             with self.assertRaises(ValueError):h.validate_detector('digital-zero',gap)
         with self.assertRaises(ValueError):h.validate_detector('unknown',32)
+
+    def test_extended_identity_and_unsupported_record_format(self):
+        c=self.fake_client(version=0x10002,capabilities=3);original=c.read
+        c.read=lambda offset,count=1: (1,2,3,4,100000000,1,4) if offset==0x90 else original(offset,count)
+        self.assertEqual(c.hardware_info()['build_id'],'00000004000000030000000200000001')
+        c.read=lambda offset,count=1: (1,2,3,4,100000000,2,4) if offset==0x90 else original(offset,count)
+        with self.assertRaisesRegex(RuntimeError,'record format'):c.hardware_info()
+        with self.assertRaisesRegex(RuntimeError,'major version'):self.fake_client(version=0x20000).hardware_info()
+
+    def test_diagnostic_snapshot_counter_width(self):
+        c=self.fake_client()
+        values=[0,1,0,1,0,12,5,6,0,1,0,1,524288,0,0]
+        c.read=lambda offset,count=1: {0x134:(1,),0x138:(7,),0x140:values}[offset]
+        d=c.diagnostics()
+        self.assertEqual(d['issued_samples'],2**32)
+        self.assertEqual(d['fft_input_samples'],2**32)
+        self.assertEqual(d['fft_snapshot_arrival_tick'],5+6*2**32)
 
 
 if __name__=='__main__':unittest.main()

@@ -55,6 +55,28 @@ def build_cases():
         add(f"random_{n:03}", values, gap=gap,
             maximum=rng.choice((1, 2, 3, 8, 32, 1048576)),
             simultaneous_finish=bool(n % 2))
+    # Phase-five grid: independent interval oracle, including the full 16-bit
+    # gap. These are simulation fixtures, not claims about finite board RAM.
+    for gap in (1, 2, 31, 32, 33, 65535):
+        for maximum in (1, 2, 31, 32, 33, 8192, 1048576):
+            add(f"phase5_grid_gap_{gap}_max_{maximum}",
+                [zero] * gap + [(3, 4)] * 34 + [zero] * (gap - 1) +
+                [(-32768, -32768)] * 33 + [zero] * gap,
+                gap=gap, maximum=maximum, simultaneous_finish=bool(maximum % 2))
+    for maximum in (8192, 1048576):
+        add(f"phase5_large_timeout_{maximum}",
+            [(3, 4)] * (maximum + 2) + [zero] * 32, maximum=maximum)
+    for seed in range(310000, 310100):
+        rng = random.Random(seed)
+        gap = rng.choice((1, 2, 31, 32, 33))
+        values = []
+        for _ in range(12):
+            values.extend([zero] * rng.choice((0, gap - 1, gap, gap + 1)))
+            values.extend([(rng.randrange(-32768, 32768), rng.randrange(-32768, 32768))
+                           for _ in range(rng.randrange(1, 80))])
+        add(f"phase5_random_seed_{seed}", values, gap=gap,
+            maximum=rng.choice((1, 2, 31, 32, 33, 8192, 1048576)),
+            simultaneous_finish=bool(seed % 2))
     for name in ("burst_fs4", "qpsk_sps2", "qpsk_sps4"):
         source = ROOT / "data" / "vectors" / f"{name}.bin"
         if source.exists():

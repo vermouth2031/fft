@@ -13,6 +13,7 @@ import iq_client
 from record_build_stage import inputs, sha, verify as verify_stage
 from package_release import check as check_build
 from verify_board_capture import verify as verify_capture
+from phase4_identity import check_identity
 
 VECTORS = ("zero", "tone_pos_fs4", "tone_neg_fs4", "burst_fs4",
            "qpsk_sps4", "qpsk_sps2", "short512_boundary", "negative_fullscale_dc")
@@ -43,6 +44,9 @@ def main():
     client = iq_client.Client(args.board)
     try:
         hardware = client.hardware_info("digital-zero")
+        check_identity(hardware)
+        if hardware != deployment['hardware']:
+            raise RuntimeError('Board identity differs from the recorded deployment')
         if client.read(8)[0] & 7:
             raise RuntimeError("Board is already running; stop its current capture before acceptance")
     finally:
@@ -51,7 +55,7 @@ def main():
                   board=args.board, hardware=hardware, suite=args.suite,
                   artifacts=artifact_hashes, source_files=initial_sources, cases=[],
                   deployment=deployment, deployment_sha256=sha(deployment_path),
-                  input="PC-preloaded I16/Q16 RAM replay at nominal 100 MSPS",
+                  input=f"PC-preloaded I16/Q16 RAM replay at nominal {hardware['sample_rate_hz']/1e6:g} MSPS",
                   metrology_calibrated=False, boot_medium_verified=False,
                   scope="New hardware version: finite exact numerical, snapshot and selected continuous acceptance")
 

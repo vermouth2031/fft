@@ -15,6 +15,15 @@ module digital_burst_measure(
    CAPTURE_TRUNCATED=32'h100,DETECTOR_TIMEOUT=32'h400;
  reg active,start_unconfirmed,has_nonzero;
  reg [15:0] zeros;
+ // The peripheral locks configuration during acquisition and resets this
+ // detector before accepting samples. Precompute on every clock (including
+ // reset) so configuration arithmetic is outside the sample decision path.
+ reg [15:0] gap_last;
+ reg [31:0] length_last;
+ always @(posedge clk)begin
+   gap_last<=gap_min-16'd1;
+   length_last<=max_burst-32'd1;
+ end
  reg [31:0] length,peak,burst_id;
  reg [63:0] start_sample,last_nonzero,energy,observed_end;
  wire [63:0] energy_next=energy+{32'd0,power};
@@ -56,10 +65,10 @@ module digital_burst_measure(
          end
        end else begin
          // A confirmed gap wins if confirmation and the size limit coincide.
-         if(power==0&&zeros>=gap_min-1)begin
+         if(power==0&&zeros>=gap_last)begin
            if(has_nonzero)emit(last_nonzero+1,energy,peak,base_flags);
            active<=0;length<=0;has_nonzero<=0;
-         end else if(length+1>=max_burst)begin
+         end else if(length>=length_last)begin
            emit(sample_index+1,energy_next,peak_next,base_flags|DETECTOR_TIMEOUT);
            start_sample<=sample_index+1;start_unconfirmed<=1;
            length<=0;energy<=0;peak<=0;has_nonzero<=0;

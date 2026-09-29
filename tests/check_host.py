@@ -9,7 +9,7 @@ class HostTests(unittest.TestCase):
    parts=line.split();kind='frequency' if parts[0]=='F' else 'burst';w=[int(x,16) for x in parts[2:]]
    result=host.decode_record(struct.pack('<'+'I'*len(w),*w),kind)
    self.assertEqual(result['id'],w[3]);self.assertEqual(result['epoch'],1);seen+=1
-   if kind=='frequency' and int(parts[1]) in (2,10):self.assertEqual(result['peak_hz'],-25000000)
+   if kind=='frequency' and int(parts[1]) in (2,10):self.assertEqual(result['peak_hz'],-json.loads((ROOT/'config/build_profile.json').read_text())['sample_rate_hz']//4)
   self.assertEqual(seen,78)
  def test_reject_truncated(self):
   with self.assertRaises(ValueError):host.decode_record(b'\x00'*127,'frequency')

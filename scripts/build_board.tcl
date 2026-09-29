@@ -14,23 +14,34 @@ create_bd_design system
 create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 ps7
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_external "FIXED_IO, DDR" apply_board_preset "1"} [get_bd_cells ps7]
 set_property -dict [list CONFIG.PCW_USE_M_AXI_GP0 {1} CONFIG.PCW_EN_CLK0_PORT {1} CONFIG.PCW_EN_CLK1_PORT {1} \
- CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {125}] [get_bd_cells ps7]
+ CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {125} CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {125}] [get_bd_cells ps7]
 create_bd_cell -type module -reference iq_peripheral iq_0
 connect_bd_net [get_bd_pins ps7/FCLK_CLK1] [get_bd_pins iq_0/fft_clk]
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/ps7/M_AXI_GP0" Clk_master "/ps7/FCLK_CLK0 (100 MHz)" Clk_slave "/ps7/FCLK_CLK0 (100 MHz)" Clk_xbar "/ps7/FCLK_CLK0 (100 MHz)" intc_ip "New AXI Interconnect" master_apm "0"} [get_bd_intf_pins iq_0/S_AXI]
+apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config {Master "/ps7/M_AXI_GP0" Clk_master "/ps7/FCLK_CLK0 (125 MHz)" Clk_slave "/ps7/FCLK_CLK0 (125 MHz)" Clk_xbar "/ps7/FCLK_CLK0 (125 MHz)" intc_ip "New AXI Interconnect" master_apm "0"} [get_bd_intf_pins iq_0/S_AXI]
 assign_bd_address
 set seg [get_bd_addr_segs -of_objects [get_bd_addr_spaces ps7/Data] -filter {NAME =~ *iq_0*}]
 if {[llength $seg]!=1} {error "Expected one analyzer address segment; got $seg"}
 set_property offset 0x40000000 $seg
 set_property range 256K $seg
 validate_bd_design
+source $root/build/config/generated_clocks.tcl
+foreach pair [list [list 0 $sample_rate_mhz] [list 1 $fft_clock_mhz]] {
+ lassign $pair index expected
+ set actual [get_property CONFIG.PCW_ACT_FPGA${index}_PERIPHERAL_FREQMHZ [get_bd_cells ps7]]
+ set pin_hz [get_property CONFIG.FREQ_HZ [get_bd_pins ps7/FCLK_CLK$index]]
+ if {abs($actual-$expected)>0.0001 || abs($pin_hz-$expected*1000000)>1} {
+  error "Actual PS7 clock differs from build profile: FCLK$index actual=$actual pin=$pin_hz expected=$expected"
+ }
+ puts "ACTUAL_CLOCK_CHECK_PASS FCLK$index MHz=$actual Hz=$pin_hz"
+}
 save_bd_design
 generate_target all [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd]
 make_wrapper -files [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd] -top
 add_files -norecurse $root/build/board/iq_board.gen/sources_1/bd/system/hdl/system_wrapper.v
 set_property top system_wrapper [current_fileset]
 update_compile_order -fileset sources_1
-set_property strategy Performance_ExplorePostRoutePhysOpt [get_runs impl_1]
+set_property strategy Performance_NetDelay_high [get_runs impl_1]
+set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
 launch_runs synth_1 -jobs 4
 wait_on_run synth_1
 if {[get_property PROGRESS [get_runs synth_1]]!="100%"} {error "Synthesis failed"}
