@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "created_at": "2026-09-28T10:08:01.349179+08:00",
+  "tests": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "compileall",
+        "-q",
+        "host",
+        "scripts",
+        "tests"
+      ],
+      "status": "PASS",
+      "log": "reports/closeout_20260928/host_check_1.txt",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_host_protocol.py"
+      ],
+      "status": "PASS",
+      "log": "reports/closeout_20260928/host_check_2.txt",
+      "log_sha256": "e58028609ea819232e3a9c805b8594bcb2965c54b8a505697b3dc5658378d5ee"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_frame_length_reference.py"
+      ],
+      "status": "PASS",
+      "log": "reports/closeout_20260928/host_check_3.txt",
+      "log_sha256": "f18d65baf99ae215e614d0870c74c1ec4e56546756f73058af668f717d84da3c"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_detector_host.py"
+      ],
+      "status": "PASS",
+      "log": "reports/closeout_20260928/host_check_4.txt",
+      "log_sha256": "439d2928ea99adc760b7fa7be65bb4a3de97e0b10cdfc418e2b6d73d8906a8b9"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/check_five_signals_archive.py"
+      ],
+      "status": "PASS",
+      "log": "reports/closeout_20260928/host_check_5.txt",
+      "log_sha256": "2320198e00113eba9cb0dce33656f13a91d367f292a50b7b8122ab4ca4d11b6c"
+    }
+  ]
+}

@@ -15,6 +15,9 @@ targets -set -filter {name =~ "ARM*#0"}
 source $ps7_script
 ps7_init
 ps7_post_config
+# Enter the standalone ELF from reset processor state, not a prior exception.
+rst -processor -stop
+puts "JTAG_PROCESSOR_RESET_BEFORE_ELF"
 dow $helper_elf
 dow -data $control_file 0x0ff00000
 verify -data $control_file 0x0ff00000

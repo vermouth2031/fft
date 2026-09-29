@@ -16,11 +16,13 @@ sys.path.insert(0, str(ROOT / "host"))
 from iq_client import Client
 from package_release import check
 from record_build_stage import sha
+from phase4_identity import check_identity
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--board", default="192.168.1.10")
+    parser.add_argument("--out", type=Path, help="Separate recovery deployment record; preserve existing campaign bindings")
     parser.add_argument("--xsdb", type=Path, default=Path(r"D:\VivadoMM\2026.1\Vitis\bin\xsdb.bat"))
     args = parser.parse_args()
     check()
@@ -31,7 +33,11 @@ def main():
                   artifacts=before)
     log = ROOT / "build/logs" / ("deploy_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".log")
     report["log"] = str(log)
-    destination = ROOT / "reports/current_deployment.json"
+    destination = args.out.resolve() if args.out else ROOT / "reports/current_deployment.json"
+    if args.out:
+        if not destination.is_relative_to(ROOT) or destination.exists():
+            raise ValueError("Use a new project-local recovery record")
+        destination.parent.mkdir(parents=True, exist_ok=True)
     try:
         with log.open("w", encoding="utf-8") as stream:
             result = subprocess.run([str(args.xsdb), str(ROOT / "scripts/program_board.tcl")],
@@ -44,6 +50,7 @@ def main():
             client = Client(args.board)
             try:
                 info = client.hardware_info("digital-zero")
+                check_identity(info)
                 state, errors = client.read(8)[0] & 7, client.read(0x60)[0]
                 if state or errors:
                     raise RuntimeError(f"Loaded design is not idle/clean: state={state}, errors={errors}")
@@ -69,4 +76,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

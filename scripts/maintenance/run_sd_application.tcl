@@ -16,6 +16,9 @@ fpga -file $bitstream
 source $ps7_script
 ps7_init
 ps7_post_config
+# Enter the standalone ELF from reset processor state, not a prior exception.
+rst -processor -stop
+puts "JTAG_PROCESSOR_RESET_BEFORE_ELF"
 dow $application
 set completion [bpadd -file $compiled_source -line $completion_line -type hw]
 puts "SD_APPLICATION_COMPLETION_BREAKPOINT $completion source=$compiled_source line=$completion_line"

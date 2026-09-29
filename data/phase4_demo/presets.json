@@ -1,0 +1,66 @@
+{
+  "schema": "iq-demo-presets-v1",
+  "presets": [
+    {
+      "id": "digital",
+      "label": "零背景精确测长",
+      "vector": "data/phase4_demo/burst_fs4.bin",
+      "sha256": "aca6a174fffb91473f8eace763c73361771d8c0f6106098fddf3ed5cbc1b0217",
+      "source_vector": "data/vectors/burst_fs4.bin",
+      "detector": "digital-zero",
+      "profile": "legacy",
+      "window": "hann",
+      "cyclic": false,
+      "seconds": 1,
+      "reference": null,
+      "meaning": "确认数字零背景的非零波形区间，不做协议帧识别。",
+      "reference_sha256": null
+    },
+    {
+      "id": "robust",
+      "label": "5dB 带噪 robust",
+      "vector": "data/phase4_demo/robust_snr5_120000.bin",
+      "sha256": "4d2dca3bad0c833dbb38ffcfe721380af39c6e3ccb3e1a832a6e35264b88b913",
+      "source_vector": "build/phase4_final_20260922/regression/validation/vectors/robust_snr5_120000.bin",
+      "detector": "threshold",
+      "profile": "robust",
+      "window": "hann",
+      "cyclic": false,
+      "seconds": 1,
+      "reference": "build/phase4_final_20260922/regression/validation/references/robust_snr5_120000_hann.json",
+      "meaning": "已知 1024 点前导静默估计背景，门限为 16 点能量。",
+      "reference_sha256": "533ce11d7778d15cc7fc2cd39ec66a8108e184f5f261fcd5434d91b1b97f2ce2"
+    },
+    {
+      "id": "tone",
+      "label": "单音峰频",
+      "vector": "data/phase4_demo/tone_pos_fs4.bin",
+      "sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+      "source_vector": "data/vectors/tone_pos_fs4.bin",
+      "detector": "threshold",
+      "profile": "legacy",
+      "window": "hann",
+      "cyclic": false,
+      "seconds": 1,
+      "reference": null,
+      "meaning": "25 MHz 单音，展示谱峰及分辨率限制标志。",
+      "reference_sha256": null
+    },
+    {
+      "id": "ofdm",
+      "label": "宽带 OFDM QPSK",
+      "vector": "data/phase4_demo/ofdm_b98p14_qpsk_s212100_f0_t10.bin",
+      "sha256": "7af1abebf7e7b2965729679e66384777e3c7694291fe79bcc29cedb6a59ab371",
+      "source_vector": "build/phase4_final_20260922/widest/continuous/vectors/ofdm_b98p14_qpsk_s212100_f0_t10.bin",
+      "detector": "threshold",
+      "profile": "legacy",
+      "window": "hann",
+      "cyclic": true,
+      "seconds": 10,
+      "reference": "build/phase4_final_20260922/widest/continuous/references/ofdm_b98p14_qpsk_s212100_f0_t10_hann.json",
+      "meaning": "设计跨度约 98.14 MHz；99% 占用带宽使用全部 8192 点功率谱，边沿窗另列。",
+      "reference_sha256": "8826be751d1e177a6520ca09b6b64888d196bf10229b164d01a1b5174bb2c13b"
+    }
+  ],
+  "build_id": "3bc7d0840b0602203141e9ee228e80e3"
+}

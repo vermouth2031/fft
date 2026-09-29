@@ -44,8 +44,8 @@ module tb_axi;
  initial begin
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
-   rd('h004,value,0);if(value!==32'h00010001)$fatal(1,"version");
-   rd('h08c,value,0);if(value!==1)$fatal(1,"digital-zero capability");
+   rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
+   rd('h08c,value,0);if(value!==3)$fatal(1,"extended capability");
    rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
    rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
    wr('h08c,0,15,0,2); // Capability register is read-only.
@@ -71,6 +71,20 @@ module tb_axi;
    wr('h028,1,15,0,2);   // Immutable configuration while running.
    wr('h084,1,15,0,2);wr('h088,1,15,0,2); // New mode/gap are also immutable.
    wait(dut.run_state==0);
+   wr('h100,1,15,0,0);
+   rd('h134,value,0);while(value!=1)rd('h134,value,0);
+   rd('h090,value,0);if(value!==iq_build_config::BUILD_ID[31:0])$fatal(1,"build identity");
+   rd('h0a0,value,0);if(value!=100000000)$fatal(1,"timestamp clock");
+   rd('h0a4,value,0);if(value!=1)$fatal(1,"record format");
+   rd('h140,value,0);if(value!=8192)$fatal(1,"issued snapshot");
+   rd('h148,value,0);if(value!=8192)$fatal(1,"accepted snapshot");
+   rd('h150,value,0);if(value!=0)$fatal(1,"input rejection");
+   rd('h154,value,0);if(value==0||value>=4096)$fatal(1,"FIFO high water");
+   rd('h160,value,0);if(value!=8192)$fatal(1,"FFT accepted samples");
+   rd('h168,value,0);if(value!=8192)$fatal(1,"FFT output samples");
+   rd('h170,value,0);if(value!=1)$fatal(1,"FFT output windows");
+   rd('h174,value,0);if(value!=0)$fatal(1,"result queue rejection");
+   rd('h178,value,0);if(value!=0)$fatal(1,"input underread");
    rd('h050,producer,0);if(producer!=1)$fatal(1,"producer %d",producer);
    for(j=0;j<32;j=j+1)rd('h30000+j*4,records[j],0);
    if(records[0]!=32'h46525131||records[14]!=25000000||records[17]!=0||records[21]!=32'h20000000||records[22]!=32'h20000000)$fatal(1,"replay result");

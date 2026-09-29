@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "scope": "Bounded startup correction: 3 SD application/export loads plus 1 UDP deployment. SD writer uses the same reset sequence and remains separately gated. No general failure-rate claim.",
+  "time": "2026-09-22T13:38:20.269381+08:00",
+  "hardware": {
+    "hardware_version": 65538,
+    "hardware_version_hex": "0x00010002",
+    "hardware_capabilities": 3,
+    "sample_rate_hz": 100000000,
+    "build_id": "3bc7d0840b0602203141e9ee228e80e3",
+    "timestamp_clock_hz": 100000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 125000000
+  },
+  "observed_failures": [
+    "Initial UDP query timed out; CPU in exception handler",
+    "Initial read-only SD mount returned FR_NOT_READY",
+    "Subsequent read-only exporter did not enter main, mailbox status remained 0; PC=0x52c, CPSR=0x200000db"
+  ],
+  "change": "Explicit rst -processor -stop after PS init and before ELF download; firmware and bitstream bytes unchanged",
+  "loaders": {
+    "scripts/program_board.tcl": "153cbf724576452f2bc0d6fe552776f09aaf88d468994bb79ea56d07350f438c",
+    "scripts/maintenance/sd_export.tcl": "64c4d90d063d58e42ea049adf23736ae4d9764e1ef1c0609500874b5298df6cf",
+    "scripts/maintenance/run_sd_application.tcl": "7072322296306ad7c06bfff6c0bd404cbf05a2653256540f684daebdce2af4a0",
+    "scripts/maintenance/sd_boot_writer.tcl": "3ce210fd92ef378550d8ecc6ccde29a586ab5899b6e122563ececbf3b8d8c8c7"
+  },
+  "sd_validation_sha256": "33407a471732efea10577ea7813182aa1d8cd5549c4ade2fd3c4a9ece0886e2d",
+  "deployment_sha256": "be301507d5d428b72362955fad858a94dbd4102c02e7dc7296597cc102c51656",
+  "logs": {
+    "build\\logs\\deploy_20260922_132008.log": "62c2afa0e866cfa18463315fc2431fadbc5c66ca668dbf58054018fbb94d1086",
+    "captures\\phase4_sd_20260922_resetfix\\xsdb_sd_application.log": "835a41f492197a073509d1b5c54cd1f9d16b33865bc8f7d8736297208726e6fd",
+    "captures\\phase4_sd_20260922_resetfix\\after\\xsdb.log": "e3bff973892ed50cdfcf92b913d15a955bdb0e09d0e58f65a4f550620bb9f4aa",
+    "captures\\phase4_sd_20260922_resetfix\\before\\xsdb.log": "86ce0d1290de37ec81e10c039b6bda0c4a833e9de16924feb71c94029f848d04"
+  },
+  "preserved_evidence": {
+    "build\\phase4_jtag_startup_fix\\phase4_jtag_help.log": "3d05072a5f724b0378ab35bcbbb7a48b848c18103aa1f3eb73f2e72e9257ca31",
+    "build\\phase4_jtag_startup_fix\\phase4_sd_timeout_probe.log": "8bf3fb99ad1361e310abe24bf0cdb1905bb0ec63fc26cddd17dfc5970e0a6e90",
+    "build\\phase4_jtag_startup_fix\\phase4_sd_timeout_probe.tcl": "a152f91b81c941be5943ef5e797223f27eccc9ae75598c1161e5bf68b32409c7",
+    "build\\phase4_jtag_startup_fix\\sd_export_plan_before.json": "e6336a20c190770098a2ab5c6d64833fab69c56144201a6435c29efcd48f74e7",
+    "build\\phase4_jtag_startup_fix\\scripts\\program_board.tcl": "6f4619c6f99b2b526e90a03be566c40f176724f65400b5089142d67e32ab2dd3",
+    "build\\phase4_jtag_startup_fix\\scripts\\maintenance\\run_sd_application.tcl": "ea716ae79bffe2a21697e466b7b5a3bede759c8871bf3f246f075eb7d9a396d9",
+    "build\\phase4_jtag_startup_fix\\scripts\\maintenance\\sd_boot_writer.tcl": "ee36bf15fc6b3d6a2c7f63ad73112e48fa0b479b994de61769ebf94057ec09a6",
+    "build\\phase4_jtag_startup_fix\\scripts\\maintenance\\sd_export.tcl": "473c7276428f658cce58fddbe10c6c79670786c6340c5cf3a125701c526d07cc"
+  }
+}

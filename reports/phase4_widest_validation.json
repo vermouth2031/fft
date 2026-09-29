@@ -1,0 +1,2503 @@
+{
+  "status": "PASS",
+  "scope": "Secondary fixed OFDM specification; no frequency shift; existing 100MSPS hardware",
+  "candidate_design_span_hz": 98144531.25,
+  "guard_each_side_hz": 927734.375,
+  "minimum_internal_obw_hz": 96997070,
+  "target_95mhz_met": true,
+  "finite_cases": 80,
+  "continuous_cases": 7,
+  "legacy_check_cases": 32,
+  "continuous_replay_seconds": 460,
+  "maximum_analysis_us": 183.41,
+  "maximum_publish_us": 183.75,
+  "groups": {
+    "qpsk_rect": {
+      "count": 40,
+      "min_hz": 97058105,
+      "median_hz": 97186279.5,
+      "p95_hz": 97266845.7,
+      "max_hz": 97290039
+    },
+    "qpsk_hann": {
+      "count": 40,
+      "min_hz": 97094727,
+      "median_hz": 97192383.0,
+      "p95_hz": 97266235.35,
+      "max_hz": 97314453
+    },
+    "qam16_rect": {
+      "count": 40,
+      "min_hz": 97033691,
+      "median_hz": 97186279.5,
+      "p95_hz": 97338867.0,
+      "max_hz": 97351074
+    },
+    "qam16_hann": {
+      "count": 40,
+      "min_hz": 96997070,
+      "median_hz": 97204590.0,
+      "p95_hz": 97304077.05,
+      "max_hz": 97338867
+    }
+  },
+  "evidence": {
+    "D:\\fft\\iq_analyzer\\captures\\phase4_ofdm_widest_20260922\\finite\\measurement_validation.json": "4dc5322c70c0ded2422907e6cea2672918e7c30beb242c97cc5cde1082c75d7b",
+    "D:\\fft\\iq_analyzer\\captures\\phase4_ofdm_widest_20260922\\continuous\\measurement_validation.json": "bc186ea397f2209491477868b649149658bcd9fb91bdfaf93d0342f5b716c7cc"
+  },
+  "training_seeds": [
+    212000,
+    212099
+  ],
+  "validation_seeds": [
+    212100,
+    212119
+  ],
+  "fixed_gain": 6000,
+  "numpy_version": "2.5.3",
+  "python_version": "3.12.5",
+  "random_bit_generator": "PCG64",
+  "seed_domain": "OFDM: numpy SeedSequence([seed,0x4f46444d]); grouped seeds across windows and constellations",
+  "quantization": [
+    {
+      "id": "ofdm_b98p14_qpsk_s212100_f0",
+      "power_before_codes2": 35364773.25414353,
+      "power_after_codes2": 35364775.34627757,
+      "maximum_component_quantization_error": 0.4999897354763334,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.869409249680995,
+      "rms_codes": 5946.8288401587215,
+      "component_peak_codes": 20455,
+      "component_headroom_codes": 12313,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212101_f0",
+      "power_before_codes2": 35351347.83711562,
+      "power_after_codes2": 35351343.983609065,
+      "maximum_component_quantization_error": 0.5,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.724280057399053,
+      "rms_codes": 5945.6999450960875,
+      "component_peak_codes": 17526,
+      "component_headroom_codes": 15242,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212102_f0",
+      "power_before_codes2": 35371522.88003824,
+      "power_after_codes2": 35371512.90050551,
+      "maximum_component_quantization_error": 0.49999161544019444,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.613235683452753,
+      "rms_codes": 5947.39631099511,
+      "component_peak_codes": 17852,
+      "component_headroom_codes": 14915,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212103_f0",
+      "power_before_codes2": 35391020.8397538,
+      "power_after_codes2": 35391012.67666207,
+      "maximum_component_quantization_error": 0.4999985689614732,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.390064171398087,
+      "rms_codes": 5949.035286477447,
+      "component_peak_codes": 21321,
+      "component_headroom_codes": 11446,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212104_f0",
+      "power_before_codes2": 35263136.08790135,
+      "power_after_codes2": 35263110.921568625,
+      "maximum_component_quantization_error": 0.4999805957395438,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.120290142576096,
+      "rms_codes": 5938.277198641147,
+      "component_peak_codes": 18775,
+      "component_headroom_codes": 13993,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212105_f0",
+      "power_before_codes2": 35292357.60155033,
+      "power_after_codes2": 35292419.71641391,
+      "maximum_component_quantization_error": 0.49997592152953985,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.714749971945299,
+      "rms_codes": 5940.737126110726,
+      "component_peak_codes": 18006,
+      "component_headroom_codes": 14761,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212106_f0",
+      "power_before_codes2": 35350309.2157483,
+      "power_after_codes2": 35350285.69351256,
+      "maximum_component_quantization_error": 0.5,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.278360240001236,
+      "rms_codes": 5945.612602225972,
+      "component_peak_codes": 17622,
+      "component_headroom_codes": 15146,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212107_f0",
+      "power_before_codes2": 35312860.19589003,
+      "power_after_codes2": 35312880.42597273,
+      "maximum_component_quantization_error": 0.49998216180210875,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.654112847653437,
+      "rms_codes": 5942.462469035041,
+      "component_peak_codes": 16663,
+      "component_headroom_codes": 16105,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212108_f0",
+      "power_before_codes2": 35413698.43574501,
+      "power_after_codes2": 35413713.96423101,
+      "maximum_component_quantization_error": 0.49999752210987936,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.523749843761506,
+      "rms_codes": 5950.940970615068,
+      "component_peak_codes": 18929,
+      "component_headroom_codes": 13838,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212109_f0",
+      "power_before_codes2": 35313193.66189677,
+      "power_after_codes2": 35313193.83880974,
+      "maximum_component_quantization_error": 0.49998416835205717,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.758153096938795,
+      "rms_codes": 5942.490526866389,
+      "component_peak_codes": 18036,
+      "component_headroom_codes": 14731,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212110_f0",
+      "power_before_codes2": 35294035.291823804,
+      "power_after_codes2": 35294006.761757046,
+      "maximum_component_quantization_error": 0.5,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.659929455660897,
+      "rms_codes": 5940.878326630146,
+      "component_peak_codes": 18676,
+      "component_headroom_codes": 14091,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212111_f0",
+      "power_before_codes2": 35329719.836503886,
+      "power_after_codes2": 35329762.94542739,
+      "maximum_component_quantization_error": 0.4999995980924723,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.42095988427759,
+      "rms_codes": 5943.880873343937,
+      "component_peak_codes": 19128,
+      "component_headroom_codes": 13640,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212112_f0",
+      "power_before_codes2": 35360320.989653476,
+      "power_after_codes2": 35360268.22947304,
+      "maximum_component_quantization_error": 0.4999537220564889,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.847958277992339,
+      "rms_codes": 5946.454488992031,
+      "component_peak_codes": 17907,
+      "component_headroom_codes": 14861,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212113_f0",
+      "power_before_codes2": 35395917.81050239,
+      "power_after_codes2": 35395936.601868875,
+      "maximum_component_quantization_error": 0.49996321605112826,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.07565905717088,
+      "rms_codes": 5949.446849119873,
+      "component_peak_codes": 16884,
+      "component_headroom_codes": 15883,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212114_f0",
+      "power_before_codes2": 35338906.43679505,
+      "power_after_codes2": 35338937.89388021,
+      "maximum_component_quantization_error": 0.499995939553628,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.972759341905174,
+      "rms_codes": 5944.653601076773,
+      "component_peak_codes": 18146,
+      "component_headroom_codes": 14622,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212115_f0",
+      "power_before_codes2": 35323112.461293034,
+      "power_after_codes2": 35323090.38453585,
+      "maximum_component_quantization_error": 0.4999972578239067,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.024461395157523,
+      "rms_codes": 5943.325034128037,
+      "component_peak_codes": 18304,
+      "component_headroom_codes": 14464,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212116_f0",
+      "power_before_codes2": 35297625.68979599,
+      "power_after_codes2": 35297615.109681375,
+      "maximum_component_quantization_error": 0.49998337304123197,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.933479391459699,
+      "rms_codes": 5941.180496315189,
+      "component_peak_codes": 17329,
+      "component_headroom_codes": 15439,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212117_f0",
+      "power_before_codes2": 35453950.568242125,
+      "power_after_codes2": 35453945.28358609,
+      "maximum_component_quantization_error": 0.499969719913679,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.972923147698436,
+      "rms_codes": 5954.322007436457,
+      "component_peak_codes": 17471,
+      "component_headroom_codes": 15296,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212118_f0",
+      "power_before_codes2": 35357404.492202096,
+      "power_after_codes2": 35357372.88798254,
+      "maximum_component_quantization_error": 0.49998058582241356,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.846889927553903,
+      "rms_codes": 5946.209253987123,
+      "component_peak_codes": 18136,
+      "component_headroom_codes": 14632,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qpsk_s212119_f0",
+      "power_before_codes2": 35303973.65055538,
+      "power_after_codes2": 35303926.707988665,
+      "maximum_component_quantization_error": 0.4999983745137797,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.375769631120331,
+      "rms_codes": 5941.714706257393,
+      "component_peak_codes": 17972,
+      "component_headroom_codes": 14796,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212100_f0",
+      "power_before_codes2": 35168998.15822374,
+      "power_after_codes2": 35168993.85539216,
+      "maximum_component_quantization_error": 0.4999831530321899,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.317239190575416,
+      "rms_codes": 5930.345534471305,
+      "component_peak_codes": 19335,
+      "component_headroom_codes": 13433,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212101_f0",
+      "power_before_codes2": 35276852.62790264,
+      "power_after_codes2": 35276798.17030484,
+      "maximum_component_quantization_error": 0.49999999999965894,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.147034266167198,
+      "rms_codes": 5939.432012230011,
+      "component_peak_codes": 17576,
+      "component_headroom_codes": 15192,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212102_f0",
+      "power_before_codes2": 35521901.827525355,
+      "power_after_codes2": 35521892.79480699,
+      "maximum_component_quantization_error": 0.4999964054420616,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.75703566632605,
+      "rms_codes": 5960.025321047332,
+      "component_peak_codes": 17228,
+      "component_headroom_codes": 15540,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212103_f0",
+      "power_before_codes2": 35202863.732521206,
+      "power_after_codes2": 35202892.00325521,
+      "maximum_component_quantization_error": 0.49998028531429384,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.817570502701843,
+      "rms_codes": 5933.200125777084,
+      "component_peak_codes": 19127,
+      "component_headroom_codes": 13641,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212104_f0",
+      "power_before_codes2": 35226635.553519145,
+      "power_after_codes2": 35226649.66103707,
+      "maximum_component_quantization_error": 0.49998255059199437,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.33759969610839,
+      "rms_codes": 5935.2030760134185,
+      "component_peak_codes": 18262,
+      "component_headroom_codes": 14506,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212105_f0",
+      "power_before_codes2": 35277212.05740782,
+      "power_after_codes2": 35277181.326708026,
+      "maximum_component_quantization_error": 0.4999930825015326,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.342496649910958,
+      "rms_codes": 5939.462270055078,
+      "component_peak_codes": 19291,
+      "component_headroom_codes": 13476,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212106_f0",
+      "power_before_codes2": 35308525.13320305,
+      "power_after_codes2": 35308527.14763327,
+      "maximum_component_quantization_error": 0.4999833245200307,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.230658774951022,
+      "rms_codes": 5942.097704784317,
+      "component_peak_codes": 17376,
+      "component_headroom_codes": 15391,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212107_f0",
+      "power_before_codes2": 35377498.99430811,
+      "power_after_codes2": 35377454.634765625,
+      "maximum_component_quantization_error": 0.49999939476356303,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.88340755660291,
+      "rms_codes": 5947.898704106191,
+      "component_peak_codes": 18382,
+      "component_headroom_codes": 14385,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212108_f0",
+      "power_before_codes2": 35401017.52622175,
+      "power_after_codes2": 35401046.41115196,
+      "maximum_component_quantization_error": 0.4999869187818149,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.19124368898455,
+      "rms_codes": 5949.8754210673815,
+      "component_peak_codes": 17204,
+      "component_headroom_codes": 15563,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212109_f0",
+      "power_before_codes2": 35283348.341505505,
+      "power_after_codes2": 35283305.924632356,
+      "maximum_component_quantization_error": 0.49999834665823073,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.55714171858116,
+      "rms_codes": 5939.97881658727,
+      "component_peak_codes": 17165,
+      "component_headroom_codes": 15603,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212110_f0",
+      "power_before_codes2": 35319436.231427714,
+      "power_after_codes2": 35319419.36220895,
+      "maximum_component_quantization_error": 0.4999999999993179,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.70399606277179,
+      "rms_codes": 5943.0157522446225,
+      "component_peak_codes": 19553,
+      "component_headroom_codes": 13214,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212111_f0",
+      "power_before_codes2": 35434108.94830042,
+      "power_after_codes2": 35434108.83632047,
+      "maximum_component_quantization_error": 0.4999961063790579,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.092039558912079,
+      "rms_codes": 5952.655621510488,
+      "component_peak_codes": 17744,
+      "component_headroom_codes": 15024,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212112_f0",
+      "power_before_codes2": 35301769.416751646,
+      "power_after_codes2": 35301839.327627145,
+      "maximum_component_quantization_error": 0.49999574669800495,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.922742479735193,
+      "rms_codes": 5941.529215341085,
+      "component_peak_codes": 18322,
+      "component_headroom_codes": 14446,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212113_f0",
+      "power_before_codes2": 35459087.77611959,
+      "power_after_codes2": 35459073.98192402,
+      "maximum_component_quantization_error": 0.49998483431409113,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.603584535560842,
+      "rms_codes": 5954.753376599201,
+      "component_peak_codes": 17595,
+      "component_headroom_codes": 15172,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212114_f0",
+      "power_before_codes2": 35275455.20072481,
+      "power_after_codes2": 35275419.12297028,
+      "maximum_component_quantization_error": 0.5,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 11.217304469062782,
+      "rms_codes": 5939.314371265829,
+      "component_peak_codes": 21173,
+      "component_headroom_codes": 11595,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212115_f0",
+      "power_before_codes2": 35422816.014744036,
+      "power_after_codes2": 35422808.66344976,
+      "maximum_component_quantization_error": 0.4999997382137735,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.622146732724218,
+      "rms_codes": 5951.70698327329,
+      "component_peak_codes": 17307,
+      "component_headroom_codes": 15461,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212116_f0",
+      "power_before_codes2": 35480185.039188124,
+      "power_after_codes2": 35480207.372510724,
+      "maximum_component_quantization_error": 0.49999179664155236,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.897273169453213,
+      "rms_codes": 5956.5245772336175,
+      "component_peak_codes": 17835,
+      "component_headroom_codes": 14932,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212117_f0",
+      "power_before_codes2": 35345540.91930908,
+      "power_after_codes2": 35345560.0613894,
+      "maximum_component_quantization_error": 0.4999996207025106,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.988499860917674,
+      "rms_codes": 5945.211595839889,
+      "component_peak_codes": 19439,
+      "component_headroom_codes": 13328,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212118_f0",
+      "power_before_codes2": 35400100.40532035,
+      "power_after_codes2": 35400086.993681066,
+      "maximum_component_quantization_error": 0.49999859855688555,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 10.06599670573555,
+      "rms_codes": 5949.798349971228,
+      "component_peak_codes": 18773,
+      "component_headroom_codes": 13994,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ofdm_b98p14_qam16_s212119_f0",
+      "power_before_codes2": 35478855.58478834,
+      "power_after_codes2": 35478886.37783395,
+      "maximum_component_quantization_error": 0.4999766090450066,
+      "active_subcarriers": 4020,
+      "pilot_subcarriers_per_symbol": 126,
+      "data_subcarriers_per_symbol": 3894,
+      "active_extreme_hz": [
+        -49072265.625,
+        49072265.625
+      ],
+      "subcarrier_spacing_hz": 24414.0625,
+      "active_span_hz": 98144531.25,
+      "symbol_length_samples": 4352,
+      "complete_symbols": 6,
+      "cropped_symbols": 0,
+      "signal_interval": [
+        1024,
+        27136
+      ],
+      "quiet_prefix": 1024,
+      "quiet_suffix": 5632,
+      "papr_db": 9.702428442704429,
+      "rms_codes": 5956.412979704172,
+      "component_peak_codes": 17316,
+      "component_headroom_codes": 15451,
+      "windows": [
+        {
+          "window_id": 0,
+          "region": "edge",
+          "symbol_boundaries": [
+            1024,
+            5376
+          ]
+        },
+        {
+          "window_id": 1,
+          "region": "internal",
+          "symbol_boundaries": [
+            9728,
+            14080
+          ]
+        },
+        {
+          "window_id": 2,
+          "region": "internal",
+          "symbol_boundaries": [
+            18432,
+            22784
+          ]
+        },
+        {
+          "window_id": 3,
+          "region": "edge",
+          "symbol_boundaries": [
+            27136
+          ]
+        }
+      ]
+    }
+  ]
+}

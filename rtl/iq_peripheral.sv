@@ -72,6 +72,13 @@ module iq_peripheral(
    if(replay_write)for(byte_lane=0;byte_lane<4;byte_lane=byte_lane+1)
      if(ws[byte_lane])replay_mem[host_ram_addr][byte_lane*8+:8]<=wd[byte_lane*8+:8];
  end
+ reg diagnostic_toggle,diagnostic_busy,diagnostic_valid;
+ reg [31:0] diagnostic_sequence;
+ wire diagnostic_arrived;wire [223:0] fft_diagnostic;
+ wire [63:0] accepted_samples;wire [31:0] input_rejected;wire [12:0] input_high_water;
+ reg [63:0] issued_snapshot,accepted_snapshot,diagnostic_arrival_tick;
+ reg [31:0] rejected_snapshot;reg [12:0] high_water_snapshot;
+ reg [223:0] fft_diagnostic_snapshot;
  wire core_ready,freq_valid,burst_valid;wire [1023:0] freq_record;wire [511:0] burst_record;
  wire [63:0] samples;wire [31:0] completed,max_latency;
  reg [31:0] publish_latency_max;
@@ -95,6 +102,8 @@ module iq_peripheral(
  always @(posedge fft_clk)if(snap_we)snapshot_mem[snap_addr]<=snap_data;
  always @(posedge clk)snapshot_q<=snapshot_mem[ra[12:3]];
  analyzer_core core(.src_clk(clk),.fft_clk(fft_clk),.rst(acquisition_reset),
+   .diagnostic_toggle(diagnostic_toggle),.diagnostic_arrived(diagnostic_arrived),.fft_diagnostic(fft_diagnostic),
+   .accepted_samples(accepted_samples),.input_rejected(input_rejected),.input_high_water(input_high_water),
    .valid(source_valid),.iq(replay_q),.finish(source_finish),.tick(tick),.hann(window_mode[0]),
    .roi_low(roi_l[12:0]),.roi_high(roi_h[12:0]),.ton(ton),.toff(toff),.kon(kon),.koff(koff),.max_burst(max_burst),
    .detector_mode(detector_mode[0]),.gap_min(gap_min[15:0]),
@@ -115,6 +124,9 @@ module iq_peripheral(
    if(rst)begin
      aw_hold<=0;w_hold<=0;wa<=0;wd<=0;ws<=0;s_axi_bvalid<=0;s_axi_bresp<=0;
      s_axi_rvalid<=0;s_axi_rresp<=0;s_axi_rdata<=0;read_delay<=0;ra<=0;
+     diagnostic_toggle<=0;diagnostic_busy<=0;diagnostic_valid<=0;diagnostic_sequence<=0;
+     issued_snapshot<=0;accepted_snapshot<=0;rejected_snapshot<=0;high_water_snapshot<=0;
+     fft_diagnostic_snapshot<=0;diagnostic_arrival_tick<=0;
      tick<=0;run_state<=STOPPED;wait_count<=0;stop_pending<=0;abort_pending<=0;issued<=0;replay_ptr<=0;replay_pos<=0;
      source_valid<=0;source_finish<=0;replay_length<=32768;replay_start<=0;replay_mode<=0;window_mode<=1;
      roi_l<=0;roi_h<=8191;ton<=1048576;toff<=262144;kon<=8;koff<=32;max_burst<=1048576;
@@ -124,11 +136,16 @@ module iq_peripheral(
      tick_snapshot<=0;samples_snapshot<=0;completed_snapshot<=0;latency_snapshot<=0;publish_snapshot<=0;
      publish_latency_max<=0;publish_start<=0;freq_busy_previous<=0;
    end else begin
+     if(diagnostic_arrived&&diagnostic_busy)begin
+       fft_diagnostic_snapshot<=fft_diagnostic;diagnostic_busy<=0;diagnostic_valid<=1;
+       diagnostic_arrival_tick<=tick;diagnostic_sequence<=diagnostic_sequence+1;
+     end
      tick<=tick+1;source_valid<=issue;source_finish<=final_issue;
      freq_busy_previous<=freq_busy;
      if(freq_valid&&!freq_busy&&freq_producer-freq_consumer<256)publish_start<=freq_record[8*32+:64];
      if(freq_busy_previous&&!freq_busy&&tick-publish_start>publish_latency_max)publish_latency_max<=tick-publish_start;
      if(acquisition_reset)begin
+       diagnostic_toggle<=0;diagnostic_busy<=0;diagnostic_valid<=0;
        freq_consumer<=0;burst_consumer<=0;publish_latency_max<=0;freq_busy_previous<=0;
        snap_request<=0;snapshot_valid<=0;snapshot_pending<=0;
      end else begin
@@ -179,7 +196,16 @@ module iq_peripheral(
            if(strobed_data[0]&&!snapshot_valid&&!snapshot_pending&&!acquisition_reset)begin snap_request<=1;snapshot_pending<=1;end
            else if(strobed_data[0])s_axi_bresp<=2;
          end
-         'h100:begin tick_snapshot<=tick;samples_snapshot<=samples;completed_snapshot<=completed;latency_snapshot<=max_latency;publish_snapshot<=publish_latency_max;end
+         'h100:begin
+           if(diagnostic_busy||acquisition_reset) s_axi_bresp<=2;
+           else begin
+             tick_snapshot<=tick;samples_snapshot<=samples;completed_snapshot<=completed;
+             latency_snapshot<=max_latency;publish_snapshot<=publish_latency_max;
+             issued_snapshot<=issued;accepted_snapshot<=accepted_samples;rejected_snapshot<=input_rejected;
+             high_water_snapshot<=input_high_water;
+             diagnostic_toggle<=!diagnostic_toggle;diagnostic_busy<=1;diagnostic_valid<=0;
+           end
+         end
          default:if(((wa>=18'h01c&&wa<=18'h04c)||wa==18'h084||wa==18'h088)&&!active)begin
            config_dirty<=1;
            case(wa)
@@ -215,10 +241,10 @@ module iq_peripheral(
          else if(ra>=18'h3a000&&ra<18'h3c000)s_axi_rdata<=ra[2]?snapshot_q[63:32]:snapshot_q[31:0];
          else case(ra)
            'h000:s_axi_rdata<=32'h49514131;
-           'h004:s_axi_rdata<=32'h00010001;
+           'h004:s_axi_rdata<=iq_build_config::HARDWARE_VERSION;
            'h008:s_axi_rdata<={20'd0,config_dirty[0],snapshot_valid,core_ready,active,5'd0,run_state};
-           'h010:s_axi_rdata<=100000000;
-           'h014:s_axi_rdata<=125000000;
+           'h010:s_axi_rdata<=iq_build_config::SAMPLE_RATE_HZ;
+           'h014:s_axi_rdata<=iq_build_config::FFT_CLOCK_HZ;
            'h018:s_axi_rdata<=8192;
            'h01c:s_axi_rdata<=replay_length;
            'h020:s_axi_rdata<=replay_start;
@@ -238,7 +264,29 @@ module iq_peripheral(
            'h080:s_axi_rdata<=snapshot_window;
            'h084:s_axi_rdata<=detector_mode;
            'h088:s_axi_rdata<=gap_min;
-           'h08c:s_axi_rdata<=32'h00000001;
+           'h08c:s_axi_rdata<=iq_build_config::CAPABILITIES;
+           'h090:s_axi_rdata<=iq_build_config::BUILD_ID[0+:32];
+           'h094:s_axi_rdata<=iq_build_config::BUILD_ID[32+:32];
+           'h098:s_axi_rdata<=iq_build_config::BUILD_ID[64+:32];
+           'h09c:s_axi_rdata<=iq_build_config::BUILD_ID[96+:32];
+
+           'h0a0:s_axi_rdata<=iq_build_config::TIMESTAMP_CLOCK_HZ;
+           'h0a4:s_axi_rdata<=iq_build_config::RECORD_FORMAT_VERSION;
+           'h0a8:s_axi_rdata<=iq_build_config::SCAN_LANES;
+           'h134:s_axi_rdata<={30'd0,diagnostic_busy,diagnostic_valid};
+           'h138:s_axi_rdata<=diagnostic_sequence;
+           'h140:s_axi_rdata<=issued_snapshot[31:0];'h144:s_axi_rdata<=issued_snapshot[63:32];
+           'h148:s_axi_rdata<=accepted_snapshot[31:0];'h14c:s_axi_rdata<=accepted_snapshot[63:32];
+           'h150:s_axi_rdata<=rejected_snapshot;'h154:s_axi_rdata<={19'd0,high_water_snapshot};
+           'h158:s_axi_rdata<=diagnostic_arrival_tick[31:0];'h15c:s_axi_rdata<=diagnostic_arrival_tick[63:32];
+           'h160:s_axi_rdata<=fft_diagnostic_snapshot[0+:32];
+           'h164:s_axi_rdata<=fft_diagnostic_snapshot[32+:32];
+           'h168:s_axi_rdata<=fft_diagnostic_snapshot[64+:32];
+           'h16c:s_axi_rdata<=fft_diagnostic_snapshot[96+:32];
+           'h170:s_axi_rdata<=fft_diagnostic_snapshot[128+:32];
+           'h174:s_axi_rdata<=fft_diagnostic_snapshot[160+:32];
+           'h178:s_axi_rdata<=fft_diagnostic_snapshot[192+:32];
+
            'h110:s_axi_rdata<=tick_snapshot[31:0];'h114:s_axi_rdata<=tick_snapshot[63:32];
            'h118:s_axi_rdata<=samples_snapshot[31:0];'h11c:s_axi_rdata<=samples_snapshot[63:32];
            'h120:s_axi_rdata<=completed_snapshot;'h124:s_axi_rdata<=latency_snapshot;
