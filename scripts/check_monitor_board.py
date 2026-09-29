@@ -92,7 +92,8 @@ class GuiAcceptance:
             self.root.attributes("-topmost", False)
         self.report["screenshots"].append(name)
 
-    def capture(self, name, detector, vector, cyclic, seconds, manual_stop=False):
+    def capture(self, name, detector, vector, cyclic, seconds, manual_stop=False,
+                threshold_profile='legacy', qualification=None):
         parent = self.out / "captures"
         parent.mkdir(exist_ok=True)
         before = set(parent.iterdir())
@@ -103,6 +104,11 @@ class GuiAcceptance:
         app.board.set(self.board)
         app.vector.set(str(ROOT / "data/vectors" / vector))
         app.detector.set(detector)
+        app.threshold_profile.set(threshold_profile)
+        app.threshold_policy.set('quiet-prefix' if threshold_profile=='robust' else 'fixed')
+        app.quiet_samples.set('1024')
+        for value in app.threshold_values.values():
+            value.set('')
         app.gap_min.set("32")
         app.cyclic.set(cyclic)
         app.window.set("hann")
@@ -136,7 +142,13 @@ class GuiAcceptance:
                 f"{name}: final metadata was not consumed by the GUI")
         require(len(app.env.find_all()) > 5 and len(app.spec.find_all()) > 5,
                 f"{name}: envelope or spectrum was not rendered")
-        verification = verify(folder)
+        verification = verify(folder, Path(vector) if qualification else None, qualification=qualification)
+        if threshold_profile=='robust':
+            require(meta['threshold_request']['profile']=='robust', 'GUI threshold profile did not reach capture')
+            require((meta['applied_detector']['kon'],meta['applied_detector']['koff'])==(16,8),
+                    'GUI confirmation lengths differ from robust profile')
+            require('ton/toff=' in app.metrics.get() and 'kon/koff=16/8' in app.metrics.get(),
+                    'Applied detector parameters are not visible in GUI')
         if detector == "digital-zero" and not cyclic:
             raw = (folder / "burst.bin").read_bytes()
             require(len(raw) == 64, "Finite burst_fs4 requires exactly one waveform record")
@@ -225,6 +237,8 @@ def main():
     parser.add_argument("--board", default="192.168.1.10")
     parser.add_argument("--offline-capture", type=Path,
                         help="Optional historical capture; defaults to the new finite capture")
+    parser.add_argument('--robust-reference-index',type=Path,
+                        help='Frozen qualification index for a real robust-profile GUI capture')
     args = parser.parse_args()
     check_build()
     accepted = check_board()
@@ -261,6 +275,12 @@ def main():
         finite = runner.capture("digital_zero_finite", "digital-zero", "burst_fs4.bin", False, 1)
         runner.capture("window_boundary_stop", "digital-zero", "qpsk_sps4.bin",
                        True, 30, manual_stop=True)
+        if args.robust_reference_index:
+            from validate_measurements import load_index
+            index=load_index(args.robust_reference_index)
+            row=next(r for r in index['cases'] if r['case']['id']=='robust_snr5_120000')
+            runner.capture('robust_5db_finite','threshold',row['vector'],False,1,
+                threshold_profile='robust',qualification=args.robust_reference_index.parent/row['reference'])
         runner.offline(args.offline_capture or finite)
         runner.report["status"] = "PASS"
     except BaseException as error:

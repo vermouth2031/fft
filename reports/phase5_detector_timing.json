@@ -1,0 +1,35 @@
+{
+  "status": "R2_PASS_ELIGIBLE_FOR_RATE_EXPERIMENT",
+  "hardware": {
+    "status": "PASS",
+    "setup_slack_ns": 0.536,
+    "hold_slack_ns": 0.011,
+    "cdc_critical": 0,
+    "unconstrained_internal_endpoints": 0,
+    "board_tested": false,
+    "tool": "2026.1"
+  },
+  "baseline_setup_ns": 0.199,
+  "setup_improvement_ns": 0.337,
+  "build_id": "e430d567fbc675a926ff0ce5226e53cf",
+  "changes": [
+    "Precomputed digital gap/length limits",
+    "Equivalent-latency replicable reset distribution",
+    "Performance_NetDelay_high implementation strategy"
+  ],
+  "numerical_semantics_changed": false,
+  "added_pipeline_cycles": 0,
+  "evidence": {
+    "reports/timing_summary.rpt": "c6c3c5df0adc9b1f5d5b8087567ac0d4d79bbbf52e4232a66386101327744270",
+    "reports/worst_paths.rpt": "48a09c75499608dfb3bc00a2597bbc630965ab9564b3fec0c6ed358a5e84f740",
+    "reports/utilization_flat.rpt": "96fa1da6d325b380fa6d709d6427cfd0f9c78812154fdb9910ffe2579ec90945",
+    "reports/cdc.rpt": "d708121c8e3c78eb7c7b92fd318c8df452f5c436cc5503743ab785cfee7a9efe",
+    "reports/hardware_provenance.json": "c2df18005f86220f613aa12f07ffdacff1fe5f77fe0151734416b46860e0c8c2"
+  },
+  "basic_board_cases": 36,
+  "maximum_analysis_us": 175.23,
+  "maximum_publish_us": 175.57,
+  "board_report_sha256": "7e1c0265a24f09a2f6dcdf47657451565f94cd36cf1fff8b72e386c4187d3bcd",
+  "clock_report": "captures/phase5/clock100/clock_validation.json",
+  "limitation": "Full final matrix and SD/cold-start delivery remain separate gates"
+}

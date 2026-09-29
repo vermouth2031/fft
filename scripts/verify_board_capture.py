@@ -19,6 +19,7 @@ import numpy as np
 from iq_client import decode_record
 from generate_iq_vectors import burst_reference
 from frame_length_reference import reference_digital_zero
+from threshold_reference import reference_threshold, validate_detector
 
 FREQUENCY_FIELDS = {
     "total_spectrum_power": "total", "peak_spectrum_power": "peak_power",
@@ -39,11 +40,13 @@ def require(ok, message):
         raise ValueError(message)
 
 
-def burst_expectations(iq, mode, gap, maximum, finish):
+def burst_expectations(iq, mode, gap, maximum, finish, detector=None):
     if mode == "digital-zero":
         return reference_digital_zero(iq[:, 0], iq[:, 1], gap_min=gap,
                                       max_burst=maximum, finish=finish)
     require(mode == "threshold", "Unknown detector mode")
+    if detector is not None:
+        return reference_threshold(iq,detector,finish)
     require(maximum == 1048576, "Threshold verifier currently covers default maximum only")
     # The default threshold model is independently maintained with the vectors.
     result = []
@@ -63,7 +66,7 @@ def burst_expectations(iq, mode, gap, maximum, finish):
     return result
 
 
-def verify(folder, vector=None):
+def verify(folder, vector=None, *, qualification=None):
     folder = Path(folder)
     meta = json.loads((folder / "capture.json").read_text(encoding="utf-8-sig"))
     require(meta.get("capture_complete") is True, "Capture is incomplete")
@@ -86,8 +89,29 @@ def verify(folder, vector=None):
     mode = meta.get("detector_mode", "threshold")
     gap = meta.get("gap_min", 32)
     maximum = meta.get("max_burst_samples", 1048576)
-    golden_path = ROOT / "data/golden_results.json"
-    golden = json.loads(golden_path.read_text(encoding="utf-8"))["cases"]
+    golden_path = Path(qualification) if qualification else ROOT / "data/golden_results.json"
+    reference = json.loads(golden_path.read_text(encoding="utf-8"))
+    if qualification:
+        require(reference.get('schema') == 'iq-qualification-reference-v1', 'Invalid explicit reference')
+        require(bool(meta.get('cyclic')) == (reference.get('replay','finite')=='cyclic'), 'Qualification finite replay/cyclic mode mismatch')
+        require(reference['input_sha256'] == digest(vector), 'Explicit oracle input mismatch')
+        require(reference['sample_rate_hz'] == rate, 'Explicit oracle sample rate mismatch')
+        require(reference['detector']['mode'] == mode and reference['detector']['gap_min'] == gap
+                and reference['detector']['max_burst_samples'] == maximum, 'Explicit detector mismatch')
+        validate_detector(reference['detector'])
+        if 'applied_detector' in meta:
+            require(meta['applied_detector']==reference['detector'], 'Applied detector metadata differs from oracle')
+        else:
+            from generate_qualification_vectors import DEFAULT_DETECTOR
+            require(reference['detector']==dict(DEFAULT_DETECTOR,mode=mode),
+                    'Nondefault detector requires actual CONFIG readback metadata')
+        require(bool(reference.get('bindings')), 'Missing qualification provenance')
+        for name, expected_hash in reference['bindings'].items():
+            require(digest(name) == expected_hash, f'Qualification dependency changed: {name}')
+        require(len(reference['windows']) == len(iq) // 8192, 'Explicit oracle window count mismatch')
+        golden = [reference]
+    else:
+        golden = reference['cases']
     config_id = None
     previous_tick = None
     maximum_latency = 0
@@ -97,11 +121,12 @@ def verify(folder, vector=None):
         while raw := stream.read(128):
             actual = decode_record(raw, "frequency")
             if chosen is None:
-                chosen = next((g for g in golden
-                               if g["name"] == vector.stem and g["mode"] == actual["window"]), None)
+                chosen = (reference if qualification else next((g for g in golden
+                               if g["name"] == vector.stem and g["mode"] == actual["window"]), None))
                 require(chosen is not None, "Vector has no reviewed spectral oracle")
-                original = ROOT / "data/vectors" / (chosen["name"] + ".bin")
-                require(digest(original) == digest(vector), "Named vector differs from spectral oracle input")
+                if not qualification:
+                    original = ROOT / "data/vectors" / (chosen["name"] + ".bin")
+                    require(digest(original) == digest(vector), "Named vector differs from spectral oracle input")
                 config_id = actual["config_id"]
                 if 'config_id' in meta:
                     require(config_id == meta['config_id'], 'Capture configuration metadata mismatch')
@@ -138,8 +163,9 @@ def verify(folder, vector=None):
         require(not np.any(iq[:quiet]) and not np.any(iq[-quiet:]),
                 "Cyclic burst oracle requires a quiet seam; use a dedicated reference for this input")
     whole, remainder = divmod(accepted, len(iq))
-    full_refs = burst_expectations(iq, mode, gap, maximum, finish=not meta.get("cyclic"))
-    tail_refs = burst_expectations(iq[:remainder], mode, gap, maximum, finish=True) if remainder else []
+    detector=reference['detector'] if qualification else None
+    full_refs = burst_expectations(iq, mode, gap, maximum, finish=not meta.get("cyclic"),detector=detector)
+    tail_refs = burst_expectations(iq[:remainder], mode, gap, maximum, finish=True,detector=detector) if remainder else []
     burst_count = 0
     with (folder / "burst.bin").open("rb") as stream:
         for period in range(whole + bool(remainder)):
@@ -167,13 +193,16 @@ def verify(folder, vector=None):
         shot = json.loads(shot_file.read_text(encoding="utf-8"))
         if shot and "power" in shot:
             require(0 <= shot['window_id'] < meta['completed_windows'], 'Snapshot window is outside this capture')
-            case = golden.index(chosen)
-            packed = np.array([int(x, 16) for x in (ROOT / "data/golden_fft.mem").read_text().splitlines()],
+            if qualification:
+                expected_power = reference['snapshots'][shot['window_id'] % len(reference['windows'])]
+            else:
+                case = golden.index(chosen)
+                packed = np.array([int(x, 16) for x in (ROOT / "data/golden_fft.mem").read_text().splitlines()],
                               dtype=np.int64).reshape(len(golden), 4, 8192)
-            values = packed[case, shot["window_id"] % 4]
-            re = ((values & 0xffffff) ^ 0x800000) - 0x800000
-            im = (((values >> 24) & 0xffffff) ^ 0x800000) - 0x800000
-            expected_power = np.fft.fftshift(re * re + im * im).reshape(1024, 8).max(axis=1)
+                values = packed[case, shot["window_id"] % 4]
+                re = ((values & 0xffffff) ^ 0x800000) - 0x800000
+                im = (((values >> 24) & 0xffffff) ^ 0x800000) - 0x800000
+                expected_power = np.fft.fftshift(re * re + im * im).reshape(1024, 8).max(axis=1)
             require(np.array_equal(expected_power, shot["power"]), "Hardware snapshot mismatch")
             snapshot_count = 1024
     return dict(status="PASS", scope="Exact frequency, burst, flags, sequences, timestamps and available snapshot",

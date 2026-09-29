@@ -1,0 +1,61 @@
+{
+  "organizer_new_guidance": null,
+  "user_instruction": "暂无补充，按现有方案执行",
+  "interpretation": "Existing task text and bounded phase-five plan; not organizer confirmation",
+  "R2": {
+    "source_mhz": 100,
+    "fft_mhz": 125,
+    "setup_ns_min": 0.4,
+    "hold_ns_min": 0,
+    "analysis_us_max": 175.5,
+    "implementation_attempt_limit": 3
+  },
+  "R3": {
+    "conditional": true,
+    "sample_rate_hz": 125000000,
+    "setup_ns_min": 0.1,
+    "analysis_us_target": 150,
+    "obw_hz_target": 115000000,
+    "attempts_per_clock_pair": 2
+  },
+  "R4": {
+    "selected": "Offline stateful noise exposure, unchanged robust thresholds",
+    "stationary_seconds_per_layer": 3,
+    "component_std_codes": [
+      256,
+      1024,
+      4096
+    ],
+    "seeds": [
+      311100,
+      311101,
+      311102
+    ],
+    "nonstationary_seeds": [
+      311200,
+      311201,
+      311202,
+      311203,
+      311204,
+      311205,
+      311206,
+      311207,
+      311208,
+      311209,
+      311210,
+      311211,
+      311212,
+      311213,
+      311214,
+      311215,
+      311216,
+      311217
+    ],
+    "scope": "Offline unique I16/Q16; not long continuous hardware capture"
+  },
+  "R5": {
+    "status": "DEFERRED",
+    "reason": "No concrete external interface, DDR, protocol-frame or self-FFT requirement"
+  },
+  "cold_boot": "New physical power cycle required before declaring new hardware delivery complete"
+}

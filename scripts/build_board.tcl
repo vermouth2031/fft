@@ -30,7 +30,8 @@ make_wrapper -files [get_files $root/build/board/iq_board.srcs/sources_1/bd/syst
 add_files -norecurse $root/build/board/iq_board.gen/sources_1/bd/system/hdl/system_wrapper.v
 set_property top system_wrapper [current_fileset]
 update_compile_order -fileset sources_1
-set_property strategy Performance_ExplorePostRoutePhysOpt [get_runs impl_1]
+set_property strategy Performance_NetDelay_high [get_runs impl_1]
+set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
 launch_runs synth_1 -jobs 4
 wait_on_run synth_1
 if {[get_property PROGRESS [get_runs synth_1]]!="100%"} {error "Synthesis failed"}

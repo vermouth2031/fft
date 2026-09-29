@@ -3,8 +3,10 @@ python host/iq_client.py capture --vector data.bin --board 192.168.1.10 --out ca
 python host/iq_client.py decode --freq freq.bin --burst burst.bin --out captures/decoded
 """
 from __future__ import annotations
-import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util
+import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util, sys
 from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from threshold_config import resolve as resolve_threshold
 MAGIC=0x49515531
 DETECTOR_VERSION=0x00010001
 DETECTOR_MODES={'threshold':0,'digital-zero':1}
@@ -136,6 +138,7 @@ class Client:
     def control(self,value):return self.request(2,[value])
     def hardware_info(self,detector='threshold'):
         version=self.read(4)[0];rate=self.read(0x10)[0]
+        if version>>16 != 1:raise RuntimeError('Unsupported hardware register/record major version')
         if not rate:raise ValueError('Board sample_rate_hz must be positive')
         capabilities=0
         if version>=DETECTOR_VERSION:
@@ -144,8 +147,31 @@ class Client:
                 raise RuntimeError('Hardware and UDP firmware versions disagree; install the matching BOOT.BIN') from error
         if detector=='digital-zero' and (version<DETECTOR_VERSION or not capabilities&1):
             raise RuntimeError('digital-zero requires hardware version 0x00010001 or newer and capability bit 0; install the matching new BOOT.BIN')
-        return dict(hardware_version=version,hardware_version_hex=f'0x{version:08x}',
+        result=dict(hardware_version=version,hardware_version_hex=f'0x{version:08x}',
             hardware_capabilities=capabilities,sample_rate_hz=rate)
+        if version>=0x00010002:
+            if not capabilities&2:raise RuntimeError('Missing build identity/diagnostic capability')
+            fields=self.read(0x90,7)
+            if fields[5]!=1:raise RuntimeError('Unsupported measurement record format')
+            if fields[4]<=0:raise RuntimeError('Invalid timestamp clock')
+            result.update(build_id=''.join(f'{v:08x}' for v in reversed(fields[:4])),
+                timestamp_clock_hz=fields[4],record_format_version=fields[5],scan_lanes=fields[6],
+                fft_clock_hz=self.read(0x14)[0])
+        else:
+            result.update(timestamp_clock_hz=rate,record_format_version=1,fft_clock_hz=self.read(0x14)[0])
+        return result
+    def diagnostics(self):
+        deadline=time.monotonic()+2
+        while self.read(0x134)[0]!=1:
+            if time.monotonic()>deadline:raise TimeoutError('Clock-domain diagnostic snapshot timeout')
+        sequence=self.read(0x138)[0];d=self.read(0x140,15)
+        if self.read(0x138)[0]!=sequence:raise RuntimeError('Diagnostic snapshot changed during read')
+        pair=lambda i:d[i]|d[i+1]<<32
+        return dict(snapshot_sequence=sequence,issued_samples=pair(0),accepted_samples=pair(2),
+            input_rejected=d[4],input_fifo_high_water=d[5],fft_snapshot_arrival_tick=pair(6),
+            fft_input_samples=pair(8),fft_output_samples=pair(10),fft_output_windows=d[12],
+            result_queue_rejected=d[13],input_underreads=d[14],
+            semantics='Native-domain snapshots at different instants; conservation checked only after STOPPED/drain')
     def configure(self,config,detector='threshold',gap_min=32,hardware=None):
         validate_detector(detector,gap_min)
         info=hardware if hardware is not None else self.hardware_info(detector)
@@ -213,16 +239,26 @@ def export(out,frequency,bursts,metadata):
     (out/'结果说明.md').write_text('\n'.join(text)+'\n',encoding='utf-8')
     print(json.dumps(metadata,ensure_ascii=False,indent=2))
 
+def verify_capture_config(client,config):
+    # Registers contain replay_start between length and cyclic mode.
+    expected=[config[0],0,*config[1:12]]
+    actual=list(client.read(0x1c,13))
+    if actual!=expected:raise RuntimeError('Capture CONFIG readback mismatch before START')
+    return actual
+
+
 def capture(args):
     detector=getattr(args,'detector','threshold');gap_min=getattr(args,'gap_min',32)
     validate_detector(detector,gap_min)
     data=Path(args.vector).read_bytes();n=len(data)//4
     if len(data)%4 or n not in (8192,16384,24576,32768):raise ValueError('Replay must contain 8192/16384/24576/32768 signed I16,Q16 pairs')
+    threshold,threshold_request=resolve_threshold(args,data)
     client=Client(args.board,args.port);meta={'source':'Zybo UDP board capture','board':args.board,
       'vector':str(Path(args.vector).resolve()),'vector_sha256':hashlib.sha256(data).hexdigest(),'cyclic':args.cyclic,
       'detector_mode':detector,'gap_min':gap_min,'length_semantics':LENGTH_SEMANTICS[detector],
       'length_definition':'Waveform boundary measurement; not communication protocol frame recognition',
       'max_burst_samples':1048576}
+    meta.update(applied_detector=threshold,threshold_request=threshold_request)
     callback=getattr(args,'on_update',None);stop_event=getattr(args,'stop_event',None)
     snapshot=None
     started=False
@@ -244,7 +280,13 @@ def capture(args):
             if struct.pack('<'+'I'*len(actual),*actual)!=expected:raise ValueError(f'Replay read-back mismatch at {offset}')
         meta['replay_readback_verified']=True
         config=[n,int(args.cyclic),int(args.window=='hann'),0,8191,1048576,0,262144,0,8,32,1048576,0]
-        client.configure(config,detector,gap_min,meta);client.control(1);started=True
+        config[5:12]=[threshold['ton']&0xffffffff,threshold['ton']>>32,threshold['toff']&0xffffffff,
+                      threshold['toff']>>32,threshold['kon'],threshold['koff'],threshold['max_burst_samples']]
+        client.configure(config,detector,gap_min,meta)
+        actual=verify_capture_config(client,config)
+        meta['configuration_registers_before_start']=actual
+        meta['threshold_registers_before_start']=actual[6:13]
+        client.control(1);started=True
         actual_epoch=client.read(0x68)[0]
         if actual_epoch!=client.active_epoch:raise RuntimeError('Acquisition epoch changed unexpectedly')
         meta['epoch']=client.active_epoch;meta['config_id']=client.read(0x6c)[0]
@@ -278,6 +320,12 @@ def capture(args):
         meta.update(source_ticks=counters[0]|counters[1]<<32,input_samples=counters[2]|counters[3]<<32,
           completed_windows=counters[4],hardware_max_latency_cycles=counters[5],hardware_max_publish_latency_cycles=counters[6],
           frequency_queue_dropped=counters[7],burst_queue_dropped=counters[8])
+        if meta['hardware_capabilities']&2:
+            d=client.diagnostics();meta['throughput_diagnostics']=d
+            meta['throughput_conservation_valid']=(d['issued_samples']==d['accepted_samples']==d['fft_input_samples']==
+                d['fft_output_samples']==meta['input_samples']==8192*d['fft_output_windows'] and
+                d['fft_output_windows']==meta['completed_windows'] and 0<d['input_fifo_high_water']<4096 and
+                not(d['input_rejected'] or d['result_queue_rejected'] or d['input_underreads']))
         seq=client.packet_sequences
         # Signed modular distance handles both reordering and 32-bit wrap.
         meta['udp_missing_packet_count']=packet_loss_count(seq)
@@ -287,7 +335,7 @@ def capture(args):
         meta['frequency_sequence_valid']=sorted(ids)==list(range(meta['completed_windows']))
         meta['sample_count_valid']=meta['completed_windows']>0 and meta['input_samples']==8192*meta['completed_windows']
         for key in ('hardware_max_latency','hardware_max_publish_latency'):
-            meta[key+'_us']=cycles_to_us(meta[key+'_cycles'],meta['sample_rate_hz'])
+            meta[key+'_us']=cycles_to_us(meta[key+'_cycles'],meta['timestamp_clock_hz'])
         meta['analysis_deadline_met']=all(0<meta[k]<=2000 for k in ('hardware_max_latency_us','hardware_max_publish_latency_us'))
         meta['record_configuration_valid']=all(words(r)[5]==meta['sample_rate_hz'] and words(r)[4]==meta['config_id']
             for records in (client.frequency,client.bursts) for r in records)
@@ -296,6 +344,7 @@ def capture(args):
             'udp_missing_packet_count','frequency_queue_dropped','burst_queue_dropped')) and all(meta[k] for k in
             ('frequency_sequence_valid','sample_count_valid','analysis_deadline_met','record_configuration_valid','detector_mode_valid'))
         meta['numerical_reference_validation']=dict(status='NOT_RUN',scope='Capture integrity is distinct from numerical reference verification')
+        meta['capture_complete']=meta['capture_complete'] and meta.get('throughput_conservation_valid',True)
         if detector=='digital-zero' and not args.cyclic:
             meta['numerical_reference_validation']=dict(status='FAIL',scope='finite digital-zero reference')
             meta['numerical_reference_validation']=verify_finite_digital_zero(data,client.bursts,gap_min)
@@ -326,6 +375,10 @@ def main():
     c.add_argument('--cyclic',action='store_true');c.add_argument('--seconds',type=float,default=1)
     c.add_argument('--detector',choices=DETECTOR_MODES,default='threshold',help='Waveform length detector; not protocol frame recognition')
     c.add_argument('--gap-min',type=int,default=32,help='Consecutive zero samples required by digital-zero (1..65535)')
+    c.add_argument('--threshold-profile',choices=['legacy','robust'],default='legacy')
+    c.add_argument('--threshold-policy',choices=['fixed','quiet-prefix'],help='quiet-prefix declares that the leading samples contain background only')
+    c.add_argument('--quiet-samples',type=int,default=1024)
+    for name in ('ton','toff','kon','koff'):c.add_argument('--'+name,type=int)
     d=sub.add_parser('decode');d.add_argument('--freq',required=True);d.add_argument('--burst');d.add_argument('--out',required=True)
     d.add_argument('--metadata',type=Path,help='Original capture.json or META.JSON; defaults to the frequency file directory')
     s=sub.add_parser('stop');s.add_argument('--board',default='192.168.1.10');s.add_argument('--abort',action='store_true')
