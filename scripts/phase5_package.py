@@ -120,6 +120,14 @@ def package(archive, report, extra):
             add(ROOT/name)
     for path in extra:
         add(path)
+    for deployment_path in [ROOT/'reports/current_deployment.json',
+                            *sorted((ROOT/'reports').glob('phase5_recovery_deployment_*.json'))]:
+        deployment=read(deployment_path)
+        require(deployment['status']=='PASS' and deployment['hardware']==report['hardware'],
+                'Deployment identity differs: '+str(deployment_path))
+        log=Path(deployment['log'])
+        require(sha(log)==deployment['log_sha256'], 'Deployment log changed: '+str(log))
+        add(deployment_path);add(log)
     for name in read(ROOT/'reports/phase5_final_measurements.json')['evidence']:
         add(ROOT/name)
     # Numerical C-model DLLs are installation inputs, not required to view captures;
