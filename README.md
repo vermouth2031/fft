@@ -1,15 +1,17 @@
-> 当前正式候选为 Phase 6 A2：125 MSPS 板内回放、125 MHz 时间戳和 125 MHz FFT。2020 项主矩阵、192 项兼容检查、SD 自启动与物理冷启动均已通过。完整结论见 [第六阶段完整验收报告](reports/第六阶段完整验收报告.md)。
+> 当前正式版本为 Phase 7：电脑通过 UDP 动态更新非活动 IQ Bank，FPGA 同时以 125 MSPS 处理活动 Bank，并在 8192 点 FFT 边界切换。Phase 6 A2 正式版本和全部历史证据保持不变。
 
 # Zybo Z7 数字 I/Q 频谱分析仪
 
-I/Q 各 16bit，125 MSPS 板内回放，8192 点 AMD FFT，八路完整功率谱扫描。
+I/Q 各 16bit，双 Bank 数字回放，板端 125 MSPS，8192 点 AMD FFT，八路完整功率谱扫描。
 
-Phase 6 A2 已完成完整仿真、真板矩阵、GUI、匹配 SD 镜像和物理冷启动验收。最大 PL 分析/发布延迟为 **141.968/142.248 us**；最宽 OFDM 的最小内部 99% 占用带宽为 **121.246338 MHz**。接口版本 `0x00010002`，构建 ID `3ca56f18062a59e0bc0022061598cbb2`，实现后 setup/hold 裕量为 **+0.151/+0.014 ns**。
+Phase 7 已完成完整仿真、真板数值矩阵、1000 次动态切换、10/60/300 秒流式稳定性、匹配 SD 镜像和物理冷启动验收。最大 PL 分析/发布延迟为 **141.976/142.256 us**；接口版本 `0x00010003`，构建 ID `326086439b6ef3b8e85d1980b6744969`，实现后 setup/hold 裕量为 **+0.057/+0.015 ns**。
 
-电脑先装载 IQ 文件，PL 随后按每拍一对 IQ 连续处理；该速率不代表网络持续上传速率。项目没有外部 ADC 或任意通信协议帧解析，谱峰不等同于宽带调制载频。
+Phase 7 允许电脑在 PL 处理 Bank A 时上传 Bank B。上传完成且 CRC32 正确后，PL 只在 FFT 窗口边界切换 Bank，因此一个 FFT 窗口不会混入两组信号。125 MSPS 是板内处理速率；I/Q 各 16 bit 对应 4 Gbit/s 原始数据，千兆网口不承载持续 125 MSPS 的不重复原始流。项目没有外部 ADC 或任意通信协议帧解析。
 
 ## 从这里开始
 
+- [第七阶段完整验收报告](reports/第七阶段完整验收报告.md)：双 Bank 流式输入、构建、真板、稳定性、SD 和物理冷启动结论。
+- [第七阶段冷启动验证报告](reports/第七阶段冷启动验证报告.md)：最终 SD 镜像断电再上电后的网络与数值验证。
 - [第六阶段完整验收报告](reports/第六阶段完整验收报告.md)：125 MSPS A2 的构建、矩阵、GUI、带宽、SD 和冷启动结论。
 - [第六阶段优化方案](reports/第六阶段优化方案.md)：本阶段目标、门槛和执行方案。
 - [项目工程总结](项目工程总结.md)：从整体流程、单音例子到正式指标、操作方法和能力边界。
@@ -36,6 +38,14 @@ python scripts/phase4_demo.py
 菜单提供零背景测长、5 dB robust、单音峰频和最宽 OFDM 四个冻结预设。普通监视器仍可双击 `Open_IQ_Monitor.cmd` 打开。每次采集使用新目录，GUI 与命令行只保留一个控制端。
 
 当前工作区上位机已改为四项结果卡片与四个标签页。2026-09-25 的独立界面回归通过 10 组历史记录显示、4 项真板采集及状态/兼容性检查；对应 [界面回归记录](reports/gui_redesign_20260925/gui_validation.json)。页首第四阶段完整验收描述的是冻结版本，原报告及发布包保留原状；本次界面回归不替代完整系统重新验收。
+
+Phase 7 实时双 Bank 命令会轮换生成单音、双音、扫频、QPSK、OFDM 和噪声，并在上传下一块时接收当前块的分析记录：
+
+```powershell
+python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --progress --out captures/streaming_demo
+```
+
+可用 `--signal single|dual|chirp|qpsk|ofdm|noise` 固定信号，或用 `--custom file.bin` 上传小端交错 I16/Q16 文件。每个 UDP 数据包和完整 Bank 都检查 CRC32；缺包、乱序、重复 offset 或 CRC 错误不会提交 Bank。
 
 2026-09-28 对当前界面再次完成18项回归，4项真板采集全部通过独立数值核验、UDP缺包为0，结束后板卡空闲。新本地交付包 `release/phase4-closeout-20260928.zip` 包含冻结硬件证据、五类信号、新版界面及本次记录；具体源码提交和验证范围以包内 `manifest.json` 为准。
 
@@ -67,10 +77,10 @@ python host/iq_client.py capture --vector data/phase4_demo/robust_snr5_120000.bi
 
 ## 交付核验与历史证据
 
-GitHub源码仓库包含五组信号的小型完整证据，可运行 `python scripts/check_five_signals_archive.py` 离线核验。完整硬件回归中的 `captures/`、`build/` 及启动镜像随本地完整交付包保存；源码下载不包含这些全部产物。Phase 6 A2 使用独立分支 `phase6/125m-a2`、独立标签 `phase6-a2-125m-final-20261002` 和独立 Release；旧 Release 与标签保持不变。
+GitHub源码仓库包含五组信号的小型完整证据，可运行 `python scripts/check_five_signals_archive.py` 离线核验。完整硬件回归中的 `captures/`、`build/` 及启动镜像随本地完整交付包保存；源码下载不包含这些全部产物。Phase 7 使用独立分支 `phase7/streaming-ping-pong` 和标签 `phase7-streaming-final-20261002`；Phase 6 A2 仍保留在 `phase6/125m-a2` 和 `phase6-a2-125m-final-20261002`，旧 Release 与标签均不改写。
 
 解压最终包后可运行 `python scripts/verify_delivery.py .` 核验所有文件 SHA-256。原始记录为 `frequency.bin`、`burst.bin` 和元数据；重复的逐条 JSON/CSV 可重新导出。
 
 历史报告保留当时本机绝对路径，包内文件清单给出可移植相对路径。旧四路实测与未晋升实验在独立归档中保留；它们不替代当前组合版本证据。第三阶段完整 ZIP 保持不变。本轮生成新的本地第四阶段完整包，未发布新的远端版本。
 
-Phase 6 A2 的建立/保持时间裕量为 0.151/0.014 ns。当前正式输入是 125 MSPS 板内预装载数字回放；外部 ADC 仍不在本版本范围内。
+Phase 7 的建立/保持时间裕量为 0.057/0.015 ns。当前正式输入是电脑动态更新的双 Bank I16/Q16 回放，FPGA 以 125 MSPS 消费活动 Bank；外部 ADC 和通过千兆以太网持续传输 4 Gbit/s 不重复原始 IQ 仍不在本版本范围内。

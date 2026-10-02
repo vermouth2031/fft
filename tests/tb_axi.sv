@@ -50,7 +50,7 @@ module tb_axi;
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
    rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
-   rd('h08c,value,0);if(value!==3)$fatal(1,"extended capability");
+   rd('h08c,value,0);if(value!==7)$fatal(1,"streaming capability");
    rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
    rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
    wr('h08c,0,15,0,2); // Capability register is read-only.
@@ -66,8 +66,8 @@ module tb_axi;
    wr('h01c,8192,15,0,0);wr('h028,0,15,-2,0);wr('h070,1,15,2,0);
    // Bulk simulation fixture; preceding transactions validate the same RAM host port.
    for(n=0;n<8192;n=n+1)case(n%4)
-     0:dut.replay_mem[n]=32'h00002000;1:dut.replay_mem[n]=32'h20000000;
-     2:dut.replay_mem[n]=32'h0000e000;3:dut.replay_mem[n]=32'he0000000;
+     0:dut.bank0.mem[n]=32'h00002000;1:dut.bank0.mem[n]=32'h20000000;
+     2:dut.bank0.mem[n]=32'h0000e000;3:dut.bank0.mem[n]=32'he0000000;
    endcase
    wr('h00c,1,15,0,0);
    wait(dut.run_state==3);
@@ -110,7 +110,7 @@ module tb_axi;
    wr('h054,1,15,0,0);wr('h05c,1,15,0,0);
    // End-to-end digital support: exact 64 samples, crossing the power pipeline.
    wr('h084,1,15,0,0);wr('h088,32,15,0,0);wr('h070,1,15,0,0);
-   for(n=0;n<8192;n=n+1)dut.replay_mem[n]=(n>=40&&n<104)?32'h00002000:0;
+   for(n=0;n<8192;n=n+1)dut.bank0.mem[n]=(n>=40&&n<104)?32'h00002000:0;
    wr('h00c,1,15,0,0);wait(dut.run_state==3);wait(dut.run_state==0);
    rd('h058,value,0);if(value!=1)$fatal(1,"digital-zero burst count");
    rd('h38000+1*4,value,0);if(value!=32'h1000)$fatal(1,"digital-zero flags %h",value);
@@ -123,7 +123,23 @@ module tb_axi;
    // Abort must return to STOPPED without silently starting another replay.
    wr('h00c,4,15,0,0);repeat(100)@(negedge clk);rd('h008,value,0);
    if(value[2:0]!=0)$fatal(1,"abort restarted acquisition");
-   $display("AXI_PASS independent_aw_w wstrb response_stalls replay_lock rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
+   // Phase 7 streaming: upload bank 1 while bank 0 runs, then switch only at an FFT boundary.
+   wr('h064,32'hffffffff,15,0,0);wr('h184,16,15,0,0);
+   wr('h024,1,15,0,0);wr('h070,1,15,0,0);
+   wr('h180,0,15,0,0);wr('h18c,8192,15,0,0);wr('h194,11,15,0,0);wr('h19c,32'h11111111,15,0,0);wr('h184,3,15,0,0);
+   wr('h00c,1,15,0,0);wait(dut.run_state==3);repeat(64)@(negedge clk);
+   wr('h180,1,15,0,0);wr('h10000,32'h12345678,15,0,0);
+   wr('h180,0,15,0,0);wr('h10000,0,15,0,2);
+   wr('h180,1,15,0,0);wr('h190,8192,15,0,0);wr('h198,22,15,0,0);wr('h1a0,32'h22222222,15,0,0);wr('h184,3,15,0,0);
+   rd('h188,value,0);if(value[0]!=0||!value[3])$fatal(1,"stream armed status %h",value);
+   while(dut.issued[12:0]!=8190)@(negedge clk);
+   if(dut.active_bank!=0)$fatal(1,"stream switched before FFT boundary");
+   repeat(4)@(negedge clk);rd('h188,value,0);if(value[0]!=1||value[3])$fatal(1,"stream did not switch %h",value);
+   rd('h1a4,value,0);if(value!=1)$fatal(1,"switch count");rd('h1a8,value,0);if(value!=22)$fatal(1,"block id");
+   rd('h1b4,value,0);if(value!=1)$fatal(1,"write reject count");
+   wr('h180,0,15,0,0);wr('h10000,32'h87654321,15,0,0);
+   wr('h00c,2,15,0,0);wait(dut.run_state==0);
+   $display("AXI_PASS independent_aw_w wstrb response_stalls dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
  initial begin #1000000;$fatal(1,"AXI timeout");end
 endmodule

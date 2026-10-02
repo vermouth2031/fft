@@ -3,12 +3,13 @@ python host/iq_client.py capture --vector data.bin --board 192.168.1.10 --out ca
 python host/iq_client.py decode --freq freq.bin --burst burst.bin --out captures/decoded
 """
 from __future__ import annotations
-import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util, sys
+import argparse, csv, json, random, socket, struct, time, hashlib, importlib.util, sys, zlib
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from threshold_config import resolve as resolve_threshold
 MAGIC=0x49515531
 DETECTOR_VERSION=0x00010001
+STREAM_VERSION=0x00010003
 DETECTOR_MODES={'threshold':0,'digital-zero':1}
 LENGTH_SEMANTICS={'threshold':'门限突发长度','digital-zero':'数字零背景波形长度'}
 FLAGS=['NO_POWER','FFT_OVERFLOW','SOURCE_GAP','PARTIAL_WINDOW','EDGE_RISK','RESOLUTION_LIMITED',
@@ -76,7 +77,7 @@ class Client:
         self.local_endpoint=self.sock.getsockname()
         self.command_sequence=random.randrange(1,2**31)
         self.frequency=[];self.bursts=[];self.packet_sequences=[]
-        self._seen_packets=set();self.active_epoch=None
+        self._seen_packets=set();self.active_epoch=None;self.malformed_packets=0
     def reopen_after_link_error(self,error):
         # Windows can permanently invalidate a connected UDP socket when its adapter
         # is disabled. Preserve the exact source IP/port: firmware owns this peer.
@@ -98,24 +99,31 @@ class Client:
         except OSError as error:
             self.reopen_after_link_error(error)
             raise socket.timeout('UDP socket restored; retry the pending command')
-        if len(packet)<16:raise ValueError('Short UDP packet')
+        if len(packet)<16:
+            self.malformed_packets=getattr(self,'malformed_packets',0)+1;return None
         magic,kind,seq,count=struct.unpack_from('<4I',packet)
-        if magic!=MAGIC:raise ValueError('Wrong UDP protocol magic')
+        if magic!=MAGIC:
+            self.malformed_packets=getattr(self,'malformed_packets',0)+1;return None
         payload=packet[16:]
         if kind in (0x100,0x101):
             size=128 if kind==0x100 else 64
-            if len(payload)!=count*size:raise ValueError('Truncated stream packet')
+            if len(payload)!=count*size:
+                self.malformed_packets=getattr(self,'malformed_packets',0)+1;return None
             accepted=[]
-            for n in range(count):
-                r=payload[n*size:(n+1)*size]
-                decoded=decode_record(r,'frequency' if kind==0x100 else 'burst')
-                if self.active_epoch is None or decoded['epoch']==self.active_epoch:accepted.append(r)
+            try:
+                for n in range(count):
+                    r=payload[n*size:(n+1)*size]
+                    decoded=decode_record(r,'frequency' if kind==0x100 else 'burst')
+                    if self.active_epoch is None or decoded['epoch']==self.active_epoch:accepted.append(r)
+            except ValueError:
+                self.malformed_packets=getattr(self,'malformed_packets',0)+1;return None
             if accepted and seq not in self._seen_packets:
                 self._seen_packets.add(seq);self.packet_sequences.append(seq)
                 dest=self.frequency if kind==0x100 else self.bursts
                 dest.extend(accepted)
             return None
-        if len(payload)!=4*count:raise ValueError('Truncated command response')
+        if len(payload)!=4*count:
+            self.malformed_packets=getattr(self,'malformed_packets',0)+1;return None
         return kind,seq,words(payload)
     def request(self,kind,payload,count=None):
         self.command_sequence=(self.command_sequence+1)&0xffffffff
@@ -192,6 +200,36 @@ class Client:
         for offset in range(0,8192,1024):data.extend(self.read(0x3a000+offset,256))
         self.request(5,[2])
         return dict(window_id=window_id,power=[data[i]|data[i+1]<<32 for i in range(0,2048,2)])
+    def stream_status(self):
+        values=self.request(8,[])
+        if len(values)!=17:raise ValueError(f'Unexpected streaming status length: {len(values)}')
+        status=values[0]
+        return dict(active_bank=status&1,host_bank=(status>>1)&1,pending_bank=(status>>2)&1,
+            pending_valid=bool(status&(1<<3)),ready=[bool(status&(1<<4)),bool(status&(1<<5))],
+            running=bool(status&(1<<6)),host_write_allowed=bool(status&(1<<7)),
+            lengths=list(values[1:3]),block_ids=list(values[3:5]),crc32=list(values[5:7]),
+            switch_count=values[7],current_block_id=values[8],last_switch_tick=values[9]|values[10]<<32,
+            write_rejected=values[11],stream_errors=values[12],
+            upload_block_ids=[values[13],values[15]],upload_next=[values[14],values[16]])
+    def upload_stream_block(self,data,bank,block_id,arm=True,chunk_words=240,progress=None):
+        if bank not in (0,1):raise ValueError('bank must be 0 or 1')
+        if not 1<=block_id<=0xffffffff:raise ValueError('block_id must be 1..0xffffffff')
+        if len(data)%4 or len(data)//4 not in (8192,16384,24576,32768):
+            raise ValueError('Streaming block must contain 8192/16384/24576/32768 I16/Q16 samples')
+        if not 1<=chunk_words<=253:raise ValueError('chunk_words must be 1..253')
+        total_words=len(data)//4
+        for offset in range(0,total_words,chunk_words):
+            chunk=data[offset*4:min(total_words,offset+chunk_words)*4]
+            iq_words=struct.unpack('<'+'I'*(len(chunk)//4),chunk)
+            reply=self.request(6,[bank,block_id,offset,zlib.crc32(chunk)&0xffffffff,*iq_words])
+            expected=offset+len(iq_words)
+            if len(reply)!=1 or reply[0]!=expected:raise RuntimeError(f'Board upload progress mismatch: {reply} != {expected}')
+            if progress:progress(expected,total_words)
+        crc=zlib.crc32(data)&0xffffffff
+        reply=self.request(7,[bank,block_id,total_words,crc,1 if arm else 0])
+        if len(reply)!=1:raise ValueError('Unexpected streaming commit response')
+        return crc,self.stream_status()
+    def abort_stream_upload(self,bank):return self.request(9,[bank])
     def close(self):self.sock.close()
 
 def export(out,frequency,bursts,metadata):

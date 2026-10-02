@@ -22,8 +22,8 @@ class HostTests(unittest.TestCase):
   packet=struct.pack('<4I',host.MAGIC,0x100,9,1)+struct.pack('<32I',*w)
   class Sock:
    def recv(self,n):return packet
-  c=host.Client.__new__(host.Client);c.sock=Sock();c.frequency=[];c.bursts=[];c.packet_sequences=[];c._seen_packets=set();c.active_epoch=None
+  c=host.Client.__new__(host.Client);c.sock=Sock();c.frequency=[];c.bursts=[];c.packet_sequences=[];c._seen_packets=set();c.active_epoch=None;c.malformed_packets=0
   c.receive();c.receive();self.assertEqual(len(c.frequency),1)
   packet=packet[:-4]
-  with self.assertRaises(ValueError):c.receive()
+  self.assertIsNone(c.receive());self.assertEqual(c.malformed_packets,1);self.assertEqual(len(c.frequency),1)
 if __name__=='__main__':unittest.main()

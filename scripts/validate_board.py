@@ -55,9 +55,9 @@ def main():
                   board=args.board, hardware=hardware, suite=args.suite,
                   artifacts=artifact_hashes, source_files=initial_sources, cases=[],
                   deployment=deployment, deployment_sha256=sha(deployment_path),
-                  input="PC-preloaded I16/Q16 RAM replay at nominal 100 MSPS",
+                  input="PC-loaded/updated dual-bank I16/Q16 replay; FPGA consumes the active bank at 125 MSPS",
                   metrology_calibrated=False, boot_medium_verified=False,
-                  scope="New hardware version: finite exact numerical, snapshot and selected continuous acceptance")
+                  scope="Phase 7 streaming hardware plus legacy finite exact numerical, snapshot and selected continuous acceptance")
 
     def save():
         (args.out / "board_validation.json").write_text(

@@ -48,6 +48,7 @@ try:
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_dhcp',value='false')
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_lwip_dhcp_does_acd_check',value='false')
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_pbuf_pool_size',value='2048')
+    domain.set_config(option='lib',lib_name='lwip220',param='lwip220_udp_block_tx',value='true')
     domain.set_config(option='lib',lib_name='xiltimer',param='XILTIMER_en_interval_timer',value='true')
     platform.build()
     xpfm=workspace/'iq_platform/export/iq_platform/iq_platform.xpfm'
