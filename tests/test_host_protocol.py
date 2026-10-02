@@ -73,6 +73,13 @@ class ProtocolTests(unittest.TestCase):
         self.assertTrue(status['pending_valid']);self.assertEqual(status['current_block_id'],11)
         self.assertEqual(status['last_switch_tick'],0x189abcdef)
         self.assertEqual(status['upload_next'],[4096,8192])
+    def test_dma_stream_status_decode(self):
+        c=h.Client.__new__(h.Client)
+        values=[0]*17+[0b1010,8192,0x12345678,7,0]
+        c.request=lambda kind,payload:tuple(values)
+        status=c.stream_status();self.assertTrue(status['dma']['done'])
+        self.assertEqual(status['dma']['target_bank'],1);self.assertEqual(status['dma']['received_samples'],8192)
+        self.assertEqual(status['dma']['computed_crc32'],0x12345678);self.assertEqual(status['dma']['completed_transfers'],7)
     def test_stream_upload_chunk_crc_and_commit(self):
         c=h.Client.__new__(h.Client);requests=[]
         def request(kind,payload):

@@ -1,6 +1,6 @@
-# 构建身份、吞吐与 Phase 7 双 Bank 寄存器
+# 构建身份、吞吐与 Phase 8 DDR/DMA 寄存器
 
-Phase 7 接口版本为 `0x00010003`，保留 `0x00010002` 的记录格式与原地址，并扩展双 Bank 动态 IQ。基地址仍为 `0x40000000`。
+Phase 8 接口版本为 `0x00010004`，保留 Phase 7 的记录格式、双 Bank 地址和 UDP 命令，并将 IQ 上传路径改为 PS DDR 到 PL 的 AXI DMA。分析器基地址仍为 `0x40000000`，AXI DMA 控制器位于 `0x40400000`。
 
 ## 身份和时钟
 
@@ -9,7 +9,7 @@ Phase 7 接口版本为 `0x00010003`，保留 `0x00010002` 的记录格式与原
 | `0x004` | 硬件接口版本，高 16 位为兼容主版本 |
 | `0x010` | 板内每秒 IQ 对数，当前为 125000000 |
 | `0x014` | FFT 时钟 Hz，当前为 125000000 |
-| `0x08c` | 能力：bit0 数字零检测，bit1 构建身份和诊断快照，bit2 双 Bank 动态 IQ |
+| `0x08c` | 能力：bit0 数字零检测，bit1 构建身份和诊断快照，bit2 双 Bank 动态 IQ，bit3 DDR/AXI DMA 加载 |
 | `0x090–0x09c` | 128bit 构建 ID，低 32bit 在低地址 |
 | `0x0a0` | 时间戳时钟 Hz，当前与源时钟相同 |
 | `0x0a4` | 测量记录格式版本，当前为 1 |
@@ -77,3 +77,22 @@ input rejected = result queue rejected = underreads = 0
 | `0x1b8` | 双 Bank 错误位 |
 
 固件 UDP type 6 分块上传，type 7 commit/arm，type 8 查询状态，type 9 中止上传。固件验证每包 CRC32、offset 连续性和整块 CRC32；RTL 只接受长度为 8192 的整数倍且与当前 replay length 一致的 Bank，并在 `issued mod 8192 == 8191` 后切换。
+
+## Phase 8 DDR/AXI DMA 加载器
+
+UDP type 6 的 IQ 字先复制到 PS DDR 缓冲区。type 7 commit 在核对包序、整块 CRC 和长度后刷新 ARM 数据缓存，启动 AXI DMA MM2S；PL 端在写入非活动 Bank 的同时独立计算 CRC32。只有 DMA 的 `TLAST`、接收字数和 CRC 全部匹配时，目标 Bank 才会置 ready。旧的 FFT 边界 arm/switch 逻辑保持不变。
+
+| 偏移 | 含义 |
+|---|---|
+| `0x1c0` | DMA 加载控制：bit0 start，bit1 abort，bit2 clear done/error；读回为 0 |
+| `0x1c4` | DMA 目标 Bank，bit0 |
+| `0x1c8` | 预期 IQ 对数，只接受 8192/16384/24576/32768 |
+| `0x1cc` | 目标 block ID |
+| `0x1d0` | 预期整块 CRC32 |
+| `0x1d4` | 状态：bit0 active，bit1 done，bit2 error，bit3 target Bank |
+| `0x1d8` | 本次 AXI Stream 已接收 IQ 对数 |
+| `0x1dc` | 本次 PL 计算的最终 CRC32 |
+| `0x1e0` | 成功 DMA 加载累计次数 |
+| `0x1e4` | 错误位：bit0 长度/TLAST，bit1 TKEEP，bit2 超长，bit3 缺少期望 TLAST，bit4 CRC，bit5 abort，bit6 start 参数，bit7 配置写入 |
+
+DMA 的 `M_AXI_MM2S` 通过 PS `S_AXI_HP0` 从 DDR 读取，32 bit `M_AXIS_MM2S` 与分析器 `S_AXIS_IQ` 同在 125 MHz。DMA 只写非活动 Bank；活动 Bank 始终由分析器以 125 MSPS 循环读取。因此这里的 125 MSPS 是板内消费速率，不是千兆以太网持续提供不重复 IQ 的速率。

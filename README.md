@@ -1,4 +1,4 @@
-> 当前正式版本为 Phase 7：电脑通过 UDP 动态更新非活动 IQ Bank，FPGA 同时以 125 MSPS 处理活动 Bank，并在 8192 点 FFT 边界切换。Phase 6 A2 正式版本和全部历史证据保持不变。
+> 当前工作树为独立 Phase 8 DDR/AXI DMA 候选：电脑通过 UDP 把 IQ 写入 PS DDR，再由 AXI DMA 填充非活动 PL Bank；FPGA 同时以 125 MSPS 处理活动 Bank。Phase 7 正式标签和全部历史证据保持不变，Phase 8 只有完成真板、SD 和物理冷启动验收后才会晋升。
 
 # Zybo Z7 数字 I/Q 频谱分析仪
 
@@ -6,7 +6,7 @@ I/Q 各 16bit，双 Bank 数字回放，板端 125 MSPS，8192 点 AMD FFT，八
 
 Phase 7 已完成完整仿真、真板数值矩阵、1000 次动态切换、10/60/300 秒流式稳定性、匹配 SD 镜像和物理冷启动验收。最大 PL 分析/发布延迟为 **141.976/142.256 us**；接口版本 `0x00010003`，构建 ID `326086439b6ef3b8e85d1980b6744969`，实现后 setup/hold 裕量为 **+0.057/+0.015 ns**。
 
-Phase 7 允许电脑在 PL 处理 Bank A 时上传 Bank B。上传完成且 CRC32 正确后，PL 只在 FFT 窗口边界切换 Bank，因此一个 FFT 窗口不会混入两组信号。125 MSPS 是板内处理速率；I/Q 各 16 bit 对应 4 Gbit/s 原始数据，千兆网口不承载持续 125 MSPS 的不重复原始流。项目没有外部 ADC 或任意通信协议帧解析。
+Phase 8 保留双 Bank 的无缝 FFT 边界切换，并把逐字 AXI-Lite 上传替换为 DDR 缓冲和 AXI DMA MM2S。UDP 包、固件整块和 PL 写入端分别检查 CRC；长度、`TKEEP`、`TLAST` 或 CRC 不匹配时 Bank 不会变成 ready。125 MSPS 是板内处理速率；I/Q 各 16 bit 对应 4 Gbit/s 原始数据，板载千兆网口不承载持续 125 MSPS 的不重复原始流。项目没有外部 ADC 或任意通信协议帧解析。
 
 ## 从这里开始
 
@@ -39,7 +39,7 @@ python scripts/phase4_demo.py
 
 当前工作区上位机已改为四项结果卡片与四个标签页。2026-09-25 的独立界面回归通过 10 组历史记录显示、4 项真板采集及状态/兼容性检查；对应 [界面回归记录](reports/gui_redesign_20260925/gui_validation.json)。页首第四阶段完整验收描述的是冻结版本，原报告及发布包保留原状；本次界面回归不替代完整系统重新验收。
 
-Phase 7 实时双 Bank 命令会轮换生成单音、双音、扫频、QPSK、OFDM 和噪声，并在上传下一块时接收当前块的分析记录：
+Phase 8 继续使用同一条主机命令；在兼容协议下，固件将分块数据放入 DDR，commit 时通过 DMA 送入非活动 Bank，并在上传下一块时接收当前块的分析记录：
 
 ```powershell
 python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --progress --out captures/streaming_demo

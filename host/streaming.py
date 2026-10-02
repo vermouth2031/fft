@@ -54,7 +54,7 @@ def run(args):
     try:
         info=client.hardware_info()
         if info['hardware_version']<STREAM_VERSION or not info['hardware_capabilities']&4:
-            raise RuntimeError('Phase 7 streaming BOOT.BIN is required')
+            raise RuntimeError('Phase 7 or newer streaming BOOT.BIN is required')
         config=[args.samples,1,1,0,8191,1048576,0,262144,0,8,32,1048576,0]
         client.configure(config,hardware=info)
         kinds=[args.signal] if args.signal else list(SIGNALS)

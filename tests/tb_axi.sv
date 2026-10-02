@@ -9,12 +9,26 @@ module tb_axi;
  reg resetn=0;reg [17:0] awaddr=0,araddr=0;reg awvalid=0,wvalid=0,bready=0,arvalid=0,rready=0;
  reg [31:0] wdata=0;reg [3:0] wstrb=15;
  wire awready,wready,bvalid,arready,rvalid;wire [1:0] bresp,rresp;wire [31:0] rdata;
+ reg [31:0] axis_data=0;reg [3:0] axis_keep=15;reg axis_valid=0,axis_last=0;wire axis_ready;
  iq_peripheral dut(.s_axi_aclk(clk),.s_axi_aresetn(resetn),.fft_clk(fft_clk),
  .s_axi_awaddr(awaddr),.s_axi_awprot(3'd0),.s_axi_awvalid(awvalid),.s_axi_awready(awready),
  .s_axi_wdata(wdata),.s_axi_wstrb(wstrb),.s_axi_wvalid(wvalid),.s_axi_wready(wready),
  .s_axi_bresp(bresp),.s_axi_bvalid(bvalid),.s_axi_bready(bready),
  .s_axi_araddr(araddr),.s_axi_arprot(3'd0),.s_axi_arvalid(arvalid),.s_axi_arready(arready),
- .s_axi_rdata(rdata),.s_axi_rresp(rresp),.s_axi_rvalid(rvalid),.s_axi_rready(rready));
+ .s_axi_rdata(rdata),.s_axi_rresp(rresp),.s_axi_rvalid(rvalid),.s_axi_rready(rready),
+ .s_axis_iq_tdata(axis_data),.s_axis_iq_tkeep(axis_keep),.s_axis_iq_tvalid(axis_valid),
+ .s_axis_iq_tready(axis_ready),.s_axis_iq_tlast(axis_last));
+ function automatic [31:0] crc_word(input [31:0] crc,input [31:0] data);
+   reg [31:0] c;integer b,k;
+   begin c=crc;for(b=0;b<4;b=b+1)begin c=c^data[b*8+:8];for(k=0;k<8;k=k+1)c=(c>>1)^(32'hedb88320&{32{c[0]}});end crc_word=c;end
+ endfunction
+ task axis_send(input [31:0] data,input last);
+   begin
+     @(negedge clk);axis_data=data;axis_keep=15;axis_last=last;axis_valid=1;
+     do @(posedge clk);while(!axis_ready);
+     @(negedge clk);axis_valid=0;axis_last=0;
+   end
+ endtask
  task wr(input [17:0] addr,input [31:0] value,input [3:0] strobe,input integer skew,input [1:0] expected);
    begin
      fork
@@ -45,12 +59,12 @@ module tb_axi;
      rready=1;@(negedge clk);rready=0;
    end
  endtask
- integer n,j;reg [31:0] value,producer;reg [31:0] records[0:31];
+ integer n,j;reg [31:0] value,producer,dma_crc;reg [31:0] records[0:31];
  initial begin
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
    rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
-   rd('h08c,value,0);if(value!==7)$fatal(1,"streaming capability");
+   rd('h08c,value,0);if(value!==15)$fatal(1,"DMA streaming capability");
    rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
    rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
    wr('h08c,0,15,0,2); // Capability register is read-only.
@@ -123,23 +137,37 @@ module tb_axi;
    // Abort must return to STOPPED without silently starting another replay.
    wr('h00c,4,15,0,0);repeat(100)@(negedge clk);rd('h008,value,0);
    if(value[2:0]!=0)$fatal(1,"abort restarted acquisition");
-   // Phase 7 streaming: upload bank 1 while bank 0 runs, then switch only at an FFT boundary.
+   // Phase 8: reject malformed AXI Stream framing before accepting a full DMA block.
    wr('h064,32'hffffffff,15,0,0);wr('h184,16,15,0,0);
    wr('h024,1,15,0,0);wr('h070,1,15,0,0);
    wr('h180,0,15,0,0);wr('h18c,8192,15,0,0);wr('h194,11,15,0,0);wr('h19c,32'h11111111,15,0,0);wr('h184,3,15,0,0);
    wr('h00c,1,15,0,0);wait(dut.run_state==3);repeat(64)@(negedge clk);
-   wr('h180,1,15,0,0);wr('h10000,32'h12345678,15,0,0);
+   wr('h1c4,1,15,0,0);wr('h1c8,8192,15,0,0);wr('h1cc,21,15,0,0);wr('h1d0,0,15,0,0);wr('h1c0,5,15,0,0);
+   axis_send(32'h12345678,1);wait(!dut.loader_active);
+   rd('h1d4,value,0);if(!value[2]||value[1])$fatal(1,"early TLAST accepted %h",value);
+   rd('h1e4,value,0);if(!(value&1))$fatal(1,"length error missing %h",value);
+   // Load the inactive bank through the DMA-facing stream while analysis continues.
+   dma_crc=32'hffffffff;for(n=0;n<8192;n=n+1)dma_crc=crc_word(dma_crc,32'h12345678);dma_crc=dma_crc^32'hffffffff;
+   wr('h1c8,8192,15,0,0);wr('h1cc,22,15,0,0);wr('h1d0,dma_crc,15,0,0);wr('h1c0,5,15,0,0);
+   for(n=0;n<8192;n=n+1)axis_send(32'h12345678,n==8191);
+   wait(!dut.loader_active);
+   rd('h1d4,value,0);if(!value[1]||value[2]||value[0])$fatal(1,"DMA load failed %h",value);
+   rd('h1d8,value,0);if(value!=8192)$fatal(1,"DMA received count %d",value);
+   rd('h1dc,value,0);if(value!=dma_crc)$fatal(1,"DMA CRC %h != %h",value,dma_crc);
+   rd('h1e0,value,0);if(value!=1)$fatal(1,"DMA transfer count");
+   if(dut.bank1.mem[0]!==32'h12345678||dut.bank1.mem[8191]!==32'h12345678)$fatal(1,"DMA bank contents");
    wr('h180,0,15,0,0);wr('h10000,0,15,0,2);
-   wr('h180,1,15,0,0);wr('h190,8192,15,0,0);wr('h198,22,15,0,0);wr('h1a0,32'h22222222,15,0,0);wr('h184,3,15,0,0);
+   wr('h180,1,15,0,0);wr('h184,2,15,0,0);
    rd('h188,value,0);if(value[0]!=0||!value[3])$fatal(1,"stream armed status %h",value);
+   wr('h10000,32'hdeadbeef,15,0,2); // Pending bank is immutable until the boundary switch.
    while(dut.issued[12:0]!=8190)@(negedge clk);
    if(dut.active_bank!=0)$fatal(1,"stream switched before FFT boundary");
    repeat(4)@(negedge clk);rd('h188,value,0);if(value[0]!=1||value[3])$fatal(1,"stream did not switch %h",value);
    rd('h1a4,value,0);if(value!=1)$fatal(1,"switch count");rd('h1a8,value,0);if(value!=22)$fatal(1,"block id");
-   rd('h1b4,value,0);if(value!=1)$fatal(1,"write reject count");
+   rd('h1b4,value,0);if(value!=2)$fatal(1,"write reject count");
    wr('h180,0,15,0,0);wr('h10000,32'h87654321,15,0,0);
    wr('h00c,2,15,0,0);wait(dut.run_state==0);
-   $display("AXI_PASS independent_aw_w wstrb response_stalls dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
+   $display("AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
  initial begin #1000000;$fatal(1,"AXI timeout");end
 endmodule

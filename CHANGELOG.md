@@ -1,3 +1,18 @@
+# 2026-10-02 · Phase 8 DDR/AXI DMA 候选
+
+## 2026-10-03 · 网络启动修复与离线验收进度
+
+- 固定 Zybo Z7-20 GEM0 使用 RTL8211E PHY 地址 1，限制 PHY 复位轮询时间，并在自动协商未完成时回退到 1000 Mbps，避免启动阶段误扫地址触发 `XEmacPs_SetOperatingSpeed()` 断言。
+- 禁止 SDT lwIP 模板在 `init_platform()` 中注册 `xiltimer` 中断；固件继续用 Zynq 全局定时器轮询提供 50 ms lwIP 节拍，消除启动后 `XScuGic_InterruptHandler` 断言。
+- Vitis 软件、Bootgen 两套镜像、发布包、主机协议回归和 SD 维护写入器构建均通过；当前网络镜像 SHA-256 为 `7f9cb1d1007ba665a06f6a8d93774e6a5a38381bdf03a64ffb31c3f460f130a2`。
+- JTAG 检查确认新固件已运行到主循环、板端 IP 与 PHY 初始化正常。电脑侧以太网当前为 `Media disconnected`，因此 Phase 8 UDP/DMA、SD 卡事务和物理冷启动仍待网络链路恢复后执行。
+
+- PS 端 UDP IQ 分块先写 DDR 缓冲区，commit 后由 AXI DMA MM2S 经 `S_AXI_HP0` 向 PL 传输，移除每个 IQ 字的 AXI-Lite MMIO 写入。
+- PL 增加 32 bit AXI Stream 加载器，在写非活动 Bank 时计算 CRC32，并严格校验长度、`TKEEP`、`TLAST` 和整块 CRC。
+- 保留 Phase 7 的双 Bank、8192 点 FFT 边界切换和 type 6/7/8/9 主机协议；type 8 增加 DMA 状态、接收数、PL CRC、成功次数和错误位。
+- 硬件接口升为 `0x00010004`，能力寄存器增加 bit3；候选须重新完成仿真、时序、真板稳定性、SD 和物理冷启动后才能发布。
+- 125 MSPS 仍指活动 Bank 的 FPGA 板内消费速率，不声明千兆以太网能够连续提供 4 Gbit/s 的不重复 I16/Q16 数据。
+
 # 2026-10-02 · Phase 7 双 Bank 动态 IQ 正式交付
 
 - 增加两个各 32768 对 I16/Q16 的回放 Bank；电脑上传非活动 Bank 时，FPGA 持续以 125 MSPS 处理活动 Bank。

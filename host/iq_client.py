@@ -10,6 +10,7 @@ from threshold_config import resolve as resolve_threshold
 MAGIC=0x49515531
 DETECTOR_VERSION=0x00010001
 STREAM_VERSION=0x00010003
+DMA_VERSION=0x00010004
 DETECTOR_MODES={'threshold':0,'digital-zero':1}
 LENGTH_SEMANTICS={'threshold':'门限突发长度','digital-zero':'数字零背景波形长度'}
 FLAGS=['NO_POWER','FFT_OVERFLOW','SOURCE_GAP','PARTIAL_WINDOW','EDGE_RISK','RESOLUTION_LIMITED',
@@ -202,15 +203,20 @@ class Client:
         return dict(window_id=window_id,power=[data[i]|data[i+1]<<32 for i in range(0,2048,2)])
     def stream_status(self):
         values=self.request(8,[])
-        if len(values)!=17:raise ValueError(f'Unexpected streaming status length: {len(values)}')
+        if len(values) not in (17,22):raise ValueError(f'Unexpected streaming status length: {len(values)}')
         status=values[0]
-        return dict(active_bank=status&1,host_bank=(status>>1)&1,pending_bank=(status>>2)&1,
+        result=dict(active_bank=status&1,host_bank=(status>>1)&1,pending_bank=(status>>2)&1,
             pending_valid=bool(status&(1<<3)),ready=[bool(status&(1<<4)),bool(status&(1<<5))],
             running=bool(status&(1<<6)),host_write_allowed=bool(status&(1<<7)),
             lengths=list(values[1:3]),block_ids=list(values[3:5]),crc32=list(values[5:7]),
             switch_count=values[7],current_block_id=values[8],last_switch_tick=values[9]|values[10]<<32,
             write_rejected=values[11],stream_errors=values[12],
             upload_block_ids=[values[13],values[15]],upload_next=[values[14],values[16]])
+        if len(values)==22:
+            dma=values[17]
+            result['dma']=dict(active=bool(dma&1),done=bool(dma&2),error=bool(dma&4),target_bank=(dma>>3)&1,
+                received_samples=values[18],computed_crc32=values[19],completed_transfers=values[20],errors=values[21])
+        return result
     def upload_stream_block(self,data,bank,block_id,arm=True,chunk_words=240,progress=None):
         if bank not in (0,1):raise ValueError('bank must be 0 or 1')
         if not 1<=block_id<=0xffffffff:raise ValueError('block_id must be 1..0xffffffff')
