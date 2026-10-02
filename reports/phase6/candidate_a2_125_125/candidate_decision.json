@@ -1,0 +1,57 @@
+{
+  "candidate": "A2",
+  "configuration": {
+    "sample_rate_hz": 125000000,
+    "timestamp_clock_hz": 125000000,
+    "fft_clock_hz": 125000000,
+    "scan_lanes": 8
+  },
+  "build_id": "3ca56f18062a59e0bc0022061598cbb2",
+  "status": "FINAL_RELEASE_ACCEPTED",
+  "board_programmed": true,
+  "sd_written": true,
+  "timing": {
+    "setup_slack_ns": 0.151,
+    "hold_slack_ns": 0.014,
+    "setup_gate_ns": 0.10,
+    "recommended_setup_ns": 0.20,
+    "cdc_critical": 0,
+    "unconstrained_internal_endpoints": 0,
+    "drc_errors": 0,
+    "bus_skew": "MET"
+  },
+  "simulation": {
+    "record_ring_unit": "PASS",
+    "axi": "PASS",
+    "full_regression": "PASS",
+    "core_cases": 16,
+    "exact_fft_points": 524288,
+    "frequency_records": 64,
+    "maximum_analysis_latency_cycles": 17747,
+    "maximum_analysis_latency_us": 141.976,
+    "qualification": "15 PASS, 2 SKIP (frozen 100 MSPS physical fixtures)"
+  },
+  "artifacts": {
+    "iq_analyzer.bit_sha256": "3b7c0ac51b362b81d5bcdb3b26747d592da103cf7f403a6f64c258ee7e55b1fa",
+    "iq_analyzer.xsa_sha256": "b2fdecf575b797add9775846e1701a3736f03416d89cd145051cdbff32bba9dc"
+  },
+  "board_validation": {
+    "basic_matrix": "36/36 PASS",
+    "extended_matrix": "PASS",
+    "maximum_analysis_latency_us": 141.968,
+    "maximum_publish_latency_us": 142.248,
+    "analysis_deadline_met": true
+  },
+  "final_acceptance": {
+    "matrix_cases": 2020,
+    "legacy_compatibility_cases": 192,
+    "gui": "PASS",
+    "minimum_widest_internal_obw_hz": 121246338,
+    "sd_application": "PASS",
+    "sd_network_boot": "PASS",
+    "physical_cold_boot": "PASS",
+    "cold_boot_epoch_before": 0,
+    "jtag_used_for_cold_boot": false
+  },
+  "decision": "A2 is accepted as the Phase 6 125 MSPS final delivery. Simulation, timing, board matrices, GUI, 125 MSPS bandwidth, SD application, installed network boot and user-confirmed physical cold boot all passed. The input remains internal preloaded replay."
+}

@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
-module result_builder(input wire clk,rst,input wire [63:0] tick,
+module result_builder #(
+ parameter integer SAMPLE_RATE_HZ=iq_build_config::SAMPLE_RATE_HZ)( input wire clk,rst,input wire [63:0] tick,
  input wire [31:0] epoch,config_id,input wire hann,input wire [31:0] integrity_flags,
  input wire [191:0] ctx,input wire ctx_empty,output reg ctx_pop,
  input wire [255:0] freq,input wire freq_empty,output reg freq_pop,
@@ -24,17 +25,17 @@ module result_builder(input wire clk,rst,input wire [63:0] tick,
  isqrt64 sqrt(.clk(clk),.rst(rst),.start(state==PEAK_START||state==RMS_START),.rad(sqrt_rad),.busy(),.done(sqrt_done),.root(sqrt_root));
  udiv64 divide(.clk(clk),.rst(rst),.start(state==DIV_INT_START||state==DIV_FRAC_START),
  .numerator(div_num),.denominator(div_den),.busy(),.done(div_done),.divide_by_zero(),.quotient(div_q),.remainder(div_r));
- // Fs/N = 390625/32 exactly. Three registered stages avoid a long
+ // Build-time exact Fs/8192 conversion, preserving half-away-from-zero rounding. Three registered stages avoid a long
  // add/multiply/round chain; results settle while the two roots execute.
  reg signed [14:0] dp,dl,dh,dc;
  reg [13:0] dw;
- reg signed [34:0] pp,pl,ph,pc;
- reg [33:0] pw;
+ reg signed [47:0] pp,pl,ph,pc;
+ reg [47:0] pw;
  reg [31:0] hz_peak,hz_low,hz_high,hz_center,hz_width;
- function automatic [31:0] round_hz(input signed [34:0] x,input center);
-   reg signed [34:0] biased;
-   begin biased=x+(center?35'sd32:35'sd16)-(x[34]?35'sd1:35'sd0);
-     round_hz=biased>>>(center?6:5);end
+ function automatic [31:0] round_hz(input signed [47:0] x,input center);
+   reg signed [47:0] biased;
+   begin biased=x+(center?48'sd8192:48'sd4096)-(x[47]?48'sd1:48'sd0);
+     round_hz=biased>>>(center?14:13);end
  endfunction
  always @(posedge clk)begin
    dp<=$signed({2'd0,fr[76:64]})-15'sd4096;
@@ -42,9 +43,9 @@ module result_builder(input wire clk,rst,input wire [63:0] tick,
    dh<=$signed({2'd0,fr[44:32]})-15'sd4096;
    dc<=$signed({2'd0,fr[60:48]})+$signed({2'd0,fr[44:32]})-15'sd8192;
    dw<={1'b0,fr[44:32]}-{1'b0,fr[60:48]};
-   pp<=dp*20'sd390625;pl<=dl*20'sd390625;ph<=dh*20'sd390625;pc<=dc*20'sd390625;pw<=dw*20'd390625;
+   pp<=dp*$signed(SAMPLE_RATE_HZ);pl<=dl*$signed(SAMPLE_RATE_HZ);ph<=dh*$signed(SAMPLE_RATE_HZ);pc<=dc*$signed(SAMPLE_RATE_HZ);pw<=dw*SAMPLE_RATE_HZ;
    hz_peak<=round_hz(pp,0);hz_low<=round_hz(pl,0);hz_high<=round_hz(ph,0);hz_center<=round_hz(pc,1);
-   hz_width<=(pw+34'd16)>>5;
+   hz_width<=(pw+48'd4096)>>13;
  end
  always @(posedge clk) begin
    freq_valid<=0;burst_valid<=0;ctx_pop<=0;freq_pop<=0;burst_pop<=0;
@@ -78,7 +79,7 @@ module result_builder(input wire clk,rst,input wire [63:0] tick,
        if(is_burst) begin
          burst_record[0*32+:32]<=32'h42525331;burst_record[1*32+:32]<=br[287:256];
          burst_record[2*32+:32]<=epoch;burst_record[3*32+:32]<=br[255:224];
-         burst_record[4*32+:32]<=config_id;burst_record[5*32+:32]<=100000000;
+         burst_record[4*32+:32]<=config_id;burst_record[5*32+:32]<=SAMPLE_RATE_HZ;
          burst_record[6*32+:64]<=br[223:160];burst_record[8*32+:64]<=br[159:96];
          burst_record[10*32+:32]<=burst_length[31:0];burst_record[11*32+:32]<=peak_result;
          burst_record[12*32+:32]<=rms_result;burst_record[13*32+:64]<=br[95:32];
@@ -87,7 +88,7 @@ module result_builder(input wire clk,rst,input wire [63:0] tick,
          freq_record[0*32+:32]<=32'h46525131;
          freq_record[1*32+:32]<=fr[255:224]|integrity_flags|(cr[191:160]!=fr[223:192]?32'h40:0);
          freq_record[2*32+:32]<=epoch;freq_record[3*32+:32]<=fr[223:192];
-         freq_record[4*32+:32]<=config_id;freq_record[5*32+:32]<=100000000;
+         freq_record[4*32+:32]<=config_id;freq_record[5*32+:32]<=SAMPLE_RATE_HZ;
          freq_record[6*32+:64]<={19'd0,cr[191:160],13'd0};freq_record[8*32+:64]<=cr[159:96];
          freq_record[10*32+:64]<=tick;freq_record[12*32+:32]<=latency[31:0];
          freq_record[13*32+:32]<=8192;

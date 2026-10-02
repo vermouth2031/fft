@@ -1,6 +1,8 @@
 import importlib.util,json,struct,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+import sys;sys.path.insert(0,str(ROOT/'host'))
+from build_rates import SAMPLE_RATE_HZ
 spec=importlib.util.spec_from_file_location('iq_client',ROOT/'host/iq_client.py');host=importlib.util.module_from_spec(spec);spec.loader.exec_module(host)
 class HostTests(unittest.TestCase):
  def test_actual_rtl_records(self):
@@ -9,7 +11,7 @@ class HostTests(unittest.TestCase):
    parts=line.split();kind='frequency' if parts[0]=='F' else 'burst';w=[int(x,16) for x in parts[2:]]
    result=host.decode_record(struct.pack('<'+'I'*len(w),*w),kind)
    self.assertEqual(result['id'],w[3]);self.assertEqual(result['epoch'],1);seen+=1
-   if kind=='frequency' and int(parts[1]) in (2,10):self.assertEqual(result['peak_hz'],-25000000)
+   if kind=='frequency' and int(parts[1]) in (2,10):self.assertEqual(result['peak_hz'],-SAMPLE_RATE_HZ//4)
   self.assertEqual(seen,78)
  def test_reject_truncated(self):
   with self.assertRaises(ValueError):host.decode_record(b'\x00'*127,'frequency')

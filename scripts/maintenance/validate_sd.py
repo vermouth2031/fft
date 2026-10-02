@@ -9,6 +9,7 @@ import argparse
 import json
 import re
 import struct
+import subprocess
 import sys
 import zlib
 from pathlib import Path, PurePosixPath
@@ -16,9 +17,11 @@ from pathlib import Path, PurePosixPath
 from sd_boot_update import ROOT, HERE, discover, require, sha, now, save, run_logged
 from package_release import check as check_build
 from record_boot_stage import verify_boot
+from phase4_identity import check_identity
+from build_rates import SAMPLE_RATE_HZ,TIMESTAMP_CLOCK_HZ
 from analyze_sd import analyze
 
-PLAN = ROOT / "build/maintenance/sd_export/plan.json"
+PLAN = ROOT / "build/maintenance/phase4_sd_export/plan.json"
 VECTORS = dict(ZERO="zero", POS25="tone_pos_fs4", NEG25="tone_neg_fs4", BURST="burst_fs4",
                QPSK4="qpsk_sps4", QPSK2="qpsk_sps2", SHORT512="short512_boundary", FULLNEG="negative_fullscale_dc")
 
@@ -39,6 +42,14 @@ def prepare():
     endings = [n for n, line in enumerate(compiled_source.read_text().splitlines(), 1)
                if re.search(r"for\s*\(\s*;\s*;\s*\)\s*usleep\s*\(1000000\)", line)]
     require(len(endings) == 1, "Cannot identify the post-close SD completion line; do not guess a wait time")
+    objdump = gcc.with_name("arm-none-eabi-objdump.exe")
+    disassembly = subprocess.run(
+        [objdump, "-d", "--disassemble=main", ROOT / "artifacts/iq_sd.elf"],
+        check=True, capture_output=True, text=True).stdout
+    completion_calls = re.findall(r"^\s*([0-9a-fA-F]+):.*\bblx?\s+[0-9a-fA-F]+\s+<usleep>\s*$",
+                                  disassembly, re.MULTILINE)
+    require(len(completion_calls) == 1,
+            "Cannot identify the unique final usleep call in iq_sd.elf")
     linker, count = re.subn(
         r"(ps7_ddr_0_memory_0\s*:\s*ORIGIN\s*=\s*0x100000,\s*LENGTH\s*=\s*)0x[0-9a-fA-F]+",
         lambda m: m.group(1) + "0x00f00000", (workspace / "iq_sd/src/lscript.ld").read_text())
@@ -54,6 +65,7 @@ def prepare():
     row = dict(status="PREPARED", prepared_at=now(), artifacts=artifacts,
                gcc=str(gcc), xsdb=str(xsdb), bsp=str(bsp), linker=str(linker_path),
                compiled_source=str(compiled_source), completion_line=endings[0],
+               completion_address="0x" + completion_calls[0],
                elf=str(PLAN.parent / "sd_export.elf"),
                dependencies={str(path): sha(path) for path in dependencies})
     save(PLAN, row)
@@ -160,13 +172,20 @@ def verify_metadata_and_snapshots(run):
     for c, expected in enumerate(golden):
         folder = run / f"C{c:02d}"
         meta = json.loads((folder / "META.JSON").read_text())
-        require(meta["hardware_version"] == 0x00010001 and meta["sample_rate_hz"] == 100000000 and
+        check_identity(meta)
+        require(meta["sample_rate_hz"] == SAMPLE_RATE_HZ and
                 meta["detector_mode"] == "threshold" and meta["gap_min"] == 32 and meta["case"] == c and
                 meta["window"] == expected["mode"], f"New SD firmware metadata mismatch: case {c}")
+        require(meta['issued_samples'] == meta['accepted_samples'] == meta['fft_input_samples'] ==
+                meta['fft_output_samples'] == meta['input_samples'] == 8192*meta['fft_output_windows'] and
+                meta['fft_output_windows'] == meta['frequency_records'] and
+                0 < meta['input_fifo_high_water'] < 4096 and
+                not (meta['input_rejected'] or meta['result_queue_rejected'] or meta['input_underreads']),
+                f'SD throughput conservation failed: case {c}')
         require(meta["frequency_records"] == 4 and meta["burst_records"] == (folder / "BURST.BIN").stat().st_size // 64,
                 f"SD metadata record counts mismatch: case {c}")
-        require(0 < meta["hardware_max_latency_cycles"] <= 200000 and
-                0 < meta["hardware_max_publish_latency_cycles"] <= 200000, f"SD deadline exceeded: case {c}")
+        require(0 < meta["hardware_max_latency_cycles"]*1000 <= TIMESTAMP_CLOCK_HZ*2 and
+                0 < meta["hardware_max_publish_latency_cycles"]*1000 <= TIMESTAMP_CLOCK_HZ*2, f"SD deadline exceeded: case {c}")
         snapshot = folder / "SNAP.BIN"
         require(snapshot.is_file() == bool(meta["snapshot_valid"]), f"SD snapshot presence mismatch: case {c}")
         if snapshot.is_file():
@@ -207,7 +226,8 @@ def validate(out):
         app_log = out / "xsdb_sd_application.log"
         text = run_logged([plan["xsdb"], HERE / "run_sd_application.tcl", ROOT / "artifacts/iq_analyzer.bit",
                            ROOT / "artifacts/iq_sd.elf", ROOT / "artifacts/ps7_init.tcl",
-                           plan["compiled_source"], str(plan["completion_line"])], app_log, 180)
+                           plan["compiled_source"], str(plan["completion_line"]),
+                           plan["completion_address"]], app_log, 180)
         require("SD_APPLICATION_REACHED_COMPLETION_LINE" in text, "SD application did not reach post-close completion")
         after, raw_files = export_sd(plan, 2, int(run_name[3:]), out / "after")
         require(after - before == {run_name} and before <= after, "Expected exactly one new RUN directory")

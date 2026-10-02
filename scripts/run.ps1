@@ -19,6 +19,7 @@ function Run-Vivado([string]$Script) {
  & (Join-Path $VivadoRoot 'bin\vivado.bat') -mode batch -notrace -nojournal -log $logName -source $Script
  if($LASTEXITCODE -ne 0){throw "Vivado failed: $Script (see $logName)"}
 }
+Run-Python -Arguments @('scripts/phase4_build_config.py')
 if($Action -in @('All','Reference')) {
  Run-Python -Arguments @('-X','utf8','tests/generate_iq_vectors.py')
  Run-Python -Arguments @('tests/make_golden.py')
@@ -39,12 +40,14 @@ if($Action -in @('All','Sim')) {
  Run-Vivado 'scripts/sim_spectrum_edges.tcl'
  Run-Vivado 'scripts/sim_core.tcl'
  Run-Python -Arguments @('tests/check_core_results.py')
+ Run-Python -Arguments @('scripts/analyze_latency.py','build/vivado/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv','--out','reports/phase2_latency_validation.json')
  Run-Vivado 'scripts/sim_axi.tcl'
  Run-Python -Arguments @('tests/check_host.py')
  Run-Python -Arguments @('tests/test_host_protocol.py')
  Run-Python -Arguments @('tests/test_frame_length_reference.py')
  Run-Python -Arguments @('tests/test_detector_host.py')
  Run-Python -Arguments @('tests/check_sd_parser.py')
+ Run-Python -Arguments @('tests/test_qualification.py')
  Run-Python -Arguments @('scripts/record_build_stage.py','simulation')
 }
 if($Action -in @('All','Hardware')) {Run-Vivado 'scripts/build_board.tcl'}

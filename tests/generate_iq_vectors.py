@@ -10,13 +10,17 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import sys
 from pathlib import Path
 
 import numpy as np
 
 BASE = Path(__file__).resolve().parents[1] / "data"
 OUT = BASE / "vectors"
-N, FS, LENGTH, SEED = 8192, 100_000_000, 32768, 20260915
+sys.path.insert(0, str(BASE.parent / "host"))
+from build_rates import SAMPLE_RATE_HZ
+
+N, FS, LENGTH, SEED = 8192, SAMPLE_RATE_HZ, 32768, 20260915
 TON, TOFF, KON, KOFF = 1_048_576, 262_144, 8, 32
 
 
@@ -167,11 +171,11 @@ def plot_examples(cases):
     f = (np.arange(N) - N // 2) * FS / N / 1e6
     _, p = spectrum_reference(cases["tone_pos_fs4"][0][:N], "rect")
     ax[0, 0].plot(f, 10 * np.log10(np.maximum(p / p.max(), 1e-12)), color="#1665b0")
-    ax[0, 0].set(title="1. Complex tone: +25 MHz", xlabel="Baseband frequency (MHz)", ylabel="Power / peak (dB)", ylim=(-125, 5))
+    ax[0, 0].set(title=f"1. Complex tone: +{FS/4/1e6:g} MHz", xlabel="Baseband frequency (MHz)", ylabel="Power / peak (dB)", ylim=(-125, 5))
     iq = cases["burst_fs4"][0].astype(np.float64)
     ax[0, 1].plot(np.arange(LENGTH) / FS * 1e6, np.hypot(iq[:, 0], iq[:, 1]), color="#137c65")
-    ax[0, 1].set(title="2. Tone burst: 24,576 samples = 245.76 us", xlabel="Time (us)", ylabel="Raw IQ envelope (codes)")
-    for name, label, color in (("qpsk_sps4", "sps=4; support 31.25 MHz", "#1665b0"), ("qpsk_sps2", "sps=2; support 62.5 MHz", "#de782b")):
+    ax[0, 1].set(title=f"2. Tone burst: 24,576 samples = {24576/FS*1e6:g} us", xlabel="Time (us)", ylabel="Raw IQ envelope (codes)")
+    for name, label, color in (("qpsk_sps4", f"sps=4; support {1.25*FS/4/1e6:g} MHz", "#1665b0"), ("qpsk_sps2", f"sps=2; support {1.25*FS/2/1e6:g} MHz", "#de782b")):
         _, p = spectrum_reference(cases[name][0][N:2*N], "hann")
         ax[1, 0].plot(f, 10 * np.log10(np.maximum(p / p.max(), 1e-8)), label=label, color=color, alpha=0.8, linewidth=0.9)
     ax[1, 0].set(title="3. RRC-QPSK: changing the actual signal bandwidth", xlabel="Baseband frequency (MHz)", ylabel="Power / each peak (dB)", ylim=(-80, 5))
@@ -180,9 +184,9 @@ def plot_examples(cases):
     _, ph = spectrum_reference(cases["short512_boundary"][0][:N], "hann")
     for p, label, color in ((pr, "Rectangular", "#1665b0"), (ph, "Hann", "#b34358")):
         ax[1, 1].plot(f, 10 * np.log10(np.maximum(p / pr.max(), 1e-12)), label=label, color=color, linewidth=0.9)
-    ax[1, 1].set(title="4. Short burst near a window edge", xlabel="Baseband frequency (MHz)", ylabel="Power / rectangular peak (dB)", xlim=(23, 27), ylim=(-100, 5))
+    ax[1, 1].set(title="4. Short burst near a window edge", xlabel="Baseband frequency (MHz)", ylabel="Power / rectangular peak (dB)", xlim=(FS/4/1e6-2, FS/4/1e6+2), ylim=(-100, 5))
     ax[1, 1].legend()
-    fig.suptitle("Software references at Fs = 100 MSPS | Not FPGA measurements", fontsize=16, fontweight="bold")
+    fig.suptitle(f"Software references at Fs = {FS/1e6:g} MSPS | Not FPGA measurements", fontsize=16, fontweight="bold")
     path = BASE / "software_reference_examples.png"
     fig.savefig(path, dpi=160)
     plt.close(fig)
@@ -231,7 +235,7 @@ def main():
         }
     tone = manifest["cases"]["tone_pos_fs4"]["windows"][0]
     assert tone["rect"]["q_peak"] == 6144
-    assert tone["rect"]["f_peak_hz"] == 25_000_000
+    assert tone["rect"]["f_peak_hz"] == FS / 4
     assert tone["rect"]["obw99_bin_center_hz"] == 0
     assert tone["peak_uq16_16"] == tone["rms_uq16_16"] == 8192 * 65536
     assert manifest["cases"]["tone_neg_fs4"]["windows"][0]["rect"]["q_peak"] == 2048

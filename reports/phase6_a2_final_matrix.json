@@ -1,0 +1,137 @@
+{
+  "schema": "iq-phase6-a2-final-matrix-v1",
+  "status": "PASS",
+  "created_at": "2026-10-01T21:49:31.091182+08:00",
+  "hardware": {
+    "hardware_version": 65538,
+    "hardware_version_hex": "0x00010002",
+    "hardware_capabilities": 3,
+    "sample_rate_hz": 125000000,
+    "build_id": "3ca56f18062a59e0bc0022061598cbb2",
+    "timestamp_clock_hz": 125000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 125000000
+  },
+  "matrix_cases": 2020,
+  "legacy_compatibility_cases": 192,
+  "matrices": [
+    {
+      "stage": "validation",
+      "cases": 625,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\validation\\measurement_validation.json",
+      "report_sha256": "e023cc6c05d87746e6e63c87ffd292c84eb8bd8b8435be1b11015eb95fb867f1"
+    },
+    {
+      "stage": "noise_only",
+      "cases": 256,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\noise_only\\measurement_validation.json",
+      "report_sha256": "36a110d8da75d9d039553d0c9000f1617e4adec08454728d24f775b2e4f13d84"
+    },
+    {
+      "stage": "legacy_regression",
+      "cases": 431,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\legacy_regression\\measurement_validation.json",
+      "report_sha256": "8b44b04b86928d8b6642f5fa26eee2afc383becf38526e7f3cd7bf5038972141"
+    },
+    {
+      "stage": "robust_regression",
+      "cases": 212,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\robust_regression\\measurement_validation.json",
+      "report_sha256": "5b0cad72c7aac565a02e78479b1e904d2c1b0f473f8a60da3a04ae44ded9ef04"
+    },
+    {
+      "stage": "wide_continuous",
+      "cases": 17,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\wide_continuous\\measurement_validation.json",
+      "report_sha256": "55e8125b3126592a9108b38574370e2f2ba1bd9860d1dc472bfbadf2701ada52"
+    },
+    {
+      "stage": "sensitivity",
+      "cases": 112,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\sensitivity\\measurement_validation.json",
+      "report_sha256": "3895e3efbf530695447fdbb6955cd328c1c29809653bcdeab22b8925f66951ca"
+    },
+    {
+      "stage": "ofdm_finite",
+      "cases": 240,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\ofdm_finite\\measurement_validation.json",
+      "report_sha256": "d779f0da064ab68e49c05a80001fcd9b1d8ad9a228c68249bc1a5a7f45041ef3"
+    },
+    {
+      "stage": "ofdm_boundary",
+      "cases": 24,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\ofdm_boundary\\measurement_validation.json",
+      "report_sha256": "55adc7d3b8944fac7218b9724d53cf0c53fbaaa4189cca70966c77507d2c2f54"
+    },
+    {
+      "stage": "ofdm_continuous",
+      "cases": 7,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\ofdm_continuous\\measurement_validation.json",
+      "report_sha256": "0bf415a43d659edb0436fc686064721f23dc641265b095cd83f0d815365b7039"
+    },
+    {
+      "stage": "widest_finite",
+      "cases": 80,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_ofdm_finite\\measurement_validation.json",
+      "report_sha256": "9cdb6c843fa90fdd2136c861ceeb4ac21c0b4277431c810a4856cf925b11dda5"
+    },
+    {
+      "stage": "widest_continuous",
+      "cases": 7,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\widest_continuous\\measurement_validation.json",
+      "report_sha256": "20515d83d5edc5526a2cbf2a30020f30507da42c817d81a2acbf1dbec43315a1"
+    },
+    {
+      "stage": "noise",
+      "cases": 9,
+      "legacy_cases": 16,
+      "report": "D:\\fft\\fft_phase6_125m\\captures\\phase6\\candidate_a2_125_125_final_matrix\\noise\\measurement_validation.json",
+      "report_sha256": "966b6ac33e612a29c89af101c7a509c20a092981956eac690585f17a238a1dcb"
+    }
+  ],
+  "regression_targets": {
+    "snr30": true,
+    "snr20": true,
+    "snr10": true,
+    "snr5": true,
+    "noise_only_no_false_observed": true,
+    "high_snr30_regression_not_worse": true,
+    "high_snr20_regression_not_worse": true,
+    "high_snr10_regression_not_worse": true,
+    "maximum_normal_analysis_below_190us": true,
+    "setup_slack_at_least_0p10ns": true
+  },
+  "maximum_analysis_us": 141.968,
+  "maximum_publish_us": 142.248,
+  "minimum_widest_internal_obw_hz": 121246338,
+  "maximum_input_fifo_high_water": 11,
+  "maximum_samples_in_one_capture": 37499551744,
+  "normal_transport_failures": 0,
+  "evidence": {
+    "captures/phase6/candidate_a2_125_125_final_matrix/campaign.json": "a60f145067aaf5bcc84e6002f3bf450e61ac29a588e9c22e61d48403b9143007",
+    "captures/phase6/candidate_a2_125_125_final_matrix/validation/measurement_validation.json": "e023cc6c05d87746e6e63c87ffd292c84eb8bd8b8435be1b11015eb95fb867f1",
+    "captures/phase6/candidate_a2_125_125_final_matrix/noise_only/measurement_validation.json": "36a110d8da75d9d039553d0c9000f1617e4adec08454728d24f775b2e4f13d84",
+    "captures/phase6/candidate_a2_125_125_final_matrix/legacy_regression/measurement_validation.json": "8b44b04b86928d8b6642f5fa26eee2afc383becf38526e7f3cd7bf5038972141",
+    "captures/phase6/candidate_a2_125_125_final_matrix/robust_regression/measurement_validation.json": "5b0cad72c7aac565a02e78479b1e904d2c1b0f473f8a60da3a04ae44ded9ef04",
+    "captures/phase6/candidate_a2_125_125_final_matrix/wide_continuous/measurement_validation.json": "55e8125b3126592a9108b38574370e2f2ba1bd9860d1dc472bfbadf2701ada52",
+    "captures/phase6/candidate_a2_125_125_final_matrix/sensitivity/measurement_validation.json": "3895e3efbf530695447fdbb6955cd328c1c29809653bcdeab22b8925f66951ca",
+    "captures/phase6/candidate_a2_125_125_final_matrix/ofdm_finite/measurement_validation.json": "d779f0da064ab68e49c05a80001fcd9b1d8ad9a228c68249bc1a5a7f45041ef3",
+    "captures/phase6/candidate_a2_125_125_final_matrix/ofdm_boundary/measurement_validation.json": "55adc7d3b8944fac7218b9724d53cf0c53fbaaa4189cca70966c77507d2c2f54",
+    "captures/phase6/candidate_a2_125_125_final_matrix/ofdm_continuous/measurement_validation.json": "0bf415a43d659edb0436fc686064721f23dc641265b095cd83f0d815365b7039",
+    "captures/phase6/candidate_a2_125_125_ofdm_finite/measurement_validation.json": "9cdb6c843fa90fdd2136c861ceeb4ac21c0b4277431c810a4856cf925b11dda5",
+    "captures/phase6/candidate_a2_125_125_final_matrix/widest_continuous/measurement_validation.json": "20515d83d5edc5526a2cbf2a30020f30507da42c817d81a2acbf1dbec43315a1",
+    "captures/phase6/candidate_a2_125_125_final_matrix/noise/measurement_validation.json": "966b6ac33e612a29c89af101c7a509c20a092981956eac690585f17a238a1dcb"
+  }
+}

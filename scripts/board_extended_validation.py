@@ -40,7 +40,8 @@ def check_bursts(folder,vector,cyclic):
             if not cyclic:break
         assert not stream.read(1)
     assert count==m['burst_records']
-    return {'exact_burst_records':count,'burst_rate_per_nominal_second':count/(m['input_samples']/1e8)}
+    return {'exact_burst_records':count,
+            'burst_rate_per_nominal_second':count/(m['input_samples']/m['sample_rate_hz'])}
 
 class ImpairedSocket:
     def __init__(self,inner,mode):self.inner=inner;self.mode=mode;self.streams=0;self.dropped=0;self.triggered=False;self.started=None
@@ -95,7 +96,9 @@ def main():
         if overload:
             assert error and not m['capture_complete'] and (m['error_status']&0x20004), 'Overload was not explicitly detected'
             row['status']='EXPECTED_OVERLOAD_DETECTED'
-            row['scope']='50 million one-sample events/s intentionally exceeds supported result service rate; not a lossless operating point'
+            event_rate=m['sample_rate_hz']/2
+            row['scope']=(f'{event_rate:g} one-sample events/s intentionally exceeds supported result '
+                          'service rate; not a lossless operating point')
         elif mode:
             shim=created[0].sock;row.update(injection=mode,injected=shim.triggered,discarded_by_shim=shim.dropped)
             assert shim.triggered
@@ -115,7 +118,8 @@ def main():
     iq=np.fromfile(tone,dtype='<i2').reshape(-1,2).copy()
     iq//=2;v=out/'vectors/tone_half.bin';iq.tofile(v)
     folder,row=capture('half_amplitude',v)
-    fr=json.loads((folder/'frequency.json').read_text(encoding='utf-8'));assert all(r['rms_codes']==4096 and r['peak_codes']==4096 and r['peak_hz']==25000000 for r in fr)
+    expected_peak_hz=accepted['hardware']['sample_rate_hz']//4
+    fr=json.loads((folder/'frequency.json').read_text(encoding='utf-8'));assert all(r['rms_codes']==4096 and r['peak_codes']==4096 and r['peak_hz']==expected_peak_hz for r in fr)
     iq=np.zeros((32768,2),dtype='<i2')
     for start in (2048,18432):
         for k in range(start,start+4096):iq[k]=(8192,0) if k%4==0 else (0,8192) if k%4==1 else (-8192,0) if k%4==2 else (0,-8192)
@@ -144,7 +148,8 @@ def main():
         clock={'method':'PC perf_counter_ns versus FPGA source_ticks; bounds include both network latch intervals',
                'first':first,'last':last,'source_clock_hz_lower_bound':minimum,'source_clock_hz_upper_bound':maximum,
                'midpoint_hz':(minimum+maximum)/2,'metrology_calibrated':False}
-        assert 99e6<minimum<=maximum<101e6
+        expected_clock_hz=accepted['hardware']['sample_rate_hz']
+        assert .99*expected_clock_hz<minimum<=maximum<1.01*expected_clock_hz
         save(out/'host_clock_comparison.json',clock)
         assert c.read(8)[0]&7==0 and c.read(0x60)[0]==0
     finally:c.close()

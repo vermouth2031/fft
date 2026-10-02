@@ -9,6 +9,7 @@ module tb_result_builder;
  .burst(288'd0),.burst_empty(1'b1),.burst_pop(),.freq_valid(fv),.freq_record(rec),.burst_valid(),.burst_record(),
  .completed(),.max_latency(),.metadata_error());
  integer k,lo,hi;reg signed [63:0] p,l,h,c,b;
+ localparam signed [63:0] FS=iq_build_config::SAMPLE_RATE_HZ;
  function automatic [31:0] nearest(input signed [63:0] num,input integer denom);
    begin nearest=num<0?-((-num+denom/2)/denom):(num+denom/2)/denom;end
  endfunction
@@ -19,8 +20,8 @@ module tb_result_builder;
      @(negedge clk);ctx={32'd0,tick,64'd549755813888,32'd67108864};
      freq={32'd0,32'd0,64'd1,48'd1,16'(k),16'(lo),16'(hi),32'd0};empty=0;
      wait(pop);@(negedge clk);empty=1;wait(fv);@(negedge clk);
-     p=(k-4096)*64'sd100000000;l=(lo-4096)*64'sd100000000;h=(hi-4096)*64'sd100000000;
-     c=(lo+hi-8192)*64'sd100000000;b=(hi-lo)*64'sd100000000;
+     p=(k-4096)*FS;l=(lo-4096)*FS;h=(hi-4096)*FS;
+     c=(lo+hi-8192)*FS;b=(hi-lo)*FS;
      if(rec[14*32+:32]!==nearest(p,8192)||rec[15*32+:32]!==nearest(l,8192)||
         rec[16*32+:32]!==nearest(h,8192)||rec[17*32+:32]!==nearest(b,8192)||rec[18*32+:32]!==nearest(c,16384))$fatal(1,"frequency rounding bin %d",k);
      if(rec[21*32+:32]!=32'h20000000||rec[22*32+:32]!=32'h20000000)$fatal(1,"amplitude packing");
