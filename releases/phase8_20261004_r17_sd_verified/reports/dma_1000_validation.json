@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "started_at": "2026-10-04T14:44:20.857969+08:00",
+  "board": "192.168.1.10",
+  "switches_requested": 1000,
+  "samples_per_bank": 8192,
+  "minimum_upload_mbps": 8.0,
+  "scope": "Real board: PC writes DDR, AXI DMA loads inactive PL bank, active bank runs at 125 MSPS",
+  "faults": [
+    {
+      "name": "packet_crc_corruption",
+      "status": "REJECTED"
+    },
+    {
+      "name": "out_of_order_offset",
+      "status": "REJECTED"
+    },
+    {
+      "name": "incomplete_commit",
+      "status": "REJECTED"
+    },
+    {
+      "name": "active_bank_write",
+      "status": "REJECTED_BY_FIRMWARE"
+    }
+  ],
+  "signals": [
+    "single",
+    "dual",
+    "chirp",
+    "qpsk",
+    "ofdm",
+    "noise"
+  ],
+  "artifacts": {
+    "iq_analyzer.bit": "3ac6837b5fd99b6afd5e613c07f862a8a5546476cf949495195169b562b7765f",
+    "iq_udp.elf": "4bf637123271fb072623b083c441317ae40b94b96deb638d31cd12d10f8072dc"
+  },
+  "hardware": {
+    "hardware_version": 65540,
+    "hardware_version_hex": "0x00010004",
+    "hardware_capabilities": 15,
+    "sample_rate_hz": 125000000,
+    "build_id": "bae26b27515a813bbef3093a68992465",
+    "timestamp_clock_hz": 125000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 125000000
+  },
+  "average_upload_seconds": 0.03125,
+  "maximum_upload_seconds": 0.031999999890103936,
+  "effective_average_upload_mbps": 8.388608,
+  "completed_transitions": 1000,
+  "finished_at": "2026-10-04T14:44:52.941147+08:00",
+  "final_status": {
+    "active_bank": 0,
+    "host_bank": 0,
+    "pending_bank": 0,
+    "pending_valid": false,
+    "ready": [
+      true,
+      false
+    ],
+    "running": true,
+    "host_write_allowed": false,
+    "lengths": [
+      8192,
+      8192
+    ],
+    "block_ids": [
+      1001,
+      1000
+    ],
+    "crc32": [
+      2329984290,
+      768054331
+    ],
+    "switch_count": 1024,
+    "current_block_id": 1001,
+    "last_switch_tick": 49826495635,
+    "write_rejected": 0,
+    "stream_errors": 0,
+    "upload_block_ids": [
+      1001,
+      1000
+    ],
+    "upload_next": [
+      0,
+      0
+    ],
+    "dma": {
+      "active": false,
+      "done": true,
+      "error": false,
+      "target_bank": 0,
+      "received_samples": 8192,
+      "computed_crc32": 2329984290,
+      "completed_transfers": 1027,
+      "errors": 0
+    }
+  },
+  "statistics": {
+    "frequency_records": 477318,
+    "burst_records": 3730,
+    "maximum_latency_us": 141.976,
+    "last_frequency_id": 477317,
+    "frequency_id_gaps": 0,
+    "frequency_gap_examples": [],
+    "udp_missing_packet_count": 0,
+    "recovered_malformed_packets": 0
+  },
+  "diagnostics": {
+    "snapshot_sequence": 3,
+    "issued_samples": 3910189056,
+    "accepted_samples": 3910189056,
+    "input_rejected": 0,
+    "input_fifo_high_water": 12,
+    "fft_snapshot_arrival_tick": 49892316774,
+    "fft_input_samples": 3910189056,
+    "fft_output_samples": 3910189056,
+    "fft_output_windows": 477318,
+    "result_queue_rejected": 0,
+    "input_underreads": 0,
+    "semantics": "Native-domain snapshots at different instants; conservation checked only after STOPPED/drain"
+  },
+  "source_ticks": 49892316764,
+  "input_samples": 3910189056,
+  "completed_windows": 477318,
+  "hardware_max_latency_us": 141.976,
+  "hardware_max_publish_latency_us": 142.256,
+  "throughput_semantics": "PC UDP payload into DDR plus commit DMA and activation wait; FPGA consumes active bank independently at 125 MSPS"
+}

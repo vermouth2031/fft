@@ -26,6 +26,9 @@ reports/** -text -whitespace
 data/** -text -whitespace
 vendor/boards/** -text
 
+# Keep the r17 SD-verified package byte-identical to its SHA-256 manifest.
+releases/phase8_20261004_r17_sd_verified/** -text -whitespace
+
 # Keep the original reference generator byte-identical to its build provenance.
 tests/generate_iq_vectors.py -text
 
