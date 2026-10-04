@@ -149,27 +149,6 @@ class Client:
                     if reply[0]!=(kind|0x80000000):raise ValueError('Wrong command response type')
                     return reply[2]
         raise TimeoutError('No command reply from board; check firmware, board IP, cable and local network configuration')
-    def request_batch(self,commands):
-        pending={};results=[None]*len(commands)
-        for index,(kind,payload) in enumerate(commands):
-            self.command_sequence=(self.command_sequence+1)&0xffffffff
-            seq=self.command_sequence
-            packet=struct.pack('<4I',MAGIC,kind,seq,len(payload))+struct.pack('<'+'I'*len(payload),*payload)
-            pending[seq]=(index,kind)
-            try:self.sock.send(packet)
-            except OSError as error:
-                self.reopen_after_link_error(error);self.sock.send(packet)
-        deadline=time.monotonic()+1
-        while pending and time.monotonic()<deadline:
-            try:reply=self.receive()
-            except socket.timeout:continue
-            if not reply or reply[1] not in pending:continue
-            index,kind=pending.pop(reply[1])
-            if reply[0]==0xffffffff:raise RuntimeError(f'Board rejected command {kind}: error {reply[2][0]}')
-            if reply[0]!=(kind|0x80000000):raise ValueError('Wrong command response type')
-            results[index]=reply[2]
-        if pending:raise TimeoutError(f'No replies for batched commands: {list(pending)}')
-        return results
     def read(self,offset,count=1):return self.request(1,[offset],count)
     def control(self,value):return self.request(2,[value])
     def hardware_info(self,detector='threshold'):
@@ -244,32 +223,20 @@ class Client:
             result['dma']=dict(active=bool(dma&1),done=bool(dma&2),error=bool(dma&4),target_bank=(dma>>3)&1,
                 received_samples=values[18],computed_crc32=values[19],completed_transfers=values[20],errors=values[21])
         return result
-    def upload_stream_block(self,data,bank,block_id,arm=True,chunk_words=MAX_STREAM_CHUNK_WORDS,progress=None,pipeline=4):
+    def upload_stream_block(self,data,bank,block_id,arm=True,chunk_words=MAX_STREAM_CHUNK_WORDS,progress=None):
         if bank not in (0,1):raise ValueError('bank must be 0 or 1')
         if not 1<=block_id<=0xffffffff:raise ValueError('block_id must be 1..0xffffffff')
         if len(data)%4 or len(data)//4 not in (8192,16384,24576,32768):
             raise ValueError('Streaming block must contain 8192/16384/24576/32768 I16/Q16 samples')
         if not 1<=chunk_words<=MAX_STREAM_CHUNK_WORDS:raise ValueError(f'chunk_words must be 1..{MAX_STREAM_CHUNK_WORDS}')
-        if not 1<=pipeline<=16:raise ValueError('pipeline must be 1..16')
         total_words=len(data)//4
-        for batch_start in range(0,total_words,chunk_words*pipeline):
-            commands=[];expectations=[]
-            for offset in range(batch_start,min(total_words,batch_start+chunk_words*pipeline),chunk_words):
-                chunk=data[offset*4:min(total_words,offset+chunk_words)*4]
-                iq_words=struct.unpack('<'+'I'*(len(chunk)//4),chunk)
-                commands.append((6,[bank,block_id,offset,zlib.crc32(chunk)&0xffffffff,*iq_words]))
-                expectations.append(offset+len(iq_words))
-            try:replies=self.request_batch(commands)
-            except Exception:
-                try:self.abort_stream_upload(bank)
-                except Exception:pass
-                raise
-            for reply,expected in zip(replies,expectations):
-                if len(reply)!=1 or reply[0]!=expected:
-                    try:self.abort_stream_upload(bank)
-                    except Exception:pass
-                    raise RuntimeError(f'Board upload progress mismatch: {reply} != {expected}')
-                if progress:progress(expected,total_words)
+        for offset in range(0,total_words,chunk_words):
+            chunk=data[offset*4:min(total_words,offset+chunk_words)*4]
+            iq_words=struct.unpack('<'+'I'*(len(chunk)//4),chunk)
+            reply=self.request(6,[bank,block_id,offset,zlib.crc32(chunk)&0xffffffff,*iq_words])
+            expected=offset+len(iq_words)
+            if len(reply)!=1 or reply[0]!=expected:raise RuntimeError(f'Board upload progress mismatch: {reply} != {expected}')
+            if progress:progress(expected,total_words)
         crc=zlib.crc32(data)&0xffffffff
         reply=self.request(7,[bank,block_id,total_words,crc,1 if arm else 0])
         if len(reply)!=1:raise ValueError('Unexpected streaming commit response')

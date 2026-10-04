@@ -431,41 +431,6 @@ try:
             dma_text=repaired_dma
             dma_source.write_text(dma_text,encoding='utf-8')
             generated.append(dma_source)
-        rx_watchdog_marker='IQ_NO_SYS_PERIODIC_RX_WATCHDOG'
-        if '#include "xtime_l.h"' in dma_text:
-            dma_text=dma_text.replace('#include "xtime_l.h"','#include "xiltimer.h"',1)
-            dma_source.write_text(dma_text,encoding='utf-8')
-            generated.append(dma_source)
-        if rx_watchdog_marker not in dma_text:
-            include_marker='#include "xstatus.h"'
-            if '#include "xiltimer.h"' not in dma_text:
-                if include_marker not in dma_text:
-                    raise RuntimeError(f'GEM RX watchdog include point missing in {dma_source}')
-                dma_text=dma_text.replace(include_marker,include_marker+'\n#include "xiltimer.h"',1)
-            rx_poll='''\tif (gigeversion <= 2) {
-\t\t\tresetrx_on_no_rxdata(xemacpsif);
-\t}'''
-            rx_periodic='''\tif (gigeversion <= 2) {
-#if NO_SYS
-\t\t/* IQ_NO_SYS_PERIODIC_RX_WATCHDOG */
-\t\t/* The rev-2 workaround reads clear-on-read counters; bound its cadence. */
-\t\tstatic XTime rx_watchdog_last;
-\t\tXTime rx_watchdog_now;
-\t\tXTime_GetTime(&rx_watchdog_now);
-\t\tif ((rx_watchdog_now - rx_watchdog_last) >=
-\t\t    ((XTime)XPAR_CPU_CORE_CLOCK_FREQ_HZ / 2U)) {
-\t\t\trx_watchdog_last = rx_watchdog_now;
-\t\t\tresetrx_on_no_rxdata(xemacpsif);
-\t\t}
-#else
-\t\tresetrx_on_no_rxdata(xemacpsif);
-#endif
-\t}'''
-            if rx_poll not in dma_text:
-                raise RuntimeError(f'GEM revision-2 RX watchdog call missing in {dma_source}')
-            dma_text=dma_text.replace(rx_poll,rx_periodic,1)
-            dma_source.write_text(dma_text,encoding='utf-8')
-            generated.append(dma_source)
         irq_marker='IQ_NO_SYS_POLLING_GEM_IRQ_GUARD'
         if irq_marker not in dma_text:
             # Vitis changes whitespace around this generated block between

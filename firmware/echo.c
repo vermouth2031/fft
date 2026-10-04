@@ -14,6 +14,8 @@
 #include "lwip/pbuf.h"
 #include "lwip/ip_addr.h"
 #define BASE 0x40000000U
+#define MAX_STREAM_IQ_WORDS 360U
+#define RX_WORDS (8U + MAX_STREAM_IQ_WORDS)
 #define MAGIC 0x49515531U
 #define PORT 5001
 #define DETECTOR_VERSION 0x00010001U
@@ -38,7 +40,7 @@ static uint32_t stream_sequence, last_command;
 static int have_last;
 static uint8_t next_result_queue;
 static uint8_t cached[1044];static uint16_t cached_length;
-static uint32_t rx[261],tx[384];
+static uint32_t rx[RX_WORDS],tx[384];
 static uint32_t upload_block[2],upload_next[2],upload_crc_state[2]={0xffffffffU,0xffffffffU};
 static uint32_t dma_buffer[2][32768] __attribute__((aligned(64)));
 extern void timer_callback(void);
@@ -97,9 +99,11 @@ static err_t send_bytes(const void *data,uint16_t length){
         struct pbuf *p=pbuf_alloc(PBUF_TRANSPORT,length,PBUF_POOL);
         if(!p)continue;
         err_t e=pbuf_take(p,data,length);
-        if(e==ERR_OK)e=udp_sendto_blocking(pcb,p,&peer,peer_port);
+        /* The GEM driver holds its own pbuf reference until TX completion. */
+        if(e==ERR_OK)e=udp_sendto(pcb,p,&peer,peer_port);
         pbuf_free(p);
-        if(e==ERR_OK)result=ERR_OK;
+        if(e==ERR_OK)return ERR_OK;
+        result=e;
     }
     return result;
 }
@@ -200,7 +204,7 @@ static void receive(void *arg,struct udp_pcb *up,struct pbuf *p,const ip_addr_t 
         uint32_t bank=rx[4],block=rx[5],offset=rx[6],packet_crc=rx[7];
         uint32_t words=count>=4?count-4:0;
         if(rd(4)<STREAM_VERSION)error=4;
-        else if(count<5||count>257||bytes!=16+4*count||bank>1||offset>32768-words)error=1;
+        else if(count<5||count>4U+MAX_STREAM_IQ_WORDS||bytes!=16+4*count||bank>1||offset>32768-words)error=1;
         else if(crc32_bytes(&rx[8],4*words)!=packet_crc)error=6;
         else{
             uint32_t status=rd(0x188);

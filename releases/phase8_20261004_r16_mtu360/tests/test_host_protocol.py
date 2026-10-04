@@ -64,11 +64,6 @@ class ProtocolTests(unittest.TestCase):
             h.export(d,[record()],[],{'source':'Synthetic protocol unit test'})
             self.assertEqual((Path(d)/'frequency.bin').read_bytes(),record())
             self.assertEqual(json.loads((Path(d)/'capture.json').read_text())['source'],'Synthetic protocol unit test')
-    def test_request_batch_correlates_reordered_replies(self):
-        def reply(seq,value):return struct.pack('<5I',h.MAGIC,0x80000006,seq,1,value)
-        c=client([reply(102,8),reply(101,4)])
-        self.assertEqual(c.request_batch([(6,[1,2]),(6,[3,4])]),[(4,),(8,)])
-        self.assertEqual([struct.unpack_from('<I',p,8)[0] for p in c.sock.sent],[101,102])
     def test_stream_status_decode(self):
         c=h.Client.__new__(h.Client)
         values=[0b11111010,8192,32768,10,11,0x12,0x34,7,11,0x89abcdef,1,2,4,10,4096,11,8192]
@@ -86,23 +81,19 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(status['dma']['target_bank'],1);self.assertEqual(status['dma']['received_samples'],8192)
         self.assertEqual(status['dma']['computed_crc32'],0x12345678);self.assertEqual(status['dma']['completed_transfers'],7)
     def test_stream_upload_chunk_crc_and_commit(self):
-        c=h.Client.__new__(h.Client);requests=[];batch_sizes=[]
+        c=h.Client.__new__(h.Client);requests=[]
         def request(kind,payload):
             requests.append((kind,payload))
+            if kind==6:return (payload[2]+len(payload)-4,)
             if kind==7:return (0x31,)
             if kind==8:return tuple([0]*17)
             raise AssertionError(kind)
         c.request=request
-        def request_batch(commands):
-            batch_sizes.append(len(commands));requests.extend(commands)
-            return [(payload[2]+len(payload)-4,) for kind,payload in commands]
-        c.request_batch=request_batch
         data=b''.join(struct.pack('<I',n) for n in range(8192))
         crc,status=c.upload_stream_block(data,1,23,arm=True)
         chunks=[p for kind,p in requests if kind==6]
         self.assertEqual(len(chunks),23);self.assertEqual(chunks[0][:3],[1,23,0])
         self.assertEqual(chunks[-1][2],7920)
-        self.assertEqual(batch_sizes,[4,4,4,4,4,3])
         for chunk in chunks:
             raw=struct.pack('<'+'I'*(len(chunk)-4),*chunk[4:])
             self.assertEqual(chunk[3],zlib.crc32(raw)&0xffffffff)

@@ -127,8 +127,6 @@ def main():
         if stats['frequency_id_gaps'] or stats['udp_missing_packet_count'] or stats['frequency_records']!=counters[4] or stats['maximum_latency_us']>2000:
             raise AssertionError(f'record integrity failed: completed={counters[4]} stats={stats}')
         average_upload=sum(uploads)/len(uploads);effective_mbps=a.samples*32/1e6/average_upload
-        report.update(average_upload_seconds=average_upload,maximum_upload_seconds=max(uploads),
-            effective_average_upload_mbps=effective_mbps,completed_transitions=len(uploads))
         if effective_mbps<a.minimum_upload_mbps:raise AssertionError(f'upload throughput {effective_mbps:.3f} Mbit/s below {a.minimum_upload_mbps:.3f}')
         report.update(status='PASS',finished_at=now(),final_status=final,statistics=stats,diagnostics=diag,
             source_ticks=counters[0]|counters[1]<<32,input_samples=counters[2]|counters[3]<<32,

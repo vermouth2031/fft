@@ -22,6 +22,7 @@ from phase4_identity import check_identity
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--board", default="192.168.1.10")
+    parser.add_argument("--source-ip", help="Local IPv4 address for the board NIC; overrides IQ_CLIENT_SOURCE_IP")
     parser.add_argument("--out", type=Path, help="Separate recovery deployment record; preserve existing campaign bindings")
     parser.add_argument("--xsdb", type=Path, default=Path(r"D:\VivadoMM\2026.1\Vitis\bin\xsdb.bat"))
     args = parser.parse_args()
@@ -47,7 +48,7 @@ def main():
             raise RuntimeError(f"JTAG programming failed; inspect {log}")
         deadline = time.monotonic() + 30
         while True:
-            client = Client(args.board)
+            client = Client(args.board, source_ip=args.source_ip)
             try:
                 info = client.hardware_info("digital-zero")
                 check_identity(info)

@@ -246,9 +246,7 @@ try:
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_dhcp',value='false')
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_lwip_dhcp_does_acd_check',value='false')
     domain.set_config(option='lib',lib_name='lwip220',param='lwip220_pbuf_pool_size',value='2048')
-    # Keep NO_SYS receive callbacks responsive; the GEM driver retains each
-    # submitted pbuf until TX completion, and the main loop polls TX cleanup.
-    domain.set_config(option='lib',lib_name='lwip220',param='lwip220_udp_block_tx',value='false')
+    domain.set_config(option='lib',lib_name='lwip220',param='lwip220_udp_block_tx',value='true')
     # The lwip_echo_server template requires the interval timer to be enabled
     # while the application component is created.  Create that component
     # first, then disable the fragile interrupt-backed path before the final
@@ -331,7 +329,7 @@ try:
         if tx_poll_marker not in input_text:
             tx_poll_call='''#if NO_SYS
 	/* IQ_NO_SYS_POLLING_TX_CLEANUP */
-	/* Reclaim completed TX descriptors while GEM IRQs are off. */
+	/* Blocking UDP TX waits for this polling cleanup when GEM IRQs are off. */
 	struct xemac_s *poll_xemac = (struct xemac_s *)netif->state;
 	xemacpsif_s *poll_xemacpsif = (xemacpsif_s *)poll_xemac->state;
 	xemacps_process_sent_bds(poll_xemacpsif,
@@ -429,41 +427,6 @@ try:
                                             'void emacps_recv_handler(void *arg)',1)
         if repaired_dma != dma_text:
             dma_text=repaired_dma
-            dma_source.write_text(dma_text,encoding='utf-8')
-            generated.append(dma_source)
-        rx_watchdog_marker='IQ_NO_SYS_PERIODIC_RX_WATCHDOG'
-        if '#include "xtime_l.h"' in dma_text:
-            dma_text=dma_text.replace('#include "xtime_l.h"','#include "xiltimer.h"',1)
-            dma_source.write_text(dma_text,encoding='utf-8')
-            generated.append(dma_source)
-        if rx_watchdog_marker not in dma_text:
-            include_marker='#include "xstatus.h"'
-            if '#include "xiltimer.h"' not in dma_text:
-                if include_marker not in dma_text:
-                    raise RuntimeError(f'GEM RX watchdog include point missing in {dma_source}')
-                dma_text=dma_text.replace(include_marker,include_marker+'\n#include "xiltimer.h"',1)
-            rx_poll='''\tif (gigeversion <= 2) {
-\t\t\tresetrx_on_no_rxdata(xemacpsif);
-\t}'''
-            rx_periodic='''\tif (gigeversion <= 2) {
-#if NO_SYS
-\t\t/* IQ_NO_SYS_PERIODIC_RX_WATCHDOG */
-\t\t/* The rev-2 workaround reads clear-on-read counters; bound its cadence. */
-\t\tstatic XTime rx_watchdog_last;
-\t\tXTime rx_watchdog_now;
-\t\tXTime_GetTime(&rx_watchdog_now);
-\t\tif ((rx_watchdog_now - rx_watchdog_last) >=
-\t\t    ((XTime)XPAR_CPU_CORE_CLOCK_FREQ_HZ / 2U)) {
-\t\t\trx_watchdog_last = rx_watchdog_now;
-\t\t\tresetrx_on_no_rxdata(xemacpsif);
-\t\t}
-#else
-\t\tresetrx_on_no_rxdata(xemacpsif);
-#endif
-\t}'''
-            if rx_poll not in dma_text:
-                raise RuntimeError(f'GEM revision-2 RX watchdog call missing in {dma_source}')
-            dma_text=dma_text.replace(rx_poll,rx_periodic,1)
             dma_source.write_text(dma_text,encoding='utf-8')
             generated.append(dma_source)
         irq_marker='IQ_NO_SYS_POLLING_GEM_IRQ_GUARD'
