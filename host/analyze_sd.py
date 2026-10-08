@@ -2,7 +2,11 @@
 from pathlib import Path
 import argparse,json,struct,math,shutil
 from iq_client import export,decode_record
-from build_rates import SAMPLE_RATE_HZ
+from build_rates import SAMPLE_RATE_HZ, FFT_LENGTH as N
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tests"))
+import numpy as np
+from generate_iq_vectors import burst_reference
 ROOT=Path(__file__).resolve().parents[1]
 
 def analyze(run,out,*,simulation_fixture=False):
@@ -16,25 +20,29 @@ def analyze(run,out,*,simulation_fixture=False):
         if meta.get('detector_mode','threshold')!='threshold':
             raise ValueError('This 16-case SD oracle is threshold-only; use the digital-zero interval reference for this capture')
         freq=(d/'FREQ.BIN').read_bytes();burst=(d/'BURST.BIN').read_bytes()
-        assert len(freq)==512 and len(burst)%64==0,(c,'record file length')
+        samples=meta['input_samples']
+        assert samples>0 and samples%N==0
+        assert len(freq)==128*(samples//N) and len(burst)%64==0,(c,'record file length')
         assert meta['source']==expected_source and meta['capture_complete'],(c,'capture did not complete')
-        assert not meta['error_status'] and meta['input_samples']==32768,(c,'hardware counters')
+        assert not meta['error_status'] and meta['input_samples']==(4*N if simulation_fixture else 32768),(c,'hardware counters')
         fr=[freq[i:i+128] for i in range(0,len(freq),128)];br=[burst[i:i+64] for i in range(0,len(burst),64)]
+        iq_array=np.fromfile(ROOT/'data/vectors'/(g['name']+'.bin'),dtype='<i2').reshape(-1,2)[:samples]
+        g=dict(g,bursts=burst_reference(iq_array))
         assert len(br)==len(g['bursts']),(c,'burst count')
         for n,r in enumerate(fr):
             a=decode_record(r,'frequency');e=g['windows'][n]
             assert a['epoch']==meta['epoch'] and a['config_id']==meta['config_id'],(c,n,'record association')
-            assert a['sample_rate_hz']==SAMPLE_RATE_HZ and a['fft_length']==8192 and a['window']==g['mode']
+            assert a['sample_rate_hz']==SAMPLE_RATE_HZ and a['fft_length']==N and a['window']==g['mode']
             assert a['sequence']==n
             mapping={'id':'window_id','total_spectrum_power':'total','peak_spectrum_power':'peak_power',
               'q_peak':'q_peak','q_low':'q_low','q_high':'q_high','peak_hz':'f_peak_hz','low_hz':'f_low_hz',
               'high_hz':'f_high_hz','bandwidth_hz':'bandwidth_hz','bandcenter_hz':'center_hz','raw_energy':'energy'}
             for target,source in mapping.items():assert a[target]==e[source],(c,n,target,a[target],e[source])
             assert a['peak_codes']*65536==e['peak_uq16_16'] and a['rms_codes']*65536==e['rms_uq16_16']
-            flags=(1 if e['total']==0 else 0)|(32 if e['total'] and e['q_low']==e['q_high'] else 0)|(16 if e['total'] and (e['q_low']==0 or e['q_high']==8191) else 0)
-            assert a['flags_raw']==flags and a['first_sample']==8192*n
+            flags=(1 if e['total']==0 else 0)|(32 if e['total'] and e['q_low']==e['q_high'] else 0)|(16 if e['total'] and (e['q_low']==0 or e['q_high']==N-1) else 0)
+            assert a['flags_raw']==flags and a['first_sample']==N*n
             assert 0<a['latency_us']<=2000 and a['done_tick']-a['start_tick']==a['latency_cycles']
-        iq=list(struct.iter_unpack('<hh',(ROOT/'data/vectors'/(g['name']+'.bin')).read_bytes()))
+        iq=iq_array.tolist()
         for n,r in enumerate(br):
             a=decode_record(r,'burst');e=g['bursts'][n];start=e['start'];end=e['end_exclusive'] if e['complete'] else len(iq)
             assert a['detector_mode']=='threshold',(c,n,'wrong detector for the SD oracle')
@@ -55,7 +63,7 @@ def analyze(run,out,*,simulation_fixture=False):
     report=dict(source=expected_source,board_tested=not simulation_fixture,run=str(run.resolve()),status='PASS',
         cases=reports,numerical_reference='AMD bit-accurate FFT and integer time-domain model')
     (out/'board_validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(('SD_PARSER_SIMULATION_PASS' if simulation_fixture else 'SD_BOARD_COMPARISON_PASS')+': 16 cases / 64 frequency windows')
+    print(('SD_PARSER_SIMULATION_PASS' if simulation_fixture else 'SD_BOARD_COMPARISON_PASS')+f': 16 cases / FFT length {N}')
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('--out',type=Path,required=True)

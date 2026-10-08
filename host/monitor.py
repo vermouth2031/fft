@@ -23,7 +23,7 @@ class Monitor:
         root.geometry(f'{min(1240,root.winfo_screenwidth()-80)}x{min(920,root.winfo_screenheight()-100)}');root.minsize(900,720)
         self.messages=queue.Queue();self.worker=None;self.stop_event=threading.Event()
         self.board=tk.StringVar(value='192.168.1.10')
-        self.vector=tk.StringVar(value=str(ROOT/'data/vectors/qpsk_sps4.bin'))
+        self.vector=tk.StringVar(value=str(ROOT/'data/replay_vectors/qpsk_sps4.bin'))
         self.window=tk.StringVar(value='hann');self.seconds=tk.StringVar(value='10')
         self.detector=tk.StringVar(value='threshold');self.gap_min=tk.StringVar(value='32')
         self.threshold_profile=tk.StringVar(value='legacy');self.threshold_policy=tk.StringVar(value='fixed')

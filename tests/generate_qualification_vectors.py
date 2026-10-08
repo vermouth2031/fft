@@ -18,7 +18,7 @@ def validate_case(case):
         raise ValueError('Case id must contain lowercase letters, digits and underscores')
     if case['sample_rate_hz'] != FS or case['fft_length'] != N:
         raise ValueError('Sample rate and FFT length must match the selected build profile')
-    if case['samples'] not in (8192, 16384, 24576, 32768) or case['replay'] not in ('finite','cyclic'):
+    if case['samples'] not in range(N,32769,N) or case['replay'] not in ('finite','cyclic'):
         raise ValueError('Only whole-window replay up to 32768 pairs is supported')
     if case['replay']=='cyclic' and (case.get('seconds') not in (10,60) or case.get('seam')!='quiet'):
         raise ValueError('Cyclic qualification requires an explicit quiet seam and 10/60 seconds')
@@ -40,7 +40,7 @@ def validate_case(case):
     if len(case['offset_iq'])!=2 or any(type(v) is not int for v in case['offset_iq']):
         raise ValueError('DC offset must be two integer codes')
     signal = case['signal']
-    if signal['kind'] not in ('tone', 'two-tone', 'zero', 'constant','qpsk','rrc-qpsk'):
+    if signal['kind'] not in ('tone', 'two-tone', 'zero', 'constant','qpsk','rrc-qpsk','ofdm'):
         raise ValueError('Unsupported waveform')
     intervals = case['design_intervals']
     if signal['kind'] == 'zero':
@@ -75,7 +75,10 @@ def waveform_details(case):
     rng=np.random.default_rng(case['seed'])
     if signal['kind'] != 'zero':
         for start,end in case['design_intervals']:
-            if signal['kind']=='constant':
+            if signal['kind']=='ofdm':
+                from phase9_ofdm import waveform as ofdm_waveform
+                burst=ofdm_waveform(signal,case['seed'],end-start)
+            elif signal['kind']=='constant':
                 burst=np.full(end-start,complex(*signal['iq']))
             elif signal['kind'] in ('qpsk','rrc-qpsk'):
                 sps=signal['sps'];count=(end-start)//sps

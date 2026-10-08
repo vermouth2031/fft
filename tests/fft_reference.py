@@ -15,9 +15,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'host'))
-from build_rates import SAMPLE_RATE_HZ
-N, FS = 8192, SAMPLE_RATE_HZ
-SCALE = (3, 2, 2, 2, 2, 2, 1)
+from build_rates import SAMPLE_RATE_HZ, FFT_LENGTH, FFT_LOG2, FFT_SCALING
+N, FS = FFT_LENGTH, SAMPLE_RATE_HZ
+SCALE = FFT_SCALING
 
 
 class Generics(C.Structure):
@@ -54,7 +54,7 @@ def hz(q):
 def checked_iq(iq):
     values = np.asarray(iq)
     if values.shape != (N, 2) or values.dtype.kind not in 'iu':
-        raise ValueError('Reference requires exactly 8192 integer I/Q pairs')
+        raise ValueError(f'Reference requires exactly {N} integer I/Q pairs')
     if np.any(values < -32768) or np.any(values > 32767):
         raise ValueError('I/Q outside int16 range; clipping is not permitted')
     return values.astype(np.int64)
@@ -85,7 +85,7 @@ class FFTReference:
         if self.hann.shape != (N,) or np.any(self.hann < 0) or np.any(self.hann > 131072):
             raise ValueError('Invalid Hann coefficients')
         dll = model_dir / 'libIp_xfft_v9_1_bitacc_cmodel.dll'
-        self.identity = dict(oracle='AMD xfft v9.1 bit-accurate C model', nfft=13,
+        self.identity = dict(oracle='AMD xfft v9.1 bit-accurate C model', nfft=FFT_LOG2,
             sample_rate_hz=FS, input_width=24, twiddle_width=18, scaling_schedule=list(SCALE),
             rounding='convergent', archive_sha256=archive_hash, dll_sha256=digest(dll),
             archive_path=str(archive.resolve()), dll_path=str(dll.resolve()),
@@ -100,10 +100,10 @@ class FFTReference:
             self.simulate = self.lib.xilinx_ip_xfft_v9_1_bitacc_simulate
             self.simulate.argtypes = [C.c_void_p, Inputs, C.POINTER(Outputs)]
             self.simulate.restype = C.c_int
-            self.state = self.create(Generics(13, 3, 0, 0, 24, 18, 1, 0, 1, 1, 0))
+            self.state = self.create(Generics(FFT_LOG2, 3, 0, 0, 24, 18, 1, 0, 1, 1, 0))
             if not self.state:
                 raise RuntimeError('AMD C model initialization failed')
-            self.scale = (C.c_int * 7)(*SCALE)
+            self.scale = (C.c_int * len(SCALE))(*SCALE)
         except Exception:
             self.close()
             raise
@@ -134,7 +134,7 @@ class FFTReference:
         re = np.ascontiguousarray(x[:, 0] / 2**23, dtype=np.float64)
         im = np.ascontiguousarray(x[:, 1] / 2**23, dtype=np.float64)
         yr, yi = np.zeros(N), np.zeros(N)
-        inp = Inputs(13, re.ctypes.data_as(DP), N, im.ctypes.data_as(DP), N, self.scale, 7, 1)
+        inp = Inputs(FFT_LOG2, re.ctypes.data_as(DP), N, im.ctypes.data_as(DP), N, self.scale, len(SCALE), 1)
         out = Outputs(yr.ctypes.data_as(DP), N, yi.ctypes.data_as(DP), N, 0, 0)
         code = self.simulate(self.state, inp, C.byref(out))
         if code or out.overflow:
@@ -155,5 +155,5 @@ class FFTReference:
             f_low_hz=hz(lo) if total else 0, f_high_hz=hz(hi) if total else 0,
             bandwidth_hz=((hi-lo)*FS+N//2)//N if total else 0,
             center_hz=signed_round((lo+hi-N)*FS, 2*N) if total else 0,
-            energy=energy, peak_uq16_16=math.isqrt(pp << 32), rms_uq16_16=math.isqrt(energy << 19))
-        return result, packed, power.reshape(1024, 8).max(axis=1)
+            energy=energy, peak_uq16_16=math.isqrt(pp << 32), rms_uq16_16=math.isqrt(energy << (32-FFT_LOG2)))
+        return result, packed, power.reshape(1024, N//1024).max(axis=1)

@@ -17,6 +17,9 @@ def check_identity(hardware, root=ROOT):
     expected = {key: profile[key] for key in
                 ('hardware_version', 'sample_rate_hz', 'timestamp_clock_hz',
                  'fft_clock_hz', 'record_format_version', 'scan_lanes')}
+    if 'fft_length' in profile:
+        expected.update(fft_length=profile['fft_length'],replay_bank_samples=profile['replay_bank_samples'],
+                        frequency_ring_records=profile['frequency_records'],snapshot_group=profile['fft_length']//1024)
     expected['hardware_capabilities'] = profile['capabilities']
     expected['build_id'] = identity['full_input_sha256'][:32]
     for key, value in expected.items():

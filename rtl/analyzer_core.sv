@@ -2,7 +2,7 @@
 module analyzer_core #(
  parameter integer SAMPLE_RATE_HZ=iq_build_config::SAMPLE_RATE_HZ)( input wire src_clk,fft_clk,input wire rst,
  input wire valid,input wire [31:0] iq,input wire finish,input wire [63:0] tick,
- input wire hann,input wire [12:0] roi_low,roi_high,input wire [35:0] ton,toff,
+ input wire hann,input wire [iq_build_config::FFT_LOG2-1:0] roi_low,roi_high,input wire [35:0] ton,toff,
  input wire [15:0] kon,koff,input wire [31:0] max_burst,epoch,config_id,
  input wire detector_mode,input wire [15:0] gap_min,
  output wire ready,output wire fft_reset,output wire freq_valid,output wire [1023:0] freq_record,
@@ -31,8 +31,9 @@ module analyzer_core #(
  end
  wire frst=core_reset_distributed;
  assign fft_reset=frst;
- wire [26:0] fft_config;
- xpm_cdc_array_single #(.WIDTH(27),.DEST_SYNC_FF(3),.SRC_INPUT_REG(1),.INIT_SYNC_FF(1)) config_cdc(
+ localparam integer LOGN=iq_build_config::FFT_LOG2;
+ wire [2*LOGN:0] fft_config;
+ xpm_cdc_array_single #(.WIDTH(1+2*LOGN),.DEST_SYNC_FF(3),.SRC_INPUT_REG(1),.INIT_SYNC_FF(1)) config_cdc(
    .src_clk(src_clk),.src_in({hann,roi_low,roi_high}),.dest_clk(fft_clk),.dest_out(fft_config));
  wire [31:0] fifo_data;
  wire full,empty,wr_busy,rd_busy,fft_ready,configured;
@@ -82,7 +83,7 @@ module analyzer_core #(
  .wr_data_count(input_occupancy),.rst(rst),.wr_clk(src_clk),.wr_en(accepted),.din(iq),.full(full),.wr_rst_busy(wr_busy),
  .rd_clk(fft_clk),.rd_en(fft_ready&&!empty&&!rd_busy),.dout(fifo_data),.empty(empty),.rd_rst_busy(rd_busy),
  .sleep(1'b0),.injectsbiterr(1'b0),.injectdbiterr(1'b0));
- window_fft transform(.clk(fft_clk),.rst(frst),.hann(fft_config[26]),.iq(fifo_data),.valid(!empty&&!rd_busy),.ready(fft_ready),
+ window_fft transform(.clk(fft_clk),.rst(frst),.hann(fft_config[2*LOGN]),.iq(fifo_data),.valid(!empty&&!rd_busy),.ready(fft_ready),
  .fft_data(fft_data),.fft_user(fft_user),.fft_valid(fft_valid),.fft_last(fft_last),.configured(configured),.events(fft_events));
  wire raw_window_valid,raw_burst_valid;
  wire [191:0] raw_window,ctx_data;wire [287:0] raw_burst,burst_data;
@@ -98,7 +99,7 @@ module analyzer_core #(
  (* ASYNC_REG="TRUE" *) reg [1:0] snap_sync;
  always @(posedge fft_clk) if(frst)snap_sync<=0;else snap_sync<={snap_sync[0],snap_request};
  spectrum_measure sm(.clk(fft_clk),.rst(frst),.data(fft_data),.user(fft_user),.valid(fft_valid),.last(fft_last),
- .roi_low(fft_config[25:13]),.roi_high(fft_config[12:0]),.result_valid(raw_freq_valid),.result_data(raw_freq),.fault(spec_fault),
+ .roi_low(fft_config[2*LOGN-1:LOGN]),.roi_high(fft_config[LOGN-1:0]),.result_valid(raw_freq_valid),.result_data(raw_freq),.fault(spec_fault),
  .snap_request(snap_sync[1]),.snap_we(snap_we),.snap_addr(snap_addr),.snap_data(snap_data),.snap_done(snap_done),.snap_window(snap_window));
  xpm_fifo_async #(.FIFO_MEMORY_TYPE("distributed"),.FIFO_WRITE_DEPTH(16),.WRITE_DATA_WIDTH(256),.READ_DATA_WIDTH(256),
  .READ_MODE("fwft"),.FIFO_READ_LATENCY(0),.CDC_SYNC_STAGES(2),.DOUT_RESET_VALUE("0"),.USE_ADV_FEATURES("0000")) freq_cdc(

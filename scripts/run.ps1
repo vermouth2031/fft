@@ -25,9 +25,10 @@ if($Action -in @('All','Reference')) {
  Run-Python -Arguments @('tests/make_golden.py')
  Run-Python -Arguments @('tests/make_unit_vectors.py')
  Run-Python -Arguments @('tests/make_measurement_vectors.py')
+ Run-Python -Arguments @('scripts/phase4_build_config.py')
 }
 if($Action -in @('All','Sim','Hardware')) {
- if(-not(Test-Path -LiteralPath 'build\vivado\iq_analyzer.xpr')){Run-Vivado 'scripts/create_fft.tcl'}
+ if(-not(Test-Path -LiteralPath 'build\vivado16k\iq_analyzer.xpr')){Run-Vivado 'scripts/create_fft.tcl'}
  Run-Python -Arguments @('scripts/verify_fft_config.py')
 }
 if($Action -in @('All','Sim')) {
@@ -38,16 +39,11 @@ if($Action -in @('All','Sim')) {
  Run-Python -Arguments @('tests/generate_digital_burst_vectors.py')
  Run-Vivado 'scripts/sim_digital_burst.tcl'
  Run-Vivado 'scripts/sim_spectrum_edges.tcl'
- Run-Vivado 'scripts/sim_core.tcl'
+ Run-Python -Arguments @('scripts/sim_core_parallel.py')
  Run-Python -Arguments @('tests/check_core_results.py')
- Run-Python -Arguments @('scripts/analyze_latency.py','build/vivado/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv','--out','reports/phase2_latency_validation.json')
+ Run-Python -Arguments @('scripts/analyze_latency.py','build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv','--out','reports/phase2_latency_validation.json')
  Run-Vivado 'scripts/sim_axi.tcl'
- Run-Python -Arguments @('tests/check_host.py')
- Run-Python -Arguments @('tests/test_host_protocol.py')
- Run-Python -Arguments @('tests/test_frame_length_reference.py')
- Run-Python -Arguments @('tests/test_detector_host.py')
- Run-Python -Arguments @('tests/check_sd_parser.py')
- Run-Python -Arguments @('tests/test_qualification.py')
+ Run-Python -Arguments @('scripts/phase9_python_validation.py')
  Run-Python -Arguments @('scripts/record_build_stage.py','simulation')
 }
 if($Action -in @('All','Hardware')) {Run-Vivado 'scripts/build_board.tcl'}

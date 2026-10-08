@@ -44,7 +44,7 @@ module tb_digital_burst;
      end
      @(negedge clk);valid=0;finish=!simultaneous_finish;
      @(negedge clk);finish=0;repeat(20)@(negedge clk);
-     if(count!=expected_count||samples!=sample_count||wcount!=sample_count/8192)
+     if(count!=expected_count||samples!=sample_count||wcount!=sample_count/iq_build_config::FFT_LENGTH)
        $fatal(1,"digital case=%0d count=%0d expected=%0d samples=%0d/%0d windows=%0d",c,count,expected_count,samples,sample_count,wcount);
      total_samples=total_samples+sample_count;
    end

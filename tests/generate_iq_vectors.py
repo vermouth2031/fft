@@ -18,9 +18,9 @@ import numpy as np
 BASE = Path(__file__).resolve().parents[1] / "data"
 OUT = BASE / "vectors"
 sys.path.insert(0, str(BASE.parent / "host"))
-from build_rates import SAMPLE_RATE_HZ
+from build_rates import SAMPLE_RATE_HZ, FFT_LENGTH, FFT_LOG2
 
-N, FS, LENGTH, SEED = 8192, SAMPLE_RATE_HZ, 32768, 20260915
+N, FS, LENGTH, SEED = FFT_LENGTH, SAMPLE_RATE_HZ, 4*FFT_LENGTH, 20260915
 TON, TOFF, KON, KOFF = 1_048_576, 262_144, 8, 32
 
 
@@ -114,7 +114,7 @@ def spectrum_reference(iq, mode):
     # product and division by 512. np.rint implements ties-to-even here.
     prod = iq.astype(np.int64) * wcode[:, None]
     x24 = np.rint(prod.astype(np.float64) / 512).astype(np.int64)
-    y = np.fft.fft(x24[:, 0] + 1j * x24[:, 1]) / (2**14)
+    y = np.fft.fft(x24[:, 0] + 1j * x24[:, 1]) / (2**(FFT_LOG2+1))
     re, im = np.rint(y.real).astype(np.int64), np.rint(y.imag).astype(np.int64)
     assert np.max(re) < 2**23 and np.min(re) >= -(2**23)
     assert np.max(im) < 2**23 and np.min(im) >= -(2**23)
@@ -144,7 +144,7 @@ def make_cases():
     x = np.zeros(LENGTH, dtype=complex)
     x[2048:26624] = tone[2048:26624]
     short = np.zeros(LENGTH, dtype=complex)
-    short[7936:8448] = tone[7936:8448]
+    short[N-256:N+256] = tone[N-256:N+256]
     q4, m4 = qpsk_case(4)
     q2, m2 = qpsk_case(2)
     return {
@@ -154,7 +154,7 @@ def make_cases():
         "burst_fs4": (quantize(x), {"kind": "rectangular-envelope tone burst", "waveform_interval": [2048, 26624], "true_samples": 24576}),
         "qpsk_sps4": (q4, m4),
         "qpsk_sps2": (q2, m2),
-        "short512_boundary": (quantize(short), {"kind": "short tone burst at FFT boundary", "waveform_interval": [7936, 8448], "true_samples": 512}),
+        "short512_boundary": (quantize(short), {"kind": "short tone burst at FFT boundary", "waveform_interval": [N-256, N+256], "true_samples": 512}),
         "negative_fullscale_dc": (np.full((LENGTH, 2), -32768, dtype="<i2"), {"kind": "both IQ components at negative fullscale"}),
     }
 
@@ -195,9 +195,21 @@ def plot_examples(cases):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    replay_out=BASE/"replay_vectors"
+    replay_out.mkdir(parents=True,exist_ok=True)
     hann_codes = np.rint((0.5 - 0.5 * np.cos(2 * np.pi * np.arange(N) / N)) * 2**17).astype(np.int64)
     assert hann_codes[0] == 0 and hann_codes[N // 2] == 131072
     (OUT / "hann_u18_f17.mem").write_text("".join(f"{int(v):05x}\n" for v in hann_codes), encoding="ascii")
+    quarter = hann_codes[:N//4]
+    indexes = np.arange(N)
+    folded = np.minimum(indexes, N-indexes)
+    reflected = folded > N//4
+    addresses = np.where(reflected, N//2-folded, folded)
+    restored = quarter[addresses % (N//4)]
+    restored = np.where(reflected, 131072-restored, restored)
+    restored = np.where(addresses == N//4, 65536, restored)
+    assert np.array_equal(restored, hann_codes), 'Quarter Hann reconstruction differs'
+    (BASE / "hann_quarter_u18_f17.mem").write_text("".join(f"{int(v):05x}\n" for v in quarter), encoding="ascii")
     cases = make_cases()
     manifest = {
         "reference_scope": "Software reference: exact integer time metrics; FFT input/window quantization and output-only rounding. NOT AMD bit-accurate FFT, RTL simulation, or FPGA measurement.",
@@ -210,6 +222,7 @@ def main():
     for name, (iq, metadata) in cases.items():
         binary, memory = OUT / f"{name}.bin", OUT / f"{name}.mem"
         binary.write_bytes(iq.tobytes(order="C"))
+        (replay_out/binary.name).write_bytes(iq[:32768].tobytes(order="C"))
         unsigned = iq.astype(np.int64) & 0xffff
         words = unsigned[:, 0] | (unsigned[:, 1] << 16)
         memory.write_text("".join(f"{int(v):08x}\n" for v in words), encoding="ascii")
@@ -223,7 +236,7 @@ def main():
             energy, peak = int(np.sum(p)), int(np.max(p))
             record = {"window_id": wid, "first_sample": wid*N, "energy": energy,
                       "peak_uq16_16": math.isqrt(peak << 32),
-                      "rms_uq16_16": math.isqrt(energy << 19)}
+                      "rms_uq16_16": math.isqrt(energy << (32-FFT_LOG2))}
             for mode in ("rect", "hann"):
                 record[mode] = spectrum_reference(frame, mode)[0]
             windows.append(record)
@@ -234,12 +247,12 @@ def main():
             "bursts": burst_reference(iq), "windows": windows,
         }
     tone = manifest["cases"]["tone_pos_fs4"]["windows"][0]
-    assert tone["rect"]["q_peak"] == 6144
+    assert tone["rect"]["q_peak"] == 3*N//4
     assert tone["rect"]["f_peak_hz"] == FS / 4
     assert tone["rect"]["obw99_bin_center_hz"] == 0
     assert tone["peak_uq16_16"] == tone["rms_uq16_16"] == 8192 * 65536
-    assert manifest["cases"]["tone_neg_fs4"]["windows"][0]["rect"]["q_peak"] == 2048
-    assert manifest["cases"]["negative_fullscale_dc"]["windows"][0]["energy"] == 2**44
+    assert manifest["cases"]["tone_neg_fs4"]["windows"][0]["rect"]["q_peak"] == N//4
+    assert manifest["cases"]["negative_fullscale_dc"]["windows"][0]["energy"] == 2**(FFT_LOG2+31)
     burst = manifest["cases"]["burst_fs4"]["bursts"][0]
     assert burst["start"] == 2048 and burst["end_exclusive"] == 26639
     assert burst["samples"] == 24591  # 15-sample smoothing tail, not a code bug.

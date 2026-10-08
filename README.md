@@ -1,86 +1,48 @@
-> 当前工作树为独立 Phase 8 DDR/AXI DMA 候选：电脑通过 UDP 把 IQ 写入 PS DDR，再由 AXI DMA 填充非活动 PL Bank；FPGA 同时以 125 MSPS 处理活动 Bank。Phase 7 正式标签和全部历史证据保持不变，Phase 8 只有完成真板、SD 和物理冷启动验收后才会晋升。
+# Zybo Z7 数字 I/Q 频谱分析仪 · Phase 9
 
-# Zybo Z7 数字 I/Q 频谱分析仪
+本目录是 `phase9/fft16k` 分支的 16384 点 FFT 优化工程，基于 Phase 8 r17。当前验收状态见 [PHASE9_STATUS.md](PHASE9_STATUS.md)。历史报告与旧发布包不能证明当前候选已经通过实板或冷启动验收。
 
-I/Q 各 16bit，双 Bank 数字回放，板端 125 MSPS，8192 点 AMD FFT，八路完整功率谱扫描。
+I/Q 各 16 bit，板内采样和 FFT 时钟均为 125 MHz，16384 点 AMD FFT，八路完整精度功率谱扫描。FFT 数据/旋转因子为 24/18 bit，PSD 为 48 bit，总功率为 64 bit。频率栅格为 7.62939453125 kHz，单窗采集时间为 131.072 µs。
 
-Phase 7 已完成完整仿真、真板数值矩阵、1000 次动态切换、10/60/300 秒流式稳定性、匹配 SD 镜像和物理冷启动验收。最大 PL 分析/发布延迟为 **141.976/142.256 us**；接口版本 `0x00010003`，构建 ID `326086439b6ef3b8e85d1980b6744969`，实现后 setup/hold 裕量为 **+0.057/+0.015 ns**。
-
-Phase 8 保留双 Bank 的无缝 FFT 边界切换，并把逐字 AXI-Lite 上传替换为 DDR 缓冲和 AXI DMA MM2S。UDP 包、固件整块和 PL 写入端分别检查 CRC；长度、`TKEEP`、`TLAST` 或 CRC 不匹配时 Bank 不会变成 ready。125 MSPS 是板内处理速率；I/Q 各 16 bit 对应 4 Gbit/s 原始数据，板载千兆网口不承载持续 125 MSPS 的不重复原始流。项目没有外部 ADC 或任意通信协议帧解析。
-
-## 从这里开始
-
-- [第七阶段完整验收报告](reports/第七阶段完整验收报告.md)：双 Bank 流式输入、构建、真板、稳定性、SD 和物理冷启动结论。
-- [第七阶段冷启动验证报告](reports/第七阶段冷启动验证报告.md)：最终 SD 镜像断电再上电后的网络与数值验证。
-- [第六阶段完整验收报告](reports/第六阶段完整验收报告.md)：125 MSPS A2 的构建、矩阵、GUI、带宽、SD 和冷启动结论。
-- [第六阶段优化方案](reports/第六阶段优化方案.md)：本阶段目标、门槛和执行方案。
-- [项目工程总结](项目工程总结.md)：从整体流程、单音例子到正式指标、操作方法和能力边界。
-- [9月28日收尾验收](reports/closeout_20260928/收尾验收说明.md)：新版界面18项复测、4项实板数值核验及新版完整包的验证范围。
-- [新版上位机使用说明](docs/新版上位机使用说明.md)：赛题四项测量卡片、指标对照、完整参数与数据入口，以及本次界面实板验证。
-- [五组新信号测试与图解](reports/five_signals_20260923/测试报告.md)：单音、双音、扫频、QPSK、OFDM的10次真板结果及原始数据。
-- [GitHub版本与证据维护](docs/GitHub维护说明.md)：开发分支、正式Release、自动检查和完整交付包的区别。
-- [完整验收报告](reports/第四阶段完整验收报告.md)：结果、未晋升实验和比赛要求对照。
-- [电路设计说明](reports/最终电路设计说明.md)：架构、定点表示、跨域和测量语义。
-- [完整测量清单](reports/phase4_final_measurements.json)：2020 组矩阵及原始证据散列。
-- [冷启动验证](reports/冷启动验证报告.md)：本次安装后的实际断电重启验收。
-- [答辩稿](reports/答辩材料/数字IQ分析器_答辩稿.pptx)、[讲稿与预计提问](reports/答辩材料/讲稿与预计提问.md)。
-- [寄存器和吞吐计数](docs/phase4_registers.md)、[帧长度误差分析](reports/帧长度定义与误差分析.md)。
-- [第四阶段方案](第四阶段优化实施方案.md)、[时钟可行性结论](reports/第四阶段时钟可行性结论.md)、[第三方声明](THIRD_PARTY_NOTICES.md)。
+电脑通过 UDP 把 IQ 写入 PS DDR，AXI DMA 填充非活动 PL Bank；FPGA 同时处理活动 Bank，并在完整 FFT 窗口边界切换。两个 Bank 各保留 32768 对 I16/Q16。125 MSPS 是板内处理速率；千兆网口不能持续提供 4 Gbit/s 的不重复原始 IQ。当前输入为数字回放，未集成外部 ADC。
 
 ## 运行
 
-已有 Python 环境可安装 `requirements.txt` 中依赖。板卡启动网络固件后，从工程根目录运行：
+安装 `requirements.txt` 中的 Python 依赖。确认板卡运行与本版本匹配的网络固件后，双击 `Open_IQ_Monitor.cmd`，或运行：
 
 ```powershell
-python scripts/phase4_demo.py
+python host/iq_client.py capture --board 192.168.1.10 --vector data/replay_vectors/burst_fs4.bin --window hann --detector digital-zero --out captures/phase9_example
+python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --progress --out captures/phase9_streaming
 ```
 
-菜单提供零背景测长、5 dB robust、单音峰频和最宽 OFDM 四个冻结预设。普通监视器仍可双击 `Open_IQ_Monitor.cmd` 打开。每次采集使用新目录，GUI 与命令行只保留一个控制端。
+默认板卡 IP 为 `192.168.1.10`，直连电脑为 `192.168.1.20/24`。GUI 与命令行同时只保留一个控制端，每次采集使用新输出目录。当前回放文件必须包含 16384 或 32768 对小端交错 I16/Q16。
 
-当前工作区上位机已改为四项结果卡片与四个标签页。2026-09-25 的独立界面回归通过 10 组历史记录显示、4 项真板采集及状态/兼容性检查；对应 [界面回归记录](reports/gui_redesign_20260925/gui_validation.json)。页首第四阶段完整验收描述的是冻结版本，原报告及发布包保留原状；本次界面回归不替代完整系统重新验收。
+`data/replay_vectors` 是可直接上板的 32768 对样本；`data/vectors` 包含供核心回归使用的连续四窗（65536 对），不能直接装入一个物理 Bank。旧 Phase 4 冻结演示工具及其固定长度预设属于历史版本，不作为本版本操作入口。
 
-Phase 8 继续使用同一条主机命令；在兼容协议下，固件将分块数据放入 DDR，commit 时通过 DMA 送入非活动 Bank，并在上传下一块时接收当前块的分析记录：
+流式信号可选 `single|dual|chirp|qpsk|ofdm|noise`，也可用 `--custom file.bin`。每包、整块及 PL 写入端均检查 CRC；错误长度、TKEEP、TLAST 或 CRC 不会产生可切换的 ready Bank。
+
+数字零检测与门限检测仍按样本连续运行。扩大 FFT 不改变检测算法；0 dB 噪声下的漏检问题不能视为已修复。
+
+## 构建与验证
+
+使用 Vivado/Vitis 2026.1，安装路径可通过脚本参数覆盖：
 
 ```powershell
-python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --progress --out captures/streaming_demo
+.\scriptsun.ps1 -Action All
 ```
 
-可用 `--signal single|dual|chirp|qpsk|ofdm|noise` 固定信号，或用 `--custom file.bin` 上传小端交错 I16/Q16 文件。每个 UDP 数据包和完整 Bank 都检查 CRC32；缺包、乱序、重复 offset 或 CRC 错误不会提交 Bank。
+当前 FFT 工程为 `build/vivado16k`。构建流程生成点数/缩放/容量配置，运行 RTL 和 Python 回归，检查布局布线时序与 CDC，构建固件并生成启动包。核心回归覆盖 64 窗、1048576 个复数点，逐点比对 AMD bit-accurate C model。
 
-2026-09-28 对当前界面再次完成18项回归，4项真板采集全部通过独立数值核验、UDP缺包为0，结束后板卡空闲。新本地交付包 `release/phase4-closeout-20260928.zip` 包含冻结硬件证据、五类信号、新版界面及本次记录；具体源码提交和验证范围以包内 `manifest.json` 为准。
+Phase 9 实板矩阵入口为 `tests/phase9_specs.py` 和 `scripts/phase9_board_validation.py`。使用当前参考索引运行验收，不能沿用旧 8K 报告。验收范围包括频域、时域、快照、样本守恒、延迟以及 DDR/DMA 连续切换。
 
-```powershell
-python host/iq_client.py capture --board 192.168.1.10 --vector data/vectors/burst_fs4.bin --window hann --detector digital-zero --out captures/example_run
-```
+生成的 `release/ethernet_sd_card/BOOT.BIN` 用于网络固件，`release/sd_card/` 用于 SD 自动采集。构建脚本不写物理 SD 卡。RAM/JTAG 加载通过 `scripts/program_board.tcl`，不等同于物理断电冷启动验证。最终安装与冷启动状态以 [PHASE9_STATUS.md](PHASE9_STATUS.md) 为准。
 
-默认板卡 IP 为 `192.168.1.10`，电脑直连网卡为 `192.168.1.20/24`。程序不擅自修改电脑网络配置。IQ 文件按小端交错 I16/Q16 保存；最多 32768 对，每次处理完整 8192 点窗口。
+## 历史与接口资料
 
-带噪输入的前 1024 点确认为静默背景时，才可使用 robust 档：
+- [变更记录](CHANGELOG.md)、[版本元数据](VERSION.json)、[GitHub维护说明](docs/GitHub维护说明.md)。
+- [第八阶段完整验收报告](reports/第八阶段完整验收报告.md)、[第八阶段冷启动验证](reports/第八阶段冷启动验证报告.md)。
+- [第七阶段完整验收报告](reports/第七阶段完整验收报告.md)、[第六阶段完整验收报告](reports/第六阶段完整验收报告.md)。
+- [寄存器和吞吐计数](docs/phase4_registers.md)、[帧长度误差分析](reports/帧长度定义与误差分析.md)。Phase 9 新容量寄存器见当前状态文档。
+- [电路设计说明](reports/最终电路设计说明.md)、[第三方声明](THIRD_PARTY_NOTICES.md)。
 
-```powershell
-python host/iq_client.py capture --vector data/phase4_demo/robust_snr5_120000.bin --out captures/robust_example --window hann --threshold-profile robust
-```
-
-该档位以 16 点能量、ton=ceil(16×3×背景均方功率)、toff=ceil(16×1.75×背景均方功率)、kon/koff=16/8 工作，门限下限为 2/1。默认命令保留 legacy 固定门限。0 dB、显著变化的背景和大 DC 偏置不属于通用保证。
-
-## 启动与重建
-
-完整交付包中 `boot_packages/ethernet_sd_card/` 用于网络交互，`boot_packages/sd_card/` 用于 16 项自动 SD 测试；每次只选一套 BOOT.BIN。当前已安装正确网络镜像时无需重新写卡。USB/JTAG、网线与供电保持连接，SD 启动跳线按板上标注设置。
-
-重建使用 Vivado/Vitis 2026.1，默认安装路径在 `scripts/run.ps1` 参数中，可显式覆盖。运行构建前会生成并校验构建配置；当前仅允许已验证的 100/125 MHz 时钟组合。
-
-```powershell
-.\scripts\run.ps1 -Action All
-```
-
-新构建不会自动获得旧实板或冷启动的验收资格。每次修改硬件/固件须重新建立部署与原始采集证据，再考虑 SD 安装。[板上 SD 维护说明](scripts/maintenance/操作说明.md)给出操作入口。
-
-## 交付核验与历史证据
-
-GitHub源码仓库包含五组信号的小型完整证据，可运行 `python scripts/check_five_signals_archive.py` 离线核验。完整硬件回归中的 `captures/`、`build/` 及启动镜像随本地完整交付包保存；源码下载不包含这些全部产物。Phase 7 使用独立分支 `phase7/streaming-ping-pong` 和标签 `phase7-streaming-final-20261002`；Phase 6 A2 仍保留在 `phase6/125m-a2` 和 `phase6-a2-125m-final-20261002`，旧 Release 与标签均不改写。
-
-解压最终包后可运行 `python scripts/verify_delivery.py .` 核验所有文件 SHA-256。原始记录为 `frequency.bin`、`burst.bin` 和元数据；重复的逐条 JSON/CSV 可重新导出。
-
-历史报告保留当时本机绝对路径，包内文件清单给出可移植相对路径。旧四路实测与未晋升实验在独立归档中保留；它们不替代当前组合版本证据。第三阶段完整 ZIP 保持不变。本轮生成新的本地第四阶段完整包，未发布新的远端版本。
-
-Phase 7 的建立/保持时间裕量为 0.057/0.015 ns。当前正式输入是电脑动态更新的双 Bank I16/Q16 回放，FPGA 以 125 MSPS 消费活动 Bank；外部 ADC 和通过千兆以太网持续传输 4 Gbit/s 不重复原始 IQ 仍不在本版本范围内。
+历史报告中的路径、硬件 ID、点数和验收结果仅对当时版本有效。当前构建与验证证据通过 SHA-256 绑定对应源码和产物。

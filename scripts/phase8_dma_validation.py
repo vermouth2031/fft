@@ -9,6 +9,7 @@ from iq_client import Client,DMA_VERSION,decode_record,packet_loss_count
 from phase4_identity import check_identity
 from record_build_stage import sha
 from streaming import SIGNALS,make_signal
+from build_rates import FFT_LENGTH,REPLAY_BANK_SAMPLES
 
 def now():return datetime.datetime.now().astimezone().isoformat()
 def save(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -49,7 +50,7 @@ def wait_block(client,block_id,stats,timeout=3):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--board',default='192.168.1.10');p.add_argument('--source-ip',help='Local IPv4 address for the board NIC; overrides IQ_CLIENT_SOURCE_IP');p.add_argument('--switches',type=int,default=1000)
-    p.add_argument('--samples',type=int,choices=(8192,16384,24576,32768),default=8192)
+    p.add_argument('--samples',type=int,choices=range(FFT_LENGTH,REPLAY_BANK_SAMPLES+1,FFT_LENGTH),default=FFT_LENGTH)
     p.add_argument('--minimum-upload-mbps',type=float,default=8.0)
     p.add_argument('--out',type=Path,required=True);a=p.parse_args()
     if a.switches<12:raise ValueError('--switches must be at least 12')
@@ -65,7 +66,7 @@ def main():
         info=client.hardware_info();check_identity(info)
         if info['hardware_version']<DMA_VERSION or info['hardware_capabilities']&12!=12:raise AssertionError('DDR/DMA capability absent')
         report['hardware']=info
-        config=[a.samples,1,1,0,8191,1048576,0,262144,0,8,32,1048576,0]
+        config=[a.samples,1,1,0,info['fft_length']-1,1048576,0,262144,0,8,32,1048576,0]
         client.configure(config,hardware=info)
 
         word=struct.pack('<I',0x12345678);good=zlib.crc32(word)&0xffffffff

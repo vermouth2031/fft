@@ -40,7 +40,7 @@ def save(path, data):
 
 
 def bindings():
-    files = ['tests/fft_reference.py', 'tests/generate_qualification_vectors.py',
+    files = ['tests/phase9_ofdm.py', 'tests/fft_reference.py', 'tests/generate_qualification_vectors.py',
              'tests/generate_iq_vectors.py', 'tests/frame_length_reference.py',
              'scripts/validate_measurements.py', 'scripts/verify_board_capture.py',
              'scripts/qualification_capture.py','tests/threshold_reference.py','tests/detection_metrics.py',

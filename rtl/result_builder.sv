@@ -8,6 +8,7 @@ module result_builder #(
  output reg freq_valid,output reg [1023:0] freq_record,
  output reg burst_valid,output reg [511:0] burst_record,
  output reg [31:0] completed,max_latency,output reg metadata_error);
+ localparam integer N=iq_build_config::FFT_LENGTH,LOGN=iq_build_config::FFT_LOG2;
  localparam IDLE=0,PEAK_START=1,PEAK_WAIT=2,DIV_INT_START=3,DIV_INT_WAIT=4,
  DIV_FRAC_START=5,DIV_FRAC_WAIT=6,RMS_START=7,RMS_WAIT=8,PUBLISH=9;
  reg [3:0] state;
@@ -27,25 +28,25 @@ module result_builder #(
  .numerator(div_num),.denominator(div_den),.busy(),.done(div_done),.divide_by_zero(),.quotient(div_q),.remainder(div_r));
  // Build-time exact Fs/8192 conversion, preserving half-away-from-zero rounding. Three registered stages avoid a long
  // add/multiply/round chain; results settle while the two roots execute.
- reg signed [14:0] dp,dl,dh,dc;
- reg [13:0] dw;
+ reg signed [LOGN+1:0] dp,dl,dh,dc;
+ reg [LOGN:0] dw;
  reg signed [47:0] pp,pl,ph,pc;
  reg [47:0] pw;
  reg [31:0] hz_peak,hz_low,hz_high,hz_center,hz_width;
  function automatic [31:0] round_hz(input signed [47:0] x,input center);
    reg signed [47:0] biased;
-   begin biased=x+(center?48'sd8192:48'sd4096)-(x[47]?48'sd1:48'sd0);
-     round_hz=biased>>>(center?14:13);end
+   begin biased=x+(center?48'(N):48'(N/2))-(x[47]?48'sd1:48'sd0);
+     round_hz=biased>>>(center?LOGN+1:LOGN);end
  endfunction
  always @(posedge clk)begin
-   dp<=$signed({2'd0,fr[76:64]})-15'sd4096;
-   dl<=$signed({2'd0,fr[60:48]})-15'sd4096;
-   dh<=$signed({2'd0,fr[44:32]})-15'sd4096;
-   dc<=$signed({2'd0,fr[60:48]})+$signed({2'd0,fr[44:32]})-15'sd8192;
-   dw<={1'b0,fr[44:32]}-{1'b0,fr[60:48]};
+   dp<=$signed({2'd0,fr[64+:LOGN]})-$signed(N/2);
+   dl<=$signed({2'd0,fr[48+:LOGN]})-$signed(N/2);
+   dh<=$signed({2'd0,fr[32+:LOGN]})-$signed(N/2);
+   dc<=$signed({2'd0,fr[48+:LOGN]})+$signed({2'd0,fr[32+:LOGN]})-$signed(N);
+   dw<={1'b0,fr[32+:LOGN]}-{1'b0,fr[48+:LOGN]};
    pp<=dp*$signed(SAMPLE_RATE_HZ);pl<=dl*$signed(SAMPLE_RATE_HZ);ph<=dh*$signed(SAMPLE_RATE_HZ);pc<=dc*$signed(SAMPLE_RATE_HZ);pw<=dw*SAMPLE_RATE_HZ;
    hz_peak<=round_hz(pp,0);hz_low<=round_hz(pl,0);hz_high<=round_hz(ph,0);hz_center<=round_hz(pc,1);
-   hz_width<=(pw+48'd4096)>>13;
+   hz_width<=(pw+48'(N/2))>>LOGN;
  end
  always @(posedge clk) begin
    freq_valid<=0;burst_valid<=0;ctx_pop<=0;freq_pop<=0;burst_pop<=0;
@@ -65,7 +66,7 @@ module result_builder #(
      PEAK_WAIT: if(sqrt_done) begin
        peak_result<=sqrt_root;
        if(is_burst) begin div_num<=br[95:32];div_den<=burst_length;state<=DIV_INT_START;end
-       else begin sqrt_rad<=cr[95:32]<<19;state<=RMS_START;end
+       else begin sqrt_rad<=cr[95:32]<<(32-LOGN);state<=RMS_START;end
      end
      DIV_INT_START: state<=DIV_INT_WAIT;
      DIV_INT_WAIT: if(div_done) begin
@@ -89,9 +90,9 @@ module result_builder #(
          freq_record[1*32+:32]<=fr[255:224]|integrity_flags|(cr[191:160]!=fr[223:192]?32'h40:0);
          freq_record[2*32+:32]<=epoch;freq_record[3*32+:32]<=fr[223:192];
          freq_record[4*32+:32]<=config_id;freq_record[5*32+:32]<=SAMPLE_RATE_HZ;
-         freq_record[6*32+:64]<={19'd0,cr[191:160],13'd0};freq_record[8*32+:64]<=cr[159:96];
+         freq_record[6*32+:64]<=({32'd0,cr[191:160]}<<LOGN);freq_record[8*32+:64]<=cr[159:96];
          freq_record[10*32+:64]<=tick;freq_record[12*32+:32]<=latency[31:0];
-         freq_record[13*32+:32]<=8192;
+         freq_record[13*32+:32]<=N;
          freq_record[14*32+:32]<=fr[224]?0:hz_peak;
          freq_record[15*32+:32]<=fr[224]?0:hz_low;
          freq_record[16*32+:32]<=fr[224]?0:hz_high;
@@ -100,7 +101,7 @@ module result_builder #(
          freq_record[19*32+:32]<={fr[63:48],fr[79:64]};freq_record[20*32+:32]<={16'd0,fr[47:32]};
          freq_record[21*32+:32]<=peak_result;freq_record[22*32+:32]<=rms_result;
          freq_record[23*32+:64]<=fr[191:128];freq_record[25*32+:64]<={16'd0,fr[127:80]};
-         freq_record[27*32+:64]<=cr[95:32];freq_record[29*32+:32]<={7'd0,hann,8'd14,8'd24,8'd16};
+         freq_record[27*32+:64]<=cr[95:32];freq_record[29*32+:32]<={7'd0,hann,8'(iq_build_config::FFT_SCALE_SHIFT),8'd24,8'd16};
          freq_record[30*32+:32]<=0;freq_record[31*32+:32]<=completed;
          completed<=completed+1;freq_valid<=1;
          if(latency>max_latency)max_latency<=latency[31:0];
