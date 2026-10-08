@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "started_at": "2026-10-08T22:15:49.625789+08:00",
+  "board": "192.168.1.10",
+  "duration_requested_s": 60.0,
+  "samples_per_bank": 16384,
+  "scope": "PC continuously fills DDR and DMA loads the inactive bank while FPGA analyzes at 125 MSPS",
+  "artifacts": {
+    "iq_analyzer.bit": "865f217921eeb673fad285fcc4a96c41ba67f31666b644dd370714a1e0a12edd",
+    "iq_udp.elf": "85b01a68a46f494b007a68d5e01e73bdb71cc4984a8341401b8bea8cac173759"
+  },
+  "hardware": {
+    "hardware_version": 65541,
+    "hardware_version_hex": "0x00010005",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 125000000,
+    "build_id": "48ec8e97bf87f19a0cbf4efcb7c8a501",
+    "timestamp_clock_hz": 125000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 125000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "finished_at": "2026-10-08T22:16:50.521809+08:00",
+  "duration_actual_s": 60.0,
+  "switches": 3771,
+  "final_status": {
+    "active_bank": 1,
+    "host_bank": 1,
+    "pending_bank": 1,
+    "pending_valid": false,
+    "ready": [
+      false,
+      true
+    ],
+    "running": true,
+    "host_write_allowed": false,
+    "lengths": [
+      16384,
+      16384
+    ],
+    "block_ids": [
+      3771,
+      3772
+    ],
+    "crc32": [
+      4000384442,
+      52096065
+    ],
+    "switch_count": 4771,
+    "current_block_id": 3772,
+    "last_switch_tick": 78827378774,
+    "write_rejected": 0,
+    "stream_errors": 0,
+    "upload_block_ids": [
+      3771,
+      3772
+    ],
+    "upload_next": [
+      0,
+      0
+    ],
+    "dma": {
+      "active": false,
+      "done": true,
+      "error": false,
+      "target_bank": 1,
+      "received_samples": 16384,
+      "computed_crc32": 52096065,
+      "completed_transfers": 4773,
+      "errors": 0
+    }
+  },
+  "statistics": {
+    "frequency_records": 457779,
+    "burst_records": 7153,
+    "maximum_latency_us": 281.296,
+    "last_frequency_id": 457778,
+    "frequency_id_gaps": 0,
+    "udp_missing_packet_count": 0,
+    "recovered_malformed_packets": 0
+  },
+  "diagnostics": {
+    "snapshot_sequence": 81,
+    "issued_samples": 7500251136,
+    "accepted_samples": 7500251136,
+    "input_rejected": 0,
+    "input_fifo_high_water": 11,
+    "fft_snapshot_arrival_tick": 78893933820,
+    "fft_input_samples": 7500251136,
+    "fft_output_samples": 7500251136,
+    "fft_output_windows": 457779,
+    "result_queue_rejected": 0,
+    "input_underreads": 0,
+    "semantics": "Native-domain snapshots at different instants; conservation checked only after STOPPED/drain"
+  },
+  "completed_windows": 457779,
+  "hardware_max_latency_us": 281.296,
+  "hardware_max_publish_latency_us": 281.576,
+  "average_upload_seconds": 0.015910898965791568,
+  "maximum_upload_seconds": 0.03200000000651926,
+  "effective_average_upload_mbps": 32.9515008
+}

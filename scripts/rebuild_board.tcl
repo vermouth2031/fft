@@ -1,5 +1,5 @@
 set root [file normalize [file join [file dirname [info script]] ..]]
-set_param general.maxThreads 1
+set_param general.maxThreads 4
 set_param board.repoPaths [list $root/vendor/boards]
 
 # Vivado 2026.1 emits ISEWrap.js files that query WMI before starting each
@@ -39,6 +39,10 @@ if {[llength $iq_run]} {reset_run $iq_run}
 reset_run synth_1
 reset_run impl_1
 set_property strategy Performance_NetDelay_high [get_runs impl_1]
+# Registered PSD addresses remove the former bank-select/LUTRAM critical path.
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE Default [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
 patch_run_wrappers $root 0
 launch_runs synth_1 -scripts_only

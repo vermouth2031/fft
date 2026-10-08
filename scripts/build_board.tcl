@@ -66,6 +66,10 @@ add_files -norecurse $root/build/board/iq_board.gen/sources_1/bd/system/hdl/syst
 set_property top system_wrapper [current_fileset]
 update_compile_order -fileset sources_1
 set_property strategy Performance_NetDelay_high [get_runs impl_1]
+# Registered PSD addresses remove the former bank-select/LUTRAM critical path.
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE Default [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
 proc patch_run_wrappers {root {lock 0}} {
     set pattern [file join $root build board iq_board.runs * ISEWrap.js]

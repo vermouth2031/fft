@@ -55,7 +55,7 @@ def main():
             for i in range(0,len(raw),64):
                 burst=decode_record(raw[i:i+64],'burst')
                 intervals.append([burst['start_sample'],burst['end_sample_exclusive']])
-            result.update(label=label,detection_metrics=evaluate(case['measurement_design']['truth_intervals'],intervals,case['samples']))
+            result.update(label=label,detection_metrics=evaluate(case['measurement_design']['truth_intervals'],intervals,case['samples'],sample_rate_hz=hardware['sample_rate_hz']))
             save(folder/'measurement_validation.json',result)
             report['cases'].append(result);rows.extend(error_rows(folder,case,oracle))
             save(a.out/'validation.json',report)

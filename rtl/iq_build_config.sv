@@ -19,5 +19,5 @@ package iq_build_config;
  localparam integer FFT_SCALE_SHIFT = 15;
  localparam integer FFT_CONFIG_WIDTH = 16;
  localparam integer FFT_CONFIG_WORD = 21847;
- localparam logic [127:0] BUILD_ID = 128'h803909d3e072d6116e282fcea9d99b06;
+ localparam logic [127:0] BUILD_ID = 128'h48ec8e97bf87f19a0cbf4efcb7c8a501;
 endpackage

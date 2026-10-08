@@ -34,7 +34,7 @@ def main():
              "## 实现资源", "", "| 资源 | 使用 | 可用 | 使用率 |", "|---|---:|---:|---:|"]
     utilization = (ROOT / "reports/utilization_flat.rpt").read_text()
     for label in ("Slice LUTs", "Slice Registers", "Block RAM Tile", "DSPs"):
-        match = re.search(r"\|\s*" + label + r"\s*\|\s*([\d.]+)\s*\|\s*0\s*\|\s*0\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)", utilization)
+        match = re.search(r"\|\s*" + label + r"\*?\s*\|\s*([\d.]+)\s*\|\s*0\s*\|\s*0\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)", utilization)
         if match:
             lines.append(f"| {label} | {' | '.join(match.groups())} |")
     (ROOT / "reports/构建验证报告.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

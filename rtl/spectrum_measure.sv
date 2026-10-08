@@ -43,7 +43,8 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  reg found_low,found_high;
  reg [AW:0] request_count;
  reg [AW-1:0] response_addr;
- reg response_valid;
+ reg response_valid,memory_valid;
+ reg [AW-1:0] memory_addr;
  wire [47:0] a[0:7],b[0:7];
  reg [47:0] power_pipe[0:7];
  reg [48:0] pair_prefix[0:7];
@@ -78,7 +79,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      total<=0;peak<=0;peakq<=N-1;overflow<=0;frame<=0;bank_ready<=0;
      state<=WAIT_BANK;read_bank<=0;rt<=0;rpeak<=0;rid<=0;rflags<=0;rq<=0;
      lower<=0;upper<=0;cdf<=0;lowq<=0;highq<=0;found_low<=0;found_high<=0;
-     request_count<=0;response_valid<=0;response_addr<=0;fault<=0;result_data<=0;
+     request_count<=0;response_valid<=0;response_addr<=0;memory_valid<=0;memory_addr<=0;fault<=0;result_data<=0;
      snapshot_max<=0;capturing<=0;snap_armed<=1;snap_addr<=0;snap_data<=0;snap_window<=0;
      // Datapath contents are ignored until their reset-cleared valid bits
      // advance. Leave these wide payload registers unreset to remove
@@ -100,8 +101,9 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
        end else begin total<=tnext;peak<=pnext;peakq<=qnext;overflow<=overflow|ov[2];end
      end
      if(!snap_request) snap_armed<=1;
-     response_valid<=scan_request;
-     if(scan_request)begin response_addr<=request_count[AW-1:0];request_count<=request_count+1;end
+     memory_valid<=scan_request;response_valid<=memory_valid;
+     if(scan_request)begin memory_addr<=request_count[AW-1:0];request_count<=request_count+1;end
+     if(memory_valid)response_addr<=memory_addr;
      // Registered balanced inclusive prefixes: 2 bins, 4 bins, 8 bins.
      // Only one 64-bit adder lies on the running-CDF feedback path.
      pipe_valid<=response_valid;pair_valid<=pipe_valid;quad_valid<=pair_valid;

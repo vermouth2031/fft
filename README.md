@@ -28,7 +28,7 @@ python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --prog
 使用 Vivado/Vitis 2026.1，安装路径可通过脚本参数覆盖：
 
 ```powershell
-.\scriptsun.ps1 -Action All
+.\scripts\run.ps1 -Action All
 ```
 
 当前 FFT 工程为 `build/vivado16k`。构建流程生成点数/缩放/容量配置，运行 RTL 和 Python 回归，检查布局布线时序与 CDC，构建固件并生成启动包。核心回归覆盖 64 窗、1048576 个复数点，逐点比对 AMD bit-accurate C model。
