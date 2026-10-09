@@ -2,7 +2,7 @@
 package iq_build_config;
  localparam integer SAMPLE_RATE_HZ = 125000000;
  localparam integer TIMESTAMP_CLOCK_HZ = 125000000;
- localparam integer FFT_CLOCK_HZ = 125000000;
+ localparam integer FFT_CLOCK_HZ = 150000000;
  localparam integer HARDWARE_VERSION = 65545;
  localparam integer CAPABILITIES = 31;
  localparam integer RECORD_FORMAT_VERSION = 1;
@@ -19,5 +19,5 @@ package iq_build_config;
  localparam integer FFT_SCALE_SHIFT = 15;
  localparam integer FFT_CONFIG_WIDTH = 16;
  localparam integer FFT_CONFIG_WORD = 21847;
- localparam logic [127:0] BUILD_ID = 128'he417318f3a52c6275eb32d31065e4267;
+ localparam logic [127:0] BUILD_ID = 128'h9de00f7c8261de0723505e5e50040906;
 endpackage

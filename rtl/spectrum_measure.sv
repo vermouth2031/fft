@@ -59,7 +59,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  integer j;
  wire div_done;
  wire [63:0] quotient,remainder;
- udiv64 div200(.clk(clk),.rst(rst),.start(state==DIV_START),.numerator(rt),.denominator(64'd200),
+ udiv64 #(.DIVISOR_WIDTH(8)) div200(.clk(clk),.rst(rst),.start(state==DIV_START),.numerator(rt),.denominator(8'd200),
    .busy(),.done(div_done),.divide_by_zero(),.quotient(quotient),.remainder(remainder));
  reg capturing,snap_armed;
  // Preserve the complete previous frame until its scan and snapshot finish.

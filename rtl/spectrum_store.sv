@@ -41,11 +41,20 @@ module spectrum_deferred_queue #(parameter integer W=62,BANKS=5)(
  genvar b;
  generate for(b=0;b<BANKS;b=b+1)begin: banks
    (* ram_style="distributed" *) reg [W-1:0] memory[0:511];
+   // Local shadow counters have exactly the global counters' low bits, but
+   // drive only this physical bank. Preserve them against equivalent-register
+   // merging: the 125 MHz control showed >94% routing delay on shared WADR.
+   (* dont_touch="true" *) reg [8:0] write_offset,read_offset;
    reg [W-1:0] value;
    always @(posedge clk)begin
+     if(rst||(!protect&&!pending))begin write_offset<=0;read_offset<=0;end
+     else begin
+       if(take_write&&written<CAPACITY)write_offset<=write_offset+1'b1;
+       if(take_read)read_offset<=read_offset+1'b1;
+     end
      if(take_write&&written<CAPACITY&&written[AW-1:9]==b)
-       memory[written[8:0]]<=din;
-     if(take_read)value<=memory[requested[8:0]];
+       memory[write_offset]<=din;
+     if(take_read)value<=memory[read_offset];
    end
    assign bank_q[b]=value;
  end endgenerate

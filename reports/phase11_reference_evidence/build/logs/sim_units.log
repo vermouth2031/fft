@@ -1,0 +1,91 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Fri Oct  9 23:08:57 2026
+# Process ID         : 56960
+# Current directory  : D:/fft/fft_phase11_latency_opt
+# Command line       : vivado.exe -mode batch -notrace -nojournal -log D:\fft\fft_phase11_latency_opt\build\logs\sim_units.log -source scripts/sim_units.tcl
+# Log file           : D:/fft/fft_phase11_latency_opt/build/logs/sim_units.log
+# Journal file       : 
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 20779 MB
+# Total Virtual      : 37624 MB
+# Available Virtual  : 7093 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_units.tcl -notrace
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 615.586 ; gain = 271.883
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Fri Oct  9 23:09:18 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_units'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_units' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim/math_vectors.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim/math_vectors.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_units_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/rtl/math_units.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module isqrt64
+INFO: [VRFC 10-311] analyzing module udiv64
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/rtl/record_ring.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module record_ring
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/tests/tb_units.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_units
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_units_behav xil_defaultlib.tb_units xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_units_behav xil_defaultlib.tb_units xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.isqrt64
+Compiling module xil_defaultlib.udiv64
+Compiling module xil_defaultlib.udiv64(DIVISOR_WIDTH=8)
+Compiling module xil_defaultlib.record_ring_default
+Compiling module xil_defaultlib.record_ring(WORDS_LOG2=4,RECORDS...
+Compiling module xil_defaultlib.tb_units
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_units_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase11_latency_opt/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_units_behav -key {Behavioral:sim_1:Functional:tb_units} -tclbatch {tb_units.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_units.tcl
+WARNING: [Wavedata 42-489] Can't add object "/tb_units/golden" to the wave window because it has 73728 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+UNITS_PASS 256_math_vectors 1056_constant_division_cases 300_queue_pushes full_no_overwrite wrap_release 1060864_capacity_pairs_both_ring_sizes
+$finish called at time : 2115010 ns : File "D:/fft/fft_phase11_latency_opt/tests/tb_units.sv" Line 64
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_units_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:11 . Memory (MB): peak = 637.957 ; gain = 22.371
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Fri Oct  9 23:09:29 2026...

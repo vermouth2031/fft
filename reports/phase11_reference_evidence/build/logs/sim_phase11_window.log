@@ -1,0 +1,89 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Fri Oct  9 23:09:30 2026
+# Process ID         : 45660
+# Current directory  : D:/fft/fft_phase11_latency_opt
+# Command line       : vivado.exe -mode batch -notrace -nojournal -log D:\fft\fft_phase11_latency_opt\build\logs\sim_phase11_window.log -source scripts/sim_phase11_window.tcl
+# Log file           : D:/fft/fft_phase11_latency_opt/build/logs/sim_phase11_window.log
+# Journal file       : 
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 20779 MB
+# Total Virtual      : 37624 MB
+# Available Virtual  : 6891 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_phase11_window.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 614.969 ; gain = 271.898
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Fri Oct  9 23:09:49 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_phase11_window'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_phase11_window' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim/hann_quarter_u18_f17.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_phase11_window_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/rtl/iq_build_config.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/tests/reference/phase10_window_fft.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module phase10_window_fft
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/rtl/window_fft.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module window_fft
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase11_latency_opt/tests/tb_phase11_window.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_phase11_window
+INFO: [VRFC 10-311] analyzing module fft8192
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase11_window_behav xil_defaultlib.tb_phase11_window xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase11_window_behav xil_defaultlib.tb_phase11_window xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.iq_build_config
+Compiling module xil_defaultlib.fft8192
+Compiling module xil_defaultlib.window_fft_default
+Compiling module xil_defaultlib.phase10_window_fft_default
+Compiling module xil_defaultlib.tb_phase11_window
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_phase11_window_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase11_latency_opt/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_phase11_window_behav -key {Behavioral:sim_1:Functional:tb_phase11_window} -tclbatch {tb_phase11_window.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_phase11_window.tcl
+PHASE11_WINDOW_EQUIVALENCE_PASS comparisons=98333 all_hann_indices_bubbles_backpressure_reset
+$finish called at time : 1071672 ns : File "D:/fft/fft_phase11_latency_opt/tests/tb_phase11_window.sv" Line 45
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_phase11_window_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:10 . Memory (MB): peak = 639.730 ; gain = 24.762
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Fri Oct  9 23:09:59 2026...

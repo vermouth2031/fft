@@ -23,6 +23,8 @@ def main():
     read = lambda path: path.read_text(encoding='utf-8')
     finite = json.loads(read(a.finite))
     assert finite['status'] == 'PASS'
+    dynamic = [json.loads(read(path)) for path in a.dynamic]
+    assert all(report['status'] == 'PASS' for report in dynamic)
     archive = ROOT / 'reports/phase11_reference_evidence'
     archive.mkdir(exist_ok=False)
     mapping = {}
@@ -58,13 +60,17 @@ def main():
     for folder in (archive, a.finite.parent, *(p.parent for p in a.dynamic)):
         files.update(p.resolve() for p in folder.rglob('*') if p.is_file())
     files.add(a.final_state.resolve())
+    baseline = json.loads(read(ROOT / 'reports/phase11_baseline.json'))
+    assert sha(ROOT / baseline['finite_report']) == baseline['finite_report_sha256']
+    files.add(ROOT / baseline['finite_report'])
     for stage in ('simulation', 'hardware'):
         provenance = json.loads(read(ROOT / f'reports/{stage}_provenance.json'))
         for section in ('inputs', 'evidence'):
             files.update(ROOT / name for name in provenance[section] if not name.startswith('build/'))
     files.update(ROOT / 'reports' / name for name in (
         'simulation_provenance.json', 'hardware_provenance.json', 'software_validation.json',
-        'boot_provenance.json', 'phase11_baseline.json', 'phase11_initial_board.json'))
+        'boot_provenance.json', 'phase11_baseline.json', 'phase11_initial_board.json',
+        'phase11_programmed_board.json', 'phase11_comparison.json'))
     r = dict(status='RAM_JTAG_PASS', created_at=datetime.datetime.now().astimezone().isoformat(),
         hardware=finite['hardware'], build_id=finite['hardware']['build_id'],
         sd_installed=False, physical_cold_boot=False, sd_state='PHASE10_UNCHANGED',
@@ -73,7 +79,8 @@ def main():
         final_state=relative(a.final_state), program_log=program, build_path_map=mapping,
         artifacts={p.name: sha(p) for p in (ROOT / 'artifacts').iterdir()
                    if p.suffix in ('.bit', '.xsa', '.elf', '.BIN', '.tcl')},
-        maximum_analysis_us=finite['maximum_analysis_us'], maximum_publish_us=finite['maximum_publish_us'],
+        maximum_analysis_us=max([finite['maximum_analysis_us']] + [d['hardware_max_latency_us'] for d in dynamic]),
+        maximum_publish_us=max([finite['maximum_publish_us']] + [d['hardware_max_publish_latency_us'] for d in dynamic]),
         files={relative(p): sha(p) for p in sorted(files)})
     target = ROOT / 'reports/phase11_acceptance.json'
     target.write_text(json.dumps(r, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')

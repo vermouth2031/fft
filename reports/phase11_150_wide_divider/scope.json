@@ -1,0 +1,6 @@
+{
+  "status": "EXPLORATORY_NOT_ACCEPTED",
+  "full_simulation": false,
+  "board_tested": false,
+  "reason": "FFT-to-square pipeline removes prior DSP critical path. Remaining slow path is 64-bit remainder logic in constant division by 200; stopping to specialize divisor width."
+}

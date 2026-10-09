@@ -8,6 +8,13 @@ module record_ring #(parameter WORDS_LOG2=5,RECORDS_LOG2=8)(
  reg [(32<<WORDS_LOG2)-1:0] staging;
  reg [WORDS_LOG2-1:0] word_index;
  wire [AW-1:0] write_addr={producer[RECORDS_LOG2-1:0],word_index};
+ // Exact modulo-2^32 capacity comparison. Split the low-page borrow from
+ // the upper-page equality instead of a full-width subtract followed by a
+ // wide threshold comparison on the busy/drop control path.
+ wire [31-RECORDS_LOG2:0] consumer_next_page=consumer[31:RECORDS_LOG2]+1'b1;
+ wire has_space=producer[RECORDS_LOG2-1:0]>=consumer[RECORDS_LOG2-1:0]?
+   producer[31:RECORDS_LOG2]==consumer[31:RECORDS_LOG2]:
+   producer[31:RECORDS_LOG2]==consumer_next_page;
  always @(posedge clk) begin
    read_data<=mem[read_addr];
    if(busy&&!rst)mem[write_addr]<=staging[31:0];
@@ -21,7 +28,7 @@ module record_ring #(parameter WORDS_LOG2=5,RECORDS_LOG2=8)(
      else if(push)staging<=record_data;
      else staging<=0;
      if(push)begin
-       if(busy||(producer-consumer)>=(1<<RECORDS_LOG2))dropped<=dropped+1;
+       if(busy||!has_space)dropped<=dropped+1;
        else begin word_index<=0;busy<=1;end
      end
      if(busy)begin

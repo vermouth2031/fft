@@ -12,13 +12,12 @@ module window_fft(input wire clk,rst,input wire hann,
  (* rom_style="distributed" *) reg [17:0] hann_rom[0:N/4-1];
  initial $readmemh("hann_quarter_u18_f17.mem",hann_rom);
  reg [LOGN-1:0] index;
- // The low bits are the position within a quarter. Odd quarters reverse
- // this position. A single short negation replaces two serial full-width
- // fold/subtract/mux operations. Quarter endpoints use the exact half value.
- wire [LOGN-3:0] quarter_offset=index[LOGN-3:0];
- wire [LOGN-3:0] quarter_index=index[LOGN-2]?-quarter_offset:quarter_offset;
+ // Walk the quarter ROM in opposite directions on alternating quarters.
+ // Keeping the address registered removes arithmetic from the ROM read path
+ // without adding a pipeline stage or changing acceptance/backpressure.
+ reg [LOGN-3:0] quarter_index;
  wire complement=index[LOGN-1]^index[LOGN-2];
- wire midpoint=index[LOGN-2]&&(quarter_offset==0);
+ wire midpoint=index[LOGN-2]&&(quarter_index==0);
  reg [17:0] rom_value[0:ROM_BANKS-1];
  reg [ROM_BANK_BITS-1:0] rom_bank;
  integer rb;
@@ -38,7 +37,7 @@ module window_fft(input wire clk,rst,input wire hann,
    begin y=(x>>>9)+((x[8:0]>9'd256)||((x[8:0]==9'd256)&&x[9]));round_even=y[23:0];end
  endfunction
  always @(posedge clk) begin
-   if(rst) begin index<=0;v<=0;l<=0;cfg_valid<=1;cfg_done<=0;i0<=0;q0<=0;i1<=0;q1<=0;rom_bank<=0;complement0<=0;midpoint0<=0;hann0<=0;coeff<=0;pi<=0;pq<=0;din<=0;end
+   if(rst) begin index<=0;quarter_index<=0;v<=0;l<=0;cfg_valid<=1;cfg_done<=0;i0<=0;q0<=0;i1<=0;q1<=0;rom_bank<=0;complement0<=0;midpoint0<=0;hann0<=0;coeff<=0;pi<=0;pq<=0;din<=0;end
    else begin
      if(cfg_valid&&cfg_ready) begin cfg_valid<=0;cfg_done<=1;end
      if(ce) begin
@@ -52,7 +51,10 @@ module window_fft(input wire clk,rst,input wire hann,
               complement0?19'd131072-{1'b0,rom_value[rom_bank]}:{1'b0,rom_value[rom_bank]};
        pi<=i1*coeff;pq<=q1*coeff;
        din<={round_even(pq),round_even(pi)};
-       if(valid&&ready) index<=index+1;
+       if(valid&&ready)begin
+         index<=index+1;
+         quarter_index<=index[LOGN-2]?quarter_index-1'b1:quarter_index+1'b1;
+       end
      end
    end
  end

@@ -124,7 +124,10 @@ def main():
                          for name in ("iq_analyzer.bit", "iq_analyzer.xsa")}
             evidence_paths = [ROOT / 'reports' / name for name in (
                 'hardware_validation.json', 'timing_summary.rpt', 'utilization_flat.rpt',
-                'cdc.rpt', 'drc.rpt', 'bus_skew.rpt', 'worst_paths.rpt')]
+                'cdc.rpt', 'drc.rpt', 'bus_skew.rpt', 'worst_paths.rpt',
+                'phase11_clock_generation.json', 'clock_interaction.rpt')]
+            evidence_paths += [ROOT / 'build/board/iq_board.srcs/sources_1/bd/system/system.bd',
+                ROOT / 'build/board/iq_board.gen/sources_1/bd/system/ip/system_fft_clock_0/system_fft_clock_0_clk_wiz.v']
         else:
             evidence_paths = [ROOT / 'reports/phase10_equivalence.json',
                               ROOT / 'build/logs/sim_phase10_equivalence.log',
