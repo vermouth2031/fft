@@ -2,7 +2,11 @@
 
 仓库：<https://github.com/vermouth2031/fft>。
 
-## 当前版本：2026-10-09 Phase 9
+## 当前版本：2026-10-09 Phase 10
+
+当前已完成版本在 `phase10/resource-opt` 分支管理，预发布标签为 `v2026.10.09-phase10-resource-opt-usb-sd-validated`，固定已验收实现提交 `290e7cd`。USB 连续 DMA 修复、SD 安装和用户真实断电冷启动验证均通过。启动包、源码与证据的下载方式见 [Phase 10 GitHub 版本说明](Phase10_GitHub版本说明.md)。[草稿 PR #5](https://github.com/vermouth2031/fft/pull/5) 对比 Phase 9；未合并 main，历史版本保留。提频优化尚为后续计划。
+
+## 历史版本：2026-10-09 Phase 9
 
 当前 16384 点 FFT 在 `phase9/fft16k` 分支管理，使用预发布标签 `v2026.10.09-phase9-fft16k-ram-validated`。RAM/JTAG 实板验证通过，SD 安装和物理冷启动未验证。入口见 [Phase 9 GitHub 版本说明](Phase9_GitHub版本说明.md)。下文保留旧阶段的历史登记，旧阶段的“当前”不代表 Phase 9。
 

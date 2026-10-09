@@ -71,7 +71,9 @@ SD 模式系统复位已通过。用户随后确认“已断电并重新上电�
 
 保留已知基线局限：0 dB 用例漏检、Hann 短边界突发的频率误差并未通过此次存储优化消除。125 MSPS 指板内回放处理，不表示网口实时输入 125 MSPS 不重复 IQ；当前也未接入外部 ADC。
 
-原版工程 `D:\fft\fft_phase9_fft16k` 保留。`D:\fft\fft_phase10_isolate_psd` 是诊断对照工程，不是最终使用目录。本轮未推送 GitHub。
+原版工程 `D:\fft\fft_phase9_fft16k` 保留。`D:\fft\fft_phase10_isolate_psd` 是诊断对照工程，不是最终使用目录。
+
+2026-10-09 已发布 GitHub 分支 `phase10/resource-opt`，预发布标签为 `v2026.10.09-phase10-resource-opt-usb-sd-validated`，固定已验收实现提交 `290e7cd9c16277ec04899433c3cc0df9444f5239`。随后分支上的提交仅登记发布回执和使用入口，不修改已验收电路、固件或原始证据。下载及核验见 [Phase 10 GitHub 版本说明](docs/Phase10_GitHub版本说明.md) 和 [发布回执](reports/phase10_github_publication_20261009.json)。Release 附件保存发布时的冻结内容，其中尚未登记 GitHub 发布的历史文字不影响其硬件身份与验收结论。
 
 ## 本地交付与离线复核
 
