@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_board_candidate1_20261009\\m_49mhz_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65542,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.304,
+  "maximum_publish_us": 281.584,
+  "input_sha256": "4971c1f3683507807c6bc41240533180289dd009579e3aae07c3a806595271bf",
+  "golden_sha256": "4fc11c92652fc27bcba9a2a7b31b86ae1af7c3f9b17383d48f5488dc28d1d729",
+  "files": {
+    "capture.json": "b10338e4b9b1aecc13a860f9032693bf2a515d7d7d3ff69ef4d53d7def5e2780",
+    "frequency.bin": "3de233d2baf9b96220e439567cd7436cea74becf3d0383dc83a1967fcc5ba301",
+    "burst.bin": "cd49e20b53bedc98590887ddeef95568d2d3388ddaaced0528affed3c90e364d",
+    "snapshot.bin": "596271d47de130bc0f5e23bb0cadec519dd0b44baf435064de13276a1d21675c",
+    "snapshot.json": "00b90a86b66935c80b58c061cebf128aca748a5fe93f1ce6f51e0eb604cad62c"
+  },
+  "label": "m_49mhz_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

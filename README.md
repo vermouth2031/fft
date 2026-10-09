@@ -1,3 +1,11 @@
+# Phase 10：16K FFT 资源优化及 USB 连续传输修复
+
+当前版本 `b162c5a41c3560519de11c7e90e379a7`：输入 FIFO 恢复 BRAM，保留共享 PSD 与 Hann ROM 优化。LUT 31562→22775，LUTRAM 14667→5740，BRAM 130→128；FFT 16384 点、125 MSPS、精度和容量保持。最终 bit/ELF 已在 USB 供电下通过 1000 次切换、60/300 秒连续测试、1048576 点 RTL 精确回归及 79 项真板数值验收。当前状态和资源取舍见 [PHASE10_STATUS.md](PHASE10_STATUS.md)。修复版已安装到 SD，用户实际断电重启后自动加载成功；冷启动后的 79 项数值检查、1000 次切换和 300 秒连续传输全部通过，以后正常上电即可运行，无需 JTAG 下载。
+
+GitHub 当前版本：[`phase10/resource-opt`](https://github.com/vermouth2031/fft/tree/phase10/resource-opt)。已验证实现固定在提交 `290e7cd`，启动镜像与离线证据见 [Phase 10 下载页面](https://github.com/vermouth2031/fft/releases/tag/v2026.10.09-phase10-resource-opt-usb-sd-validated)。下载方式、标签与分支的关系见 [Phase 10 GitHub 版本说明](docs/Phase10_GitHub版本说明.md)。后续提频方案尚未实现，不属于本版本指标。
+
+下面的 Phase 9 接口与使用说明作为沿用的基线资料保留；当前版本的验收结论以 Phase 10 状态和对应散列报告为准。
+
 # Zybo Z7 数字 I/Q 频谱分析仪 · Phase 9
 
 本目录是 `phase9/fft16k` 分支的 16384 点 FFT 优化工程，基于 Phase 8 r17。当前验收状态见 [PHASE9_STATUS.md](PHASE9_STATUS.md)。历史报告与旧发布包不能证明当前候选已经通过实板或冷启动验收。
@@ -35,7 +43,7 @@ python host/streaming.py --board 192.168.1.10 --blocks 12 --samples 32768 --prog
 
 Phase 9 实板矩阵入口为 `tests/phase9_specs.py` 和 `scripts/phase9_board_validation.py`。使用当前参考索引运行验收，不能沿用旧 8K 报告。验收范围包括频域、时域、快照、样本守恒、延迟以及 DDR/DMA 连续切换。
 
-生成的 `release/ethernet_sd_card/BOOT.BIN` 用于网络固件，`release/sd_card/` 用于 SD 自动采集。构建脚本不写物理 SD 卡。RAM/JTAG 加载通过 `scripts/program_board.tcl`，不等同于物理断电冷启动验证。最终安装与冷启动状态以 [PHASE9_STATUS.md](PHASE9_STATUS.md) 为准。
+生成的 `release/ethernet_sd_card/BOOT.BIN` 用于网络固件，`release/sd_card/` 用于 SD 自动采集。构建脚本不写物理 SD 卡。RAM/JTAG 加载通过 `scripts/program_board.tcl`，不等同于物理断电冷启动验证。当前版本最终安装与冷启动状态以 [PHASE10_STATUS.md](PHASE10_STATUS.md) 为准。
 
 ## 历史与接口资料
 

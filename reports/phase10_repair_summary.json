@@ -1,0 +1,100 @@
+{
+  "schema": "phase10-usb-repair-v1",
+  "status": "VERIFIED_USB_RAM_JTAG_REPAIR",
+  "updated_at": "2026-10-09T19:31:01.016555+08:00",
+  "build_id": "b162c5a41c3560519de11c7e90e379a7",
+  "hardware_version": 65544,
+  "supply": "USER_CONFIRMED_USB_ONLY",
+  "human_reset": "User confirmed no manual power cycle or reset during earlier failures",
+  "deployment": "RAM_JTAG",
+  "sd_installation": "NOT_PERFORMED_ORIGINAL_SD_UNCHANGED",
+  "physical_cold_boot": "NOT_PERFORMED",
+  "changes": [
+    "Restore 4096x32 input asynchronous FIFO from distributed RAM to block RAM, preserving depth/interface/FWFT semantics",
+    "Retain shared 48-bit PSD with 2560x62-bit deferred queue and unchanged 2127-cycle spectrum latency",
+    "Retain exact Hann quarter-ROM banking and pipeline",
+    "Make warm JTAG reset/PS initialization/ELF start sequence explicit and record POR marker"
+  ],
+  "resource_tradeoff": {
+    "original_bram_target": 124,
+    "repaired_bram_target": 128,
+    "original_target_achieved": false,
+    "reason": "Restore four input FIFO BRAMs to obtain verified USB-only continuous operation while tightening logic/register limits",
+    "new_limits": {
+      "lut": 23500,
+      "lut_memory": 6000,
+      "ff": 28000,
+      "bram": 128,
+      "dsp": 49
+    },
+    "actual": {
+      "lut": 22775,
+      "lut_memory": 5740,
+      "ff": 27786,
+      "slice": 8429,
+      "bram": 128,
+      "dsp": 49
+    }
+  },
+  "performance": {
+    "fft_points": 16384,
+    "source_and_fft_clock_hz": 125000000,
+    "input_fifo_pairs": 4096,
+    "replay_bank_pairs": 32768,
+    "replay_banks": 2,
+    "fft_data_bits": 24,
+    "twiddle_bits": 18,
+    "psd_bits": 48,
+    "analysis_limit_us": 281.304,
+    "publish_limit_us": 281.584,
+    "observed_dynamic_analysis_us": 281.296,
+    "observed_dynamic_publish_us": 281.576
+  },
+  "controls": {
+    "original_phase9": "reports/phase10_repair_baseline_20261009_1755/validation.json",
+    "psd_only": "reports/phase10_psd_isolation_20261009/experiment.json",
+    "repaired_hardware_previous_firmware": "reports/phase10_bram_fifo_diagnostic_dma_20261009/validation.json",
+    "paired_ofdm_current": "reports/phase10_repair_power_20261009/summary.json"
+  },
+  "final_tests": {
+    "dma1000": "reports/phase10_repaired_dma1000_20261009/validation.json",
+    "seconds60": "reports/phase10_repaired_60s_20261009/stability.json",
+    "seconds300": "reports/phase10_repaired_300s_20261009/stability.json",
+    "finite79": "reports/phase10_repaired_finite_20261009/validation.json",
+    "simulation": "reports/core_validation.json"
+  },
+  "reset_evidence": {
+    "after_dynamic": "reports/phase10_repaired_300s_20261009/post_test_reset_and_clocks.txt",
+    "marker": "0x5a000000",
+    "both_fclk_control": "0x00200400",
+    "after_finite": "reports/phase10_repaired_finite_20261009/post_test_reset_and_clocks.txt"
+  },
+  "conclusion": "The repaired image passed full 1048576-point RTL numerical regression, 79 finite board cases with 80896 exact snapshots, 1000 switches and 60/300 s continuous DMA under USB-only supply. No new POR was observed through the final reset-marker read. A unique electrical root cause is not proven.",
+  "causal_limits": [
+    "Storage mapping, placement/routing and switching activity changed together; a unique electrical root cause has not been established",
+    "Historical failures include both new POR events and DMA errors without POR; do not label every failure a confirmed USB brownout",
+    "XADC averaged ~200 ms samples and nominal IMON conversion do not resolve transient supply droops or peak current",
+    "The successful PSD-only control and final combination do not prove that all distributed FIFO implementations are defective"
+  ],
+  "evidence_roots": [
+    "reports/phase10_diagnostics",
+    "reports/phase10_usb_retry_20261009_174118",
+    "reports/phase10_reset_investigation.json",
+    "reports/phase10_checkpoint.json",
+    "reports/phase10_imon_candidate_20261009",
+    "reports/phase10_candidate1_reference_evidence",
+    "reports/phase10_repair_baseline_20261009_1755",
+    "reports/phase10_psd_isolation_20261009",
+    "reports/phase10_repair_power_20261009",
+    "reports/phase10_bram_fifo_diagnostic_dma_20261009"
+  ],
+  "final_coverage": {
+    "exact_fft_simulation_points": 1048576,
+    "finite_board_cases": 79,
+    "exact_board_snapshot_values": 80896,
+    "continuous_switches_total": 14042,
+    "continuous_fft_windows_total": 3050856,
+    "maximum_analysis_us": 281.296,
+    "maximum_publish_us": 281.576
+  }
+}

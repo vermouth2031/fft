@@ -1,0 +1,172 @@
+{
+  "hardware": {
+    "hardware_version": 65542,
+    "hardware_version_hex": "0x00010006",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 125000000,
+    "build_id": "fee5b8547053d9807159a1aa1bd5482c",
+    "timestamp_clock_hz": 125000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 125000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "stream_status": {
+    "active_bank": 0,
+    "host_bank": 0,
+    "pending_bank": 0,
+    "pending_valid": false,
+    "ready": [
+      false,
+      false
+    ],
+    "running": false,
+    "host_write_allowed": true,
+    "lengths": [
+      16384,
+      0
+    ],
+    "block_ids": [
+      0,
+      0
+    ],
+    "crc32": [
+      0,
+      0
+    ],
+    "switch_count": 0,
+    "current_block_id": 0,
+    "last_switch_tick": 0,
+    "write_rejected": 0,
+    "stream_errors": 0,
+    "upload_block_ids": [
+      1,
+      0
+    ],
+    "upload_next": [
+      16384,
+      0
+    ],
+    "dma": {
+      "active": false,
+      "done": false,
+      "error": true,
+      "target_bank": 0,
+      "received_samples": 16384,
+      "computed_crc32": 837748641,
+      "completed_transfers": 0,
+      "errors": 48
+    }
+  },
+  "expected_crc": "0xc8f64def",
+  "pl_crc": "0x31ef07a1",
+  "different_words": 16384,
+  "first_differences": [
+    {
+      "index": 0,
+      "expected": "0x3a98",
+      "actual": "0x240c2e31"
+    },
+    {
+      "index": 1,
+      "expected": "0x28912a48",
+      "actual": "0x39fe0860"
+    },
+    {
+      "index": 2,
+      "expected": "0x3a8b026d",
+      "actual": "0x2fa5dde5"
+    },
+    {
+      "index": 3,
+      "expected": "0x2bedd938",
+      "actual": "0xac5c668"
+    },
+    {
+      "index": 4,
+      "expected": "0x4d9c59b",
+      "actual": "0xdfe6cefc"
+    },
+    {
+      "index": 5,
+      "expected": "0xdb12d282",
+      "actual": "0xc6e6f2db"
+    },
+    {
+      "index": 6,
+      "expected": "0xc5dcf8bd",
+      "actual": "0xcdb21e0c"
+    },
+    {
+      "index": 7,
+      "expected": "0xd1042303",
+      "actual": "0xf0813882"
+    },
+    {
+      "index": 8,
+      "expected": "0xf65639cb",
+      "actual": "0x1bf03381"
+    },
+    {
+      "index": 9,
+      "expected": "0x21093064",
+      "actual": "0x37d111d3"
+    },
+    {
+      "index": 10,
+      "expected": "0x39580c0c",
+      "actual": "0x349ee638"
+    },
+    {
+      "index": 11,
+      "expected": "0x31b8e0ff",
+      "actual": "0x141fc8f8"
+    },
+    {
+      "index": 12,
+      "expected": "0xe69c735",
+      "actual": "0xe86bca5c"
+    },
+    {
+      "index": 13,
+      "expected": "0xe315cd0a",
+      "actual": "0xc9d9e99e"
+    },
+    {
+      "index": 14,
+      "expected": "0xc7daef40",
+      "actual": "0xc96e1557"
+    },
+    {
+      "index": 15,
+      "expected": "0xcbe31ac9",
+      "actual": "0xe765352d"
+    },
+    {
+      "index": 16,
+      "expected": "0xecf03768",
+      "actual": "0x3a98"
+    },
+    {
+      "index": 17,
+      "expected": "0x189b352d",
+      "actual": "0x28912a48"
+    },
+    {
+      "index": 18,
+      "expected": "0x36921557",
+      "actual": "0x3a8b026d"
+    },
+    {
+      "index": 19,
+      "expected": "0x3627e99e",
+      "actual": "0x2bedd938"
+    }
+  ]
+}

@@ -29,6 +29,7 @@ def inputs(stage):
         files += [ROOT / "scripts" / name for name in
                   ("create_fft.tcl", "build_board.tcl", "rebuild_board.tcl", "finish_board.tcl", "phase3_replication_hook.tcl")]
     elif stage == "simulation":
+        files += list((ROOT / 'tests/reference').glob('*.sv'))
         files += [p for folder in ("tests", "host") for p in (ROOT / folder).glob("*")
                   if p.suffix in (".py", ".sv")]
         files += list((ROOT / "scripts").glob("sim_*.tcl"))
@@ -125,7 +126,9 @@ def main():
                 'hardware_validation.json', 'timing_summary.rpt', 'utilization_flat.rpt',
                 'cdc.rpt', 'drc.rpt', 'bus_skew.rpt', 'worst_paths.rpt')]
         else:
-            evidence_paths = [ROOT / 'reports/core_validation.json',
+            evidence_paths = [ROOT / 'reports/phase10_equivalence.json',
+                              ROOT / 'build/logs/sim_phase10_equivalence.log',
+                              ROOT / 'reports/core_validation.json',
                               ROOT / 'reports/qualification_tool_validation.json',
                               ROOT / 'reports/phase9_python_validation.json',
                               ROOT / 'build/logs/core_parallel_manifest.json',

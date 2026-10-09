@@ -1,0 +1,59 @@
+{
+  "status": "ISOLATION_DMA_PASS_NOT_RELEASE",
+  "source_root": "D:\\fft\\fft_phase10_isolate_psd",
+  "baseline_commit": "c22f9e0af6c297762b0ca7aa59f08548beecb44e",
+  "build_id": "3ef9c17e105a1c2a014374025e374807",
+  "combination": "Phase9 + shared PSD/deferred queue; FIFO and Hann remain block RAM",
+  "firmware": "Unmodified Phase9 diagnostic ELF; matching ps7_init hash verified",
+  "artifacts": {
+    "iq_analyzer.bit": "f37b18ddf866e60a26ff967a72b5c19e722349627f7acdd66eb92eb422bd0a59",
+    "iq_analyzer.xsa": "d12d0e210cf274db80e6a328bb4dcd9bab9c1e323877023f051d5970efdbaceb",
+    "iq_udp.elf": "85b01a68a46f494b007a68d5e01e73bdb71cc4984a8341401b8bea8cac173759",
+    "ps7_init.tcl": "6e02c3e55740782746fd178227fc3397fea79126bef658a9340b1524c1bf17a8"
+  },
+  "resources": {
+    "lut": 21885,
+    "lut_memory": 5740,
+    "ff": 27769,
+    "bram": 130,
+    "dsp": 49
+  },
+  "tests": {
+    "dma_switches": 1000,
+    "duration_seconds": 300.016,
+    "duration_test_switches": 9599,
+    "duration_test_fft_windows": 2289026,
+    "maximum_analysis_us": 281.304,
+    "maximum_publish_us": 281.584,
+    "posttest_reboot_status": "0x5a000000",
+    "both_clock_control": "0x00200400"
+  },
+  "limits": "This isolates a combination; does not prove a unique electrical root cause, qualify all 79 finite cases, or satisfy the original BRAM124 target. No SD/QSPI writes.",
+  "files": {
+    "config/build_profile.json": "59042483c43e4d07c3c85f55c5f5f7e12971847bf0adf9b71c05ca97602a4efe",
+    "rtl/iq_build_config.sv": "2f1850f22dcbf748f7448fc63cf2649ff58a90ac174856b776cb33c311ad523c",
+    "rtl/spectrum_measure.sv": "89779dff480dff6730a27b0b03d7263ea205e7a591db6fa889c1121dd4308dde",
+    "rtl/spectrum_store.sv": "2bfc67c1b69e5a04cbbca6fed68115f48cc3c50e024195033cbf17f2adc7d07d",
+    "rtl/analyzer_core.sv": "1901d98bdb14caaa25eec7a9da2825261ec43b665c1e6b925e6de63acbd4270b",
+    "rtl/window_fft.sv": "39dad4e3000e5a4ca692309a28e002cfd5458f19bb8f99022231c33c33a6a83c",
+    "build/config/build_identity.json": "89bbf74c39bbfc9780cfc7087e9b6d0a5ddba3d405946e8e37bb628a0f6b49ec",
+    "build/program_isolate_psd.tcl": "bcd8800cab9dd783aaa8f2e212d3e581add7c6a5f691ce7a83f18052e852dcf1",
+    "build/refine_psd_timing.tcl": "4f1b1849e9e9b5882aebab864173619ea0dd1ae575e90895cad747d635ab80f1",
+    "build/read_experiment_state.tcl": "4b424f09a87a4d25f8bfd66d56375719ef3bcf57a7e17ee561133c3a560b8e61",
+    "build/logs/program_isolate_psd.txt": "fccfe7607d61a488202898a08d2d96ee7a46f6a4e5e1cd0e52200cbd7f03c33d",
+    "build/logs/isolate_psd_dma.txt": "06f015475d3c6c4315bf9c3850e8678c1a0eadc01890ad91f06d144421bf30eb",
+    "build/logs/isolate_psd_300s.txt": "7eba2871ef41761756bbd03b958b6d01493d5983d3093d98df0d2a7c609f3121",
+    "build/logs/psd_refine_console.txt": "aead7331226afca9607a121dd7c7aa9dba26a384769328d4e790f9c7bf85c9b7",
+    "build/logs/psd_before_refine.rpt": "e88e636bfb0ce214dc8cf60b09af95d0a80f0cc0e4e8dd3f71d8cd628cff2401",
+    "build/logs/psd_after_refine.rpt": "30ebf29d816576817a6fb667bb75973ce8ab8bbb43d84551ce2681a19b7235f8",
+    "reports/hardware_validation.json": "c944bdc3b0fdca77890a2fc7f2eb4c84b8c83e15b580e759de6180b1dad5d160",
+    "reports/timing_summary.rpt": "d885c9c5a8b8a8afa4196622e195362f1e5274af18f69ccc0fc8d206b75ba14e",
+    "reports/utilization_flat.rpt": "0f43fb033de04dd8dc869d7beee26e048de334f4c0a6cc002a95fa19e63bd87f",
+    "reports/cdc.rpt": "95afa51363d80c2cfb558b257cab403a3f0c84a7557d1867774110bd0aaf25b9",
+    "reports/drc.rpt": "4adca0299c4cccb561d0e1b703f97e3af0cc57eda227f65a71275f5bba8c0e73",
+    "reports/phase10_isolate_psd_dma_20261009/validation.json": "74210f28275ab33f173a35dd04c39cc4551b68338858c5e09e7bdddf1b6695be",
+    "reports/phase10_isolate_psd_300s_20261009/stability.json": "3a454824dc0713e2518683b19db7123b18810bca79bc202ac2e0360c7d4a253f",
+    "reports/phase10_isolate_psd_300s_20261009/reset_status.txt": "f780dd101730f82cf6db45acb2082227de9586b418265cf703f208a1697d2331",
+    "power_while_dma.csv": "1f27cc77e6f6a4bd6e242d0a2d5cbfe1a074b5b96313f52a68a03b603cdd4950"
+  }
+}

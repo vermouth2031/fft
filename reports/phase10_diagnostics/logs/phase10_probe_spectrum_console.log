@@ -1,0 +1,511 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Fri Oct  9 13:20:45 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/phase10_probe_spectrum.tcl -notrace
+read_verilog: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 618.926 ; gain = 275.957
+Command: synth_design -top spectrum_measure -part xc7z020clg400-1 -mode out_of_context -flatten_hierarchy rebuilt
+Starting synth_design
+Attempting to get a license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 49644
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1196.398 ; gain = 570.523
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'spectrum_measure' [D:/fft/fft_phase10_resource_opt/rtl/spectrum_measure.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'spectrum_shared_lane' [D:/fft/fft_phase10_resource_opt/rtl/spectrum_store.sv:5]
+	Parameter AW bound to: 11 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'spectrum_shared_lane' (0#1) [D:/fft/fft_phase10_resource_opt/rtl/spectrum_store.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'udiv64' [D:/fft/fft_phase10_resource_opt/rtl/math_units.sv:25]
+INFO: [Synth 8-6155] done synthesizing module 'udiv64' (0#1) [D:/fft/fft_phase10_resource_opt/rtl/math_units.sv:25]
+INFO: [Synth 8-6157] synthesizing module 'spectrum_deferred_queue' [D:/fft/fft_phase10_resource_opt/rtl/spectrum_store.sv:29]
+	Parameter W bound to: 62 - type: integer 
+	Parameter BANKS bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'spectrum_deferred_queue' (0#1) [D:/fft/fft_phase10_resource_opt/rtl/spectrum_store.sv:29]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/fft/fft_phase10_resource_opt/rtl/spectrum_measure.sv:160]
+INFO: [Synth 8-6155] done synthesizing module 'spectrum_measure' (0#1) [D:/fft/fft_phase10_resource_opt/rtl/spectrum_measure.sv:4]
+WARNING: [Synth 8-7129] Port user[23] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[22] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[21] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[20] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[19] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[18] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[17] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[15] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[14] in module spectrum_measure is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1332.445 ; gain = 706.570
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1332.445 ; gain = 706.570
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1332.445 ; gain = 706.570
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'spectrum_measure'
+INFO: [Synth 8-3971] The signal "spectrum_shared_lane:/memory_reg" was recognized as a true dual port RAM template.
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+               WAIT_BANK |                              000 |                              000
+               DIV_START |                              001 |                              001
+                DIV_WAIT |                              010 |                              010
+                    SCAN |                              011 |                              011
+                 PUBLISH |                              100 |                              100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'spectrum_measure'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1332.445 ; gain = 706.570
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   64 Bit       Adders := 10    
+	   3 Input   64 Bit       Adders := 1     
+	   2 Input   51 Bit       Adders := 4     
+	   2 Input   50 Bit       Adders := 4     
+	   2 Input   49 Bit       Adders := 4     
+	   2 Input   48 Bit       Adders := 1     
+	   2 Input   12 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 1     
++---XORs : 
+	   2 Input     14 Bit         XORs := 1     
++---Registers : 
+	              256 Bit    Registers := 1     
+	               64 Bit    Registers := 18    
+	               62 Bit    Registers := 6     
+	               51 Bit    Registers := 8     
+	               50 Bit    Registers := 8     
+	               49 Bit    Registers := 8     
+	               48 Bit    Registers := 31    
+	               32 Bit    Registers := 2     
+	               16 Bit    Registers := 3     
+	               14 Bit    Registers := 4     
+	               12 Bit    Registers := 1     
+	               11 Bit    Registers := 7     
+	               10 Bit    Registers := 1     
+	                6 Bit    Registers := 1     
+	                3 Bit    Registers := 4     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 47    
++---RAMs : 
+	              96K Bit	(2048 X 48 bit)          RAMs := 8     
+	              128 Bit	(2 X 64 bit)          RAMs := 1     
+	               96 Bit	(2 X 48 bit)          RAMs := 1     
+	               64 Bit	(2 X 32 bit)          RAMs := 1     
+	               28 Bit	(2 X 14 bit)          RAMs := 1     
+	                2 Bit	(2 X 1 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 2     
+	   5 Input   64 Bit        Muxes := 1     
+	   2 Input   48 Bit        Muxes := 11    
+	   5 Input   16 Bit        Muxes := 2     
+	   2 Input   14 Bit        Muxes := 2     
+	   2 Input   12 Bit        Muxes := 1     
+	   5 Input   12 Bit        Muxes := 1     
+	   2 Input   11 Bit        Muxes := 8     
+	   5 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 4     
+	   5 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 20    
+	   5 Input    1 Bit        Muxes := 21    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP ii0, operation Mode is: A*B.
+DSP Report: operator ii0 is absorbed into DSP ii0.
+DSP Report: operator ii0 is absorbed into DSP ii0.
+DSP Report: Generating DSP ii_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register ii_reg is absorbed into DSP ii_reg.
+DSP Report: operator ii0 is absorbed into DSP ii_reg.
+DSP Report: operator ii0 is absorbed into DSP ii_reg.
+DSP Report: Generating DSP rr0, operation Mode is: A*B.
+DSP Report: operator rr0 is absorbed into DSP rr0.
+DSP Report: operator rr0 is absorbed into DSP rr0.
+DSP Report: Generating DSP rr_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register rr_reg is absorbed into DSP rr_reg.
+DSP Report: operator rr0 is absorbed into DSP rr_reg.
+DSP Report: operator rr0 is absorbed into DSP rr_reg.
+WARNING: [Synth 8-7129] Port user[23] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[22] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[21] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[20] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[19] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[18] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[17] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[15] in module spectrum_measure is either unconnected or has no load
+WARNING: [Synth 8-7129] Port user[14] in module spectrum_measure is either unconnected or has no load
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[0].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[1].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[2].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[3].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[4].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[5].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[6].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-3971] The signal "spectrum_measure/lanes[7].storage/memory_reg" was recognized as a true dual port RAM template.
+INFO: [Synth 8-12589] Found 16 bits of RAM  (i_107) with no load. RAM width may be reduced from 64 to 48 
+WARNING: [Synth 8-3332] Sequential element (ii_reg[47]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[46]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[45]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[44]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[43]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[42]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[41]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[40]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[39]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[38]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[37]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[36]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[35]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[34]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[33]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[32]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[31]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[30]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[29]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[28]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[27]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[26]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[25]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[24]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[23]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[22]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[21]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[20]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[19]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[18]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (ii_reg[17]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[47]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[46]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[45]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[44]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[43]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[42]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[41]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[40]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[39]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[38]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[37]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[36]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[35]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[34]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[33]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[32]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[31]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[30]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[29]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[28]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[27]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[26]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[25]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[24]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[23]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[22]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[21]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[20]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[19]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[18]) is unused and will be removed from module spectrum_measure.
+WARNING: [Synth 8-3332] Sequential element (rr_reg[17]) is unused and will be removed from module spectrum_measure.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 1680.395 ; gain = 1054.520
+---------------------------------------------------------------------------------
+ Sort Area is  ii0_3 : 0 0 : 3300 4433 : Used 1 time 0
+ Sort Area is  ii0_3 : 0 1 : 1133 4433 : Used 1 time 0
+ Sort Area is  rr0_0 : 0 0 : 3300 4433 : Used 1 time 0
+ Sort Area is  rr0_0 : 0 1 : 1133 4433 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name      | RTL Object                  | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|spectrum_measure | lanes[0].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[1].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[2].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[3].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[4].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[5].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[6].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[7].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++-----------------+---------------------+----------------+----------------------+---------------+
+|Module Name      | RTL Object          | Inference      | Size (Depth x Width) | Primitives    | 
++-----------------+---------------------+----------------+----------------------+---------------+
+|deferred         | banks[0].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[1].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[2].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[3].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[4].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|spectrum_measure | bank_total_reg      | Implied        | 2 x 64               | RAM32M x 11   | 
+|spectrum_measure | bank_overflow_reg   | Implied        | 2 x 1                | RAM16X1D x 1  | 
+|spectrum_measure | bank_q_reg          | Implied        | 2 x 14               | RAM32M x 3    | 
+|spectrum_measure | bank_peak_reg       | Implied        | 2 x 48               | RAM32M x 8    | 
+|spectrum_measure | bank_frame_reg      | Implied        | 2 x 32               | RAM32M x 6    | 
++-----------------+---------------------+----------------+----------------------+---------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++-----------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name      | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-----------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|spectrum_measure | A*B            | 24     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|spectrum_measure | (PCIN>>17)+A*B | 24     | 7      | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|spectrum_measure | A*B            | 24     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|spectrum_measure | (PCIN>>17)+A*B | 24     | 7      | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++-----------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 1680.395 ; gain = 1054.520
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name      | RTL Object                  | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|spectrum_measure | lanes[0].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[1].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[2].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[3].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[4].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[5].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[6].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
+|spectrum_measure | lanes[7].storage/memory_reg | 2 K x 48(NO_CHANGE)    | W |   | 2 K x 48(READ_FIRST)   | W | R | Port A and B     | 0      | 3      | 
++-----------------+-----------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++-----------------+---------------------+----------------+----------------------+---------------+
+|Module Name      | RTL Object          | Inference      | Size (Depth x Width) | Primitives    | 
++-----------------+---------------------+----------------+----------------------+---------------+
+|deferred         | banks[0].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[1].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[2].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[3].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|deferred         | banks[4].memory_reg | User Attribute | 512 x 62             | RAM64M x 168  | 
+|spectrum_measure | bank_total_reg      | Implied        | 2 x 64               | RAM32M x 11   | 
+|spectrum_measure | bank_overflow_reg   | Implied        | 2 x 1                | RAM16X1D x 1  | 
+|spectrum_measure | bank_q_reg          | Implied        | 2 x 14               | RAM32M x 3    | 
+|spectrum_measure | bank_peak_reg       | Implied        | 2 x 48               | RAM32M x 8    | 
+|spectrum_measure | bank_frame_reg      | Implied        | 2 x 32               | RAM32M x 6    | 
++-----------------+---------------------+----------------+----------------------+---------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance lanes[0].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[0].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[0].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[1].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[1].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[1].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[2].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[2].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[2].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[3].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[3].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[3].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[4].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[4].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[4].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[5].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[5].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[5].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[6].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[6].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[6].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[7].storage/memory_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[7].storage/memory_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance lanes[7].storage/memory_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:34 . Memory (MB): peak = 1680.395 ; gain = 1054.520
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1865.602 ; gain = 1239.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1865.602 ; gain = 1239.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1865.602 ; gain = 1239.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1865.602 ; gain = 1239.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1867.684 ; gain = 1241.809
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1867.684 ; gain = 1241.809
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++-----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name      | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++-----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|spectrum_measure | A*B             | 30     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|spectrum_measure | (PCIN>>17+A*B)' | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|spectrum_measure | A*B             | 30     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|spectrum_measure | (PCIN>>17+A*B)' | 30     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++-----------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY4   |   615|
+|2     |DSP48E1  |     4|
+|3     |LUT1     |    10|
+|4     |LUT2     |  1337|
+|5     |LUT3     |   858|
+|6     |LUT4     |  1615|
+|7     |LUT5     |    93|
+|8     |LUT6     |   896|
+|9     |MUXF7    |   310|
+|10    |RAM16X1D |     1|
+|11    |RAM32M   |    26|
+|12    |RAM32X1D |     2|
+|13    |RAM64M   |   840|
+|14    |RAMB36E1 |    24|
+|15    |FDRE     |  4803|
+|16    |FDSE     |    15|
++------+---------+------+
+
+Report Instance Areas: 
++------+---------------------+------------------------+------+
+|      |Instance             |Module                  |Cells |
++------+---------------------+------------------------+------+
+|1     |top                  |                        | 11449|
+|2     |  deferred           |spectrum_deferred_queue |  2524|
+|3     |  div200             |udiv64                  |   565|
+|4     |  \lanes[0].storage  |spectrum_shared_lane    |   116|
+|5     |  \lanes[1].storage  |spectrum_shared_lane_0  |    54|
+|6     |  \lanes[2].storage  |spectrum_shared_lane_1  |    54|
+|7     |  \lanes[3].storage  |spectrum_shared_lane_2  |    54|
+|8     |  \lanes[4].storage  |spectrum_shared_lane_3  |    54|
+|9     |  \lanes[5].storage  |spectrum_shared_lane_4  |    54|
+|10    |  \lanes[6].storage  |spectrum_shared_lane_5  |    90|
+|11    |  \lanes[7].storage  |spectrum_shared_lane_6  |    77|
++------+---------------------+------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1867.684 ; gain = 1241.809
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 80 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1867.684 ; gain = 1241.809
+Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:40 . Memory (MB): peak = 1867.695 ; gain = 1241.809
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.130 . Memory (MB): peak = 1881.914 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1822 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2020.723 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 869 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 1 instance 
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 26 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 2 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 840 instances
+
+Synth Design complete | Checksum: 5d41dfda
+INFO: [Common 17-83] Releasing license: Vivado_Synthesis
+57 Infos, 80 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:48 . Memory (MB): peak = 2021.727 ; gain = 1402.801
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 2021.727 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/fft/fft_phase10_resource_opt/build/phase10_probe/spectrum.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2021.727 ; gain = 0.000
+PHASE10_SPECTRUM_SYNTH_PASS
+INFO: [Common 17-206] Exiting Vivado at Fri Oct  9 13:22:01 2026...

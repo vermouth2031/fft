@@ -1,0 +1,20 @@
+{
+  "status": "INVESTIGATING_RESET",
+  "time": "2026-10-09T14:19:59.565899+08:00",
+  "failed_test": "reports/phase10_dma_1000_20261009/validation.json",
+  "last_confirmed_transition": 325,
+  "expected_build_id": "fee5b8547053d9807159a1aa1bd5482c",
+  "observed_build_id_after_failure": "bae26b27515a813bbef3093a68992465",
+  "observed_fft_length_after_failure": 8192,
+  "reboot_status": "0x00400000",
+  "boot_mode": "0x00000005",
+  "reset_register_log_sha256": "efabe14c09151e7cbb6778928bcce44c1ea9241b2ecdd5fc25887e46ffd0d6f5",
+  "interpretation": "POR flag set, SD boot mode; specific physical trigger is not yet established",
+  "source": "https://docs.amd.com/r/en-US/ug585-zynq-7000-SoC-TRM/Register-REBOOT_STATUS-Details",
+  "user_observation": {
+    "confirmed_at": "2026-10-09T17:43:18.662956+08:00",
+    "manual_power_or_reset": false,
+    "power_source": "USB_ONLY"
+  },
+  "followup_test": "reports/phase10_usb_retry_20261009_174118/summary.json"
+}

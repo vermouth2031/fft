@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 152, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 66, in main
+    info=client.hardware_info();check_identity(info)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 176, in hardware_info
+    version=self.read(4)[0];rate=self.read(0x10)[0]
+            ^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 173, in read
+    def read(self,offset,count=1):return self.request(1,[offset],count)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 151, in request
+    raise TimeoutError('No command reply from board; check firmware, board IP, cable and local network configuration')
+TimeoutError: No command reply from board; check firmware, board IP, cable and local network configuration

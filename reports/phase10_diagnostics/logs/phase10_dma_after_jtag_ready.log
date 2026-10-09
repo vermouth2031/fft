@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 152, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 95, in main
+    crc,status=client.upload_stream_block(cached[kind],bank,block_id,arm=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 276, in upload_stream_block
+    try:replies=self.request_batch(commands)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 171, in request_batch
+    if pending:raise TimeoutError(f'No replies for batched commands: {list(pending)}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: No replies for batched commands: [1728529566, 1728529567, 1728529568, 1728529569]

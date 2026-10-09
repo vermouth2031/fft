@@ -1,0 +1,169 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Fri Oct  9 13:25:05 2026
+# Process ID         : 52412
+# Current directory  : D:/fft/fft_phase10_resource_opt
+# Command line       : vivado.exe -mode batch -notrace -nojournal -log D:\fft\fft_phase10_resource_opt\build\logs\sim_measurements.log -source scripts/sim_measurements.tcl
+# Log file           : D:/fft/fft_phase10_resource_opt/build/logs/sim_measurements.log
+# Journal file       : 
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 18867 MB
+# Total Virtual      : 35712 MB
+# Available Virtual  : 5116 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_measurements.tcl -notrace
+create_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:18 . Memory (MB): peak = 617.262 ; gain = 274.297
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Fri Oct  9 13:25:32 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_measurements'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_measurements' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_measurements_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/digital_burst_measure.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module digital_burst_measure
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/iq_build_config.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/math_units.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module isqrt64
+INFO: [VRFC 10-311] analyzing module udiv64
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/spectrum_measure.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module spectrum_measure
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/spectrum_store.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module spectrum_shared_lane
+INFO: [VRFC 10-311] analyzing module spectrum_deferred_queue
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/rtl/time_measure.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module time_measure
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/tests/tb_measurements.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_measurements
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_measurements_behav xil_defaultlib.tb_measurements xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_measurements_behav xil_defaultlib.tb_measurements xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.digital_burst_measure
+Compiling module xil_defaultlib.time_measure_default
+Compiling module xil_defaultlib.udiv64
+Compiling module xil_defaultlib.spectrum_deferred_queue_default
+Compiling module xil_defaultlib.spectrum_shared_lane
+Compiling module xil_defaultlib.spectrum_measure_default
+Compiling module xil_defaultlib.tb_measurements
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_measurements_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_measurements_behav -key {Behavioral:sim_1:Functional:tb_measurements} -tclbatch {tb_measurements.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_measurements.tcl
+WARNING: [Wavedata 42-489] Can't add object "/tb_measurements/fftvec" to the wave window because it has 12582912 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+MEASUREMENTS_PASS time_cases=8 gap_samples=262144 spectra=12 continuous_bins=(12*N)
+$finish called at time : 5835472 ns : File "D:/fft/fft_phase10_resource_opt/tests/tb_measurements.sv" Line 52
+xsim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 637.719 ; gain = 14.035
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_measurements_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:17 . Memory (MB): peak = 637.719 ; gain = 20.457
+INFO: [Simtcl 6-16] Simulation closed
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Fri Oct  9 13:25:50 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_burst_edges'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_burst_edges' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_burst_edges_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase10_resource_opt/tests/tb_burst_edges.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_burst_edges
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_burst_edges_behav xil_defaultlib.tb_burst_edges xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_burst_edges_behav xil_defaultlib.tb_burst_edges xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.digital_burst_measure
+Compiling module xil_defaultlib.time_measure_default
+Compiling module xil_defaultlib.tb_burst_edges
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_burst_edges_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase10_resource_opt/build/measurements/measurements.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_burst_edges_behav -key {Behavioral:sim_1:Functional:tb_burst_edges} -tclbatch {tb_burst_edges.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_burst_edges.tcl
+BURST_EDGES_PASS Kon1_Koff1 max1 max_equals_Kon delayed_finish
+$finish called at time : 2270 ns : File "D:/fft/fft_phase10_resource_opt/tests/tb_burst_edges.sv" Line 29
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_burst_edges_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 637.719 ; gain = 0.000
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Fri Oct  9 13:25:57 2026...

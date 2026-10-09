@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_cold_boot_20261009\\finite\\rrc_alpha25_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65544,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.296,
+  "maximum_publish_us": 281.576,
+  "input_sha256": "e993a83eafc48a25477b8d17b3eaee51f8f97d127e55370a21b523cfe53320fd",
+  "golden_sha256": "ac79c56b0f95a0642e8100291419b73dbc9acb978dc84c5cda22f452d35bd981",
+  "files": {
+    "capture.json": "d2f6f5122f095d1b3f3eb899d1337da97b2d92fa4b672192eef5bccb0d8b7f6e",
+    "frequency.bin": "caba69dba46950b683827de5aeeef3705d84bfcfd02918ea3cd48a6d0bf1e4b0",
+    "burst.bin": "9e0560d443168d3133891f2e29e22c04d75e254d1e945a53180a920ad2897aae",
+    "snapshot.bin": "88504b4ec2e171a9fd889933e7141e8176ee624184be9d315405d9dbce25dfb9",
+    "snapshot.json": "04fb488374c66d0a7221f558b631826173ea114b923b3160a4e9a5eac2472233"
+  },
+  "label": "rrc_alpha25_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 65.376,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 5,
+        "end_error_samples": 10,
+        "length_error_samples": 5,
+        "start_error_us": 0.04,
+        "end_error_us": 0.08,
+        "length_error_us": 0.04,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

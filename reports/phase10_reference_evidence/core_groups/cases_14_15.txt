@@ -1,0 +1,43 @@
+#-----------------------------------------------------------
+# xsim v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Fri Oct  9 19:04:53 2026
+# Process ID         : 32420
+# Current directory  : D:/fft/fft_phase10_resource_opt/build/core_parallel/20261009_184636/cases_14_15
+# Command line       : xsim.exe -log simulate.log -mode tcl -source {xsim.dir/tb_core_behav/xsim_script.tcl}
+# Log file           : D:/fft/fft_phase10_resource_opt/build/core_parallel/20261009_184636/cases_14_15/simulate.log
+# Journal file       : D:/fft/fft_phase10_resource_opt/build/core_parallel/20261009_184636/cases_14_15\xsim.jou
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 19904 MB
+# Total Virtual      : 36749 MB
+# Available Virtual  : 5781 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_core_behav/xsim_script.tcl
+# xsim {tb_core_behav} -testplusarg CASE_START=14 -testplusarg CASE_END=16 -autoloadwcfg -runall -onerror quit
+Time resolution is 1 ps
+run -all
+Note:   - SCALING_SCH: in_ptr = 1, out_ptr = 1
+Time: 0 ps  Iteration: 0  Process: /tb_core/dut/transform/fft/U0/i_synth/axi_wrapper/gen_config_fifo_in/line__94237  File: D:/VivadoMM/2026.1/Vivado/data/ip/xilinx/xfft_v9_1/hdl/xfft_v9_1_vh_rfs.vhd
+Note:     - C_CHANNELS  = 1
+Time: 0 ps  Iteration: 0  Process: /tb_core/dut/transform/fft/U0/i_synth/axi_wrapper/gen_config_fifo_in/line__94237  File: D:/VivadoMM/2026.1/Vivado/data/ip/xilinx/xfft_v9_1/hdl/xfft_v9_1_vh_rfs.vhd
+Note:     - field_width = 14
+Time: 0 ps  Iteration: 0  Process: /tb_core/dut/transform/fft/U0/i_synth/axi_wrapper/gen_config_fifo_in/line__94237  File: D:/VivadoMM/2026.1/Vivado/data/ip/xilinx/xfft_v9_1/hdl/xfft_v9_1_vh_rfs.vhd
+Note:   - Copying SCALE_SCH from 14 downto 1 to 14 downto 1
+Time: 0 ps  Iteration: 0  Process: /tb_core/dut/transform/fft/U0/i_synth/axi_wrapper/gen_config_fifo_in/line__94237  File: D:/VivadoMM/2026.1/Vivado/data/ip/xilinx/xfft_v9_1/hdl/xfft_v9_1_vh_rfs.vhd
+CASE_PASS case=14 fft_frames=4 results=4 latency_cycles=35163
+CASE_PASS case=15 fft_frames=4 results=4 latency_cycles=35163
+CORE_PASS cases=2 exact_fft_points=131072 frequency_records=8
+$finish called at time : 1359504 ns : File "D:/fft/fft_phase10_resource_opt/tests/tb_core.sv" Line 98
+run: Time (s): cpu = 00:00:02 ; elapsed = 00:14:00 . Memory (MB): peak = 237.637 ; gain = 0.000
+exit
+INFO: xsimkernel Simulation Memory Usage: 190268 KB (Peak: 190268 KB), Simulation CPU Usage: 831374 ms
+INFO: [Common 17-206] Exiting xsim at Fri Oct  9 19:18:56 2026...
