@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
-| Date         : Fri Oct  9 14:07:30 2026
+| Date         : Fri Oct  9 18:38:15 2026
 | Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
 | Command      : report_drc -file D:/fft/fft_phase10_resource_opt/reports/drc.rpt
 | Design       : system_wrapper
@@ -24,11 +24,11 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 45
+             Checks found: 39
 +-------------+----------+---------------------------------+--------+
 | Rule        | Severity | Description                     | Checks |
 +-------------+----------+---------------------------------+--------+
-| DPIP-1      | Warning  | Input pipelining                | 14     |
+| DPIP-1      | Warning  | Input pipelining                | 8      |
 | DPOP-1      | Warning  | PREG Output pipelining          | 3      |
 | DPOP-2      | Warning  | MREG Output pipelining          | 11     |
 | PDCN-1569   | Warning  | LUT equation term check         | 1      |
@@ -79,36 +79,6 @@ Related violations: <none>
 DPIP-1#8 Warning
 Input pipelining  
 DSP system_i/iq_0/inst/core/sm/rr_reg input system_i/iq_0/inst/core/sm/rr_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#9 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/tm/ii_reg input system_i/iq_0/inst/core/tm/ii_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#10 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/tm/ii_reg input system_i/iq_0/inst/core/tm/ii_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#11 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/tm/p_reg input system_i/iq_0/inst/core/tm/p_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#12 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/tm/p_reg input system_i/iq_0/inst/core/tm/p_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#13 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/transform/pi_reg input system_i/iq_0/inst/core/transform/pi_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-Related violations: <none>
-
-DPIP-1#14 Warning
-Input pipelining  
-DSP system_i/iq_0/inst/core/transform/pq_reg input system_i/iq_0/inst/core/transform/pq_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPOP-1#1 Warning
@@ -183,17 +153,17 @@ Related violations: <none>
 
 PDCN-1569#1 Warning
 LUT equation term check  
-Used physical LUT pin 'A2' of cell system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1 (pin system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1/I1) in site SLICE_X3Y37 is not included in the LUT equation: 'O6=(A1)+((~A1)*(~A6)*A3)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Used physical LUT pin 'A1' of cell system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1 (pin system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1/I1) in site SLICE_X37Y52 is not included in the LUT equation: 'O6=(A6)+((~A6)*(~A5)*A4)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
 Related violations: <none>
 
 PLBUFGOPT-1#1 Warning
 Non-Optimal connections to BUFG  
-A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica. Remove non-muxed BUFG if it is not desired
+A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG_replica. Remove non-muxed BUFG if it is not desired
 Related violations: <none>
 
 PLBUFGOPT-1#2 Warning
 Non-Optimal connections to BUFG  
-A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica_1. Remove non-muxed BUFG if it is not desired
+A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica. Remove non-muxed BUFG if it is not desired
 Related violations: <none>
 
 REQP-1839#1 Warning

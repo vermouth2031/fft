@@ -29,9 +29,21 @@ def verify(root):
     report = read('reports/phase10_acceptance.json')
     require(report['status'] == 'RAM_JTAG_PASS', 'RAM/JTAG acceptance did not pass')
     require(report['deployment'] == 'RAM_JTAG', 'Unexpected deployment scope')
+    require(report['power_supply'] == 'USER_CONFIRMED_USB_ONLY', 'Supply test scope missing')
     for name, expected in report['files'].items():
         actual = hashlib.sha256(path(name).read_bytes()).hexdigest()
         require(actual == expected, f'Evidence changed: {name}')
+    repair = read(report['repair_summary'])
+    require(repair['status'] == 'VERIFIED_USB_RAM_JTAG_REPAIR', 'Repair evidence incomplete')
+    require(repair['build_id'] == report['build_id'], 'Repair targets another image')
+    paired = read(report['paired_baseline_report'])
+    require(paired['status'] == 'PASS' and paired['completed_transitions'] >= 1000,
+            'Paired Phase 9 control incomplete')
+    require(paired['hardware']['build_id'] == '48ec8e97bf87f19a0cbf4efcb7c8a501',
+            'Unexpected Phase 9 control image')
+    require(paired['hardware_max_latency_us'] <= 281.304 and
+            paired['hardware_max_publish_latency_us'] <= 281.584,
+            'Paired control no longer supports the latency gates')
     archive = 'reports/phase10_reference_evidence/'
     path_map = read(archive + 'path_map.json')
     build_map = {destination.split('/build/', 1)[1]: destination
@@ -53,8 +65,16 @@ def verify(root):
     for group in groups['groups']:
         name = path_map[group['log']]
         require(report['files'][name] == group['sha256'], f'Core group log differs: {name}')
+    python_tests = read('reports/phase9_python_validation.json')
+    require(python_tests['status'] == 'PASS' and len(python_tests['tests']) == 7,
+            'Python regressions incomplete')
+    for test in python_tests['tests']:
+        require(test['exit_code'] == 0, f'Python regression failed: {test["script"]}')
+        archived_digest(test['log'].replace('\\', '/'), test['sha256'])
+    for name, expected in python_tests['inputs'].items():
+        archived_digest(name.replace('\\', '/'), expected)
 
-    expected_hardware = dict(hardware_version=65542, fft_length=16384,
+    expected_hardware = dict(hardware_version=65544, fft_length=16384,
         sample_rate_hz=125000000, timestamp_clock_hz=125000000,
         fft_clock_hz=125000000, replay_bank_samples=32768,
         frequency_ring_records=128, burst_ring_records=128,
@@ -93,9 +113,10 @@ def verify(root):
         match = re.search(r'\|\s*' + re.escape(label) + r'\*?\s*\|\s*([\d.]+)', utilization)
         require(match is not None and float(match[1]) == resources[key],
                 f'Resource report differs: {key}')
-    require(resources['lut'] < 31562 and resources['lut_memory'] < 14667,
-            'LUT resource improvement absent')
-    require(resources['bram'] <= 124 and resources['dsp'] <= 49,
+    require(resources['lut'] <= 23500 and resources['lut_memory'] <= 6000
+            and resources['ff'] <= 28000,
+            'Repaired implementation logic/register budget exceeded')
+    require(resources['bram'] <= 128 and resources['dsp'] <= 49,
             'BRAM/DSP resource limit exceeded')
     core = read('reports/core_validation.json')
     require(core['status'] == 'PASS' and core['exact_fft_points'] == 1048576
@@ -134,6 +155,13 @@ def verify(root):
         for artifact, expected in result['artifacts'].items():
             require(expected == report['artifacts'][artifact], f'Dynamic image differs: {name}')
         require(result['status'] == 'PASS', f'Dynamic acceptance failed: {name}')
+        require(result['effective_average_upload_mbps'] >= 8.0,
+                f'Upload throughput regressed: {name}')
+        final = result['final_status']
+        require(not final['write_rejected'] and not final['stream_errors'] and
+                not final['dma']['errors'] and not final['dma']['error'] and
+                not final['dma']['active'] and final['dma']['done'],
+                f'DMA/stream telemetry failed: {name}')
         stats, diag = result['statistics'], result['diagnostics']
         require(not stats['frequency_id_gaps'] and not stats['udp_missing_packet_count'],
                 f'Record integrity failed: {name}')

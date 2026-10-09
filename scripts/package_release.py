@@ -30,8 +30,11 @@ def check():
         match=re.search(r'\|\s*'+re.escape(label)+r'\*?\s*\|\s*([\d.]+)',utilization)
         assert match,('Missing resource',label)
         return float(match[1])
-    assert used('Slice LUTs')<31562 and used('LUT as Memory')<14667,'No LUT resource benefit'
-    assert used('Block RAM Tile')<=124,'Phase 10 BRAM target failed'
+    # USB repair tradeoff: retain four FIFO BRAMs, with tighter LUT/LUTRAM/FF
+    # budgets than candidate 1. FFT, precision, capacities and latency gates stay.
+    assert used('Slice LUTs')<=23500 and used('LUT as Memory')<=6000,'Phase 10 logic budget exceeded'
+    assert used('Slice Registers')<=28000,'Phase 10 register budget exceeded'
+    assert used('Block RAM Tile')<=128,'Phase 10 repaired BRAM target failed'
     assert used('DSPs')<=49,'DSP usage regressed'
     assert hw['status']=='PASS' and hw['setup_slack_ns']>=0 and hw['hold_slack_ns']>=0,'Hardware timing failed'
     assert hw['cdc_critical']==0 and hw['unconstrained_internal_endpoints']==0

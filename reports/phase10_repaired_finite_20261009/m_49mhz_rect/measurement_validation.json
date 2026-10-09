@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_repaired_finite_20261009\\m_49mhz_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65544,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.296,
+  "maximum_publish_us": 281.576,
+  "input_sha256": "4971c1f3683507807c6bc41240533180289dd009579e3aae07c3a806595271bf",
+  "golden_sha256": "ba0445fce9784c124e92feec3d7000133429c1b033df1fc11cd7955dc9c1e34c",
+  "files": {
+    "capture.json": "fee3ef8f523c855bcb7f6dac8a061b409a9b4c44e4f9a48dc782f1b02ee4f617",
+    "frequency.bin": "26208531f5caa9ba607d877f925b950668a1962955bcb8b9068fc4ffc5f7247f",
+    "burst.bin": "baff1cbf89e14042dc295dacdf2751e42b90b487221402cc9bcef825eb0b3cd4",
+    "snapshot.bin": "596271d47de130bc0f5e23bb0cadec519dd0b44baf435064de13276a1d21675c",
+    "snapshot.json": "00b90a86b66935c80b58c061cebf128aca748a5fe93f1ce6f51e0eb604cad62c"
+  },
+  "label": "m_49mhz_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

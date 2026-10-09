@@ -27,11 +27,19 @@ def main():
     parser.add_argument('--dynamic', type=Path, nargs=3, required=True)
     parser.add_argument('--references', type=Path, required=True)
     parser.add_argument('--program-log', type=Path, required=True)
+    parser.add_argument('--paired-baseline', type=Path, required=True)
+    parser.add_argument('--repair-summary', type=Path, required=True)
     args = parser.parse_args()
     check_build()
     finite = json.loads(args.finite.read_text(encoding='utf-8'))
     if finite['status'] != 'PASS':
         raise ValueError('Finite board acceptance must pass before archiving')
+    paired = json.loads(args.paired_baseline.read_text(encoding='utf-8'))
+    repair = json.loads(args.repair_summary.read_text(encoding='utf-8'))
+    if paired['status'] != 'PASS' or paired.get('completed_transitions', 0) < 1000:
+        raise ValueError('Matching-board Phase 9 control must pass 1000 switches')
+    if repair['status'] != 'VERIFIED_USB_RAM_JTAG_REPAIR':
+        raise ValueError('Repair investigation has not been closed by board evidence')
     archive = ROOT / 'reports/phase10_reference_evidence'
     archive.mkdir(exist_ok=True)
     path_map = {}
@@ -61,6 +69,12 @@ def main():
         if sha(source) != group['sha256']:
             raise ValueError(f'Core group log changed: {source}')
         copy(source, archive / 'core_groups' / f"cases_{group['first_case']:02d}_{group['last_case']:02d}.txt")
+    python_tests = json.loads((ROOT / 'reports/phase9_python_validation.json').read_text())
+    for test in python_tests['tests']:
+        source = ROOT / test['log']
+        if sha(source) != test['sha256']:
+            raise ValueError(f'Python regression log changed: {source}')
+        copy(source, archive / 'build' / source.relative_to(ROOT / 'build'))
     for stage in ('simulation', 'hardware'):
         provenance = json.loads((ROOT / f'reports/{stage}_provenance.json').read_text())
         for section in ('inputs', 'evidence'):
@@ -90,6 +104,9 @@ def main():
         baseline_commit=baseline['commit'], build_id=finite['hardware']['build_id'],
         hardware=finite['hardware'], deployment='RAM_JTAG',
         sd_installation='NOT_PERFORMED_ORIGINAL_SD_UNCHANGED',
+        power_supply='USER_CONFIRMED_USB_ONLY',
+        paired_baseline_report=args.paired_baseline.resolve().relative_to(ROOT).as_posix(),
+        repair_summary=args.repair_summary.resolve().relative_to(ROOT).as_posix(),
         physical_cold_boot='NOT_PERFORMED', finite_report=finite_path,
         dynamic_reports=dynamic_paths, finite_cases=len(finite['cases']),
         exact_fft_simulation_points=1048576,
@@ -103,6 +120,19 @@ def main():
             'RAM/JTAG acceptance does not qualify SD startup or physical cold boot',
             '125 MSPS describes internal replay processing, not unique IQ over Ethernet'])
     files = set()
+    files.update((args.paired_baseline.resolve(), args.repair_summary.resolve()))
+    # Preserve failures, reset evidence and the diagnostic controls alongside
+    # final passing results. None of these older images qualifies the new image.
+    for relative in repair['evidence_roots']:
+        evidence = (ROOT / relative).resolve()
+        if not evidence.is_relative_to((ROOT / 'reports').resolve()):
+            raise ValueError(f'Investigation evidence escapes reports: {relative}')
+        if evidence.is_dir():
+            files.update(p for p in evidence.rglob('*') if p.is_file())
+        elif evidence.is_file():
+            files.add(evidence)
+        else:
+            raise ValueError(f'Missing investigation evidence: {relative}')
     for folder in ('rtl', 'constraints', 'config', 'scripts', 'firmware', 'host', 'tests'):
         files.update(p for p in (ROOT / folder).rglob('*')
                      if p.is_file() and '__pycache__' not in p.parts)
@@ -110,7 +140,8 @@ def main():
         files.update(p for p in folder.rglob('*') if p.is_file())
     for stage in ('simulation', 'hardware'):
         provenance = json.loads((ROOT / f'reports/{stage}_provenance.json').read_text())
-        files.update(ROOT / name for name in provenance['inputs'] if not name.startswith('build/'))
+        for section in ('inputs', 'evidence'):
+            files.update(ROOT / name for name in provenance[section] if not name.startswith('build/'))
     files.update(ROOT / 'reports' / name for name in (
         'hardware_validation.json', 'software_validation.json', 'core_validation.json',
         'simulation_provenance.json', 'hardware_provenance.json', 'boot_provenance.json',

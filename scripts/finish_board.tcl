@@ -1,4 +1,18 @@
 open_run impl_1
+# Keep a deterministic physical-only refinement for small routed setup failures.
+# No clock, uncertainty, false-path or functional constraint is changed.
+set initial_wns [get_property SLACK [get_timing_paths -delay_type max -max_paths 1]]
+if {$initial_wns < 0} {
+ puts "ADDITIONAL_ROUTED_EXPLORE_INITIAL_WNS=$initial_wns"
+ phys_opt_design -directive Explore
+ set refined_wns [get_property SLACK [get_timing_paths -delay_type max -max_paths 1]]
+ set refined_whs [get_property SLACK [get_timing_paths -delay_type min -max_paths 1]]
+ puts "ADDITIONAL_ROUTED_EXPLORE_FINAL_WNS=$refined_wns WHS=$refined_whs"
+ if {$refined_wns >= 0 && $refined_whs >= 0} {
+  write_checkpoint -force $root/build/board/iq_board.runs/impl_1/system_wrapper_postroute_physopt.dcp
+  write_bitstream -force $root/build/board/iq_board.runs/impl_1/system_wrapper.bit
+ }
+}
 file mkdir $root/reports
 report_timing_summary -delay_type min_max -report_unconstrained -file $root/reports/timing_summary.rpt
 report_utilization -hierarchical -file $root/reports/utilization.rpt

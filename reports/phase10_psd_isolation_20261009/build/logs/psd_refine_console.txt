@@ -1,0 +1,177 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Fri Oct  9 18:14:42 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source build/refine_psd_timing.tcl -notrace
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part 'digilentinc.com:zybo-z7-20:part0:1.2' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/VivadoMM/2026.1/Vivado/data/ip'.
+open_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 643.316 ; gain = 301.555
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.223 . Memory (MB): peak = 987.492 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 4124 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.080 . Memory (MB): peak = 1152.152 ; gain = 12.836
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.035 . Memory (MB): peak = 1829.605 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1829.605 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1829.605 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.750 . Memory (MB): peak = 1861.637 ; gain = 32.031
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1861.637 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.293 . Memory (MB): peak = 1862.332 ; gain = 0.695
+Read Physdb Files: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1862.332 ; gain = 32.727
+Restored from archive | CPU: 2.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1862.332 ; gain = 32.727
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1912.961 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1054 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 1 instance 
+  RAM16X1S => RAM32X1S (RAMS32): 32 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 135 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 3 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 840 instances
+  RAM64X1S => RAM64X1S (RAMS64E): 35 instances
+  SRLC32E => SRL16E: 8 instances
+
+open_run: Time (s): cpu = 00:00:14 ; elapsed = 00:00:18 . Memory (MB): peak = 1912.961 ; gain = 1269.645
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 4 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
+report_timing: Time (s): cpu = 00:00:16 ; elapsed = 00:00:06 . Memory (MB): peak = 2020.555 ; gain = 107.594
+Command: phys_opt_design -directive Explore
+Attempting to get a license for feature 'Vivado_Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Vivado_Implementation' and/or device 'xc7z020'
+INFO: [Vivado_Tcl 4-241] Physical synthesis in post route mode 
+INFO: [Vivado_Tcl 4-137] Directive used for phys_opt_design is: Explore
+INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 6.00s |  WALL: 2.26s
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 2157.918 ; gain = 0.000
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 4 CPUs
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.007 | TNS=-0.013 | WHS=0.014 | THS=0.000 |
+Phase 1 Physical Synthesis Initialization | Checksum: 282563640
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:06 . Memory (MB): peak = 2157.918 ; gain = 0.000
+
+Phase 2 Critical Path Optimization
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.007 | TNS=-0.013 | WHS=0.014 | THS=0.000 |
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_fpga_0. Processed net: system_i/iq_0/inst/freq_consumer_reg_n_0_[3].
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_fpga_0. Processed net: system_i/ps7/inst/FCLK_CLK_unbuffered[0].
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_fpga_0. Processed net: system_i/iq_0/inst/freq_ring/freq_consumer[31]_i_3_n_0.
+INFO: [Physopt 32-710] Processed net system_i/iq_0/inst/freq_ring/freq_consumer[31]_i_3_n_0. Critical path length was reduced through logic transformation on cell system_i/iq_0/inst/freq_ring/freq_consumer[31]_i_3_comp.
+INFO: [Physopt 32-735] Processed net system_i/iq_0/inst/freq_ring/freq_consumer[31]_i_4_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-668] Current Timing Summary | WNS=0.011 | TNS=0.000 | WHS=0.014 | THS=0.000 |
+INFO: [Physopt 32-668] Current Timing Summary | WNS=0.011 | TNS=0.000 | WHS=0.014 | THS=0.000 |
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Phase 2 Critical Path Optimization | Checksum: 282563640
+
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:27 . Memory (MB): peak = 2368.559 ; gain = 210.641
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 2368.559 ; gain = 0.000
+INFO: [Physopt 32-669] Post Physical Optimization Timing Summary | WNS=0.011 | TNS=0.000 | WHS=0.014 | THS=0.000 |
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization   |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Critical Path  |          0.018  |          0.013  |            0  |              0  |                     1  |           0  |           1  |  00:00:22  |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Ending Physical Synthesis Task | Checksum: 229fbf2b8
+
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:28 . Memory (MB): peak = 2368.559 ; gain = 210.641
+INFO: [Common 17-83] Releasing license: Vivado_Implementation
+36 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+phys_opt_design: Time (s): cpu = 00:00:55 ; elapsed = 00:00:30 . Memory (MB): peak = 2368.559 ; gain = 348.004
+PSD_REFINE_EXPLORE_WNS=0.011
+PSD_REFINE_FINAL_WNS=0.011
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Wrote PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.091 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Writing XDEF routing special nets.
+Wrote RouteStorage: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.404 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Wrote PlaceStorage: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.057 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Wrote Device Cache: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Write Physdb Complete: Time (s): cpu = 00:00:05 ; elapsed = 00:00:02 . Memory (MB): peak = 2368.559 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/fft/fft_phase10_isolate_psd/build/board/psd_refined.dcp' has been generated.
+Command: write_bitstream -force D:/fft/fft_phase10_isolate_psd/build/board/iq_board.runs/impl_1/system_wrapper.bit
+Attempting to get a license for feature 'Vivado_Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Vivado_Implementation' and/or device 'xc7z020'
+Running DRC as a precondition to command write_bitstream
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado 12-3199] DRC finished with 0 Errors
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+Integrating Hard IP ELF/MEM with the PDI.
+INFO: [Designutils 20-2272] Running write_bitstream with 4 threads.
+Initializing bitstream generation complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.747 . Memory (MB): peak = 2368.559 ; gain = 0.000
+Loading data files...
+Loading site data...
+Loading route data...
+Processing options...
+Creating bitmap...
+Creating bitstream...
+Writing bitstream D:/fft/fft_phase10_isolate_psd/build/board/iq_board.runs/impl_1/system_wrapper.bit...
+Generate Bitstream complete. Time (s): cpu = 00:00:25 ; elapsed = 00:00:11 . Memory (MB): peak = 2621.285 ; gain = 252.727
+INFO: [Vivado 12-1842] Bitgen Completed Successfully.
+INFO: [Common 17-83] Releasing license: Vivado_Implementation
+47 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+write_bitstream completed successfully
+write_bitstream: Time (s): cpu = 00:00:34 ; elapsed = 00:00:24 . Memory (MB): peak = 2621.285 ; gain = 252.727
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+Command: report_drc -file D:/fft/fft_phase10_isolate_psd/reports/drc.rpt
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 4 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file D:/fft/fft_phase10_isolate_psd/reports/drc.rpt.
+report_drc completed successfully
+INFO: [Timing 38-314] The report_cdc command only analyzes and reports clock domain crossing paths where clocks have been defined on both source and destination sides. Ports with no input delay constraint are skipped. Please run check_timing to verify there are no missing clock definitions in your design, nor any unconstrained input port.
+WARNING: [Timing 38-164] This design has multiple clocks. Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 20 -nworst 1 -delay_type max -sort_by slack.
+Command: report_methodology -file D:/fft/fft_phase10_isolate_psd/reports/methodology.rpt
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 4 threads
+INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file D:/fft/fft_phase10_isolate_psd/reports/methodology.rpt.
+report_methodology completed successfully
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+FINAL_SETUP_SLACK_NS=0.011 HOLD_SLACK_NS=0.014
+INFO: [Project 1-1918] Creating Hardware Platform: D:/fft/fft_phase10_isolate_psd/artifacts/iq_analyzer.xsa ...
+WARNING: [Project 1-645] Board images not set in Hardware Platform.
+INFO: [Project 1-1943] The Hardware Platform can be used for Hardware
+INFO: [Project 1-1941] Successfully created Hardware Platform: D:/fft/fft_phase10_isolate_psd/artifacts/iq_analyzer.xsa
+INFO: [Hsi 55-2053] elapsed time for repository (D:/VivadoMM/2026.1/Vivado/data/embeddedsw) loading 1 seconds
+write_hw_platform: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2621.285 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Fri Oct  9 18:16:50 2026...

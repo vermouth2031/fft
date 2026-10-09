@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_repaired_finite_20261009\\qpsk_sps4_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65544,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.296,
+  "maximum_publish_us": 281.576,
+  "input_sha256": "317bbf7e292d424f3d652fe5a87f4bf5781cf88ba1b6e4106d060147ced050b0",
+  "golden_sha256": "027640379f7d4cb4446ecdb59021e487c012b25078f3c44f3764402a5a5c71c2",
+  "files": {
+    "capture.json": "445f2750ff95636ea72ea002908439f62a3d55fcd9cc59792b48e42d59156def",
+    "frequency.bin": "3bd0356c6dde1489540e387d88168e9b44559d197388bb90e9dcf50977168764",
+    "burst.bin": "50a13c832f73f0ead888173ceb58425983804e89075a84e3e4dcbf22f420a289",
+    "snapshot.bin": "05c4084259265ebe21b131f71eadf85b17fe64cb87bea0417f1e163061dc626f",
+    "snapshot.json": "0abbf3867d1d1c792773486640b758275376b0de4e53d6d00e2360afbd11b207"
+  },
+  "label": "qpsk_sps4_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 65.536,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.12,
+        "length_error_us": 0.12,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

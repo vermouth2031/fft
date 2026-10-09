@@ -78,7 +78,9 @@ module analyzer_core #(
  xpm_cdc_handshake #(.WIDTH(224),.DEST_EXT_HSK(0),.DEST_SYNC_FF(3),.SRC_SYNC_FF(3),.INIT_SYNC_FF(1)) diagnostic_cdc(
  .src_clk(fft_clk),.src_in(diagnostic_payload),.src_send(diagnostic_send),.src_rcv(diagnostic_ack),
  .dest_clk(src_clk),.dest_out(fft_diagnostic),.dest_req(diagnostic_arrived),.dest_ack(1'b0));
- xpm_fifo_async #(.FIFO_MEMORY_TYPE("distributed"),.FIFO_WRITE_DEPTH(4096),.WRITE_DATA_WIDTH(32),.READ_DATA_WIDTH(32),
+ // Retain block RAM here: the distributed 4096-word implementation increased
+ // USB-powered board activity. Capacity, FWFT behavior and both clocks stay unchanged.
+ xpm_fifo_async #(.FIFO_MEMORY_TYPE("block"),.FIFO_WRITE_DEPTH(4096),.WRITE_DATA_WIDTH(32),.READ_DATA_WIDTH(32),
  .READ_MODE("fwft"),.FIFO_READ_LATENCY(0),.CDC_SYNC_STAGES(2),.DOUT_RESET_VALUE("0"),.USE_ADV_FEATURES("0004"),.WR_DATA_COUNT_WIDTH(13)) input_fifo(
  .wr_data_count(input_occupancy),.rst(rst),.wr_clk(src_clk),.wr_en(accepted),.din(iq),.full(full),.wr_rst_busy(wr_busy),
  .rd_clk(fft_clk),.rd_en(fft_ready&&!empty&&!rd_busy),.dout(fifo_data),.empty(empty),.rd_rst_busy(rd_busy),
