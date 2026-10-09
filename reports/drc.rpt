@@ -1,9 +1,9 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
-| Date         : Thu Oct  8 21:58:41 2026
+| Date         : Fri Oct  9 14:07:30 2026
 | Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
-| Command      : report_drc -file D:/fft/fft_phase9_fft16k/reports/drc.rpt
+| Command      : report_drc -file D:/fft/fft_phase10_resource_opt/reports/drc.rpt
 | Design       : system_wrapper
 | Device       : xc7z020clg400-1
 | Speed File   : -1
@@ -24,7 +24,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 44
+             Checks found: 45
 +-------------+----------+---------------------------------+--------+
 | Rule        | Severity | Description                     | Checks |
 +-------------+----------+---------------------------------+--------+
@@ -32,7 +32,7 @@ Table of Contents
 | DPOP-1      | Warning  | PREG Output pipelining          | 3      |
 | DPOP-2      | Warning  | MREG Output pipelining          | 11     |
 | PDCN-1569   | Warning  | LUT equation term check         | 1      |
-| PLBUFGOPT-1 | Warning  | Non-Optimal connections to BUFG | 1      |
+| PLBUFGOPT-1 | Warning  | Non-Optimal connections to BUFG | 2      |
 | REQP-1839   | Warning  | RAMB36 async control check      | 8      |
 | RTSTAT-10   | Warning  | No routable loads               | 1      |
 | REQP-165    | Advisory | writefirst                      | 4      |
@@ -183,12 +183,17 @@ Related violations: <none>
 
 PDCN-1569#1 Warning
 LUT equation term check  
-Used physical LUT pin 'A4' of cell system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1 (pin system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1/I1) in site SLICE_X28Y77 is not included in the LUT equation: 'O6=(A5)+((~A5)*(~A6)*A3)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Used physical LUT pin 'A2' of cell system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1 (pin system_i/axi_mem_intercon/s00_couplers/auto_pc/inst/gen_axi4_axi3.axi3_conv_inst/USE_READ.USE_SPLIT_R.read_addr_inst/USE_R_CHANNEL.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/gpregsm1.user_valid_i_1/I1) in site SLICE_X3Y37 is not included in the LUT equation: 'O6=(A1)+((~A1)*(~A6)*A3)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
 Related violations: <none>
 
 PLBUFGOPT-1#1 Warning
 Non-Optimal connections to BUFG  
-A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG_replica. Remove non-muxed BUFG if it is not desired
+A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica. Remove non-muxed BUFG if it is not desired
+Related violations: <none>
+
+PLBUFGOPT-1#2 Warning
+Non-Optimal connections to BUFG  
+A non-muxed BUFG system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica is driven by another global buffer system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG_replica_1. Remove non-muxed BUFG if it is not desired
 Related violations: <none>
 
 REQP-1839#1 Warning

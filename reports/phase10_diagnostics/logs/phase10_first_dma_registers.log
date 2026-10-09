@@ -1,0 +1,39 @@
+STATE Stopped: (Hardware Breakpoint)
+RESET F8000258:   5A000000
+
+DMA 40400000:   00010002
+40400004:   00005041
+40400008:   00000000
+4040000C:   00000000
+40400010:   00000000
+40400014:   00000000
+40400018:   002017C0
+4040001C:   00000000
+40400020:   00000000
+40400024:   00000000
+40400028:   00010000
+4040002C:   00000000
+
+LOADER 400001C0:   00000000
+400001C4:   00000000
+400001C8:   00004000
+400001CC:   00000001
+400001D0:   C8F64DEF
+400001D4:   00000001
+400001D8:   00003F86
+400001DC:   00000000
+400001E0:   00000000
+400001E4:   00000000
+
+Memory read error at 0xF8008000. Blocked address 0xF8008000. Access can hang PS interconnect
+    invoked from within
+"::tcf::eval -progress {apply {{msg} {puts $msg}}} {tcf_send_command tcfchan#0 Memory get siiii {Bea{o{msg o{} A}}} {{JTAG-jsn-Zybo Z7-210351A82208A-4ba00477-0.0} 4160782336 4 48 3}}"
+    (procedure "::tcf::send_command" line 4)
+    invoked from within
+"::tcf::send_command $chan Memory get "siiii" "Bea{o{msg o{} A}}" [list $ctx $start_addr $size $nbytes $mode]"
+    (procedure "mrd" line 87)
+    invoked from within
+"mrd 0xf8008000 12"
+    invoked from within
+"puts "HP0 [mrd 0xf8008000 12]""
+    (file "build/read_stopped_dma.tcl" line 7)

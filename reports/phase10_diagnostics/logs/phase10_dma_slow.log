@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\build\dma_only_diagnostic.py", line 18, in <module>
+    crc,s=client.upload_stream_block(data[SIGNALS[i%len(SIGNALS)]],i%2,i+1,arm=False)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 276, in upload_stream_block
+    try:replies=self.request_batch(commands)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 171, in request_batch
+    if pending:raise TimeoutError(f'No replies for batched commands: {list(pending)}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: No replies for batched commands: [837721366]
+{"status": "FAIL", "diagnostic_only": true, "clock_note": "Diagnostic only: source/DMA and FFT clocks temporarily 62.5 MHz, acquisition stopped; not acceptance", "started_at": 1791529290.7647233, "completed": 3, "artifacts": {"iq_analyzer.bit": "ebe6a98f7db44d8d4789710848d2e9c78a31e3fec2a27c3cd0713cc3204fe09f", "iq_udp.elf": "57cc7f155e56bc8c6ab11733e777d0b60e431473976cc4cec0688b15d402121e"}, "hardware": {"hardware_version": 65542, "hardware_version_hex": "0x00010006", "hardware_capabilities": 31, "sample_rate_hz": 125000000, "build_id": "fee5b8547053d9807159a1aa1bd5482c", "timestamp_clock_hz": 125000000, "record_format_version": 1, "scan_lanes": 8, "fft_clock_hz": 125000000, "fft_length": 16384, "replay_bank_samples": 32768, "frequency_ring_records": 128, "burst_ring_records": 128, "snapshot_points": 1024, "input_fifo_depth": 4096, "snapshot_group": 16}, "error": "No replies for batched commands: [837721366]", "final_status": {"active_bank": 0, "host_bank": 1, "pending_bank": 0, "pending_valid": false, "ready": [true, false], "running": false, "host_write_allowed": true, "lengths": [16384, 16384], "block_ids": [3, 2], "crc32": [4000384442, 2305993774], "switch_count": 0, "current_block_id": 0, "last_switch_tick": 0, "write_rejected": 0, "stream_errors": 0, "upload_block_ids": [3, 0], "upload_next": [0, 0], "dma": {"active": false, "done": true, "error": false, "target_bank": 0, "received_samples": 16384, "computed_crc32": 4000384442, "completed_transfers": 3, "errors": 0}}, "finished_at": 1791529291.9621603}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 152, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 84, in main
+    _,initial=client.upload_stream_block(cached['single'],0,1,arm=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 288, in upload_stream_block
+    reply=self.request(7,[bank,block_id,total_words,crc,1 if arm else 0])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 148, in request
+    if reply[0]==0xffffffff:raise RuntimeError(f'Board rejected command {kind}: error {reply[2][0]}')
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Board rejected command 7: error 7

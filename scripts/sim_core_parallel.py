@@ -33,7 +33,7 @@ def main():
         print(f'CORE_GROUP_PASS cases={first}..{first+1}',flush=True)
         return first,out,text
     results=[]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for result in pool.map(worker,range(0,16,2)):results.append(result)
     # Publish aggregate evidence only after every group has passed.
     combined='\n'.join(text for _,_,text in results)+'\nCORE_ALL_GROUPS_PASS cases=16 windows=64\n'

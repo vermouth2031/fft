@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\build\dma_switch_serial_diagnostic.py", line 13, in <module>
+    try:v.main()
+        ^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 95, in main
+    crc,status=client.upload_stream_block(cached[kind],bank,block_id,arm=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\build\dma_switch_serial_diagnostic.py", line 9, in upload
+    return original(self,*args,**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 276, in upload_stream_block
+    try:replies=self.request_batch(commands)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 171, in request_batch
+    if pending:raise TimeoutError(f'No replies for batched commands: {list(pending)}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: No replies for batched commands: [1562739726]

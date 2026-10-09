@@ -1,3 +1,7 @@
+# Phase 10：16K FFT 资源优化开发版
+
+本分支已实现资源优化：LUT 31562→26217，LUTRAM 14667→8556，BRAM 130→124；完整仿真和 79 组有限真板数值验证通过。但连续 DDR/DMA 测试存在错误和上电复位，**当前候选尚未通过整体验收，不能替代 Phase 9 稳定版本**。排查和待完成项见 [PHASE10_STATUS.md](PHASE10_STATUS.md)。以下 Phase 9 说明保留为基线资料，不能作为本候选的验收结论。
+
 # Zybo Z7 数字 I/Q 频谱分析仪 · Phase 9
 
 本目录是 `phase9/fft16k` 分支的 16384 点 FFT 优化工程，基于 Phase 8 r17。当前验收状态见 [PHASE9_STATUS.md](PHASE9_STATUS.md)。历史报告与旧发布包不能证明当前候选已经通过实板或冷启动验收。

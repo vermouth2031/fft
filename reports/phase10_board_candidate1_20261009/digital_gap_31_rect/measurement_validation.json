@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_board_candidate1_20261009\\digital_gap_31_rect",
+  "detector_mode": "digital-zero",
+  "gap_min": 32,
+  "hardware_version": 65542,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.304,
+  "maximum_publish_us": 281.584,
+  "input_sha256": "adc623f49d31c96569b688f3c3951fd4903a31339176cf360ae728327d683ac1",
+  "golden_sha256": "abeee4e05e829b9fbddf7c4418d9844a27af2a82e57491b25ca26bbc096708b1",
+  "files": {
+    "capture.json": "455a8b17cb4b28c176e6c9147c5d85bbf7e38a377a07cc58a64652e9f3f759fe",
+    "frequency.bin": "ef248ef60c97c7d001f043745c0b18a0b86e1d8e9fde0a95ac9f366d876edf8e",
+    "burst.bin": "690a9e1c18cba091b32ecd9fa0386e88d96abf9af3b229def4554b4d6948b753",
+    "snapshot.bin": "365b73047abf8dba3c35ad7a3f4fbd6b28c044f0f5bccfcbcb338c60026f060d",
+    "snapshot.json": "f65d1aa986b329b2d23ed42264134ab2c2cbca14e64786db2c92fb9016ea5b4c"
+  },
+  "label": "digital_gap_31_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 2,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 0,
+    "normal_detection_rate": 0.0,
+    "missed": 1,
+    "false_alarms": 0,
+    "merged_detections": 1,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 0.5,
+    "background_observation_us": 253.952,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 543,
+        "length_error_samples": 543,
+        "start_error_us": 0.0,
+        "end_error_us": 4.344,
+        "length_error_us": 4.344,
+        "within_boundary_tolerance": false
+      }
+    ]
+  }
+}

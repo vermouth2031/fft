@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_board_candidate1_20261009\\ofdm_qpsk_212100_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65542,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.304,
+  "maximum_publish_us": 281.584,
+  "input_sha256": "b5a70243b2b456ac9475a46c94b2fa4bb62f80a5c3d0eea3bdc7301c783ccca6",
+  "golden_sha256": "279d49866f01881f6a4a7e09ae1e84714167a5e053595425262d146abce5c722",
+  "files": {
+    "capture.json": "f5d1de62f0397f57a38e82295b993df94a4ebe7d1a88a3278a2908d492946d6f",
+    "frequency.bin": "026f55727bcc5de3343bf9a1946b6ed5bc8e630cfe36ab8e1822aa17a6abecf0",
+    "burst.bin": "15313c5652fb4eda400b50ad2983ce266f0d22dc16d795ddef0f936300fba7b4",
+    "snapshot.bin": "ff721faa2677b53304a1f2a24995ea04e6523c7827a73f2cad0559955d2b240b",
+    "snapshot.json": "83e94c7930b5635358f7f8bc168d3167ba3bf7011d79dbba81297affb79e5b51"
+  },
+  "label": "ofdm_qpsk_212100_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 53.248,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.12,
+        "length_error_us": 0.12,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

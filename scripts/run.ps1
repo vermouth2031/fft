@@ -39,6 +39,8 @@ if($Action -in @('All','Sim')) {
  Run-Python -Arguments @('tests/generate_digital_burst_vectors.py')
  Run-Vivado 'scripts/sim_digital_burst.tcl'
  Run-Vivado 'scripts/sim_spectrum_edges.tcl'
+ Run-Vivado 'scripts/sim_phase10_equivalence.tcl'
+ Run-Python -Arguments @('scripts/check_phase10_equivalence.py')
  Run-Python -Arguments @('scripts/sim_core_parallel.py')
  Run-Python -Arguments @('tests/check_core_results.py')
  Run-Python -Arguments @('scripts/analyze_latency.py','build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv','--out','reports/phase2_latency_validation.json')

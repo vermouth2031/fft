@@ -1,6 +1,6 @@
 """Gate, assemble and hash local deliverables. Never writes a physical SD card."""
 from pathlib import Path
-import argparse,hashlib,json,shutil,zipfile,datetime,stat
+import argparse,hashlib,json,shutil,zipfile,datetime,stat,re
 from record_build_stage import verify as verify_stage
 from record_boot_stage import verify_boot
 import sys
@@ -21,7 +21,18 @@ def check():
     assert python_tests['status']=='PASS' and len(python_tests['tests'])==7,'Python regressions incomplete'
     assert all(t['exit_code']==0 for t in python_tests['tests'])
     assert parallel['status']=='PASS' and len(parallel['groups'])==8,'Core case groups incomplete'
-    assert core['maximum_analysis_latency_us']<=350,'Phase 9 analysis latency target failed'
+    assert core['maximum_analysis_latency_us']<=281.304,'Phase 10 must not regress Phase 9 RTL analysis latency'
+    equivalent=json.loads((ROOT/'reports/phase10_equivalence.json').read_text())
+    assert equivalent['status']=='PASS' and equivalent['spectrum_latency_cycles']==2127
+    for name,digest in equivalent['files'].items():assert sha(ROOT/name)==digest,('Equivalence evidence changed',name)
+    utilization=(ROOT/'reports/utilization_flat.rpt').read_text()
+    def used(label):
+        match=re.search(r'\|\s*'+re.escape(label)+r'\*?\s*\|\s*([\d.]+)',utilization)
+        assert match,('Missing resource',label)
+        return float(match[1])
+    assert used('Slice LUTs')<31562 and used('LUT as Memory')<14667,'No LUT resource benefit'
+    assert used('Block RAM Tile')<=124,'Phase 10 BRAM target failed'
+    assert used('DSPs')<=49,'DSP usage regressed'
     assert hw['status']=='PASS' and hw['setup_slack_ns']>=0 and hw['hold_slack_ns']>=0,'Hardware timing failed'
     assert hw['cdc_critical']==0 and hw['unconstrained_internal_endpoints']==0
     assert core['status']=='PASS' and core['frequency_records']==64 and core['exact_fft_points']==64*FFT_LENGTH
@@ -60,17 +71,26 @@ def package():
         'zynq_fsbl.elf','ps7_init.tcl','BOOT.BIN','BOOT_sd.BIN','BOOT_udp.BIN')},
       source={p.relative_to(ROOT).as_posix():sha(p) for folder in ('rtl','constraints','scripts','firmware','tests','host','vendor/boards','config')
               for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts})
+    acceptance_path=ROOT/'reports/phase10_acceptance.json'
+    if acceptance_path.exists():
+        from verify_phase10_evidence import verify as verify_acceptance
+        acceptance=verify_acceptance(ROOT)
+        assert all(acceptance['artifacts'][name]==digest for name,digest in manifest['artifacts'].items()),'Board acceptance targets another image'
+        manifest.update(board_tested=True,board_validation_type='RAM_JTAG',physical_cold_boot=False,
+                        acceptance_sha256=sha(acceptance_path))
+        shutil.copyfile(acceptance_path,release/'phase10_acceptance.json')
     (release/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     shutil.copyfile(ROOT/'reports/构建验证报告.md',release/'构建验证报告.md')
     evidence=release/'evidence';evidence.mkdir(exist_ok=True)
     for name in ('hardware_validation.json','software_validation.json','core_validation.json',
                  'simulation_provenance.json','hardware_provenance.json','boot_provenance.json',
-                 'phase9_python_validation.json','phase2_latency_validation.json',
+                 'phase9_python_validation.json','phase2_latency_validation.json','phase10_equivalence.json',
                  'timing_summary.rpt','utilization_flat.rpt','cdc.rpt','drc.rpt','bus_skew.rpt','methodology.rpt'):
         shutil.copyfile(ROOT/'reports'/name,evidence/name)
+    shutil.copyfile(ROOT/'PHASE10_STATUS.md',release/'PHASE10_STATUS.md')
     shutil.copyfile(ROOT/'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt',evidence/'rtl_core_results.txt')
     for dest,mode in [(sd,'SD 自动运行 16 个有限采集测试并保存结果'),(net,'以太网交互与连续采集')]:
-        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见工程根目录 README.md，当前状态见 PHASE9_STATUS.md。\n',encoding='utf-8')
+        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见工程根目录 README.md，当前状态见 PHASE10_STATUS.md。\n',encoding='utf-8')
         # Some vendor license files carry a Windows read-only attribute.
         # Keep their text intact, but permit rebuilding our generated copies.
         for p in (dest/'LICENSES').glob('*'):
@@ -84,7 +104,7 @@ def package():
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
         for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
-                     '.gitattributes','.gitignore','PHASE9_STATUS.md','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
+                     '.gitattributes','.gitignore','PHASE9_STATUS.md','PHASE10_STATUS.md','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 

@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
-// Two full-precision ping-pong spectra with eight scan lanes.
-// A configurable bank uses single-port distributed RAM to preserve replay capacity.
+// Full-precision eight-lane spectrum with a deferred queue for frame overlap.
+// Frame metadata remains ping-pong; only one complete power array is stored.
 module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  input wire [23:0] user,input wire valid,last,input wire [iq_build_config::FFT_LOG2-1:0] roi_low,roi_high,
  output reg result_valid,output reg [255:0] result_data,output reg fault,
@@ -45,7 +45,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  reg [AW-1:0] response_addr;
  reg response_valid,memory_valid;
  reg [AW-1:0] memory_addr;
- wire [47:0] a[0:7],b[0:7];
+ wire [47:0] a[0:7];
  reg [47:0] power_pipe[0:7];
  reg [48:0] pair_prefix[0:7];
  reg [49:0] quad_prefix[0:7];
@@ -62,15 +62,23 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
  udiv64 div200(.clk(clk),.rst(rst),.start(state==DIV_START),.numerator(rt),.denominator(64'd200),
    .busy(),.done(div_done),.divide_by_zero(),.quotient(quotient),.remainder(remainder));
  reg capturing,snap_armed;
- // One address port per lane: a bank is read only while the other is written.
+ // Preserve the complete previous frame until its scan and snapshot finish.
+ // New FFT powers continue into the short queue without backpressuring FFT.
+ wire protect_store=bank_ready!=0||state!=WAIT_BANK;
+ wire deferred_valid,deferred_pending,deferred_overflow;
+ wire [47+LOGN:0] deferred_data;
+ spectrum_deferred_queue #(.W(48+LOGN),.BANKS((DEPTH+128+511)/512)) deferred(
+   .clk(clk),.rst(rst),.protect(protect_store),.push(v[2]),.din({q2,wp}),
+   .pop_valid(deferred_valid),.pop_data(deferred_data),
+   .pending(deferred_pending),.overflow(deferred_overflow));
  genvar lane;
  generate for(lane=0;lane<8;lane=lane+1)begin: lanes
-   spectrum_lane #(.AW(AW),.STYLE("block")) bank0(.clk(clk),
-     .we(v[2]&&!rst&&!write_bank&&q2[2:0]==lane),.write_addr(q2[LOGN-1:3]),.data(wp),
-     .re(scan_request&&!read_bank),.read_addr(request_count[AW-1:0]),.q(a[lane]));
-   spectrum_lane #(.AW(AW),.STYLE(iq_build_config::SPECTRUM_LUTRAM_BANK?"distributed":"block")) bank1(.clk(clk),
-     .we(v[2]&&!rst&&write_bank&&q2[2:0]==lane),.write_addr(q2[LOGN-1:3]),.data(wp),
-     .re(scan_request&&read_bank),.read_addr(request_count[AW-1:0]),.q(b[lane]));
+   spectrum_shared_lane #(.AW(AW)) storage(.clk(clk),
+     .live_we(v[2]&&!rst&&!protect_store&&q2[2:0]==lane),
+     .live_addr(q2[LOGN-1:3]),.live_data(wp),
+     .drain_we(deferred_valid&&!rst&&deferred_data[50:48]==lane),
+     .drain_addr(deferred_data[47+LOGN:51]),.drain_data(deferred_data[47:0]),
+     .re(scan_request),.read_addr(request_count[AW-1:0]),.q(a[lane]));
  end endgenerate
  always @(posedge clk) begin
    result_valid<=0;snap_we<=0;snap_done<=0;
@@ -87,6 +95,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      pipe_valid<=0;pair_valid<=0;quad_valid<=0;prefix_valid<=0;compare_valid<=0;
      pipe_addr<=0;pair_addr<=0;quad_addr<=0;prefix_addr<=0;compare_addr<=0;
    end else begin
+     if(deferred_overflow||(deferred_valid&&protect_store))fault<=1;
      rr<=$signed(data[23:0])*$signed(data[23:0]);ii<=$signed(data[47:24])*$signed(data[47:24]);
      power<=rr+ii;q0<=user[LOGN-1:0]^LOGN'(N/2);q1<=q0;
      roi_power<=in_roi?power:48'd0;q2<=q1;
@@ -94,6 +103,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      if(v[2]) begin
        if(bank_ready[write_bank]||(state!=WAIT_BANK&&read_bank==write_bank)) fault<=1;
        if(l[2]) begin
+         if(deferred_pending||protect_store)fault<=1;
          bank_total[write_bank]<=tnext;bank_peak[write_bank]<=pnext;bank_q[write_bank]<=qnext;
          bank_overflow[write_bank]<=overflow|ov[2];bank_frame[write_bank]<=frame;
          bank_ready[write_bank]<=1;write_bank<=!write_bank;frame<=frame+1;
@@ -109,7 +119,7 @@ module spectrum_measure(input wire clk,rst,input wire [47:0] data,
      pipe_valid<=response_valid;pair_valid<=pipe_valid;quad_valid<=pair_valid;
      prefix_valid<=quad_valid;compare_valid<=prefix_valid;
      if(response_valid)begin
-       for(j=0;j<8;j=j+1)power_pipe[j]<=read_bank?b[j]:a[j];
+       for(j=0;j<8;j=j+1)power_pipe[j]<=a[j];
        pipe_addr<=response_addr;
      end
      if(pipe_valid)begin

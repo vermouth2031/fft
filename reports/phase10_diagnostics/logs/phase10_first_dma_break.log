@@ -1,0 +1,38 @@
+JTAG_PROCESSOR_RESET_BEFORE_ELF
+Firmware started. UART 115200 8N1; board IP 192.168.1.10; UDP port 5001.
+DMA_ERROR_BREAKPOINT_ARMED
+CPU_STATE Stopped: (Breakpoint)
+REGISTERS              r0: 00000001               r1: 00000000               r2: 00010000
+             r3: 40400000               r4: 00000000               r5: 00200040
+             r6: 00202038               r7: 00000007               r8: 36e47374
+             r9: 00000000              r10: 00004000              r11: 00000001
+            r12: 00000003               sp: 00814070               lr: 0010145c
+             pc: 00100660             cpsr: 600f00df              usr          
+            fiq                        irq                        abt          
+            und                        svc                        mon          
+            vfp                       cp15                        dbg          
+        Jazelle             gpv_qos301_cpu            gpv_qos301_dmac          
+ gpv_qos301_iou              gpv_trustzone                    l2cache          
+         mpcore          
+
+RESET F8000258:   5A000000
+
+Memory read error at 0x40400000. Blocked address 0x40400000. PL AXI slave ports access is not allowed. This address has not been added to the memory map
+    invoked from within
+"::tcf::eval -progress {apply {{msg} {puts $msg}}} {tcf_send_command tcfchan#0 Memory get siiii {Bea{o{msg o{} A}}} {{JTAG-jsn-Zybo Z7-210351A82208A-4ba00477-0.0} 1077936128 4 48 3}}"
+    (procedure "::tcf::send_command" line 4)
+    invoked from within
+"::tcf::send_command $chan Memory get "siiii" "Bea{o{msg o{} A}}" [list $ctx $start_addr $size $nbytes $mode]"
+    (procedure "mrd" line 87)
+    invoked from within
+"mrd 0x40400000 12"
+    ("for" body line 8)
+    invoked from within
+"for {set i 0} {$i < 120} {incr i} {
+ after 500
+ set state [state]
+ if {$state ne "Running"} {
+  puts "CPU_STATE $state"
+  puts "REGISTERS [rrd]"
+  put..."
+    (file "build/debug_first_dma.tcl" line 6)

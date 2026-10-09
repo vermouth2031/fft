@@ -5,13 +5,19 @@ module window_fft(input wire clk,rst,input wire hann,
  output wire fft_valid,fft_last,output wire configured,
  output wire [5:0] events);
  localparam integer N=iq_build_config::FFT_LENGTH, LOGN=iq_build_config::FFT_LOG2;
- (* rom_style="block" *) reg [17:0] hann_rom[0:N/4-1];
+ // Read independent 512-entry distributed ROM banks in the existing first
+ // stage. Select their output in the existing coefficient stage: no extra
+ // input latency and no full-depth asynchronous ROM mux on one clock path.
+ localparam integer ROM_BANKS=N/2048,ROM_BANK_BITS=$clog2(ROM_BANKS);
+ (* rom_style="distributed" *) reg [17:0] hann_rom[0:N/4-1];
  initial $readmemh("hann_quarter_u18_f17.mem",hann_rom);
  reg [LOGN-1:0] index;
  wire [LOGN:0] folded=index>N/2?N-index:index;
  wire complement=folded>N/4;
  wire [LOGN:0] quarter_index=complement?N/2-folded:folded;
- reg [17:0] rom_value;
+ reg [17:0] rom_value[0:ROM_BANKS-1];
+ reg [ROM_BANK_BITS-1:0] rom_bank;
+ integer rb;
  reg complement0,midpoint0,hann0;
  reg [3:0] v,l;
  reg signed [15:0] i0,q0,i1,q1;
@@ -28,17 +34,18 @@ module window_fft(input wire clk,rst,input wire hann,
    begin y=(x>>>9)+((x[8:0]>9'd256)||((x[8:0]==9'd256)&&x[9]));round_even=y[23:0];end
  endfunction
  always @(posedge clk) begin
-   if(rst) begin index<=0;v<=0;l<=0;cfg_valid<=1;cfg_done<=0;i0<=0;q0<=0;i1<=0;q1<=0;rom_value<=0;complement0<=0;midpoint0<=0;hann0<=0;coeff<=0;pi<=0;pq<=0;din<=0;end
+   if(rst) begin index<=0;v<=0;l<=0;cfg_valid<=1;cfg_done<=0;i0<=0;q0<=0;i1<=0;q1<=0;rom_bank<=0;complement0<=0;midpoint0<=0;hann0<=0;coeff<=0;pi<=0;pq<=0;din<=0;end
    else begin
      if(cfg_valid&&cfg_ready) begin cfg_valid<=0;cfg_done<=1;end
      if(ce) begin
        v<={v[2:0],valid&&ready};l<={l[2:0],index==N-1};
        i0<=$signed(iq[15:0]);q0<=$signed(iq[31:16]);
-       rom_value<=hann_rom[quarter_index[LOGN-3:0]];
+       for(rb=0;rb<ROM_BANKS;rb=rb+1)rom_value[rb]<=hann_rom[rb*512+quarter_index[8:0]];
+       rom_bank<=quarter_index[LOGN-3:9];
        complement0<=complement;midpoint0<=quarter_index==N/4;hann0<=hann;
        i1<=i0;q1<=q0;
        coeff<=!hann0?19'd131072:midpoint0?19'd65536:
-              complement0?19'd131072-{1'b0,rom_value}:{1'b0,rom_value};
+              complement0?19'd131072-{1'b0,rom_value[rom_bank]}:{1'b0,rom_value[rom_bank]};
        pi<=i1*coeff;pq<=q1*coeff;
        din<={round_even(pq),round_even(pi)};
        if(valid&&ready) index<=index+1;

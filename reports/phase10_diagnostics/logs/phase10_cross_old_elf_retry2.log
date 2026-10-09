@@ -1,0 +1,17 @@
+PHASE8_SWITCH_PASS 25
+PHASE8_SWITCH_PASS 50
+PHASE8_SWITCH_PASS 75
+PHASE8_SWITCH_PASS 100
+PHASE8_SWITCH_PASS 125
+Traceback (most recent call last):
+  File "D:\fft\fft_phase10_resource_opt\build\phase10_cross_test.py", line 10, in <module>
+    validation.main()
+  File "D:\fft\fft_phase10_resource_opt\scripts\phase8_dma_validation.py", line 94, in main
+    status=client.stream_status();bank=1-status['active_bank'];begin=time.monotonic()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 246, in stream_status
+    values=self.request(8,[])
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase10_resource_opt\host\iq_client.py", line 151, in request
+    raise TimeoutError('No command reply from board; check firmware, board IP, cable and local network configuration')
+TimeoutError: No command reply from board; check firmware, board IP, cable and local network configuration

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_board_candidate1_20261009\\boundary_16384_threshold_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65542,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.304,
+  "maximum_publish_us": 281.584,
+  "input_sha256": "c65480037db90394413ed44c051c13bcf4f5c50bfa357f03b0eb95a061d39ec7",
+  "golden_sha256": "8009ee3c8281aae38b91dcb318f80eb1151465b908877059cd5b8a92c868a401",
+  "files": {
+    "capture.json": "0e7a80f4e361875ba65b80cce5cbf2d69dfe3683cc06cf7e9a0b0a36363209a8",
+    "frequency.bin": "bd2e47e4fb63a7968de5d8824028737d6b46e3b76eb93e2fc8753cae7b741467",
+    "burst.bin": "f4eb5ae7776ffd21fd02067fbbca9a882006f95680ecad920ca74be6be980288",
+    "snapshot.bin": "21c46f2e61ef123345bd208715dadb3c489cd7ae426723189d5318dce447eb65",
+    "snapshot.json": "cc1490f95a4e388ff427c9480f4b782ca5a093d391afa5b55c6f675b5eb4fcaa"
+  },
+  "label": "boundary_16384_threshold_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 258.048,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.12,
+        "length_error_us": 0.12,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

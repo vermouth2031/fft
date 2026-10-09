@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase10_resource_opt\\reports\\phase10_board_candidate1_20261009\\p_fs4_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65542,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.304,
+  "maximum_publish_us": 281.584,
+  "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+  "golden_sha256": "9c3ed125ab5e0ebf3d9916d7312d05ce65c4196fa2d7c90382409c3bc070cb33",
+  "files": {
+    "capture.json": "0e08299091654633e3676ebcc4b3be9aaf11920b48156cb70fa3fc41f8ff3314",
+    "frequency.bin": "98ac94d0ca787b227574d0ee05df9e209aba70b673162cc502d77577cf3f5fcf",
+    "burst.bin": "8d5e6a6f6ce47882ad8e6cf1488e87d6a7cfa736c14d2a9995675d010a2c17e7",
+    "snapshot.bin": "45a6456953f3a675a2a4e5a05410d0803617f34b593567c3a6dc5094690ed5dd",
+    "snapshot.json": "6345d0533630e15710a414b1223ca7b7c1e2a9b96d304ebc4721288dfec17c7a"
+  },
+  "label": "p_fs4_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}
