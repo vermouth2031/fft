@@ -135,7 +135,7 @@ def main():
                               ROOT / 'reports/phase2_latency_validation.json',
                               ROOT / 'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv']
             evidence_paths += [ROOT / 'build/logs' / (name + '.log') for name in (
-                'sim_units', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
+                'sim_units', 'sim_phase11_window', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
                 'sim_spectrum_edges', 'sim_core', 'sim_axi')]
         record = dict(stage=args.stage, captured_at=datetime.datetime.now().astimezone().isoformat(),
                       inputs=inputs(args.stage), artifacts=artifacts,

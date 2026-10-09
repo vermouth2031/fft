@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module window_fft(input wire clk,rst,input wire hann,
+module phase10_window_fft(input wire clk,rst,input wire hann,
  input wire [31:0] iq,input wire valid,output wire ready,
  output wire [47:0] fft_data,output wire [23:0] fft_user,
  output wire fft_valid,fft_last,output wire configured,
@@ -12,13 +12,9 @@ module window_fft(input wire clk,rst,input wire hann,
  (* rom_style="distributed" *) reg [17:0] hann_rom[0:N/4-1];
  initial $readmemh("hann_quarter_u18_f17.mem",hann_rom);
  reg [LOGN-1:0] index;
- // The low bits are the position within a quarter. Odd quarters reverse
- // this position. A single short negation replaces two serial full-width
- // fold/subtract/mux operations. Quarter endpoints use the exact half value.
- wire [LOGN-3:0] quarter_offset=index[LOGN-3:0];
- wire [LOGN-3:0] quarter_index=index[LOGN-2]?-quarter_offset:quarter_offset;
- wire complement=index[LOGN-1]^index[LOGN-2];
- wire midpoint=index[LOGN-2]&&(quarter_offset==0);
+ wire [LOGN:0] folded=index>N/2?N-index:index;
+ wire complement=folded>N/4;
+ wire [LOGN:0] quarter_index=complement?N/2-folded:folded;
  reg [17:0] rom_value[0:ROM_BANKS-1];
  reg [ROM_BANK_BITS-1:0] rom_bank;
  integer rb;
@@ -46,7 +42,7 @@ module window_fft(input wire clk,rst,input wire hann,
        i0<=$signed(iq[15:0]);q0<=$signed(iq[31:16]);
        for(rb=0;rb<ROM_BANKS;rb=rb+1)rom_value[rb]<=hann_rom[rb*512+quarter_index[8:0]];
        rom_bank<=quarter_index[LOGN-3:9];
-       complement0<=complement;midpoint0<=midpoint;hann0<=hann;
+       complement0<=complement;midpoint0<=quarter_index==N/4;hann0<=hann;
        i1<=i0;q1<=q0;
        coeff<=!hann0?19'd131072:midpoint0?19'd65536:
               complement0?19'd131072-{1'b0,rom_value[rom_bank]}:{1'b0,rom_value[rom_bank]};
