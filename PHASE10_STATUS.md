@@ -3,7 +3,7 @@
 当前工程：`D:\fft\fft_phase10_resource_opt`，分支 `phase10/resource-opt`。
 当前硬件 ID：`b162c5a41c3560519de11c7e90e379a7`，硬件版本 `0x00010008`。
 
-状态：**USB 供电下 RAM/JTAG 修复验收全部通过**。最终 bit/ELF 通过 1000 次切换、60 秒和 300 秒连续传输、1048576 点精确 RTL 回归、79 项真板数值矩阵（80896 个快照数值精确一致）。接口仿真和全部 7 组 Python 回归通过。完整验收清单见 `reports/phase10_acceptance.json`，诊断结论见 `reports/phase10_repair_summary.json`。
+状态：**USB 供电下 RAM/JTAG 修复验收和 SD 实际断电冷启动验收均全部通过**。最终 bit/ELF 通过 1000 次切换、60 秒和 300 秒连续传输、1048576 点精确 RTL 回归、79 项真板数值矩阵（80896 个快照数值精确一致）。接口仿真和全部 7 组 Python 回归通过。完整验收清单见 `reports/phase10_acceptance.json`，诊断结论见 `reports/phase10_repair_summary.json`。
 
 此次用户确认只用 USB 供电，之前没有手动断电或按复位。诊断、修复、验收均在这个供电条件下进行。未经验证的第一候选及其失败记录保留，见 `reports/phase10_candidate1_reference_evidence/PHASE10_STATUS_before_repair.md`。
 
@@ -61,16 +61,20 @@ LUT as Memory 是 LUT 的子集，不应相加。BRAM 的原计划上限 124 **�
 
 ## 使用范围
 
-当前验证方式是 RAM/JTAG，未写入物理 SD 或 QSPI，未进行断电冷启动。断电后 RAM 中的加载会消失，板卡仍会从原 SD 启动原来的版本。电脑上的启动镜像即使已生成，也不等于已安装到板卡。
+2026-10-09 已将修复版网络启动镜像安装到板卡 SD 卡的 `BOOT.BIN`。4,296,596 字节完整读回 SHA-256 为 `02a3ba1e871541fec4b5765704d6f23dd50330fb43272407da68ddc1ad2804f2`，与已验收产物一致。旧启动文件保存在 SD 根目录的 `B315C95E.BIN`，其他文件及分区未修改，QSPI 未修改。
 
-当前板卡已加载修复版，停止采集后可以从本目录启动 `Open_IQ_Monitor.cmd` 使用；GUI 与命令行只保留一个网络控制端。若以后断电，需要重新通过 JTAG 加载，可在 PowerShell 中执行以下命令（会重新初始化板卡，清除当前 RAM 采集状态）：
+SD 模式系统复位已通过。用户随后确认“已断电并重新上电”，仅通过网口读到修复版硬件 ID、采集 epoch=0、错误寄存器=0。冷启动后的 79 项数值检查（80896 个快照值精确一致）、1000 次 DMA 切换及 300 秒连续传输全部通过；正式冷启动证据见 `reports/phase10_boot_acceptance.json`。原 `phase10_acceptance.json` 仍是此前 RAM/JTAG 验收的历史记录，不改写其当时未安装 SD 的事实。
 
-```powershell
-& 'D:\VivadoMM\2026.1\Vitis\bin\xsdb.bat' 'D:\fft\fft_phase10_resource_opt\scripts\program_board.tcl'
-```
+冷启动长测实际运行 300.015 秒，完成 9540 次切换、2288945 个 FFT 窗口；DMA 错误、频域序号缺口及 UDP 丢包计数均为 0。冷启动数值/连续测试的分析与发布最大延迟均为 281.296/281.576 µs。最终硬件 ID 保持，核心停止，错误寄存器为 0。物理断电事实依据用户明确确认；确认之后的检查只用网络，没有 JTAG 下载或软件复位。
 
-此命令使用当前工程 `artifacts` 中的已构建文件；源码改变后应重新构建、验证，不能把旧 bit/ELF 当成新源码的产物。
+现在正常通电即可从 SD 加载修复版，不需要手动下载。使用时从当前目录运行 `Open_IQ_Monitor.cmd`；GUI 与命令行只保留一个网络控制端。启动后默认处于停止采集状态，按需开始采集。
 
 保留已知基线局限：0 dB 用例漏检、Hann 短边界突发的频率误差并未通过此次存储优化消除。125 MSPS 指板内回放处理，不表示网口实时输入 125 MSPS 不重复 IQ；当前也未接入外部 ADC。
 
 原版工程 `D:\fft\fft_phase9_fft16k` 保留。`D:\fft\fft_phase10_isolate_psd` 是诊断对照工程，不是最终使用目录。本轮未推送 GitHub。
+
+## 本地交付与离线复核
+
+实际安装的是网络交互固件：`release/ethernet_sd_card/BOOT.BIN`，不是 SD 自动采集测试固件。完整 SD 读回与原启动文件备份名见 `reports/phase10_sd_install_20261009/installation.json`。
+
+生成带冷启动状态的交付包：`python scripts/phase10_boot_evidence.py package`。只检查归档证据：`python scripts/phase10_boot_evidence.py check`。`release/phase10_sd_cold_boot_evidence.zip` 包含此前 RAM/JTAG 及本次 SD/冷启动证据，解压后可离线执行同一检查命令。原始 RAM 验收和失败诊断报告保持历史内容。

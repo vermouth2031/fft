@@ -18,9 +18,9 @@
   "maximum_analysis_us": 281.296,
   "stream_banks": 2,
   "samples_per_bank": 32768,
-  "streaming_validation_status": "PASS_USB_RAM_JTAG",
-  "sd_boot_validation_status": "NOT_PERFORMED_ORIGINAL_SD_UNCHANGED",
-  "physical_cold_boot_validation_status": "NOT_PERFORMED",
+  "streaming_validation_status": "PASS_USB_RAM_JTAG_AND_SD_COLD_BOOT",
+  "sd_boot_validation_status": "PASS_SD_INSTALLED_AND_BOOTED",
+  "physical_cold_boot_validation_status": "PASS_USER_CONFIRMED_PHYSICAL_CYCLE",
   "validation_status_document": "PHASE10_STATUS.md",
   "cold_boot_validation_document": "PHASE10_STATUS.md",
   "source_commit": null,
@@ -32,8 +32,10 @@
   "acceptance_document": "PHASE10_STATUS.md",
   "acceptance_manifest": "reports/phase10_acceptance.json",
   "prerelease": true,
-  "validation_scope": "USB-only RAM/JTAG: full 1048576-point RTL numerical regression, 79 finite board cases, 1000 switches and 60/300 s continuous DMA passed. Physical SD installation and cold boot not performed.",
+  "validation_scope": "USB-only RAM/JTAG acceptance plus verified SD installation, full image readback, and user-confirmed physical cold boot. Network-only cold-start validation passed 79 finite cases, 1000 DMA switches and 300 seconds of continuous DMA. No JTAG download after the physical cycle.",
   "release_ready": true,
   "repair_summary": "reports/phase10_repair_summary.json",
-  "release_ready_scope": "LOCAL_RAM_JTAG_PRERELEASE_ONLY"
+  "release_ready_scope": "LOCAL_SD_COLD_BOOT_VALIDATED",
+  "sd_installation_report": "reports/phase10_sd_install_20261009/installation.json",
+  "boot_acceptance_manifest": "reports/phase10_boot_acceptance.json"
 }
