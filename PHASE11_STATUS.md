@@ -3,7 +3,7 @@
 基线：Phase 10 已验收实现 `290e7cd`，GitHub 发布登记 `adea9d1`。
 基线工程 `D:\fft\fft_phase10_resource_opt` 与板上 SD 启动修复版保留。
 
-当前状态：2026-10-10 已完成本阶段仿真、实现及 USB 供电真板 RAM/JTAG 验收。板上当前加载本版本，停止状态、错误计数为 0。工程位于 `D:\fft\fft_phase11_latency_opt`，本地分支 `phase11/latency-opt`；本轮尚未推送 GitHub。
+当前状态：2026-10-10 已完成本阶段仿真、实现及 USB 供电真板 RAM/JTAG 验收。板上当前加载本版本，停止状态、错误计数为 0。工程位于 `D:\fft\fft_phase11_latency_opt`，本地分支 `phase11/latency-opt`，已验证实现提交 `dd453426866ecf5550bc690daaccc8871df837d8`；本轮尚未推送 GitHub。
 
 硬件构建 `9de00f7c8261de0723505e5e50040906`，硬件版本 `0x00010009`。建立裕量 +0.005 ns、保持裕量 +0.050 ns，关键 CDC 和内部未约束端点均为 0。建立裕量较小；当前最慢路径属于 125 MHz DMA 完成判定。所有报告对应最终通过检查的实现，没有放宽时钟约束。
 
