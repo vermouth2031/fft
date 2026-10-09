@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase9_fft16k\\reports\\phase9_board_20261008_2209\\noise_10_91001_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65541,
+  "frequency_records": 2,
+  "burst_records": 2,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.296,
+  "maximum_publish_us": 281.576,
+  "input_sha256": "8e3a7e31be31c203b18633947d22ca5c67ae5686dbf2164903792f4d053ec8af",
+  "golden_sha256": "7470f9e1c543282417191a2d7f5add56921af3c05dc592f4063721d7da9722f6",
+  "files": {
+    "capture.json": "88275dfc7d1c1d7e87691ab31ef5f42bdcaec554bf9dc4ad1c853f7b96e68118",
+    "frequency.bin": "a45604520c0e9069007f3bd1dbea9b6600b6bfc64605c659d46afa2f80d4dbcc",
+    "burst.bin": "f1c18de74a0cc0a28ce9d4c00630b48aff8b154d1637f4ae112a81768d1e98d7",
+    "snapshot.bin": "b78ac137037c4adefa79fc66bc613bb652ef28cfa5ade8d507f006a1af47ef72",
+    "snapshot.json": "b830648355c12d1ddecb30b81d676294f9bb09e192f1232357ea973eebf64362"
+  },
+  "label": "noise_10_91001_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 2,
+    "detected_intervals": 2,
+    "matched": 2,
+    "normal_matches": 2,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 131.072,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 1,
+        "detection": 1,
+        "start_error_samples": 5,
+        "end_error_samples": 15,
+        "length_error_samples": 10,
+        "start_error_us": 0.04,
+        "end_error_us": 0.12,
+        "length_error_us": 0.08,
+        "within_boundary_tolerance": true
+      },
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 6,
+        "end_error_samples": 15,
+        "length_error_samples": 9,
+        "start_error_us": 0.048,
+        "end_error_us": 0.12,
+        "length_error_us": 0.072,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

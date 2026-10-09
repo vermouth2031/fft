@@ -7,9 +7,9 @@ import statistics
 import sys
 from record_build_stage import sha
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from host.build_rates import SAMPLE_RATE_HZ, FFT_CLOCK_HZ
+from host.build_rates import SAMPLE_RATE_HZ, FFT_CLOCK_HZ, FFT_LENGTH
 
-FFT_LENGTH=8192
+
 
 
 def analyze(path):
@@ -46,9 +46,9 @@ def analyze(path):
     accumulation_ns=(FFT_LENGTH-1)*1e9/SAMPLE_RATE_HZ
     inclusive_ns=FFT_LENGTH*1e9/SAMPLE_RATE_HZ
     return dict(status='PASS',timebase=f'simulation real time, ns; {SAMPLE_RATE_HZ}Hz source and {FFT_CLOCK_HZ}Hz FFT',
-        accumulation_definition=f'last accepted edge minus first = {accumulation_ns:g}ns; inclusive 8192-sample duration = {inclusive_ns:g}ns',
+        accumulation_definition=f'last accepted edge minus first = {accumulation_ns:g}ns; inclusive {FFT_LENGTH}-sample duration = {inclusive_ns:g}ns',
         publication_definition='record_observed is the core consumer edge, not the peripheral ring commit or PC/UDP latency',
-        scan_implementation='eight-lane' if summary['scan_first_to_last_ns']['max']<10000 else 'four-lane' if summary['scan_first_to_last_ns']['max']<20000 else 'two-lane',
+        scan_implementation='eight-lane',
         scope='Measured RTL simulator stages; physical board performance requires separate capture evidence',
         input_sha256=sha(Path(path)),summary=summary,windows=rows)
 

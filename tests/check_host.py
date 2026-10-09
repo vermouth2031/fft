@@ -7,7 +7,7 @@ spec=importlib.util.spec_from_file_location('iq_client',ROOT/'host/iq_client.py'
 class HostTests(unittest.TestCase):
  def test_actual_rtl_records(self):
   seen=0
-  for line in (ROOT/'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt').read_text().splitlines():
+  for line in (ROOT/'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt').read_text().splitlines():
    parts=line.split();kind='frequency' if parts[0]=='F' else 'burst';w=[int(x,16) for x in parts[2:]]
    result=host.decode_record(struct.pack('<'+'I'*len(w),*w),kind)
    self.assertEqual(result['id'],w[3]);self.assertEqual(result['epoch'],1);seen+=1

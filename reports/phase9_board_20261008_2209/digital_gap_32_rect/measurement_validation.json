@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase9_fft16k\\reports\\phase9_board_20261008_2209\\digital_gap_32_rect",
+  "detector_mode": "digital-zero",
+  "gap_min": 32,
+  "hardware_version": 65541,
+  "frequency_records": 2,
+  "burst_records": 2,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 281.296,
+  "maximum_publish_us": 281.576,
+  "input_sha256": "2fc66163d937097a72bc64ea631049cf5eb3cc5e05983d9130db156215e9a358",
+  "golden_sha256": "e4c837466e8d316dd92cf7de7ecf3230eaf7e9d1f40c34c231fef7a8254b8f6c",
+  "files": {
+    "capture.json": "2e9c0125fb165c68b57964f4cce2576121392645a44bfb8a9dd0852ecc071a50",
+    "frequency.bin": "df4cbde0c0f5577e46c6307b8daef6cf87389dd25b645fad36527a225baa3934",
+    "burst.bin": "9710a5f7b00d4f1428e8b6d3917c6e77f0568807f55a44611696f368b5b8f1fa",
+    "snapshot.bin": "5c0fe96dd322c1f630dc350374ab7189f7596862cada059868383dafd5ec76b1",
+    "snapshot.json": "68b36bc3c263bd1471674d0e884a078f8418023d5165b5e2e65701c6af2e70d8"
+  },
+  "label": "digital_gap_32_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 2,
+    "detected_intervals": 2,
+    "matched": 2,
+    "normal_matches": 2,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 253.952,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      },
+      {
+        "truth": 1,
+        "detection": 1,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

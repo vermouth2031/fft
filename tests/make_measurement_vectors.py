@@ -16,7 +16,9 @@ for g in gold:
     ends.append(len(bursts))
 (D/'time_expected.mem').write_text(''.join(f'{v:072x}\n' for v in bursts),encoding='ascii')
 (D/'time_counts.mem').write_text(''.join(f'{v:08x}\n' for v in ends),encoding='ascii')
-rng=np.random.default_rng(7020);N=8192
+from fft_reference import N
+LOGN=N.bit_length()-1
+rng=np.random.default_rng(7020)
 inputs=[];expected=[];snap=[]
 for f in range(12):
     re=rng.integers(-8388608,8388608,N,dtype=np.int64)
@@ -24,19 +26,19 @@ for f in range(12):
     if f==0:re[:]=0;im[:]=0
     if f==1:re[:]=0;im[:]=0;re[0]=1
     if f==2:re[:]=-8388608;im[:]=-8388608
-    if f==3:re[:]=0;im[:]=0;re[4096]=200
+    if f==3:re[:]=0;im[:]=0;re[N//2]=200
     if f==4:re[:]=1;im[:]=0
-    p=np.roll(re*re+im*im,4096);t=int(p.sum());pk=int(p.max());q=int(np.argmax(p))
+    p=np.roll(re*re+im*im,N//2);t=int(p.sum());pk=int(p.max());q=int(np.argmax(p))
     c=np.cumsum(p);lo=int(np.searchsorted(c,(t+199)//200)) if t else 0
     hi=int(np.searchsorted(c,t-t//200)) if t else 0
-    flags=(1 if not t else 0)|(32 if t and lo==hi else 0)|(16 if t and (lo==0 or hi==8191) else 0)
+    flags=(1 if not t else 0)|(32 if t and lo==hi else 0)|(16 if t and (lo==0 or hi==N-1) else 0)
     packed=0
     for value,bits in [(flags,32),(f,32),(t,64),(pk,48),(q,16),(lo,16),(hi,16),(0,32)]:packed=(packed<<bits)|value
     expected.append(packed)
     for n in range(N):
-        k=int(f'{n:013b}'[::-1],2)
+        k=int(f'{n:0{LOGN}b}'[::-1],2)
         inputs.append((k<<48)|((int(im[k])&0xffffff)<<24)|(int(re[k])&0xffffff))
-    if f==0:snap=list(p.reshape(1024,8).max(axis=1))
+    if f==0:snap=list(p.reshape(1024,N//1024).max(axis=1))
 (D/'spectrum_input.mem').write_text(''.join(f'{x:016x}\n' for x in inputs),encoding='ascii')
 (D/'spectrum_expected.mem').write_text(''.join(f'{x:064x}\n' for x in expected),encoding='ascii')
 print('MEASUREMENT_VECTORS_PASS: eight time cases, twelve continuous spectra')

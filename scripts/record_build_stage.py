@@ -25,7 +25,7 @@ def inputs(stage):
     if stage == "hardware":
         files += list((ROOT / "constraints").glob("*"))
         files += list((ROOT / "vendor/boards").rglob("*.xml"))
-        files += [ROOT / "data/hann_u18_f17.mem"]
+        files += [ROOT / "data/hann_u18_f17.mem",ROOT / "data/hann_quarter_u18_f17.mem"]
         files += [ROOT / "scripts" / name for name in
                   ("create_fft.tcl", "build_board.tcl", "rebuild_board.tcl", "finish_board.tcl", "phase3_replication_hook.tcl")]
     elif stage == "simulation":
@@ -37,7 +37,7 @@ def inputs(stage):
         files += list((ROOT / 'data/vectors').glob('*.bin'))
         files += [p for p in (ROOT / 'data/qualification').rglob('*') if p.suffix in ('.json', '.bin')]
         files += [ROOT / 'scripts' / name for name in
-                  ('validate_measurements.py', 'verify_board_capture.py', 'qualification_capture.py', 'analyze_latency.py', 'run.ps1')]
+                  ('validate_measurements.py', 'verify_board_capture.py', 'qualification_capture.py', 'analyze_latency.py', 'run.ps1','phase9_python_validation.py','sim_core_parallel.py')]
     else:
         raise ValueError(stage)
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(set(files)) if p.is_file()}
@@ -127,8 +127,10 @@ def main():
         else:
             evidence_paths = [ROOT / 'reports/core_validation.json',
                               ROOT / 'reports/qualification_tool_validation.json',
+                              ROOT / 'reports/phase9_python_validation.json',
+                              ROOT / 'build/logs/core_parallel_manifest.json',
                               ROOT / 'reports/phase2_latency_validation.json',
-                              ROOT / 'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv']
+                              ROOT / 'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv']
             evidence_paths += [ROOT / 'build/logs' / (name + '.log') for name in (
                 'sim_units', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
                 'sim_spectrum_edges', 'sim_core', 'sim_axi')]

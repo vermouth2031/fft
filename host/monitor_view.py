@@ -124,7 +124,7 @@ def build(app):
     for canvas,prompt in [(app.env,'选择 IQ 文件后显示输入包络'),(app.spec,'采集或打开记录后显示板端频谱')]:
         canvas.create_text(20,22,text=prompt,anchor='nw',fill=MUTED,font=('Microsoft YaHei UI',11))
         canvas.bind('<Configure>',lambda e:app.draw(e.widget,*e.widget._last_plot) if hasattr(e.widget,'_last_plot') else None)
-    plot_note=ttk.Label(plots,text='输入包络来自装载文件；频谱为板端每 8 个 bin 取最大值的快照，99% 带宽使用完整 8192 点计算。',style='Muted.TLabel',font=('Microsoft YaHei UI',9),wraplength=800)
+    plot_note=ttk.Label(plots,text='输入包络来自装载文件；频谱为板端分组取最大值的 1024 点快照，99% 带宽使用硬件当前 FFT 的全部频点计算。',style='Muted.TLabel',font=('Microsoft YaHei UI',9),wraplength=800)
     plot_note.grid(row=2,column=0,sticky='w',pady=(8,0))
     plots.bind('<Configure>',lambda e:plot_note.configure(wraplength=max(300,e.width-12)),add='+')
 

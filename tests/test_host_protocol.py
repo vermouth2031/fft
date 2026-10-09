@@ -97,6 +97,7 @@ class ProtocolTests(unittest.TestCase):
             batch_sizes.append(len(commands));requests.extend(commands)
             return [(payload[2]+len(payload)-4,) for kind,payload in commands]
         c.request_batch=request_batch
+        c.hardware=dict(fft_length=8192,replay_bank_samples=32768)
         data=b''.join(struct.pack('<I',n) for n in range(8192))
         crc,status=c.upload_stream_block(data,1,23,arm=True)
         chunks=[p for kind,p in requests if kind==6]

@@ -1,10 +1,11 @@
 `timescale 1ns/1ps
 module tb_axi;
+ localparam integer N=iq_build_config::FFT_LENGTH,LOGN=iq_build_config::FFT_LOG2;
  reg clk=0,fft_clk=0;
  localparam realtime SRC_HALF_NS=500000000.0/iq_build_config::SAMPLE_RATE_HZ;
  localparam realtime FFT_HALF_NS=500000000.0/iq_build_config::FFT_CLOCK_HZ;
  localparam integer TONE_HZ=iq_build_config::SAMPLE_RATE_HZ/4;
- localparam integer HANN_TONE_WIDTH_HZ=(iq_build_config::SAMPLE_RATE_HZ+2048)/4096;
+ localparam integer HANN_TONE_WIDTH_HZ=(2*iq_build_config::SAMPLE_RATE_HZ+N/2)/N;
  always #(SRC_HALF_NS) clk=~clk;always #(FFT_HALF_NS) fft_clk=~fft_clk;
  reg resetn=0;reg [17:0] awaddr=0,araddr=0;reg awvalid=0,wvalid=0,bready=0,arvalid=0,rready=0;
  reg [31:0] wdata=0;reg [3:0] wstrb=15;
@@ -64,7 +65,9 @@ module tb_axi;
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
    rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
-   rd('h08c,value,0);if(value!==15)$fatal(1,"DMA streaming capability");
+   rd('h08c,value,0);if(value!==iq_build_config::CAPABILITIES)$fatal(1,"DMA streaming capability");
+   rd('h018,value,0);if(value!=N)$fatal(1,"FFT length");
+   rd('h1ec,value,0);if(value!=iq_build_config::FREQUENCY_RECORDS)$fatal(1,"frequency ring capacity");
    rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
    rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
    wr('h08c,0,15,0,2); // Capability register is read-only.
@@ -77,9 +80,9 @@ module tb_axi;
    wr('h10000,32'h11223344,15,3,0);wr('h10000,32'haabbccdd,5,-4,0);
    rd('h10000,value,0);if(value!==32'h11bb33dd)$fatal(1,"WSTRB %h",value);
    wr('h01c,0,0,0,0);rd('h01c,value,0);if(value!=32768)$fatal(1,"zero WSTRB changed config");
-   wr('h01c,8192,15,0,0);wr('h028,0,15,-2,0);wr('h070,1,15,2,0);
+   wr('h01c,N,15,0,0);wr('h028,0,15,-2,0);wr('h070,1,15,2,0);
    // Bulk simulation fixture; preceding transactions validate the same RAM host port.
-   for(n=0;n<8192;n=n+1)case(n%4)
+   for(n=0;n<N;n=n+1)case(n%4)
      0:dut.bank0.mem[n]=32'h00002000;1:dut.bank0.mem[n]=32'h20000000;
      2:dut.bank0.mem[n]=32'h0000e000;3:dut.bank0.mem[n]=32'he0000000;
    endcase
@@ -95,12 +98,12 @@ module tb_axi;
    rd('h090,value,0);if(value!==iq_build_config::BUILD_ID[31:0])$fatal(1,"build identity");
    rd('h0a0,value,0);if(value!=iq_build_config::TIMESTAMP_CLOCK_HZ)$fatal(1,"timestamp clock");
    rd('h0a4,value,0);if(value!=1)$fatal(1,"record format");
-   rd('h140,value,0);if(value!=8192)$fatal(1,"issued snapshot");
-   rd('h148,value,0);if(value!=8192)$fatal(1,"accepted snapshot");
+   rd('h140,value,0);if(value!=N)$fatal(1,"issued snapshot");
+   rd('h148,value,0);if(value!=N)$fatal(1,"accepted snapshot");
    rd('h150,value,0);if(value!=0)$fatal(1,"input rejection");
    rd('h154,value,0);if(value==0||value>=4096)$fatal(1,"FIFO high water");
-   rd('h160,value,0);if(value!=8192)$fatal(1,"FFT accepted samples");
-   rd('h168,value,0);if(value!=8192)$fatal(1,"FFT output samples");
+   rd('h160,value,0);if(value!=N)$fatal(1,"FFT accepted samples");
+   rd('h168,value,0);if(value!=N)$fatal(1,"FFT output samples");
    rd('h170,value,0);if(value!=1)$fatal(1,"FFT output windows");
    rd('h174,value,0);if(value!=0)$fatal(1,"result queue rejection");
    rd('h178,value,0);if(value!=0)$fatal(1,"input underread");
@@ -124,7 +127,7 @@ module tb_axi;
    wr('h054,1,15,0,0);wr('h05c,1,15,0,0);
    // End-to-end digital support: exact 64 samples, crossing the power pipeline.
    wr('h084,1,15,0,0);wr('h088,32,15,0,0);wr('h070,1,15,0,0);
-   for(n=0;n<8192;n=n+1)dut.bank0.mem[n]=(n>=40&&n<104)?32'h00002000:0;
+   for(n=0;n<N;n=n+1)dut.bank0.mem[n]=(n>=40&&n<104)?32'h00002000:0;
    wr('h00c,1,15,0,0);wait(dut.run_state==3);wait(dut.run_state==0);
    rd('h058,value,0);if(value!=1)$fatal(1,"digital-zero burst count");
    rd('h38000+1*4,value,0);if(value!=32'h1000)$fatal(1,"digital-zero flags %h",value);
@@ -140,27 +143,27 @@ module tb_axi;
    // Phase 8: reject malformed AXI Stream framing before accepting a full DMA block.
    wr('h064,32'hffffffff,15,0,0);wr('h184,16,15,0,0);
    wr('h024,1,15,0,0);wr('h070,1,15,0,0);
-   wr('h180,0,15,0,0);wr('h18c,8192,15,0,0);wr('h194,11,15,0,0);wr('h19c,32'h11111111,15,0,0);wr('h184,3,15,0,0);
+   wr('h180,0,15,0,0);wr('h18c,N,15,0,0);wr('h194,11,15,0,0);wr('h19c,32'h11111111,15,0,0);wr('h184,3,15,0,0);
    wr('h00c,1,15,0,0);wait(dut.run_state==3);repeat(64)@(negedge clk);
-   wr('h1c4,1,15,0,0);wr('h1c8,8192,15,0,0);wr('h1cc,21,15,0,0);wr('h1d0,0,15,0,0);wr('h1c0,5,15,0,0);
+   wr('h1c4,1,15,0,0);wr('h1c8,N,15,0,0);wr('h1cc,21,15,0,0);wr('h1d0,0,15,0,0);wr('h1c0,5,15,0,0);
    axis_send(32'h12345678,1);wait(!dut.loader_active);
    rd('h1d4,value,0);if(!value[2]||value[1])$fatal(1,"early TLAST accepted %h",value);
    rd('h1e4,value,0);if(!(value&1))$fatal(1,"length error missing %h",value);
    // Load the inactive bank through the DMA-facing stream while analysis continues.
-   dma_crc=32'hffffffff;for(n=0;n<8192;n=n+1)dma_crc=crc_word(dma_crc,32'h12345678);dma_crc=dma_crc^32'hffffffff;
-   wr('h1c8,8192,15,0,0);wr('h1cc,22,15,0,0);wr('h1d0,dma_crc,15,0,0);wr('h1c0,5,15,0,0);
-   for(n=0;n<8192;n=n+1)axis_send(32'h12345678,n==8191);
+   dma_crc=32'hffffffff;for(n=0;n<N;n=n+1)dma_crc=crc_word(dma_crc,32'h12345678);dma_crc=dma_crc^32'hffffffff;
+   wr('h1c8,N,15,0,0);wr('h1cc,22,15,0,0);wr('h1d0,dma_crc,15,0,0);wr('h1c0,5,15,0,0);
+   for(n=0;n<N;n=n+1)axis_send(32'h12345678,n==(N-1));
    wait(!dut.loader_active);
    rd('h1d4,value,0);if(!value[1]||value[2]||value[0])$fatal(1,"DMA load failed %h",value);
-   rd('h1d8,value,0);if(value!=8192)$fatal(1,"DMA received count %d",value);
+   rd('h1d8,value,0);if(value!=N)$fatal(1,"DMA received count %d",value);
    rd('h1dc,value,0);if(value!=dma_crc)$fatal(1,"DMA CRC %h != %h",value,dma_crc);
    rd('h1e0,value,0);if(value!=1)$fatal(1,"DMA transfer count");
-   if(dut.bank1.mem[0]!==32'h12345678||dut.bank1.mem[8191]!==32'h12345678)$fatal(1,"DMA bank contents");
+   if(dut.bank1.mem[0]!==32'h12345678||dut.bank1.mem[(N-1)]!==32'h12345678)$fatal(1,"DMA bank contents");
    wr('h180,0,15,0,0);wr('h10000,0,15,0,2);
    wr('h180,1,15,0,0);wr('h184,2,15,0,0);
    rd('h188,value,0);if(value[0]!=0||!value[3])$fatal(1,"stream armed status %h",value);
    wr('h10000,32'hdeadbeef,15,0,2); // Pending bank is immutable until the boundary switch.
-   while(dut.issued[12:0]!=8190)@(negedge clk);
+   while(dut.issued[LOGN-1:0]!=(N-2))@(negedge clk);
    if(dut.active_bank!=0)$fatal(1,"stream switched before FFT boundary");
    repeat(4)@(negedge clk);rd('h188,value,0);if(value[0]!=1||value[3])$fatal(1,"stream did not switch %h",value);
    rd('h1a4,value,0);if(value!=1)$fatal(1,"switch count");rd('h1a8,value,0);if(value!=22)$fatal(1,"block id");
@@ -169,5 +172,5 @@ module tb_axi;
    wr('h00c,2,15,0,0);wait(dut.run_state==0);
    $display("AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
- initial begin #1000000;$fatal(1,"AXI timeout");end
+ initial begin #4000000;$fatal(1,"AXI timeout");end
 endmodule

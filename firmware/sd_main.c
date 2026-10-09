@@ -31,7 +31,7 @@ static int load_vector(unsigned v,unsigned *samples){
     char path[64];snprintf(path,sizeof path,"0:/VECTORS/%s.BIN",names[v]);
     FIL file;FRESULT e=f_open(&file,path,FA_READ);if(e!=FR_OK)return 10+e;
     unsigned size=f_size(&file),offset=0;
-    if(size<32768||size>131072||(size%32768)){f_close(&file);return 30;}
+    if(size<4U*rd(0x18)||size>131072||(size%(4U*rd(0x18)))){f_close(&file);return 30;}
     while(offset<size){
         UINT n;unsigned len=size-offset;if(len>sizeof buffer)len=sizeof buffer;
         e=f_read(&file,buffer,len,&n);if(e!=FR_OK||n!=len){f_close(&file);return 31;}
@@ -47,7 +47,7 @@ static int capture(const char *run,unsigned c){
     if((rd(8)&7)!=0)return 40;
     int e=load_vector(v,&samples);if(e)return e;
     wr(0x1c,samples);wr(0x20,0);wr(0x24,0);wr(0x28,mode);
-    wr(0x2c,0);wr(0x30,8191);wr(0x34,1048576);wr(0x38,0);wr(0x3c,262144);wr(0x40,0);
+    wr(0x2c,0);wr(0x30,rd(0x18)-1U);wr(0x34,1048576);wr(0x38,0);wr(0x3c,262144);wr(0x40,0);
     wr(0x44,8);wr(0x48,32);wr(0x4c,1048576);
     /* Keep this established 16-case suite in threshold mode explicitly. */
     if(rd(4)>=0x00010001U){wr(0x84,0);wr(0x88,32);}
@@ -68,7 +68,7 @@ static int capture(const char *run,unsigned c){
     snprintf(path,sizeof path,"%s/BURST.BIN",dir);if((e=save_mmio(path,0x38000,nb*16)))return e;
     if(snap&1){snprintf(path,sizeof path,"%s/SNAP.BIN",dir);if((e=save_mmio(path,0x3a000,2048)))return e;}
     uint32_t rate=rd(0x10);
-    unsigned complete=rate&&!errors&&nf==samples/8192&&rd(0x118)==samples&&rd(0x11c)==0&&rd(0x120)==nf&&
+    unsigned complete=rate&&!errors&&nf==samples/rd(0x18)&&rd(0x118)==samples&&rd(0x11c)==0&&rd(0x120)==nf&&
         rd(0x12c)==0&&rd(0x130)==0&&rd(0x124)>0&&rd(0x128)>0&&
         (uint64_t)rd(0x124)*1000<=(uint64_t)rate*2&&(uint64_t)rd(0x128)*1000<=(uint64_t)rate*2;
     complete=complete&&rd(0x140)==samples&&!rd(0x144)&&rd(0x148)==samples&&!rd(0x14c)&&

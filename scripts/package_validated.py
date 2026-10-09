@@ -305,7 +305,7 @@ def main():
     deployment_log = Path(board['deployment']['log']).resolve()
     require(deployment_log.is_relative_to(ROOT), 'Deployment log outside project')
     add(deployment_log)
-    add(ROOT / 'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt')
+    add(ROOT / 'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt')
     for path in sorted(extra_files):
         add(path)
     for path in (ROOT / 'reports/baseline_20260917').iterdir():

@@ -9,10 +9,10 @@ set_property board_part digilentinc.com:zybo-z7-20:part0:1.2 [current_project]
 set_property target_language Verilog [current_project]
 set_property simulator_language Mixed [current_project]
 add_files -norecurse [concat [glob $root/rtl/*.sv] [glob $root/rtl/*.svh]]
-add_files -norecurse $root/data/hann_u18_f17.mem
+add_files -norecurse $root/data/hann_quarter_u18_f17.mem
 add_files -fileset constrs_1 -norecurse $root/constraints/cdc.xdc
 set_property used_in_synthesis false [get_files cdc.xdc]
-read_ip $root/build/vivado/iq_analyzer.srcs/sources_1/ip/fft8192/fft8192.xci
+read_ip $root/build/vivado16k/iq_analyzer.srcs/sources_1/ip/fft8192/fft8192.xci
 create_bd_design system
 create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 ps7
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_external "FIXED_IO, DDR" apply_board_preset "1"} [get_bd_cells ps7]
@@ -66,10 +66,40 @@ add_files -norecurse $root/build/board/iq_board.gen/sources_1/bd/system/hdl/syst
 set_property top system_wrapper [current_fileset]
 update_compile_order -fileset sources_1
 set_property strategy Performance_NetDelay_high [get_runs impl_1]
+# Registered PSD addresses remove the former bank-select/LUTRAM critical path.
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE Default [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.TCL.PRE $root/scripts/phase3_replication_hook.tcl [get_runs impl_1]
+proc patch_run_wrappers {root {lock 0}} {
+    set pattern [file join $root build board iq_board.runs * ISEWrap.js]
+    foreach path [glob -nocomplain -types f $pattern] {
+        file attributes $path -readonly 0
+        set fh [open $path r]
+        set data [read $fh]
+        close $fh
+        set data [string map [list \
+            "var ISEOldVersionWSH = false;" \
+            "var ISEOldVersionWSH = true;"] $data]
+        set fh [open $path w]
+        puts -nonewline $fh $data
+        close $fh
+        if {$lock} {file attributes $path -readonly 1}
+    }
+}
+
+launch_runs synth_1 -scripts_only
+patch_run_wrappers $root 0
+reset_run synth_1
+patch_run_wrappers $root 1
 launch_runs synth_1 -jobs 4
 wait_on_run synth_1
 if {[get_property PROGRESS [get_runs synth_1]]!="100%"} {error "Synthesis failed"}
+patch_run_wrappers $root 0
+launch_runs impl_1 -to_step write_bitstream -scripts_only
+patch_run_wrappers $root 0
+reset_run impl_1
+patch_run_wrappers $root 1
 launch_runs impl_1 -to_step write_bitstream -jobs 4
 wait_on_run impl_1
 if {[get_property PROGRESS [get_runs impl_1]]!="100%"} {error "Implementation failed"}

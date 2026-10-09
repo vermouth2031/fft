@@ -3,6 +3,9 @@ from pathlib import Path
 import argparse,hashlib,json,shutil,zipfile,datetime,stat
 from record_build_stage import verify as verify_stage
 from record_boot_stage import verify_boot
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"host"))
+from build_rates import FFT_LENGTH
 ROOT=Path(__file__).resolve().parents[1]
 SD_VECTOR_NAMES=dict(zero='ZERO',tone_pos_fs4='POS25',tone_neg_fs4='NEG25',burst_fs4='BURST',
   qpsk_sps4='QPSK4',qpsk_sps2='QPSK2',short512_boundary='SHORT512',negative_fullscale_dc='FULLNEG')
@@ -13,9 +16,15 @@ def check():
     hw=json.loads((ROOT/'reports/hardware_validation.json').read_text())
     sw=json.loads((ROOT/'reports/software_validation.json').read_text())
     core=json.loads((ROOT/'reports/core_validation.json').read_text())
+    python_tests=json.loads((ROOT/'reports/phase9_python_validation.json').read_text())
+    parallel=json.loads((ROOT/'build/logs/core_parallel_manifest.json').read_text())
+    assert python_tests['status']=='PASS' and len(python_tests['tests'])==7,'Python regressions incomplete'
+    assert all(t['exit_code']==0 for t in python_tests['tests'])
+    assert parallel['status']=='PASS' and len(parallel['groups'])==8,'Core case groups incomplete'
+    assert core['maximum_analysis_latency_us']<=350,'Phase 9 analysis latency target failed'
     assert hw['status']=='PASS' and hw['setup_slack_ns']>=0 and hw['hold_slack_ns']>=0,'Hardware timing failed'
     assert hw['cdc_critical']==0 and hw['unconstrained_internal_endpoints']==0
-    assert core['status']=='PASS' and core['frequency_records']==64 and core['exact_fft_points']==524288
+    assert core['status']=='PASS' and core['frequency_records']==64 and core['exact_fft_points']==64*FFT_LENGTH
     assert sw['status']=='BUILD_PASS' and sw['xsa_sha256']==sha(ROOT/'artifacts/iq_analyzer.xsa'),'Software targets another XSA'
     for name,digest in sw['artifacts'].items():assert sha(ROOT/'artifacts'/name)==digest,('ELF changed',name)
     for name,digest in sw['firmware_sources'].items():assert sha(ROOT/'firmware'/name)==digest,('Firmware changed',name)
@@ -42,7 +51,9 @@ def package():
     names=SD_VECTOR_NAMES
     golden=json.loads((ROOT/'data/golden_results.json').read_text())['cases']
     assert [c['name'] for c in golden[:8]]==list(names),'SD fixture order and reference order differ'
-    for long,short in names.items():shutil.copyfile(ROOT/'data/vectors'/(long+'.bin'),sd/'VECTORS'/(short+'.BIN'))
+    # Core fixtures contain four windows; physical replay retains a 32768-pair bank.
+    for long,short in names.items():
+        (sd/'VECTORS'/(short+'.BIN')).write_bytes((ROOT/'data/replay_vectors'/(long+'.bin')).read_bytes())
     manifest=dict(created_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),board='Zybo Z7-20 / xc7z020clg400-1',
       hardware=hw,software=sw,simulation=core,board_tested=False,
       artifacts={name:sha(ROOT/'artifacts'/name) for name in ('iq_analyzer.bit','iq_analyzer.xsa','iq_udp.elf','iq_sd.elf',
@@ -54,11 +65,12 @@ def package():
     evidence=release/'evidence';evidence.mkdir(exist_ok=True)
     for name in ('hardware_validation.json','software_validation.json','core_validation.json',
                  'simulation_provenance.json','hardware_provenance.json','boot_provenance.json',
+                 'phase9_python_validation.json','phase2_latency_validation.json',
                  'timing_summary.rpt','utilization_flat.rpt','cdc.rpt','drc.rpt','bus_skew.rpt','methodology.rpt'):
         shutil.copyfile(ROOT/'reports'/name,evidence/name)
-    shutil.copyfile(ROOT/'build/vivado/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt',evidence/'rtl_core_results.txt')
+    shutil.copyfile(ROOT/'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/core_results.txt',evidence/'rtl_core_results.txt')
     for dest,mode in [(sd,'SD 自动运行 16 个有限采集测试并保存结果'),(net,'以太网交互与连续采集')]:
-        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见工程根目录 README.md，当前状态见 reports/本轮优化验收报告.md 及冷启动验证报告.md。\n',encoding='utf-8')
+        (dest/'README.txt').write_text(f'Zybo Z7-20 / {mode}\n将本目录内容复制到已有 FAT32 分区根目录。\n每次仅使用一套 BOOT.BIN。\n本包通过构建检查；实板状态须查看与本包散列对应的验收记录。\n操作见工程根目录 README.md，当前状态见 PHASE9_STATUS.md。\n',encoding='utf-8')
         # Some vendor license files carry a Windows read-only attribute.
         # Keep their text intact, but permit rebuilding our generated copies.
         for p in (dest/'LICENSES').glob('*'):
@@ -72,7 +84,7 @@ def package():
             for p in (ROOT/folder).rglob('*'):
                 if p.is_file() and '__pycache__' not in p.parts:z.write(p,p.relative_to(ROOT))
         for name in ('README.md','CHANGELOG.md','VERSION.json','THIRD_PARTY_NOTICES.md','requirements.txt',
-                     '.gitattributes','.gitignore','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
+                     '.gitattributes','.gitignore','PHASE9_STATUS.md','Open_IQ_Monitor.cmd','Run_Network_Tests.cmd','第二阶段优化实施方案.md','第三阶段优化实施方案.md'):
             z.write(ROOT/name,name)
     print('PACKAGE_PASS',release)
 

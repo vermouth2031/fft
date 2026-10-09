@@ -6,13 +6,14 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
  output reg window_valid,output reg [191:0] window_data,
  output wire burst_valid,output wire [287:0] burst_data,
  output reg [63:0] samples);
+ localparam integer N=iq_build_config::FFT_LENGTH,LOGN=iq_build_config::FFT_LOG2;
  reg [31:0] ii,qq,p;
  reg [1:0] pv;
  reg [5:0] finishing;
  reg [63:0] t0,t1;
  reg [63:0] energy,first_tick;
  reg [31:0] peak,window_id,burst_id;
- reg [12:0] window_pos;
+ reg [LOGN-1:0] window_pos;
  wire [63:0] enext=energy+{32'b0,p};
  wire [31:0] pnext=p>peak?p:peak;
  reg [31:0] history[0:15];
@@ -66,7 +67,7 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
        samples<=samples+1;
        if(window_pos==0) first_tick<=t1;
        window_pos<=window_pos+1;
-       if(window_pos==8191) begin
+       if(window_pos==N-1) begin
          window_valid<=1;window_data<={window_id,first_tick,enext,pnext};
          window_id<=window_id+1;energy<=0;peak<=0;
        end else begin energy<=enext;peak<=pnext;end

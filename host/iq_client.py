@@ -195,6 +195,20 @@ class Client:
                 fft_clock_hz=self.read(0x14)[0])
         else:
             result.update(timestamp_clock_hz=rate,record_format_version=1,fft_clock_hz=self.read(0x14)[0])
+        n=self.read(0x18)[0]
+        if n not in (8192,16384,32768):raise RuntimeError('Unsupported FFT length reported by hardware')
+        result.update(fft_length=n,replay_bank_samples=32768,frequency_ring_records=256,
+                      burst_ring_records=128,snapshot_points=1024,input_fifo_depth=4096,snapshot_group=n//1024)
+        if version>=0x00010005:
+            if not capabilities&16:raise RuntimeError('Missing FFT configuration capability')
+            fields=self.read(0x1e8,6)
+            result.update(zip(('replay_bank_samples','frequency_ring_records','burst_ring_records',
+                              'snapshot_points','input_fifo_depth','snapshot_group'),fields))
+            if (result['replay_bank_samples']!=32768 or result['frequency_ring_records'] not in (128,256)
+                or result['burst_ring_records']!=128 or result['snapshot_points']!=1024
+                or result['input_fifo_depth']!=4096 or result['snapshot_group']!=n//1024):
+                raise RuntimeError('Unsupported FFT memory configuration')
+        self.hardware=result
         return result
     def diagnostics(self):
         deadline=time.monotonic()+2
@@ -247,8 +261,8 @@ class Client:
     def upload_stream_block(self,data,bank,block_id,arm=True,chunk_words=MAX_STREAM_CHUNK_WORDS,progress=None,pipeline=4):
         if bank not in (0,1):raise ValueError('bank must be 0 or 1')
         if not 1<=block_id<=0xffffffff:raise ValueError('block_id must be 1..0xffffffff')
-        if len(data)%4 or len(data)//4 not in (8192,16384,24576,32768):
-            raise ValueError('Streaming block must contain 8192/16384/24576/32768 I16/Q16 samples')
+        info=getattr(self,'hardware',None) or self.hardware_info()
+        validate_replay(data,info)
         if not 1<=chunk_words<=MAX_STREAM_CHUNK_WORDS:raise ValueError(f'chunk_words must be 1..{MAX_STREAM_CHUNK_WORDS}')
         if not 1<=pipeline<=16:raise ValueError('pipeline must be 1..16')
         total_words=len(data)//4
@@ -330,11 +344,17 @@ def verify_capture_config(client,config):
     return actual
 
 
+def validate_replay(data,hardware):
+    n=hardware['fft_length'];capacity=hardware['replay_bank_samples'];samples=len(data)//4
+    if len(data)%4 or not n<=samples<=capacity or samples%n:
+        raise ValueError(f'Replay must contain a multiple of {n} I16/Q16 pairs, up to {capacity}')
+
+
 def capture(args):
     detector=getattr(args,'detector','threshold');gap_min=getattr(args,'gap_min',32)
     validate_detector(detector,gap_min)
     data=Path(args.vector).read_bytes();n=len(data)//4
-    if len(data)%4 or n not in (8192,16384,24576,32768):raise ValueError('Replay must contain 8192/16384/24576/32768 signed I16,Q16 pairs')
+    if not data or len(data)%4 or n>32768:raise ValueError('Replay requires 1..32768 signed I16,Q16 pairs')
     threshold,threshold_request=resolve_threshold(args,data)
     client=Client(args.board,args.port,getattr(args,'source_ip',None));meta={'source':'Zybo UDP board capture','board':args.board,
       'vector':str(Path(args.vector).resolve()),'vector_sha256':hashlib.sha256(data).hexdigest(),'cyclic':args.cyclic,
@@ -348,6 +368,7 @@ def capture(args):
     try:
         if client.read(0)[0]!=0x49514131:raise ValueError('Wrong FPGA design')
         meta.update(client.hardware_info(detector))
+        validate_replay(data,meta)
         if client.read(8)[0]&7:raise RuntimeError('Board is already running; use the stop command before loading a new capture')
         # Establish a peer, drain any completed records, then discard that earlier epoch locally.
         for _ in range(4):client.read(0x50)
@@ -362,7 +383,7 @@ def capture(args):
             actual=client.read(0x10000+offset,len(expected)//4)
             if struct.pack('<'+'I'*len(actual),*actual)!=expected:raise ValueError(f'Replay read-back mismatch at {offset}')
         meta['replay_readback_verified']=True
-        config=[n,int(args.cyclic),int(args.window=='hann'),0,8191,1048576,0,262144,0,8,32,1048576,0]
+        config=[n,int(args.cyclic),int(args.window=='hann'),0,meta['fft_length']-1,1048576,0,262144,0,8,32,1048576,0]
         config[5:12]=[threshold['ton']&0xffffffff,threshold['ton']>>32,threshold['toff']&0xffffffff,
                       threshold['toff']>>32,threshold['kon'],threshold['koff'],threshold['max_burst_samples']]
         client.configure(config,detector,gap_min,meta)
@@ -406,7 +427,7 @@ def capture(args):
         if meta['hardware_capabilities']&2:
             d=client.diagnostics();meta['throughput_diagnostics']=d
             meta['throughput_conservation_valid']=(d['issued_samples']==d['accepted_samples']==d['fft_input_samples']==
-                d['fft_output_samples']==meta['input_samples']==8192*d['fft_output_windows'] and
+                d['fft_output_samples']==meta['input_samples']==meta['fft_length']*d['fft_output_windows'] and
                 d['fft_output_windows']==meta['completed_windows'] and 0<d['input_fifo_high_water']<4096 and
                 not(d['input_rejected'] or d['result_queue_rejected'] or d['input_underreads']))
         seq=client.packet_sequences
@@ -416,7 +437,7 @@ def capture(args):
         meta['burst_records_missing']=client.read(0x58)[0]-len(client.bursts)
         ids=[words(r)[3] for r in client.frequency]
         meta['frequency_sequence_valid']=sorted(ids)==list(range(meta['completed_windows']))
-        meta['sample_count_valid']=meta['completed_windows']>0 and meta['input_samples']==8192*meta['completed_windows']
+        meta['sample_count_valid']=meta['completed_windows']>0 and meta['input_samples']==meta['fft_length']*meta['completed_windows']
         for key in ('hardware_max_latency','hardware_max_publish_latency'):
             meta[key+'_us']=cycles_to_us(meta[key+'_cycles'],meta['timestamp_clock_hz'])
         meta['analysis_deadline_met']=all(0<meta[k]<=2000 for k in ('hardware_max_latency_us','hardware_max_publish_latency_us'))

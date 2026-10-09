@@ -34,6 +34,8 @@ module iq_peripheral(
  (* X_INTERFACE_INFO="xilinx.com:interface:axis:1.0 S_AXIS_IQ TVALID" *) input wire s_axis_iq_tvalid,
  (* X_INTERFACE_INFO="xilinx.com:interface:axis:1.0 S_AXIS_IQ TREADY" *) output wire s_axis_iq_tready,
  (* X_INTERFACE_INFO="xilinx.com:interface:axis:1.0 S_AXIS_IQ TLAST" *) input wire s_axis_iq_tlast);
+ localparam integer N=iq_build_config::FFT_LENGTH,LOGN=iq_build_config::FFT_LOG2;
+ localparam integer FREQ_CAP=iq_build_config::FREQUENCY_RECORDS,FREQ_LOG=iq_build_config::FREQUENCY_RECORDS_LOG2;
  wire clk=s_axi_aclk,rst=!s_axi_aresetn;
  reg aw_hold,w_hold;reg [17:0] wa;reg [31:0] wd;reg [3:0] ws;
  reg [1:0] read_delay;reg [17:0] ra;
@@ -56,9 +58,9 @@ module iq_peripheral(
  wire [31:0] freq_read,burst_read;
  wire [7:0] core_errors;
  wire [31:0] error_status=host_errors|{24'd0,core_errors}|(freq_dropped!=0?32'h10000:0)|(burst_dropped!=0?32'h20000:0);
- wire config_ok=replay_length>=8192&&replay_length<=32768&&replay_length[12:0]==0&&
+ wire config_ok=replay_length>=N&&replay_length<=32768&&replay_length[LOGN-1:0]==0&&
    replay_start<32768&&replay_start+replay_length<=32768&&replay_mode<=1&&window_mode<=1&&
-   roi_l<=roi_h&&roi_h<8192&&ton>toff&&kon!=0&&koff!=0&&
+   roi_l<=roi_h&&roi_h<N&&ton>toff&&kon!=0&&koff!=0&&
    detector_mode<=1&&gap_min>=1&&gap_min<=65535&&
    max_burst>=(detector_mode==1?32'd1:{16'd0,kon})&&max_burst<=1048576;
  reg config_valid;
@@ -75,8 +77,8 @@ module iq_peripheral(
  reg [31:0] loader_crc_state,loader_computed_crc,loader_transfers,loader_errors;
  reg [31:0] loader_word;reg [3:0] loader_word_keep;reg loader_word_last;reg [2:0] loader_crc_byte;
  wire [31:0] host_bank_length=host_bank?bank_length1:bank_length0;
- wire host_bank_metadata_valid=host_bank_length>=8192&&host_bank_length<=32768&&
-   host_bank_length[12:0]==0&&host_bank_length==replay_length;
+ wire host_bank_metadata_valid=host_bank_length>=N&&host_bank_length<=32768&&
+   host_bank_length[LOGN-1:0]==0&&host_bank_length==replay_length;
  function automatic [31:0] crc32_byte(input [31:0] crc,input [7:0] data);
    reg [31:0] c;integer bit_index;
    begin
@@ -99,7 +101,7 @@ module iq_peripheral(
  reg [63:0] core_tick;
  wire issue=run_state==RUNNING;
  wire final_issue=issue&&((replay_mode==0&&replay_pos==replay_length-1)||
-   (stop_pending&&issued[12:0]==8191));
+   (stop_pending&&issued[LOGN-1:0]==N-1));
  wire bank0_writable=(!active||active_bank!=0)&&(!pending_valid||pending_bank!=0)&&(!loader_active||loader_target!=0);
  wire bank1_writable=(!active||active_bank!=1)&&(!pending_valid||pending_bank!=1)&&(!loader_active||loader_target!=1);
  wire replay_write=write_fire&&wa>=18'h10000&&wa<18'h30000&&wa[1:0]==0&&
@@ -149,13 +151,13 @@ module iq_peripheral(
    .diagnostic_toggle(diagnostic_toggle),.diagnostic_arrived(diagnostic_arrived),.fft_diagnostic(fft_diagnostic),
    .accepted_samples(accepted_samples),.input_rejected(input_rejected),.input_high_water(input_high_water),
    .valid(core_valid),.iq(core_iq),.finish(core_finish),.tick(core_tick),.hann(window_mode[0]),
-   .roi_low(roi_l[12:0]),.roi_high(roi_h[12:0]),.ton(ton),.toff(toff),.kon(kon),.koff(koff),.max_burst(max_burst),
+   .roi_low(roi_l[LOGN-1:0]),.roi_high(roi_h[LOGN-1:0]),.ton(ton),.toff(toff),.kon(kon),.koff(koff),.max_burst(max_burst),
    .detector_mode(detector_mode[0]),.gap_min(gap_min[15:0]),
    .epoch(epoch),.config_id(config_id),.ready(core_ready),.fft_reset(fft_reset),.freq_valid(freq_valid),.freq_record(freq_record),
    .burst_valid(burst_valid),.burst_record(burst_record),.samples(samples),.completed(completed),.max_latency(max_latency),
    .errors(core_errors),.snap_request(snap_request),.snap_we(snap_we),.snap_addr(snap_addr),.snap_data(snap_data),.snap_done(snap_done),.snap_window(snap_window));
- record_ring #(.WORDS_LOG2(5),.RECORDS_LOG2(8)) freq_ring(.clk(clk),.rst(acquisition_reset),.push(freq_valid),.record_data(freq_record),
-   .consumer(freq_consumer),.producer(freq_producer),.dropped(freq_dropped),.busy(freq_busy),.read_addr(ra[14:2]),.read_data(freq_read));
+ record_ring #(.WORDS_LOG2(5),.RECORDS_LOG2(FREQ_LOG)) freq_ring(.clk(clk),.rst(acquisition_reset),.push(freq_valid),.record_data(freq_record),
+   .consumer(freq_consumer),.producer(freq_producer),.dropped(freq_dropped),.busy(freq_busy),.read_addr(ra[FREQ_LOG+6:2]),.read_data(freq_read));
  record_ring #(.WORDS_LOG2(4),.RECORDS_LOG2(7)) burst_ring(.clk(clk),.rst(acquisition_reset),.push(burst_valid),.record_data(burst_record),
    .consumer(burst_consumer),.producer(burst_producer),.dropped(burst_dropped),.busy(burst_busy),.read_addr(ra[12:2]),.read_data(burst_read));
  function automatic [31:0] merge_bytes(input [31:0] old_value,new_value,input [3:0] strb);
@@ -180,7 +182,7 @@ module iq_peripheral(
      loader_word<=0;loader_word_keep<=0;loader_word_last<=0;loader_crc_byte<=0;
      source_valid<=0;source_finish<=0;core_valid<=0;core_finish<=0;core_iq<=0;core_tick<=0;
      replay_length<=32768;replay_start<=0;replay_mode<=0;window_mode<=1;
-     roi_l<=0;roi_h<=8191;ton<=1048576;toff<=262144;kon<=8;koff<=32;max_burst<=1048576;
+     roi_l<=0;roi_h<=N-1;ton<=1048576;toff<=262144;kon<=8;koff<=32;max_burst<=1048576;
      detector_mode<=0;gap_min<=32;
      epoch<=0;config_id<=1;config_dirty<=0;freq_consumer<=0;burst_consumer<=0;host_errors<=0;
      snap_request<=0;snapshot_valid<=0;snapshot_pending<=0;snapshot_window<=0;
@@ -222,7 +224,7 @@ module iq_peripheral(
      tick<=tick+1;source_valid<=issue;source_finish<=final_issue;
      core_iq<=replay_q;core_valid<=source_valid;core_finish<=source_finish;core_tick<=tick;
      freq_busy_previous<=freq_busy;
-     if(freq_valid&&!freq_busy&&freq_producer-freq_consumer<256)publish_start<=freq_record[8*32+:64];
+     if(freq_valid&&!freq_busy&&freq_producer-freq_consumer<FREQ_CAP)publish_start<=freq_record[8*32+:64];
      if(freq_busy_previous&&!freq_busy&&tick-publish_start>publish_latency_max)publish_latency_max<=tick-publish_start;
      if(acquisition_reset)begin
        diagnostic_toggle<=0;diagnostic_busy<=0;diagnostic_valid<=0;
@@ -236,7 +238,7 @@ module iq_peripheral(
        WAIT_CORE:if(core_ready)begin run_state<=RUNNING;issued<=0;replay_pos<=0;replay_ptr<=replay_start[14:0];end
        RUNNING:begin
          issued<=issued+1;
-         if(pending_valid&&issued[12:0]==8191)begin
+         if(pending_valid&&issued[LOGN-1:0]==N-1)begin
            active_bank<=pending_bank;pending_valid<=0;replay_pos<=0;replay_ptr<=0;
            current_block_id<=pending_bank?bank_block1:bank_block0;
            if(active_bank)bank_ready[1]<=0;else bank_ready[0]<=0;
@@ -248,7 +250,7 @@ module iq_peripheral(
        end
        DRAINING:begin
          if(wait_count!=65535)wait_count<=wait_count+1;
-         if(wait_count>=1024&&completed==(issued>>13)&&freq_producer+freq_dropped==completed&&
+         if(wait_count>=1024&&completed==(issued>>LOGN)&&freq_producer+freq_dropped==completed&&
              !freq_valid&&!freq_busy&&!burst_busy)run_state<=STOPPED;
          else if(wait_count==65535)begin host_errors<=host_errors|32'h80000;run_state<=STOPPED;end
        end
@@ -329,8 +331,8 @@ module iq_peripheral(
              if(loader_target)bank_ready[1]<=0;else bank_ready[0]<=0;
            end
            if(strobed_data[0])begin
-             if(loader_active||(active&&loader_target==active_bank)||(pending_valid&&loader_target==pending_bank)||loader_expected<8192||
-                 loader_expected>32768||loader_expected[12:0]!=0)begin
+             if(loader_active||(active&&loader_target==active_bank)||(pending_valid&&loader_target==pending_bank)||loader_expected<N||
+                 loader_expected>32768||loader_expected[LOGN-1:0]!=0)begin
                s_axi_bresp<=2;loader_errors<=loader_errors|32'h40;
              end else begin
                loader_active<=1;loader_done<=0;loader_received<=0;loader_crc_state<=32'hffffffff;
@@ -382,7 +384,7 @@ module iq_peripheral(
            'h008:s_axi_rdata<={20'd0,config_dirty[0],snapshot_valid,core_ready,active,5'd0,run_state};
            'h010:s_axi_rdata<=iq_build_config::SAMPLE_RATE_HZ;
            'h014:s_axi_rdata<=iq_build_config::FFT_CLOCK_HZ;
-           'h018:s_axi_rdata<=8192;
+           'h018:s_axi_rdata<=N;
            'h01c:s_axi_rdata<=replay_length;
            'h020:s_axi_rdata<=replay_start;
            'h024:s_axi_rdata<=replay_mode;
@@ -425,6 +427,12 @@ module iq_peripheral(
            'h1d4:s_axi_rdata<={28'd0,loader_target,(loader_errors!=0),loader_done,loader_active};
            'h1d8:s_axi_rdata<=loader_received;'h1dc:s_axi_rdata<=loader_computed_crc;
            'h1e0:s_axi_rdata<=loader_transfers;'h1e4:s_axi_rdata<=loader_errors;
+           'h1e8:s_axi_rdata<=32768;
+           'h1ec:s_axi_rdata<=FREQ_CAP;
+           'h1f0:s_axi_rdata<=128;
+           'h1f4:s_axi_rdata<=1024;
+           'h1f8:s_axi_rdata<=iq_build_config::INPUT_FIFO_DEPTH;
+           'h1fc:s_axi_rdata<=iq_build_config::SNAPSHOT_GROUP;
            'h134:s_axi_rdata<={30'd0,diagnostic_busy,diagnostic_valid};
            'h138:s_axi_rdata<=diagnostic_sequence;
            'h140:s_axi_rdata<=issued_snapshot[31:0];'h144:s_axi_rdata<=issued_snapshot[63:32];

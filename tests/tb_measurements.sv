@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 module tb_measurements;
+ localparam integer N=iq_build_config::FFT_LENGTH,LOGN=iq_build_config::FFT_LOG2;
  reg clk=0;always #4 clk=~clk;
  reg rst=1,tv=0,finish=0,sv=0,last=0;
  reg [31:0] iq=0;reg [63:0] tick=0;
@@ -10,10 +11,10 @@ module tb_measurements;
  .window_valid(wv),.window_data(wd),.burst_valid(bv),.burst_data(bd),.samples(samples));
  reg [47:0] data=0;reg [23:0] user=0;
  spectrum_measure sm(.clk(clk),.rst(rst),.data(data),.user(user),.valid(sv),.last(last),
- .roi_low(13'd0),.roi_high(13'd8191),.result_valid(rv),.result_data(rd),.fault(fault),
+ .roi_low(LOGN'(0)),.roi_high(LOGN'(N-1)),.result_valid(rv),.result_data(rd),.fault(fault),
  .snap_request(1'b0),.snap_we(),.snap_addr(),.snap_data(),.snap_done(),.snap_window());
- reg [31:0] iqvec[0:524287],counts[0:7];reg [287:0] bgold[0:6];
- reg [63:0] fftvec[0:98303];reg [255:0] sgold[0:11];
+ reg [31:0] iqvec[0:64*N-1],counts[0:7];reg [287:0] bgold[0:6];
+ reg [63:0] fftvec[0:12*N-1];reg [255:0] sgold[0:11];
  integer c,n,bursts=0,spectra=0,windows=0;
  always @(posedge clk)if(!rst)begin
    if(bv)begin
@@ -32,23 +33,23 @@ module tb_measurements;
    $readmemh("spectrum_input.mem",fftvec);$readmemh("spectrum_expected.mem",sgold);
    for(c=0;c<8;c=c+1)begin
      @(negedge clk);rst=1;tv=0;finish=0;repeat(8)@(negedge clk);rst=0;
-     for(n=0;n<32768;n=n+1)begin
+     for(n=0;n<(4*N);n=n+1)begin
        // Gaps test sample-index semantics independently of source clock time.
        if(n%257==0)begin @(negedge clk);tv=0;repeat(2)@(negedge clk);end
-       @(negedge clk);tv=1;iq=iqvec[c*32768+n];
+       @(negedge clk);tv=1;iq=iqvec[c*(4*N)+n];
      end
      @(negedge clk);tv=0;finish=1;
      @(negedge clk);finish=0;repeat(20)@(negedge clk);
-     if(bursts!=counts[c]||samples!=32768)$fatal(1,"time case %0d counts",c);
+     if(bursts!=counts[c]||samples!=(4*N))$fatal(1,"time case %0d counts",c);
    end
    if(windows!=32)$fatal(1,"window count");
    @(negedge clk);rst=1;repeat(8)@(negedge clk);rst=0;
-   for(n=0;n<98304;n=n+1)begin
-     @(negedge clk);sv=1;data=fftvec[n][47:0];user={8'd0,fftvec[n][63:48]};last=(n%8192==8191);
+   for(n=0;n<(12*N);n=n+1)begin
+     @(negedge clk);sv=1;data=fftvec[n][47:0];user={8'd0,fftvec[n][63:48]};last=(n%N==(N-1));
    end
    @(negedge clk);sv=0;last=0;
    wait(spectra==12);repeat(10)@(negedge clk);
-   $display("MEASUREMENTS_PASS time_cases=8 gap_samples=262144 spectra=12 continuous_bins=98304");$finish;
+   $display("MEASUREMENTS_PASS time_cases=8 gap_samples=262144 spectra=12 continuous_bins=(12*N)");$finish;
  end
- initial begin #6000000;$fatal(1,"measurement timeout");end
+ initial begin #20000000;$fatal(1,"measurement timeout");end
 endmodule

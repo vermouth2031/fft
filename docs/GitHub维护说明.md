@@ -2,6 +2,10 @@
 
 仓库：<https://github.com/vermouth2031/fft>。
 
+## 当前版本：2026-10-09 Phase 9
+
+当前 16384 点 FFT 在 `phase9/fft16k` 分支管理，使用预发布标签 `v2026.10.09-phase9-fft16k-ram-validated`。RAM/JTAG 实板验证通过，SD 安装和物理冷启动未验证。入口见 [Phase 9 GitHub 版本说明](Phase9_GitHub版本说明.md)。下文保留旧阶段的历史登记，旧阶段的“当前”不代表 Phase 9。
+
 ## 分支和版本的区别
 
 - `main` 是已合并的主分支。

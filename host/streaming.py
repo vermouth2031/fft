@@ -55,7 +55,7 @@ def run(args):
         info=client.hardware_info()
         if info['hardware_version']<STREAM_VERSION or not info['hardware_capabilities']&4:
             raise RuntimeError('Phase 7 or newer streaming BOOT.BIN is required')
-        config=[args.samples,1,1,0,8191,1048576,0,262144,0,8,32,1048576,0]
+        config=[args.samples,1,1,0,info['fft_length']-1,1048576,0,262144,0,8,32,1048576,0]
         client.configure(config,hardware=info)
         kinds=[args.signal] if args.signal else list(SIGNALS)
         first_kind=kinds[0];first=make_signal(first_kind,args.samples,1,args.custom)

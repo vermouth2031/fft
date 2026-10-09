@@ -26,7 +26,7 @@ class DetectorHostTests(unittest.TestCase):
         c=h.Client.__new__(h.Client);c.requests=[]
         def read(offset,count=1):
             if offset==0x84:return tuple(c.requests[-1][1][-2:])
-            return ({4:version,0x8c:capabilities,0x10:rate,0x14:125000000}[offset],)
+            return ({4:version,0x8c:capabilities,0x10:rate,0x14:125000000,0x18:8192}[offset],)
         c.read=read;c.request=lambda *args:c.requests.append(args)
         return c
 
@@ -102,6 +102,26 @@ class DetectorHostTests(unittest.TestCase):
         c.read=lambda offset,count=1: (1,2,3,4,100000000,2,4) if offset==0x90 else original(offset,count)
         with self.assertRaisesRegex(RuntimeError,'record format'):c.hardware_info()
         with self.assertRaisesRegex(RuntimeError,'major version'):self.fake_client(version=0x20000).hardware_info()
+
+    def test_fft16k_negotiation_and_replay_alignment(self):
+        c=self.fake_client(version=0x10005,capabilities=31);original=c.read
+        table={0x18:(16384,),0x90:(1,2,3,4,125000000,1,8),0x1e8:(32768,128,128,1024,4096,16)}
+        c.read=lambda offset,count=1: table[offset] if offset in table else original(offset,count)
+        info=c.hardware_info()
+        self.assertEqual((info['fft_length'],info['frequency_ring_records'],info['snapshot_group']),(16384,128,16))
+        for samples in (16384,32768):h.validate_replay(bytes(samples*4),info)
+        for samples in (0,8192,24576,49152):
+            with self.assertRaises(ValueError):h.validate_replay(bytes(samples*4),info)
+        table[0x1e8]=(16384,128,128,1024,4096,16)
+        with self.assertRaisesRegex(RuntimeError,'memory configuration'):c.hardware_info()
+
+    def test_fft_capability_and_unknown_length_are_rejected(self):
+        c=self.fake_client(version=0x10005,capabilities=15);original=c.read
+        c.read=lambda offset,count=1: (1,2,3,4,125000000,1,8) if offset==0x90 else original(offset,count)
+        with self.assertRaisesRegex(RuntimeError,'FFT configuration capability'):c.hardware_info()
+        c=self.fake_client();original=c.read
+        c.read=lambda offset,count=1: (10000,) if offset==0x18 else original(offset,count)
+        with self.assertRaisesRegex(RuntimeError,'FFT length'):c.hardware_info()
 
     def test_diagnostic_snapshot_counter_width(self):
         c=self.fake_client()

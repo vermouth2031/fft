@@ -30,6 +30,7 @@ class QualificationTests(unittest.TestCase):
         cls.spec = copy.deepcopy(cls.historical_spec)
         for case in cls.spec['cases']:
             case['sample_rate_hz'] = FS
+            case['fft_length'] = N
 
     def write_current_spec(self, path, cases=None):
         spec=copy.deepcopy(self.spec)
@@ -63,7 +64,7 @@ with patch('pathlib.Path.mkdir', side_effect=AssertionError('import mkdir')), pa
             self.assertFalse(np.any(packed))
             self.assertFalse(np.any(shot))
             dc, _, _ = model.window(np.full((N,2), -32768, dtype=np.int64))
-            self.assertEqual(dc['q_peak'], 4096)
+            self.assertEqual(dc['q_peak'], N//2)
             self.assertEqual(dc['energy'], N*2*32768**2)
             for invalid in (np.zeros((N-1,2),dtype=int), np.zeros((N,2)), np.full((N,2),32768)):
                 with self.assertRaises(ValueError):
@@ -269,7 +270,7 @@ if __name__=='__main__':
     result=unittest.TextTestRunner(verbosity=2).run(suite)
     if not result.wasSuccessful():
         sys.exit(1)
-    report=dict(status='PASS',tests=result.testsRun,legacy_cases=16,exact_fft_points=524288,
+    report=dict(status='PASS',tests=result.testsRun,legacy_cases=16,exact_fft_points=64*N,
                 compatibility='All four selected-profile output files are reproducible',
                 sources={str(p.relative_to(ROOT)):digest(p) for p in
                     (Path(__file__),ROOT/'tests/fft_reference.py',ROOT/'tests/make_golden.py',

@@ -67,3 +67,10 @@ tests/tb_axi.sv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-a
 config/build_profile.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 scripts/run_network_validation.ps1 -text
 scripts/resume_widest_continuous.py -text
+
+# Phase 9 build identities hash source bytes, including Windows line endings.
+rtl/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+firmware/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+scripts/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+tests/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+host/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -20,7 +20,7 @@ from iq_client import decode_record
 from generate_iq_vectors import burst_reference
 from frame_length_reference import reference_digital_zero
 from threshold_reference import reference_threshold, validate_detector
-from build_rates import SAMPLE_RATE_HZ
+from build_rates import SAMPLE_RATE_HZ, FFT_LENGTH as N
 
 FREQUENCY_FIELDS = {
     "total_spectrum_power": "total", "peak_spectrum_power": "peak_power",
@@ -80,9 +80,9 @@ def verify(folder, vector=None, *, qualification=None):
     vector = Path(vector or meta["vector"])
     require(digest(vector) == meta["vector_sha256"], "Input vector hash mismatch")
     iq = np.fromfile(vector, dtype="<i2").reshape(-1, 2)
-    require(len(iq) in (8192, 16384, 24576, 32768), "Invalid replay length")
+    require(len(iq) in range(N,32769,N), "Invalid replay length")
     accepted = meta["input_samples"]
-    require(accepted > 0 and accepted % 8192 == 0, "Invalid accepted sample count")
+    require(accepted > 0 and accepted % N == 0, "Invalid accepted sample count")
     if not meta.get("cyclic"):
         require(accepted == len(iq), "Finite capture length mismatch")
     rate = meta.get("sample_rate_hz", SAMPLE_RATE_HZ)
@@ -108,7 +108,7 @@ def verify(folder, vector=None, *, qualification=None):
         require(bool(reference.get('bindings')), 'Missing qualification provenance')
         for name, expected_hash in reference['bindings'].items():
             require(digest(name) == expected_hash, f'Qualification dependency changed: {name}')
-        require(len(reference['windows']) == len(iq) // 8192, 'Explicit oracle window count mismatch')
+        require(len(reference['windows']) == len(iq) // N, 'Explicit oracle window count mismatch')
         golden = [reference]
     else:
         require(rate == SAMPLE_RATE_HZ, 'Capture rate differs from the selected build profile')
@@ -133,9 +133,9 @@ def verify(folder, vector=None, *, qualification=None):
                     require(config_id == meta['config_id'], 'Capture configuration metadata mismatch')
             expected = chosen["windows"][count % len(chosen["windows"])]
             require(actual["id"] == count == actual["sequence"], f"Frequency sequence {count}")
-            require(actual["first_sample"] == count * 8192, "Sample position mismatch")
+            require(actual["first_sample"] == count * N, "Sample position mismatch")
             require(actual["epoch"] == meta["epoch"] and actual["config_id"] == config_id, "Epoch/config mismatch")
-            require(actual["sample_rate_hz"] == rate and actual["fft_length"] == 8192, "Rate/FFT mismatch")
+            require(actual["sample_rate_hz"] == rate and actual["fft_length"] == N, "Rate/FFT mismatch")
             require(actual["window"] == chosen["mode"], "Window changed")
             for target, source in FREQUENCY_FIELDS.items():
                 require(actual[target] == expected[source], f"Window {count} {target}: {actual[target]} != {expected[source]}")
@@ -144,17 +144,17 @@ def verify(folder, vector=None, *, qualification=None):
             flags = (1 if not expected["total"] else 0)
             if expected["total"]:
                 flags |= 32 if expected["q_low"] == expected["q_high"] else 0
-                flags |= 16 if expected["q_low"] == 0 or expected["q_high"] == 8191 else 0
+                flags |= 16 if expected["q_low"] == 0 or expected["q_high"] == N-1 else 0
             require(actual["flags_raw"] == flags, f"Frequency flags {count}")
             latency = actual["latency_cycles"]
             require(0 < latency <= rate * .002, "Analysis deadline exceeded")
             require(actual["done_tick"] - actual["start_tick"] == latency, "Latency timestamp mismatch")
             if previous_tick is not None:
-                require(actual["start_tick"] - previous_tick == 8192, "Source timing discontinuity")
+                require(actual["start_tick"] - previous_tick == N, "Source timing discontinuity")
             previous_tick = actual["start_tick"]
             maximum_latency = max(maximum_latency, latency)
             count += 1
-    require(count == meta["completed_windows"] == meta["frequency_records"] == accepted // 8192,
+    require(count == meta["completed_windows"] == meta["frequency_records"] == accepted // N,
             "Frequency count mismatch")
     require(maximum_latency == meta["hardware_max_latency_cycles"], "Maximum latency mismatch")
     require(0 < meta["hardware_max_publish_latency_cycles"] <= rate * .002, "Publication deadline exceeded")
@@ -199,11 +199,11 @@ def verify(folder, vector=None, *, qualification=None):
             else:
                 case = golden.index(chosen)
                 packed = np.array([int(x, 16) for x in (ROOT / "data/golden_fft.mem").read_text().splitlines()],
-                              dtype=np.int64).reshape(len(golden), 4, 8192)
+                              dtype=np.int64).reshape(len(golden), 4, N)
                 values = packed[case, shot["window_id"] % 4]
                 re = ((values & 0xffffff) ^ 0x800000) - 0x800000
                 im = (((values >> 24) & 0xffffff) ^ 0x800000) - 0x800000
-                expected_power = np.fft.fftshift(re * re + im * im).reshape(1024, 8).max(axis=1)
+                expected_power = np.fft.fftshift(re * re + im * im).reshape(1024, N//1024).max(axis=1)
             require(np.array_equal(expected_power, shot["power"]), "Hardware snapshot mismatch")
             snapshot_count = 1024
     return dict(status="PASS", scope="Exact frequency, burst, flags, sequences, timestamps and available snapshot",

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "script": "check_host.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\check_host.py.log",
+      "sha256": "4a203f958ef9d765ff1f89816631e1bdf553b4acf1d56449f1d10ad92bb46ff3"
+    },
+    {
+      "script": "test_host_protocol.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\test_host_protocol.py.log",
+      "sha256": "88ac201c08d15cfae54fb32b696ff86f3dd5bf540cd81b20e36f73c1bf263100"
+    },
+    {
+      "script": "test_frame_length_reference.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\test_frame_length_reference.py.log",
+      "sha256": "cd9985c714d680a4f9bfffa5f2d5874b4b713cf75659473cc7618a3818e840da"
+    },
+    {
+      "script": "test_detector_host.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\test_detector_host.py.log",
+      "sha256": "fe0df9fd8b84158060a8f21d882798b07501c7d9c093bf1594614cedca88277e"
+    },
+    {
+      "script": "test_phase9_ofdm.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\test_phase9_ofdm.py.log",
+      "sha256": "63af615d10e029c98cb116cb2054b4ea579828b1543a0e153b83b68b564531d6"
+    },
+    {
+      "script": "check_sd_parser.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\check_sd_parser.py.log",
+      "sha256": "7bc08dea3adc364a7c8091016074919c0aeef92a2a252247d81a932e0a85ff29"
+    },
+    {
+      "script": "test_qualification.py",
+      "exit_code": 0,
+      "log": "build\\logs\\python\\test_qualification.py.log",
+      "sha256": "0c64da121b2f17b47060b17b3734c9339f3d544e389f53dfd3c4746c9329e5c6"
+    }
+  ],
+  "started_at": "2026-10-08T21:49:17.423586+08:00",
+  "finished_at": "2026-10-08T21:49:24.339891+08:00",
+  "inputs": {
+    "tests\\check_core_results.py": "b7af7c2a7ab26cc83f6305fed1db381d424e81ca007a9122fbc4301bf0ef5140",
+    "tests\\check_host.py": "0e787b5df3d14fc5ffe7b7081f61bb8e436bf36b4a64552646f1de67306b91bb",
+    "tests\\check_sd_parser.py": "139c93d3027e09aa3b0c1463af3013fc7b94ddd6a35b26ac938767e28c9f1851",
+    "tests\\detection_metrics.py": "93ff66ef8687c8c89086dad839fb21f742578c49c00ad94c293b5ec17bd4b682",
+    "tests\\fft_reference.py": "576a84dae344e51a366f0eddb99dc2b20149169075ed794dbf5d5aedc6099bb8",
+    "tests\\frame_length_reference.py": "68f3ccca17f7f3821c9f0964e9826867a85683e6bbc1a8a06fefb892b40a3e1a",
+    "tests\\generate_digital_burst_vectors.py": "92d5cf3b09aa753d216a4b61dca6a19f5686e74c169e6b4bbfb06d4a855ac5e4",
+    "tests\\generate_iq_vectors.py": "82247a2b21b52b965eefba82d5ab9d9ca22428d7b91eeff980290d14b1cea01f",
+    "tests\\generate_qualification_vectors.py": "5586ba08987edb4d2eaed5484a240e4e8937af95f0424efe6d484cf6f0c777f4",
+    "tests\\make_golden.py": "f398e8d18e8f427baa851ac7c421a07575db1c2591030ef62515b1b4bf0b51dc",
+    "tests\\make_measurement_vectors.py": "65da01d9881d9e7e8c95dcb97a9e21df2375b05a9801d9258429bceec1c24433",
+    "tests\\make_phase2_specs.py": "590fb7922e9dd3ce3b95119c18ae1370dfcfc7a96d870f6b311c66a7adbaa3b8",
+    "tests\\make_unit_vectors.py": "d74e2bda69a0bf54f117b717ce8c3a6697d8003e50326042c4483d61c3f90352",
+    "tests\\phase9_ofdm.py": "6d6c912553d1dd0da9548b88ac3cc498f6f5d79c5b5c73ccb2eb74ed50453df6",
+    "tests\\phase9_specs.py": "b2a56ec35b65ac9fe76458a89cde69f90c35ac6b6287e460365785013062a625",
+    "tests\\test_detector_host.py": "7196635ff513a3117584fd1093d23b7a7c20c6ed61c4c20553f2d2bd697177ea",
+    "tests\\test_frame_length_reference.py": "12e49cdf0746d4e7608d0fe31a406955af16a9461ec8805ed1978b6153bf6d59",
+    "tests\\test_host_protocol.py": "b875cb91c9d82e11e5a2101174b4c5ffeb03077ef88818be91c43f526e04c99a",
+    "tests\\test_phase9_ofdm.py": "5ddc5e73c783a9f7e270f04c025abaf5abb11572ca96add9f7a4304a0f460eff",
+    "tests\\test_qualification.py": "fa0e00651d8a2e7370f65e2388ee4ca8ef70062ca9f46130f8fdb863d6bb3c8a",
+    "tests\\threshold_reference.py": "d0be2e1d4bee69d30b760e1ccc59a74542c5c7cebd37fb7dacb7d21dbecc9c9b",
+    "host\\analyze_sd.py": "28952d43baf234f352ae04e10f777bba1bcba6d6d3547bfb8cb5ea66435aed2d",
+    "host\\build_rates.py": "6ca5534eac22f02468b7bcf8bbbd71113e766c6f3f5c2877b9f2f5132e78b99b",
+    "host\\iq_client.py": "b472c316e3e4ef23e457a92b6e48f0e11941634e582508db42dd1dc8f1c5feba",
+    "host\\monitor.py": "1b70c15b66e5a7df810a494b35db44695eb2dde3e19c2260020ba8cccc9b0e26",
+    "host\\monitor_view.py": "5b0287548fa4273e6c619c09aa427b50adb588d268f13d877757222315f1e3c9",
+    "host\\streaming.py": "ba9ad2a01a6605b3cc3ad2318f7ac981bcddf6df9fee135e2189b900e0e7a7d7",
+    "host\\threshold_config.py": "ddeb04b35c36d8c43ffd6b45c48f168edc75467760745d09b9f8200508334b86"
+  }
+}

@@ -21,6 +21,7 @@
 #define DETECTOR_VERSION 0x00010001U
 #define STREAM_VERSION 0x00010003U
 #define DMA_VERSION 0x00010004U
+#define FFT_CONFIG_VERSION 0x00010005U
 #define DMA_TIMEOUT 10000000U
 #if defined(XPAR_XAXIDMA_0_BASEADDR)
 #define IQ_DMA_BASEADDR XPAR_XAXIDMA_0_BASEADDR
@@ -126,6 +127,7 @@ static int readable(uint32_t o){
     case 0x1b0:case 0x1b4:case 0x1b8:return rd(4)>=STREAM_VERSION;
     case 0x1c0:case 0x1c4:case 0x1c8:case 0x1cc:case 0x1d0:case 0x1d4:
     case 0x1d8:case 0x1dc:case 0x1e0:case 0x1e4:return rd(4)>=DMA_VERSION;
+    case 0x1e8:case 0x1ec:case 0x1f0:case 0x1f4:case 0x1f8:case 0x1fc:return rd(4)>=FFT_CONFIG_VERSION;
     case 0x84:case 0x88:case 0x8c:return rd(4)>=DETECTOR_VERSION;
     default:return 0;
     }
@@ -173,9 +175,10 @@ static void receive(void *arg,struct udp_pcb *up,struct pbuf *p,const ip_addr_t 
         else if((rd(8)&7)!=0)error=3;
         else{
             uint32_t *v=&rx[4];uint64_t on=((uint64_t)v[6]<<32)|v[5],off=((uint64_t)v[8]<<32)|v[7];
+            uint32_t fft_length=rd(0x18);
             uint32_t mode=count==15?v[13]:0,gap=count==15?v[14]:32;
             int extended=rd(4)>=DETECTOR_VERSION;
-            if(v[0]<8192||v[0]>32768||(v[0]&8191)||v[1]>1||v[2]>1||v[3]>v[4]||v[4]>8191||
+            if(v[0]<fft_length||v[0]>32768||(v[0]&(fft_length-1U))||v[1]>1||v[2]>1||v[3]>v[4]||v[4]>=fft_length||
                 v[6]>15||v[8]>15||on<=off||!v[9]||v[9]>65535||!v[10]||v[10]>65535||
                 v[11]<(mode?1:v[9])||v[11]>1048576||v[12]!=0||mode>1||!gap||gap>65535)error=2;
             else if(count==15&&(!extended||(mode==1&&!(rd(0x8c)&1))))error=4;
@@ -226,7 +229,7 @@ stream_chunk_done:;
     }else if(type==7){ /* commit: bank, block, length, full CRC32, flags(bit0 arm) */
         uint32_t bank=rx[4],block=rx[5],length=rx[6],crc=rx[7],flags=rx[8];
         if(rd(4)<STREAM_VERSION)error=4;
-        else if(count!=5||bytes!=36||bank>1||flags>1||length<8192||length>32768||(length&8191))error=1;
+        else if(count!=5||bytes!=36||bank>1||flags>1||length<rd(0x18)||length>32768||(length&(rd(0x18)-1U)))error=1;
         else if(upload_block[bank]!=block||upload_next[bank]!=length||(upload_crc_state[bank]^0xffffffffU)!=crc)error=6;
         else if(length!=rd(0x1c))error=2;
         else if(rd(4)<DMA_VERSION)error=4;
@@ -293,12 +296,12 @@ int transfer_data(void){
     poll_lwip_timer();
     if(!have_peer||!pcb)return 0;
     /* Submit only one Ethernet-MTU-sized datagram per poll. Frequency records
-     * need three quarters of the slots to sustain one result per 8192 samples. */
+     * need three quarters of the slots to sustain the frequency-result stream. */
     uint8_t burst_turn=((next_result_queue++&3U)==3U);
     uint8_t have_frequency=rd(0x50)!=rd(0x54);
     uint8_t have_burst=rd(0x58)!=rd(0x5c);
     if((!burst_turn&&have_frequency)||!have_burst)
-        send_records(0x100,0x50,0x54,0x30000,32,256,11);
+        send_records(0x100,0x50,0x54,0x30000,32,rd(4)>=FFT_CONFIG_VERSION?rd(0x1ec):256U,11);
     else
         send_records(0x101,0x58,0x5c,0x38000,16,128,16);
     return 0;
