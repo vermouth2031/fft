@@ -1,13 +1,17 @@
-# Phase 11：150 MHz FFT 分析延迟优化，RAM/JTAG 验收完成
+# Phase 11：150 MHz FFT 分析延迟优化，SD 冷启动验证通过
 
 基线：Phase 10 已验收实现 `290e7cd`，GitHub 发布登记 `adea9d1`。
-基线工程 `D:\fft\fft_phase10_resource_opt` 与板上 SD 启动修复版保留。
+基线工程 `D:\fft\fft_phase10_resource_opt` 保留；SD 上原 Phase 10 启动文件已备份为 `B2F71552.BIN`。
 
-当前状态：2026-10-10 已完成本阶段仿真、实现及 USB 供电真板 RAM/JTAG 验收。板上当前加载本版本，停止状态、错误计数为 0。工程位于 `D:\fft\fft_phase11_latency_opt`，本地分支 `phase11/latency-opt`，已验证实现提交 `dd453426866ecf5550bc690daaccc8871df837d8`；本轮尚未推送 GitHub。
+当前状态：2026-10-10 已完成本阶段仿真、实现及 USB 供电真板 RAM/JTAG 验收。板上当前加载本版本，停止状态、错误计数为 0。工程位于 `D:\fft\fft_phase11_latency_opt`，本地分支 `phase11/latency-opt`，已验证实现提交 `dd453426866ecf5550bc690daaccc8871df837d8`；本次 GitHub 归档说明见 [Phase 11 GitHub 版本说明](docs/Phase11_GitHub版本说明.md)。
 
 硬件构建 `9de00f7c8261de0723505e5e50040906`，硬件版本 `0x00010009`。建立裕量 +0.005 ns、保持裕量 +0.050 ns，关键 CDC 和内部未约束端点均为 0。建立裕量较小；当前最慢路径属于 125 MHz DMA 完成判定。所有报告对应最终通过检查的实现，没有放宽时钟约束。
 
-**本次仅通过 JTAG 加载到 RAM，未写入 SD、未进行 Phase 11 实际断电启动验证。断电后仍会启动原 Phase 10 修复版。**
+**2026-10-10 后续部署：Phase 11 网络启动镜像已安装到 SD 根目录 `BOOT.BIN`，完整读回 SHA-256 一致，并已通过 SD 模式系统复位启动和网络版本核对。原 Phase 10 启动文件保留为 SD 根目录 `B2F71552.BIN`。用户确认实际断电再上电后，已通过仅网口进行的冷启动版本、数值与连续运行验证。安装记录见 [SD 安装报告](reports/phase11_sd_install_20261010/installation.json)。原 RAM/JTAG 验收清单保留为当时的历史记录。**
+
+SD 重启后重新运行全部 79 项真板数值测试通过，158 条频域记录、88 条突发记录均通过校验，最终板卡停止且错误计数为 0。部署证据及 SHA-256 绑定见 [Phase 11 SD 部署清单](reports/phase11_sd_deployment.json)。`release/` 根目录的旧包属于此前 RAM/JTAG 归档；本次包含冷启动证据的发布包由 `scripts/package_phase11_cold_boot.py` 生成到 `release/phase11_sd_verified/`。
+
+冷启动验证（2026-10-10）：用户确认“已断电之后再上电”，网口首次读回 Phase 11 构建 ID、初始 epoch=0、空闲且错误为 0。检查全程未使用 JTAG、未下载程序、未触发系统复位。79 项数值测试、80896 个快照值精确校验全部通过；60 秒连续 DDR/DMA 运行完成 1919 次缓存切换、处理 7501791232 对 IQ、产生 457873 条频域记录，DMA 错误、丢样及 UDP 丢包均为 0。最大分析/发布延迟为 278.448/278.728 µs，最终停止且错误为 0。此次冷启动后的持续测试范围为 60 秒；此前 1000 次切换和 300 秒报告仍属于 RAM/JTAG 验收。证据见 [冷启动验收清单](reports/phase11_boot_acceptance.json)，离线检查：`python scripts/verify_phase11_cold_boot.py`。
 
 | 指标 | Phase 10 | Phase 11 |
 | --- | ---: | ---: |

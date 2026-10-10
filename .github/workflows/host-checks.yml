@@ -25,3 +25,5 @@ jobs:
         run: python scripts/check_five_signals_archive.py
       - name: Check Phase 11 source and RAM/JTAG board evidence integrity
         run: python scripts/verify_phase11_evidence.py
+      - name: Check Phase 11 SD installation and physical cold-boot evidence
+        run: python scripts/verify_phase11_cold_boot.py

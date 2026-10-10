@@ -2,7 +2,7 @@
 
 2026-10-10 已通过 USB 供电真板 RAM/JTAG 验收，构建编号 `9de00f7c8261de0723505e5e50040906`。I/Q 各 16 bit、16384 点 FFT、125 MSPS 输入和缓存容量保持；FFT 时钟提升到 150 MHz，最大分析延迟 281.296→278.448 µs。LUT 22775→22621，FF 27786→27782，BRAM 128、DSP 49 不变，新增使用 1 个 MMCM。完整数值回归、79 项真板检查、1000 次 DMA 切换及 60/300 秒持续测试全部通过。详情见 [Phase 11 状态与指标](PHASE11_STATUS.md)和[验收清单](reports/phase11_acceptance.json)。
 
-**本版本当前在板上 RAM 运行；SD 仍保留 Phase 10，断电后启动 Phase 10。Phase 11 尚未进行实际断电启动验证，也尚未推送 GitHub。** 下方内容为历史基线与沿用接口资料，当前指标以 Phase 11 状态文档为准。
+**2026-10-10 已将 Phase 11 网络启动文件安装到 SD，完整读回校验及 SD 模式系统复位启动通过。原 Phase 10 保留为 SD 根目录 `B2F71552.BIN`。用户实际断电再上电后，网口确认 Phase 11 自动启动，79 项数值测试及 60 秒连续 DDR/DMA 测试全部通过，见 [冷启动验收](reports/phase11_boot_acceptance.json)。GitHub 发布入口与下载说明见 [Phase 11 GitHub 版本说明](docs/Phase11_GitHub版本说明.md)。见 [SD 安装报告](reports/phase11_sd_install_20261010/installation.json)。** 下方内容为历史基线与沿用接口资料，当前指标以 Phase 11 状态文档为准。
 
 # 历史基线 Phase 10：16K FFT 资源优化及 USB 连续传输修复
 
