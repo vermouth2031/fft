@@ -1,5 +1,5 @@
 """Run the complete 64-window AMD RTL regression in isolated case groups."""
-import concurrent.futures,hashlib,json,os,shutil,subprocess,sys
+import concurrent.futures,hashlib,json,os,shutil,subprocess,sys,threading
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SIM=ROOT/'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim'
@@ -17,7 +17,18 @@ def main():
     # Unique run directories preserve every attempt and avoid sharing simulator state.
     import datetime
     run=parent/datetime.datetime.now().strftime('%Y%m%d_%H%M%S');run.mkdir()
+    condition=threading.Condition();active=[0]
+    hardware_lock=Path(os.environ['IQ_CORE_HARDWARE_LOCK']) if os.environ.get('IQ_CORE_HARDWARE_LOCK') else None
     def worker(first):
+        with condition:
+            while active[0] >= (min(2,workers) if hardware_lock and hardware_lock.exists() else workers):
+                condition.wait(timeout=2)
+            active[0]+=1
+        try:return run_group(first)
+        finally:
+            with condition:
+                active[0]-=1;condition.notify_all()
+    def run_group(first):
         out=run/f'cases_{first:02d}_{first+1:02d}';out.mkdir()
         for name in ('test_iq.mem','golden_fft.mem','hann_quarter_u18_f17.mem'):
             shutil.copyfile(SIM/name,out/name)
@@ -33,7 +44,11 @@ def main():
         print(f'CORE_GROUP_PASS cases={first}..{first+1}',flush=True)
         return first,out,text
     results=[]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    # Bound peak memory when Vivado synthesis runs alongside the AMD model.
+    # All eight groups still execute; only their concurrency changes.
+    workers=int(os.environ.get('IQ_CORE_WORKERS','2'))
+    if workers not in (1,2,3,4):raise ValueError('IQ_CORE_WORKERS must be 1..4')
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         for result in pool.map(worker,range(0,16,2)):results.append(result)
     # Publish aggregate evidence only after every group has passed.
     combined='\n'.join(text for _,_,text in results)+'\nCORE_ALL_GROUPS_PASS cases=16 windows=64\n'

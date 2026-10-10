@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "build_id": "9de00f7c8261de0723505e5e50040906",
+  "baseline_commit": "290e7cd9c16277ec04899433c3cc0df9444f5239",
+  "maximum_analysis_us": {
+    "before": 281.296,
+    "after": 278.448,
+    "reduction_us": 2.848000000000013,
+    "reduction_percent": 1.0124566293157433
+  },
+  "maximum_publish_us": {
+    "before": 281.576,
+    "after": 278.728
+  },
+  "resources": {
+    "lut": {
+      "before": 22775,
+      "after": 22621
+    },
+    "ff": {
+      "before": 27786,
+      "after": 27782
+    },
+    "bram": {
+      "before": 128,
+      "after": 128
+    },
+    "dsp": {
+      "before": 49,
+      "after": 49
+    },
+    "slice": {
+      "before": 8429,
+      "after": 8320
+    },
+    "mmcm": {
+      "before": 0,
+      "after": 1
+    },
+    "bufg": {
+      "before": 4,
+      "after": 4
+    }
+  },
+  "unchanged": {
+    "i_bits": 16,
+    "q_bits": 16,
+    "fft_length": 16384,
+    "sample_rate_hz": 125000000,
+    "timestamp_clock_hz": 125000000,
+    "input_fifo_depth": 4096,
+    "replay_bank_samples": 32768,
+    "snapshot_points": 1024,
+    "measurement_error_summary": true,
+    "detection_metrics": true
+  },
+  "fft_clock_hz": {
+    "before": 125000000,
+    "after": 150000000
+  },
+  "simulation": {
+    "status": "PASS",
+    "frequency_records": 64,
+    "burst_records": 14,
+    "exact_fft_points": 1048576,
+    "maximum_analysis_latency_cycles": 34805,
+    "maximum_analysis_latency_us": 278.44,
+    "oracle": "AMD FFT bit-accurate C model + independent integer time/burst reference"
+  },
+  "finite": {
+    "cases": 79,
+    "exact_snapshot_values": 80896,
+    "maximum_analysis_us": 278.208,
+    "maximum_publish_us": 278.488
+  },
+  "dynamic": [
+    {
+      "report": "reports/phase11_board_20261010/dma1000/validation.json",
+      "status": "PASS",
+      "duration_s": null,
+      "transitions": 1000,
+      "samples": 4262576128,
+      "frequency_records": 260167,
+      "input_fifo_high_water": 10,
+      "upload_mbps": 15.384940430785703,
+      "maximum_analysis_us": 278.448,
+      "maximum_publish_us": 278.728
+    },
+    {
+      "report": "reports/phase11_board_20261010/stability60/stability.json",
+      "status": "PASS",
+      "duration_s": 60.0,
+      "transitions": null,
+      "samples": 7500709888,
+      "frequency_records": 457807,
+      "input_fifo_high_water": 10,
+      "upload_mbps": 32.960238933333336,
+      "maximum_analysis_us": 278.448,
+      "maximum_publish_us": 278.728
+    },
+    {
+      "report": "reports/phase11_board_20261010/stability300/stability.json",
+      "status": "PASS",
+      "duration_s": 300.01600000000326,
+      "transitions": null,
+      "samples": 37502828544,
+      "frequency_records": 2288991,
+      "input_fifo_high_water": 10,
+      "upload_mbps": 33.549147458801826,
+      "maximum_analysis_us": 278.448,
+      "maximum_publish_us": 278.728
+    }
+  ],
+  "deployment": {
+    "board_tested": true,
+    "type": "RAM_JTAG",
+    "sd_installed": false,
+    "physical_cold_boot": false,
+    "sd_state": "PHASE10_UNCHANGED",
+    "power_supply": "USB_ONLY"
+  }
+}

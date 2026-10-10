@@ -12,6 +12,8 @@ def check():
     if not expected:
         raise ValueError("No FFT configuration found in create_fft.tcl")
     profile=json.loads((ROOT/'config/build_profile.json').read_text())
+    expected['target_clock_frequency']=f"{profile['fft_clock_hz']/1e6:g}"
+    expected['target_data_throughput']=f"{profile['sample_rate_hz']/1e6:g}"
     expected['transform_length']=str(profile.get('fft_length',8192))
     expected['number_of_stages_using_block_ram_for_data_and_phase_factors']=str(profile.get('fft_bram_stages',6))
     actual = json.loads(XCI.read_text(encoding="utf-8"))["ip_inst"]["parameters"]["component_parameters"]

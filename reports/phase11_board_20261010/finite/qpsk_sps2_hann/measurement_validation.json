@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase11_latency_opt\\reports\\phase11_board_20261010\\finite\\qpsk_sps2_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65545,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 278.2,
+  "maximum_publish_us": 278.48,
+  "input_sha256": "8e86f4443cb39cc073e1603b50594970f520b01329423a84bf0ba8eb4b540219",
+  "golden_sha256": "33e2141bfd386e3b95863c04de38284193f476e33ace66c70f23fd924d8b0feb",
+  "files": {
+    "capture.json": "6a24482ca7d8e322e88907d66af99b51071c33eec942b92cf7ef44f180aef35e",
+    "frequency.bin": "f9abbcf9a643cd9a25faa5a32ea890f057be670b581b814e7aefc2bb8fc3d283",
+    "burst.bin": "5264f5f8373a9427d82461d8a23bb0214695bf31d50679a226b0b02bc51614e0",
+    "snapshot.bin": "4f0bd2e2cacef388b163dbe397df384d2450a6d7f160abd5deadcda393395cd1",
+    "snapshot.json": "8e3e034feebe7db28b97e47f183ffb6e112b197b89856cd85ef420dc8d70bcdb"
+  },
+  "label": "qpsk_sps2_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 65.536,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.12,
+        "length_error_us": 0.12,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

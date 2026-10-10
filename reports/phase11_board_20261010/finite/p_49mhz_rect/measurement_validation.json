@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase11_latency_opt\\reports\\phase11_board_20261010\\finite\\p_49mhz_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65545,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 278.2,
+  "maximum_publish_us": 278.48,
+  "input_sha256": "111806b0bc76fb5499d0f850a39844c4b6d673fa0d56dca91b98841c5a018c29",
+  "golden_sha256": "9bb3933caa61334ba1561dbdf055d257f88924b4ca8455b910aa4de4a6451899",
+  "files": {
+    "capture.json": "c7c7acdd18123239852ebbba409a048cf3857be8c362bc1e0e34b285cf6123be",
+    "frequency.bin": "1b7140f463189af88a51863fef1e925bbc4529dc533a135901ba910ed7adc45c",
+    "burst.bin": "a5e5cb87b6e146417d0868710bf622e1307746fcd15555fb4deb4c9ff253ecfb",
+    "snapshot.bin": "0054bacecbafd16c75abb85c32af027ee068f26d6a2353f5d09d3ab82d4dc530",
+    "snapshot.json": "03517f40f0793601e0ab4bc3fff3a980c7057ffdca0a0c69f181e13d81e89c33"
+  },
+  "label": "p_49mhz_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

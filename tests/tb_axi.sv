@@ -11,6 +11,10 @@ module tb_axi;
  reg [31:0] wdata=0;reg [3:0] wstrb=15;
  wire awready,wready,bvalid,arready,rvalid;wire [1:0] bresp,rresp;wire [31:0] rdata;
  reg [31:0] axis_data=0;reg [3:0] axis_keep=15;reg axis_valid=0,axis_last=0;wire axis_ready;
+ // Exercise the precomputed BRAM guard on every valid/invalid DMA word.
+ always @(posedge clk)if(resetn&&dut.dma_fire)
+   if(dut.loader_write_allowed!==(dut.loader_received<dut.loader_expected))
+     $fatal(1,"DMA precomputed range check disagrees with full counter comparison");
  iq_peripheral dut(.s_axi_aclk(clk),.s_axi_aresetn(resetn),.fft_clk(fft_clk),
  .s_axi_awaddr(awaddr),.s_axi_awprot(3'd0),.s_axi_awvalid(awvalid),.s_axi_awready(awready),
  .s_axi_wdata(wdata),.s_axi_wstrb(wstrb),.s_axi_wvalid(wvalid),.s_axi_wready(wready),
@@ -149,6 +153,16 @@ module tb_axi;
    axis_send(32'h12345678,1);wait(!dut.loader_active);
    rd('h1d4,value,0);if(!value[2]||value[1])$fatal(1,"early TLAST accepted %h",value);
    rd('h1e4,value,0);if(!(value&1))$fatal(1,"length error missing %h",value);
+   // A too-long packet must neither wrap nor overwrite the first word beyond
+   // the declared block. The registered guard is tested at the exact boundary.
+   wr('h180,1,15,0,0);wr(18'h10000+4*N,32'hcafef00d,15,0,0);
+   wr('h1c0,5,15,0,0);
+   for(n=0;n<N;n=n+1)axis_send(32'h12345678,0);
+   axis_send(32'hdeadbeef,1);wait(!dut.loader_active);
+   rd('h1e4,value,0);if((value&32'hc)!=32'hc)$fatal(1,"overlong block errors missing %h",value);
+   rd('h1d8,value,0);if(value!=N+1)$fatal(1,"overlong received count %d",value);
+   if(dut.bank1.mem[N]!==32'hcafef00d)$fatal(1,"overlong DMA wrote outside declared block");
+   rd('h1d4,value,0);if(value[1]||!value[2])$fatal(1,"overlong block became ready");
    // Load the inactive bank through the DMA-facing stream while analysis continues.
    dma_crc=32'hffffffff;for(n=0;n<N;n=n+1)dma_crc=crc_word(dma_crc,32'h12345678);dma_crc=dma_crc^32'hffffffff;
    wr('h1c8,N,15,0,0);wr('h1cc,22,15,0,0);wr('h1d0,dma_crc,15,0,0);wr('h1c0,5,15,0,0);
@@ -170,7 +184,7 @@ module tb_axi;
    rd('h1b4,value,0);if(value!=2)$fatal(1,"write reject count");
    wr('h180,0,15,0,0);wr('h10000,32'h87654321,15,0,0);
    wr('h00c,2,15,0,0);wait(dut.run_state==0);
-   $display("AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
+   $display("AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast overlong_dma_write_guard dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
  initial begin #4000000;$fatal(1,"AXI timeout");end
 endmodule

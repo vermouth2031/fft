@@ -33,6 +33,7 @@ if($Action -in @('All','Sim','Hardware')) {
 }
 if($Action -in @('All','Sim')) {
  Run-Vivado 'scripts/sim_units.tcl'
+ Run-Vivado 'scripts/sim_phase11_window.tcl'
  Run-Vivado 'scripts/sim_builder.tcl'
  Run-Python -Arguments @('tests/make_measurement_vectors.py')
  Run-Vivado 'scripts/sim_measurements.tcl'
@@ -66,7 +67,7 @@ if($Action -in @('All','Package')) {
  if(-not(Test-Path -LiteralPath 'reports\hardware_validation.json')){throw 'No timing-passed hardware validation report; rebuild hardware before packaging.'}
  Copy-Item -LiteralPath 'build\board\iq_board.gen\sources_1\bd\system\ip\system_ps7_0\ps7_init.tcl' -Destination 'artifacts\ps7_init.tcl' -Force
  Run-Python -Arguments @('scripts/verify_software.py')
- Run-Python -Arguments @('scripts/package_release.py','--check')
+ Run-Python -Arguments @('scripts/phase11_build_check.py')
  Run-Python -Arguments @('scripts/write_build_report.py')
  Push-Location -LiteralPath 'artifacts'
  try {
@@ -79,6 +80,6 @@ if($Action -in @('All','Package')) {
    Copy-Item -LiteralPath 'BOOT_sd.BIN' -Destination 'BOOT.BIN' -Force
  } finally {Pop-Location}
  Run-Python -Arguments @('scripts/record_boot_stage.py')
- Run-Python -Arguments @('scripts/package_release.py')
+ Run-Python -Arguments @('scripts/phase11_package.py')
 }
 Write-Host "Completed stage: $Action"

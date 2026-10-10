@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase11_latency_opt\\reports\\phase11_cold_boot_20261010\\finite\\digital_gap_32_hann",
+  "detector_mode": "digital-zero",
+  "gap_min": 32,
+  "hardware_version": 65545,
+  "frequency_records": 2,
+  "burst_records": 2,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 278.2,
+  "maximum_publish_us": 278.48,
+  "input_sha256": "2fc66163d937097a72bc64ea631049cf5eb3cc5e05983d9130db156215e9a358",
+  "golden_sha256": "4091217a8a512bffc6cfe786704d7bd1fe6b72bd667b8772c5bcd5a656e88f6b",
+  "files": {
+    "capture.json": "ac66d8ff87c7498fb9d92fa5287a21f6748d8fbd4acee52a8b3c9773aec19795",
+    "frequency.bin": "13e62ab1eaeee297b5d9559ad93e72345181c22eb6569a409531e80b4f19bcfe",
+    "burst.bin": "a3b807a022da3867eb6667da8f63525b5bd53c020175f6b8b7ff2eed87cd8b45",
+    "snapshot.bin": "cf344dc1745b60a50f31e4a2cf854e629b6978e2a04860c1a9d34887f55e217d",
+    "snapshot.json": "6b5037490776ef58781b337b5bf51e375a8028f404b61bf231b95004c8a6b134"
+  },
+  "label": "digital_gap_32_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 2,
+    "detected_intervals": 2,
+    "matched": 2,
+    "normal_matches": 2,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 253.952,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      },
+      {
+        "truth": 1,
+        "detection": 1,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

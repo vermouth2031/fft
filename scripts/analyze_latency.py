@@ -38,7 +38,9 @@ def analyze(path):
             'analysis_to_observed_ns':events['record_observed']-events['analysis_done']}
         total=events['analysis_done']-events['input_first']
         if total>2000000 or any(x<0 for x in stages.values()):raise ValueError('Latency order or deadline failed')
-        if sum(stages.values())!=events['record_observed']-events['input_first']:raise ValueError('Stage decomposition does not sum')
+        # Fractional-ns clock edges are stored as decimal timestamps. Allow one
+        # simulator resolution tick for floating-point subtraction and summation.
+        if abs(sum(stages.values())-(events['record_observed']-events['input_first']))>0.001:raise ValueError('Stage decomposition does not sum')
         rows.append(dict(case=case,window=window,analysis_ns=total,**stages))
     if len(rows)!=64:raise ValueError('Expected all 64 legacy windows')
     summary={name:dict(min=min(r[name] for r in rows),median=statistics.median(r[name] for r in rows),

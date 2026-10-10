@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase11_latency_opt\\reports\\phase11_sd_reset_20261010\\finite\\amplitude_4096_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65545,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 278.208,
+  "maximum_publish_us": 278.488,
+  "input_sha256": "9f68d20ad111ef71b3c74038ce8360e1b622cf83c0e7d4ce762dcd9c04468b33",
+  "golden_sha256": "9dd3642281870a5e62bb010323a0ebbac43443ac57de2586454b99a818c5b9df",
+  "files": {
+    "capture.json": "3010f8ee1e9b1ffdd9580f84d3f74267c49f94f5199ba93679ff68c83201eac9",
+    "frequency.bin": "7a34229f728ca2d9c55394cd88291f0afbec09af3d0348123c5faf6bf8b985bc",
+    "burst.bin": "007d4618d30aea14ba46b896155763a1df415a7a7c0e5b959b04a62ba1435c61",
+    "snapshot.bin": "dad1c72a61b0ef62de91787e15aa04b615645b7290db77062d7c082b4ff99107",
+    "snapshot.json": "0620eb8c530d9c4cc062fb71bc5facb456e9a9a3521328bec9ee8fb18b613233"
+  },
+  "label": "amplitude_4096_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}
