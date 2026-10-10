@@ -34,3 +34,5 @@ python scripts/verify_phase11_cold_boot.py
 该命令离线核查源代码、SD 读回和实测归档的散列绑定，不连接开发板。GitHub Actions 执行主机测试与证据核查，不代表云端重新进行了 FPGA 综合或实板测试。
 
 在保留构建产物的原工程重新打包：`python scripts/package_phase11_cold_boot.py`。发布附件位于 `release/phase11_sd_verified`；已发布附件保持冻结，重新生成的 ZIP 可能具有不同的文件散列。
+
+发布已完成：7 个附件均从 GitHub 重新下载并通过 SHA-256 校验。发布标签固定在 `f9ccb6e3f824296d40a3c42eaa612c30b389e03b`，主机自动检查通过。与 Phase 10 的对比见 [草稿 PR #6](https://github.com/vermouth2031/fft/pull/6)，附件散列及验证回执见 [发布记录](../reports/phase11_github_publication_20261010.json)。标签中的 VERSION.json 保留上传前 PREPARED 状态；分支上的本次文档提交登记实际发布结果，不改变硬件或验收证据。
