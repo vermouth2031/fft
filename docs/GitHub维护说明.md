@@ -2,7 +2,11 @@
 
 仓库：<https://github.com/vermouth2031/fft>。
 
-## 当前版本：2026-10-09 Phase 10
+## 当前验收版本：2026-10-11 Phase 12
+
+Phase12 位于 `phase12/wideband-150m`，150 MSPS、16384 点、最大分析 234.426667 µs；USB 供电 SD 真实断电冷启动后的 79 项数值检查和 300 秒最宽带连续测试通过。发布状态与下载说明见 [Phase12 GitHub 版本说明](Phase12_GitHub版本说明.md)。Phase11 及更早分支、标签和 Release 保留；以下“当前”措辞均为对应日期的历史记录。
+
+## 历史版本：2026-10-09 Phase 10
 
 当前已完成版本在 `phase10/resource-opt` 分支管理，预发布标签为 `v2026.10.09-phase10-resource-opt-usb-sd-validated`，固定已验收实现提交 `290e7cd`。USB 连续 DMA 修复、SD 安装和用户真实断电冷启动验证均通过。启动包、源码与证据的下载方式见 [Phase 10 GitHub 版本说明](Phase10_GitHub版本说明.md)。[草稿 PR #5](https://github.com/vermouth2031/fft/pull/5) 对比 Phase 9；未合并 main，历史版本保留。提频优化尚为后续计划。
 

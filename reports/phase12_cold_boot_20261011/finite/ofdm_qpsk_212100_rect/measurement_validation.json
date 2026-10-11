@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212100_rect",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65546,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 234.42666666666668,
+  "maximum_publish_us": 234.66,
+  "input_sha256": "b5a70243b2b456ac9475a46c94b2fa4bb62f80a5c3d0eea3bdc7301c783ccca6",
+  "golden_sha256": "a6d9c278f5c73d2fc9e924da114335c2f904048dd61334e26bf3ba1ebbf830ca",
+  "files": {
+    "capture.json": "a061fda7394425b9a18b6dc050fe7829e874c65229579fe647f278d154e21928",
+    "frequency.bin": "2184118f7c642855423224441f4d5ecf5cf2560bfc842a41b5fb17e9c8466aa0",
+    "burst.bin": "5cdc7a0283cf8a43ecee5198929708165fc888feddb6d24fc4d8249f04889838",
+    "snapshot.bin": "ff721faa2677b53304a1f2a24995ea04e6523c7827a73f2cad0559955d2b240b",
+    "snapshot.json": "83e94c7930b5635358f7f8bc168d3167ba3bf7011d79dbba81297affb79e5b51"
+  },
+  "label": "ofdm_qpsk_212100_rect",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 44.373333333333335,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.1,
+        "length_error_us": 0.1,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}
