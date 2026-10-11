@@ -1,5 +1,5 @@
 set root [file normalize [file join [file dirname [info script]] ..]]
-set_param general.maxThreads 4
+set_param general.maxThreads 2
 set_param board.repoPaths [list $root/vendor/boards]
 
 # Vivado 2026.1 emits ISEWrap.js files that query WMI before starting each

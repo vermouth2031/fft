@@ -1,0 +1,491 @@
+BUILD_IDENTITY_PASS 444262675c923ecdf987042ee08f3da0
+FFT_CONFIGURATION_PASS 15
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Sun Oct 11 13:13:11 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_units.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 613.465 ; gain = 270.820
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Sun Oct 11 13:13:28 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_units'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_units' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim/math_vectors.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim/math_vectors.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_units_vlog.prj"
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/math_units.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module isqrt64
+
+INFO: [VRFC 10-311] analyzing module udiv64
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/record_ring.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module record_ring
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/tb_units.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module tb_units
+
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module glbl
+
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_units_behav xil_defaultlib.tb_units xil_defaultlib.glbl -log elaborate.log"
+
+Vivado Simulator v2026.1
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_units_behav xil_defaultlib.tb_units xil_defaultlib.glbl -log elaborate.log 
+
+INFO: [XSIM 43-3493] Using 2 slave threads.
+
+Starting static elaboration
+
+Pass Through NonSizing Optimizer
+
+Completed static elaboration
+
+Starting simulation data flow analysis
+
+Completed simulation data flow analysis
+
+Time Resolution for simulation is 1ps
+
+Compiling module xil_defaultlib.isqrt64
+
+Compiling module xil_defaultlib.udiv64
+
+Compiling module xil_defaultlib.udiv64(DIVISOR_WIDTH=8)
+
+Compiling module xil_defaultlib.record_ring_default
+
+Compiling module xil_defaultlib.record_ring(WORDS_LOG2=4,RECORDS...
+
+Compiling module xil_defaultlib.tb_units
+
+Compiling module xil_defaultlib.glbl
+
+Built simulation snapshot tb_units_behav
+
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase12_wideband_150m/build/unit_test/unit_test.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_units_behav -key {Behavioral:sim_1:Functional:tb_units} -tclbatch {tb_units.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_units.tcl
+WARNING: [Wavedata 42-489] Can't add object "/tb_units/golden" to the wave window because it has 73728 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+UNITS_PASS 256_math_vectors 1056_constant_division_cases 300_queue_pushes full_no_overwrite wrap_release 1060864_capacity_pairs_both_ring_sizes
+$finish called at time : 2115010 ns : File "D:/fft/fft_phase12_wideband_150m/tests/tb_units.sv" Line 64
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_units_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:11 . Memory (MB): peak = 635.078 ; gain = 21.613
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 11 13:13:39 2026...
+PHASE12_MATH_REFERENCE_PASS 10220
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Sun Oct 11 13:13:41 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_phase12_math_ranges.tcl -notrace
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 614.461 ; gain = 270.871
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Sun Oct 11 13:14:01 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_phase12_math_ranges'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_phase12_math_ranges' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim/phase12_math_ranges.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim/phase12_math_ranges.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_phase12_math_ranges_vlog.prj"
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/math_units.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module isqrt64
+
+INFO: [VRFC 10-311] analyzing module udiv64
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/tb_phase12_math_ranges.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module tb_phase12_math_ranges
+
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module glbl
+
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase12_math_ranges_behav xil_defaultlib.tb_phase12_math_ranges xil_defaultlib.glbl -log elaborate.log"
+
+Vivado Simulator v2026.1
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase12_math_ranges_behav xil_defaultlib.tb_phase12_math_ranges xil_defaultlib.glbl -log elaborate.log 
+
+INFO: [XSIM 43-3493] Using 2 slave threads.
+
+Starting static elaboration
+
+Pass Through NonSizing Optimizer
+
+Completed static elaboration
+
+Starting simulation data flow analysis
+
+Completed simulation data flow analysis
+
+Time Resolution for simulation is 1ps
+
+Compiling module xil_defaultlib.isqrt64
+
+Compiling module xil_defaultlib.udiv64
+
+Compiling module xil_defaultlib.tb_phase12_math_ranges
+
+Compiling module xil_defaultlib.glbl
+
+Built simulation snapshot tb_phase12_math_ranges_behav
+
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase12_math_ranges/phase12_math_ranges.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_phase12_math_ranges_behav -key {Behavioral:sim_1:Functional:tb_phase12_math_ranges} -tclbatch {tb_phase12_math_ranges.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_phase12_math_ranges.tcl
+WARNING: [Wavedata 42-489] Can't add object "/tb_phase12_math_ranges/golden" to the wave window because it has 2943360 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+PHASE12_MATH_RANGES_PASS vectors=10220 exact_native_integer_reference zero_divisor mid_operation_reset
+$finish called at time : 6847560 ns : File "D:/fft/fft_phase12_wideband_150m/tests/tb_phase12_math_ranges.sv" Line 36
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_phase12_math_ranges_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:13 . Memory (MB): peak = 635.016 ; gain = 20.555
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 11 13:14:14 2026...
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Sun Oct 11 13:14:15 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_phase11_window.tcl -notrace
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:13 . Memory (MB): peak = 616.473 ; gain = 275.297
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Sun Oct 11 13:14:38 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_phase11_window'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_phase11_window' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim/hann_quarter_u18_f17.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_phase11_window_vlog.prj"
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/iq_build_config.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/reference/phase10_window_fft.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module phase10_window_fft
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/window_fft.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module window_fft
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/tb_phase11_window.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module tb_phase11_window
+
+INFO: [VRFC 10-311] analyzing module fft8192
+
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module glbl
+
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase11_window_behav xil_defaultlib.tb_phase11_window xil_defaultlib.glbl -log elaborate.log"
+
+Vivado Simulator v2026.1
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase11_window_behav xil_defaultlib.tb_phase11_window xil_defaultlib.glbl -log elaborate.log 
+
+INFO: [XSIM 43-3493] Using 2 slave threads.
+
+Starting static elaboration
+
+Pass Through NonSizing Optimizer
+
+Completed static elaboration
+
+Starting simulation data flow analysis
+
+Completed simulation data flow analysis
+
+Time Resolution for simulation is 1ps
+
+Compiling package xil_defaultlib.iq_build_config
+
+Compiling module xil_defaultlib.fft8192
+
+Compiling module xil_defaultlib.window_fft_default
+
+Compiling module xil_defaultlib.phase10_window_fft_default
+
+Compiling module xil_defaultlib.tb_phase11_window
+
+Compiling module xil_defaultlib.glbl
+
+Built simulation snapshot tb_phase11_window_behav
+
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase12_wideband_150m/build/phase11_window/phase11_window.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_phase11_window_behav -key {Behavioral:sim_1:Functional:tb_phase11_window} -tclbatch {tb_phase11_window.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_phase11_window.tcl
+PHASE11_WINDOW_EQUIVALENCE_PASS comparisons=98333 all_hann_indices_bubbles_backpressure_reset
+$finish called at time : 1071672 ns : File "D:/fft/fft_phase12_wideband_150m/tests/tb_phase11_window.sv" Line 45
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_phase11_window_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 637.594 ; gain = 21.121
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 11 13:14:51 2026...
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Sun Oct 11 13:14:52 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_builder.tcl -notrace
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:12 . Memory (MB): peak = 616.172 ; gain = 273.422
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Sun Oct 11 13:15:14 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_result_builder'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase12_wideband_150m/build/builder_test/builder_test.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_result_builder' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase12_wideband_150m/build/builder_test/builder_test.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_result_builder_vlog.prj"
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/iq_build_config.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/math_units.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module isqrt64
+
+INFO: [VRFC 10-311] analyzing module udiv64
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/result_builder.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module result_builder
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/tb_result_builder.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module tb_result_builder
+
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase12_wideband_150m/build/builder_test/builder_test.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module glbl
+
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase12_wideband_150m/build/builder_test/builder_test.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_result_builder_behav xil_defaultlib.tb_result_builder xil_defaultlib.glbl -log elaborate.log"
+
+Vivado Simulator v2026.1
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_result_builder_behav xil_defaultlib.tb_result_builder xil_defaultlib.glbl -log elaborate.log 
+
+INFO: [XSIM 43-3493] Using 2 slave threads.
+
+Starting static elaboration
+
+Pass Through NonSizing Optimizer
+
+Completed static elaboration
+
+Starting simulation data flow analysis
+
+Completed simulation data flow analysis
+
+Time Resolution for simulation is 1ps
+
+Compiling package xil_defaultlib.iq_build_config
+
+Compiling module xil_defaultlib.isqrt64
+
+Compiling module xil_defaultlib.udiv64
+
+Compiling module xil_defaultlib.result_builder_default
+
+Compiling module xil_defaultlib.tb_result_builder
+
+Compiling module xil_defaultlib.glbl
+
+Built simulation snapshot tb_result_builder_behav
+
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase12_wideband_150m/build/builder_test/builder_test.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_result_builder_behav -key {Behavioral:sim_1:Functional:tb_result_builder} -tclbatch {tb_result_builder.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_result_builder.tcl
+BUILDER_PASS all_N_bins signed_rounding bandcenter width amplitude
+$finish called at time : 11632690 ns : File "D:/fft/fft_phase12_wideband_150m/tests/tb_result_builder.sv" Line 30
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_result_builder_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:12 . Memory (MB): peak = 640.012 ; gain = 23.840
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 11 13:15:27 2026...
+MEASUREMENT_VECTORS_PASS: eight time cases, twelve continuous spectra
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+
+****** Vivado v2026.1 (64-bit)
+  **** SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+  **** IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+  **** SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+  **** Start of session at: Sun Oct 11 13:15:30 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_measurements.tcl -notrace
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 615.363 ; gain = 271.898
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Sun Oct 11 13:15:48 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_measurements'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_measurements' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/test_iq.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/time_expected.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/time_counts.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_input.mem'
+INFO: [SIM-utils-43] Exported 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/spectrum_expected.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_measurements_vlog.prj"
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/digital_burst_measure.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module digital_burst_measure
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/iq_build_config.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/math_units.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module isqrt64
+
+INFO: [VRFC 10-311] analyzing module udiv64
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/spectrum_measure.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module spectrum_measure
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/spectrum_store.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module spectrum_shared_lane
+
+INFO: [VRFC 10-311] analyzing module spectrum_deferred_queue
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/rtl/time_measure.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module time_measure
+
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase12_wideband_150m/tests/tb_measurements.sv" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module tb_measurements
+
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase12_wideband_150m/build/measurements/measurements.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+
+INFO: [VRFC 10-311] analyzing module glbl
+
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design

@@ -2,10 +2,9 @@ set root [file normalize [file join [file dirname [info script]] ..]]
 source $root/build/config/generated_clocks.tcl
 set sample_rate_hz [expr {round($sample_rate_mhz * 1000000.0)}]
 set fft_clock_hz [expr {round($fft_clock_mhz * 1000000.0)}]
-# The board's 1 GHz IO PLL cannot divide to 150 MHz. Preserve the PS PLLs
-# and derive the faster FFT clock with a PL MMCM from the proven 125 MHz FCLK.
-set ps_fft_clock_mhz $sample_rate_mhz
-set_param general.maxThreads 4
+# Retain the proven PS clocks/PLLs and derive both PL clocks from FCLK1.
+set ps_fft_clock_mhz 125
+set_param general.maxThreads 2
 set_param board.repoPaths [list $root/vendor/boards]
 create_project iq_board $root/build/board -part xc7z020clg400-1 -force
 set_property board_part digilentinc.com:zybo-z7-20:part0:1.2 [current_project]
@@ -20,7 +19,7 @@ create_bd_design system
 create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 ps7
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 -config {make_external "FIXED_IO, DDR" apply_board_preset "1"} [get_bd_cells ps7]
 set_property -dict [list CONFIG.PCW_USE_M_AXI_GP0 {1} CONFIG.PCW_USE_S_AXI_HP0 {1} CONFIG.PCW_EN_CLK0_PORT {1} CONFIG.PCW_EN_CLK1_PORT {1} \
- CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ $sample_rate_mhz CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ $ps_fft_clock_mhz] [get_bd_cells ps7]
+ CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ 125 CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ $ps_fft_clock_mhz] [get_bd_cells ps7]
 create_bd_cell -type module -reference iq_peripheral iq_0
 create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 axi_dma_0
 set_property -dict [list CONFIG.c_include_sg {0} CONFIG.c_include_mm2s {1} CONFIG.c_include_s2mm {0} \
@@ -29,15 +28,17 @@ set fft_output_pin [get_bd_pins ps7/FCLK_CLK1]
 if {$fft_clock_mhz != $ps_fft_clock_mhz} {
  create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 fft_clock
  set_property -dict [list CONFIG.PRIM_SOURCE {No_buffer} CONFIG.PRIM_IN_FREQ $ps_fft_clock_mhz \
-   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ $fft_clock_mhz CONFIG.RESET_TYPE {ACTIVE_LOW} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ $sample_rate_mhz CONFIG.CLKOUT2_USED {true} \
+   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ $fft_clock_mhz CONFIG.RESET_TYPE {ACTIVE_LOW} \
    CONFIG.USE_LOCKED {true} CONFIG.USE_RESET {true}] [get_bd_cells fft_clock]
  connect_bd_net [get_bd_pins ps7/FCLK_CLK1] [get_bd_pins fft_clock/clk_in1]
  connect_bd_net [get_bd_pins ps7/FCLK_RESET0_N] [get_bd_pins fft_clock/resetn]
- set fft_output_pin [get_bd_pins fft_clock/clk_out1]
+ set source_output_pin [get_bd_pins fft_clock/clk_out1]
+ set fft_output_pin [get_bd_pins fft_clock/clk_out2]
 }
 connect_bd_net $fft_output_pin [get_bd_pins iq_0/fft_clk]
 connect_bd_intf_net [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S] [get_bd_intf_pins iq_0/S_AXIS_IQ]
-set axi_clock "/ps7/FCLK_CLK0 ($sample_rate_mhz MHz)"
+set axi_clock "/fft_clock/clk_out1 ($sample_rate_mhz MHz)"
 set axi_config [list Master "/ps7/M_AXI_GP0" Clk_master $axi_clock Clk_slave $axi_clock Clk_xbar $axi_clock intc_ip "New AXI Interconnect" master_apm "0"]
 apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config $axi_config [get_bd_intf_pins iq_0/S_AXI]
 set dma_control_config [list Master "/ps7/M_AXI_GP0" Clk_master $axi_clock Clk_slave $axi_clock Clk_xbar $axi_clock intc_ip "Auto" master_apm "0"]
@@ -81,15 +82,15 @@ if {[llength [get_bd_intf_nets -of_objects [get_bd_intf_pins axi_dma_0/M_AXI_MM2
 if {[llength [get_bd_intf_nets -of_objects [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S]]]!=1} {
   error "AXI DMA stream output is not connected"
 }
-set actual_sample_hz [get_property CONFIG.FREQ_HZ [get_bd_pins ps7/FCLK_CLK0]]
+set actual_sample_hz [get_property CONFIG.FREQ_HZ $source_output_pin]
 set actual_fft_hz [get_property CONFIG.FREQ_HZ $fft_output_pin]
 if {$actual_sample_hz != $sample_rate_hz} {error "FCLK_CLK0 mismatch: requested $sample_rate_hz, got $actual_sample_hz"}
 if {$actual_fft_hz != $fft_clock_hz} {error "FFT physical clock mismatch: requested $fft_clock_hz, got $actual_fft_hz"}
 file mkdir $root/reports
-set clock_report [open $root/reports/phase11_clock_generation.json w]
+set clock_report [open $root/reports/phase12_clock_generation.json w]
 puts $clock_report "\{\"source_hz\":$actual_sample_hz,\"fft_hz\":$actual_fft_hz,\"ps_fclk1_hz\":[get_property CONFIG.FREQ_HZ [get_bd_pins ps7/FCLK_CLK1]],\"pl_mmcm\":[expr {$fft_clock_mhz != $ps_fft_clock_mhz ? {true} : {false}}],\"cpu_ddr_io_plls_preserved\":true\}"
 close $clock_report
-puts "PHASE8_DDR_DMA_CONFIGURATION_PASS sample_hz=$actual_sample_hz fft_hz=$actual_fft_hz"
+puts "PHASE12_DDR_DMA_CONFIGURATION_PASS sample_hz=$actual_sample_hz fft_hz=$actual_fft_hz"
 save_bd_design
 generate_target all [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd]
 make_wrapper -files [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd] -top
@@ -123,7 +124,7 @@ launch_runs synth_1 -scripts_only
 patch_run_wrappers $root 0
 reset_run synth_1
 patch_run_wrappers $root 1
-launch_runs synth_1 -jobs 4
+launch_runs synth_1 -jobs 1
 wait_on_run synth_1
 if {[get_property PROGRESS [get_runs synth_1]]!="100%"} {error "Synthesis failed"}
 patch_run_wrappers $root 0
@@ -131,7 +132,7 @@ launch_runs impl_1 -to_step write_bitstream -scripts_only
 patch_run_wrappers $root 0
 reset_run impl_1
 patch_run_wrappers $root 1
-launch_runs impl_1 -to_step write_bitstream -jobs 4
+launch_runs impl_1 -to_step write_bitstream -jobs 1
 wait_on_run impl_1
 if {[get_property PROGRESS [get_runs impl_1]]!="100%"} {error "Implementation failed"}
 source $root/scripts/finish_board.tcl

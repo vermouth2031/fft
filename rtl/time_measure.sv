@@ -30,6 +30,10 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
  localparam IDLE=0,START_CAND=1,ACTIVE=2,END_CAND=3;
  reg [1:0] state;
  reg [15:0] confirm;
+ // Configuration is frozen throughout an acquisition by iq_peripheral.
+ // Prepare k-1 before detector samples arrive; remove add-then-compare from
+ // the per-sample FSM. Saturation also preserves the algebra for k=0.
+ reg [15:0] on_last,off_last;
  reg [63:0] bs,be,benergy,tail_energy;
  reg [31:0] bpeak,tail_peak;
  // Length of the next detector sample, including start confirmation samples.
@@ -49,6 +53,8 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
    end
  endtask
  always @(posedge clk) begin
+   on_last<=kon==0?16'd0:kon-16'd1;
+   off_last<=koff==0?16'd0:koff-16'd1;
    window_valid<=0;threshold_burst_valid<=0;
    if(rst) begin
      ii<=0;qq<=0;p<=0;pv<=0;finishing<=0;t0<=0;t1<=0;samples<=0;
@@ -97,7 +103,7 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
          end
          START_CAND: if(above_on) begin
            benergy<=benergy+p_detector;if(p_detector>bpeak)bpeak<=p_detector;confirm<=confirm+1;
-           if(confirm+1>=kon)begin
+           if(confirm>=on_last)begin
              if(next_burst_length>=max_burst)emit_burst(n_detector+1,benergy+p_detector,p_detector>bpeak?p_detector:bpeak,32'h400);
              else state<=ACTIVE;
            end
@@ -110,7 +116,7 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
            end else begin benergy<=benergy+p_detector;if(p_detector>bpeak)bpeak<=p_detector;end
          end
          END_CAND: begin
-           if(below_off && confirm+1>=koff) emit_burst(be,benergy,bpeak,0);
+           if(below_off && confirm>=off_last) emit_burst(be,benergy,bpeak,0);
            else if(next_burst_length>=max_burst) emit_burst(n_detector+1,benergy+tail_energy+p_detector,merged_peak,32'h400);
            else if(below_off) begin
              confirm<=confirm+1;tail_energy<=tail_energy+p_detector;if(p_detector>tail_peak)tail_peak<=p_detector;

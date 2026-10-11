@@ -23,6 +23,18 @@ module result_builder #(
  wire [63:0] div_q,div_r;
  wire [63:0] burst_length=br[159:96]-br[223:160];
  wire [63:0] latency=tick-cr[159:96];
+ reg [31:0] latency_low;
+ reg latency_high_nonzero,latency_update;
+ always @(posedge clk)begin
+   if(rst)begin latency_update<=0;max_latency<=0;end
+   else begin
+     latency_update<=state==PUBLISH&&!is_burst;
+     if(state==PUBLISH&&!is_burst)begin
+       latency_low<=latency[31:0];latency_high_nonzero<=|latency[63:32];
+     end
+     if(latency_update&&(latency_high_nonzero||latency_low>max_latency))max_latency<=latency_low;
+   end
+ end
  isqrt64 sqrt(.clk(clk),.rst(rst),.start(state==PEAK_START||state==RMS_START),.rad(sqrt_rad),.busy(),.done(sqrt_done),.root(sqrt_root));
  udiv64 divide(.clk(clk),.rst(rst),.start(state==DIV_INT_START||state==DIV_FRAC_START),
  .numerator(div_num),.denominator(div_den),.busy(),.done(div_done),.divide_by_zero(),.quotient(div_q),.remainder(div_r));
@@ -53,7 +65,7 @@ module result_builder #(
    if(rst) begin
      state<=IDLE;is_burst<=0;cr<=0;fr<=0;br<=0;sqrt_rad<=0;div_num<=0;div_den<=0;
      mean_int<=0;mean_rem<=0;rms_rad<=0;peak_result<=0;rms_result<=0;
-     freq_record<=0;burst_record<=0;completed<=0;max_latency<=0;metadata_error<=0;
+     freq_record<=0;burst_record<=0;completed<=0;metadata_error<=0;
    end else case(state)
      IDLE: if(!freq_empty&&!ctx_empty) begin
        cr<=ctx;fr<=freq;ctx_pop<=1;freq_pop<=1;is_burst<=0;
@@ -104,7 +116,6 @@ module result_builder #(
          freq_record[27*32+:64]<=cr[95:32];freq_record[29*32+:32]<={7'd0,hann,8'(iq_build_config::FFT_SCALE_SHIFT),8'd24,8'd16};
          freq_record[30*32+:32]<=0;freq_record[31*32+:32]<=completed;
          completed<=completed+1;freq_valid<=1;
-         if(latency>max_latency)max_latency<=latency[31:0];
        end
        state<=IDLE;
      end

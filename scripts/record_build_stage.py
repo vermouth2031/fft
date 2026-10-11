@@ -125,7 +125,7 @@ def main():
             evidence_paths = [ROOT / 'reports' / name for name in (
                 'hardware_validation.json', 'timing_summary.rpt', 'utilization_flat.rpt',
                 'cdc.rpt', 'drc.rpt', 'bus_skew.rpt', 'worst_paths.rpt',
-                'phase11_clock_generation.json', 'clock_interaction.rpt')]
+                'phase12_clock_generation.json', 'clock_interaction.rpt')]
             evidence_paths += [ROOT / 'build/board/iq_board.srcs/sources_1/bd/system/system.bd',
                 ROOT / 'build/board/iq_board.gen/sources_1/bd/system/ip/system_fft_clock_0/system_fft_clock_0_clk_wiz.v']
         else:
@@ -138,7 +138,7 @@ def main():
                               ROOT / 'reports/phase2_latency_validation.json',
                               ROOT / 'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv']
             evidence_paths += [ROOT / 'build/logs' / (name + '.log') for name in (
-                'sim_units', 'sim_phase11_window', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
+                'sim_units', 'sim_phase12_math_ranges', 'sim_phase12_time_equivalence', 'sim_phase11_window', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
                 'sim_spectrum_edges', 'sim_core', 'sim_axi')]
         record = dict(stage=args.stage, captured_at=datetime.datetime.now().astimezone().isoformat(),
                       inputs=inputs(args.stage), artifacts=artifacts,

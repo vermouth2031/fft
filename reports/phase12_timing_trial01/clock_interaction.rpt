@@ -1,0 +1,26 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Sun Oct 11 12:32:46 2026
+| Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
+| Command      : report_clock_interaction -file D:/fft/fft_phase12_wideband_150m/reports/clock_interaction.rpt
+| Design       : system_wrapper
+| Device       : 7z020-clg400
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Physopt postRoute
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Interaction Report
+
+Clock Interaction Table
+-----------------------
+
+                                                          WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock              
+From Clock                   To Clock                     Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints              
+---------------------------  ---------------------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -----------------------  
+clk_out1_system_fft_clock_0  clk_out1_system_fft_clock_0  rise - rise    -1.05  -602.22         1619        38883             6.67  Clean                Partial False Path       
+clk_out1_system_fft_clock_0  clk_out2_system_fft_clock_0  rise - rise     5.26     0.00            0           52             6.67  Ignored              Max Delay Datapath Only  
+clk_out2_system_fft_clock_0  clk_out1_system_fft_clock_0  rise - rise     2.49     0.00            0          452             5.56  Ignored              Max Delay Datapath Only  
+clk_out2_system_fft_clock_0  clk_out2_system_fft_clock_0  rise - rise    -0.58   -84.76          569        73803             5.56  Clean                Timed                    
+
+
