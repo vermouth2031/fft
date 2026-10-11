@@ -23,7 +23,11 @@ def analyze(path):
     rows=[]
     for (case,window),events in sorted(groups.items()):
         if set(events)!=expected:raise ValueError(f'Incomplete latency events: {case}/{window}')
-        expected_accumulation_ns=(FFT_LENGTH-1)*1e9/SAMPLE_RATE_HZ
+        # The benches use a 1 ps timeprecision. Each half-period delay is
+        # rounded by xsim (150 MHz -> 3333 ps per half cycle). Validate the
+        # actual simulated clock, while retaining the nominal hardware rate.
+        source_half_period_ps=round(500000000000/SAMPLE_RATE_HZ)
+        expected_accumulation_ns=(FFT_LENGTH-1)*2*source_half_period_ps/1000
         if abs(events['input_last']-events['input_first']-expected_accumulation_ns)>0.001:
             raise ValueError('Input accumulation interval differs')
         stages={
@@ -45,9 +49,12 @@ def analyze(path):
     if len(rows)!=64:raise ValueError('Expected all 64 legacy windows')
     summary={name:dict(min=min(r[name] for r in rows),median=statistics.median(r[name] for r in rows),
                       max=max(r[name] for r in rows)) for name in rows[0] if name not in ('case','window')}
-    accumulation_ns=(FFT_LENGTH-1)*1e9/SAMPLE_RATE_HZ
-    inclusive_ns=FFT_LENGTH*1e9/SAMPLE_RATE_HZ
-    return dict(status='PASS',timebase=f'simulation real time, ns; {SAMPLE_RATE_HZ}Hz source and {FFT_CLOCK_HZ}Hz FFT',
+    accumulation_ns=(FFT_LENGTH-1)*2*source_half_period_ps/1000
+    inclusive_ns=FFT_LENGTH*2*source_half_period_ps/1000
+    return dict(status='PASS',timebase=f'simulation real time, ns; nominal {SAMPLE_RATE_HZ}Hz source and {FFT_CLOCK_HZ}Hz FFT',
+        simulation_timeprecision_ps=1, source_half_period_ps=source_half_period_ps,
+        fft_half_period_ps=round(500000000000/FFT_CLOCK_HZ),
+        nominal_source_hz=SAMPLE_RATE_HZ, nominal_fft_hz=FFT_CLOCK_HZ,
         accumulation_definition=f'last accepted edge minus first = {accumulation_ns:g}ns; inclusive {FFT_LENGTH}-sample duration = {inclusive_ns:g}ns',
         publication_definition='record_observed is the core consumer edge, not the peripheral ring commit or PC/UDP latency',
         scan_implementation='eight-lane',

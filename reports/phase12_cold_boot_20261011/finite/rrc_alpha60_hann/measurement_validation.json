@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha60_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65546,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 234.42666666666668,
+  "maximum_publish_us": 234.66,
+  "input_sha256": "c4d5b4d45d6cfd3fa93a2197396cf11d11d4e9c817f45c2d876c3b1c793ae6df",
+  "golden_sha256": "fd9db4ce0a091ebd983cd6708d387ce4afd3f83bad945512155368b025ee824c",
+  "files": {
+    "capture.json": "a9ddf0c69f73d4da36ae9dcb8fb39304c3e0116f83ba2679a679ffd03ad14bcb",
+    "frequency.bin": "be8ce856b0f764fb244ad0b409114584021a23e7f47b01beee9ad5f995b2be3f",
+    "burst.bin": "c4aac2518f609520995bf96442885614ddf9fed7c7f70e444754bb8aeb84e1e9",
+    "snapshot.bin": "800583f1d7b49930c6c1094a8868857fdd07322c6b1ec991471c3ea2e07ea3b9",
+    "snapshot.json": "93c443f08676ec3a025bc15e609b9545157ec9b532022e7cfef53d35ce221849"
+  },
+  "label": "rrc_alpha60_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 54.48,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 8,
+        "end_error_samples": 8,
+        "length_error_samples": 0,
+        "start_error_us": 0.05333333333333334,
+        "end_error_us": 0.05333333333333334,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

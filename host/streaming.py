@@ -4,7 +4,7 @@ import argparse,json,math,random,struct,time
 from pathlib import Path
 from iq_client import Client,STREAM_VERSION,decode_record,export
 
-RATE=125_000_000
+from build_rates import SAMPLE_RATE_HZ as RATE
 SIGNALS=('single','dual','chirp','qpsk','ofdm','noise')
 
 def clip(value):return max(-32768,min(32767,int(round(value))))
@@ -50,7 +50,7 @@ def wait_for_block(client,block_id,timeout=5):
 def run(args):
     client=Client(args.board,args.port);started=False
     report=dict(board=args.board,requested_blocks=args.blocks,samples_per_block=args.samples,
-        sample_rate_hz=RATE,semantics='PC updates the inactive bank while FPGA replays the active bank at 125 MSPS')
+        sample_rate_hz=RATE,semantics=f'PC updates the inactive bank while FPGA replays the active bank at {RATE/1e6:g} MSPS')
     try:
         info=client.hardware_info()
         if info['hardware_version']<STREAM_VERSION or not info['hardware_capabilities']&4:

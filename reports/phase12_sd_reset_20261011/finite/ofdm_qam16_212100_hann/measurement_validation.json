@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_sd_reset_20261011\\finite\\ofdm_qam16_212100_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65546,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 234.42666666666668,
+  "maximum_publish_us": 234.66,
+  "input_sha256": "2f4089d9335a256985b2fc1aaef55427370b2028a8772dc2f496583afe516251",
+  "golden_sha256": "1dc9db5574b65dbea0eb26678b47d4aa682022e727323dc801f9605db49a3505",
+  "files": {
+    "capture.json": "34f7f2cf0c490e80f6d7a7aa9348539f6fd95b7ffcad08342d6de9e2900da9b4",
+    "frequency.bin": "66db6c2ab6b6b38d4fae43334de05429174f9043a6c0c4c39c14b7592e812852",
+    "burst.bin": "24dd14205c9edac7cb3794b891f116703095f19292c22dc1e4821da99efbaa44",
+    "snapshot.bin": "ad7dfd8ad38ee2c2c41a8442f1db212825bbcbffdd4364036e04134c1fe93451",
+    "snapshot.json": "07b4018b056c70d689095dadfa039e74bf6154312644e7bb89f8415efb4a1155"
+  },
+  "label": "ofdm_qam16_212100_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 44.373333333333335,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 15,
+        "length_error_samples": 15,
+        "start_error_us": 0.0,
+        "end_error_us": 0.1,
+        "length_error_us": 0.1,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

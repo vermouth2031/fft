@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_sd_reset_20261011\\finite\\p_49mhz_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65546,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 234.42666666666668,
+  "maximum_publish_us": 234.66,
+  "input_sha256": "1ef641a010444d0c21f341efc108ea331816532f11cca45e475b5ceadf0da7d0",
+  "golden_sha256": "7b1a09ba9837a3bf1a0a0d70a73dfb31dc7b313b7722a84d7018a726306f7701",
+  "files": {
+    "capture.json": "c7b8001bb36d20bfc5d060631f96d70c56669d534ad327bd454b68dba3ceda0b",
+    "frequency.bin": "6891e0d074f99378d6c8d59241bf2e091604e6bf74b1b2f3189950355287c598",
+    "burst.bin": "fba582878885343a5919f541eef5cf69444c6313bba041090c05e887a06748c0",
+    "snapshot.bin": "2c33801018263b791ae921d79dde243f4249dac85b9851e55453d10bbdf1a93a",
+    "snapshot.json": "700e1838943567bf11eeccc9d2c6d9c786e2e39ea90dab099cc16a0055f4965e"
+  },
+  "label": "p_49mhz_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 0.0,
+    "false_alarms_per_second": null,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 0,
+        "end_error_samples": 0,
+        "length_error_samples": 0,
+        "start_error_us": 0.0,
+        "end_error_us": 0.0,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

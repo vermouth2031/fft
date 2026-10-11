@@ -1,0 +1,4620 @@
+{
+  "status": "PASS",
+  "hardware": {
+    "hardware_version": 65546,
+    "hardware_version_hex": "0x0001000a",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 150000000,
+    "build_id": "444262675c923ecdf987042ee08f3da0",
+    "timestamp_clock_hz": 150000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 150000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "started_at": "2026-10-11T15:19:37.105823+08:00",
+  "scope": "Finite numerical and integrity acceptance; cold power-cycle validation is separate",
+  "references": "D:\\fft\\fft_phase12_wideband_150m\\build\\phase12_finite_revision3\\reference\\index.json",
+  "references_sha256": "00569c58076ce1e406b93ea79dc56d69562be8dd49815eb3f3e5a664ae406592",
+  "cases": [
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\zero_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+      "golden_sha256": "6b746d5d8322236a1de3ae5a690b12df696b56cddb1f9baddb944204458c9676",
+      "files": {
+        "capture.json": "6dbb21063aefb89dcfbb8f29ef42ac3e8c009338881ba1758ac4b59876f33995",
+        "frequency.bin": "667354829873f66e919e48126c7dd59714d4d40b0ba93a14575e4dde0095338c",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+        "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
+      },
+      "label": "zero_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 0,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": null,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": null,
+        "background_observation_us": 218.45333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\zero_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+      "golden_sha256": "8ea9c4c641b516d6bd23f87cd0121279c74320c4cd4fda148360d25572736512",
+      "files": {
+        "capture.json": "28cb1f77efe8f9e5d902234ccb5612c0c62e761f40fe3bb631edd99b49b754d1",
+        "frequency.bin": "fc909030bb8221366be1e57de3c90ae3b32c387f8391f53fd5b11bfe7d2b0f59",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+        "snapshot.json": "2d24b9ed8d460e5ab92927ccbf6df4b35942fd602d69bb0dd0896e636a932cee"
+      },
+      "label": "zero_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 0,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": null,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": null,
+        "background_observation_us": 218.45333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\negative_fullscale_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
+      "golden_sha256": "4f2d603b66795ba415fff686bcf94de061e85eefbdffedc68c7daddb71ed29ae",
+      "files": {
+        "capture.json": "19498252a1a23dd8e539bb6d51ba0e69f39a574b4ebd5fd29a4bce00f8bc8c54",
+        "frequency.bin": "d547df62f1ee745725df86027594962142576c0656addb69e8aa2ef6d41ea92f",
+        "burst.bin": "8f6b1d1f8a6697a58446ba60b383c463b117e8c05de3855dcd4372a87b5b1b64",
+        "snapshot.bin": "d2b3b684af68cc0640289f697c924099234fa592c83e381b05b4b1c6836feaef",
+        "snapshot.json": "52ca2b7b2a73eb183aee85c02e0593edb2281a0738b9ffda0c9b7ee71eead4f2"
+      },
+      "label": "negative_fullscale_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\negative_fullscale_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "7238109db3ad4ae642f53161e4c286a377cbb4c4378334ceeffb60e6ff51ed5b",
+      "golden_sha256": "c0ef567d0502c480c6070c60c20edabcfcf2817596ffddcd6f94093a074471b8",
+      "files": {
+        "capture.json": "9899e8491c2c98767ffbb129ac986040542601c705df7b37ab28872e8eb0f4e6",
+        "frequency.bin": "9e70df988b17687b79c38b820861bbf082eb59fb7e868bd15cea97963d368cc6",
+        "burst.bin": "a85dc6397ae668f82c1c30bd22b39f882a299d650b3cc3a4a1021ebce6c5b022",
+        "snapshot.bin": "07b2fd320be9bd17e9b56cac592446dc4650d22f0813ad103e3034cfb622672b",
+        "snapshot.json": "9e96c621e51b8554dd6f809f409973d102ec6c6a33e25080000c063d5dcfde03"
+      },
+      "label": "negative_fullscale_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\dc_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "d4e011522375fd5c47399785607c2fa77c00bae9742c65d031aa9215781098e5",
+      "golden_sha256": "31105cf2464661499786a7f2575a1a0e8cd8e2681b288147be652761e842ef5b",
+      "files": {
+        "capture.json": "6ba15cb51d8f198a21c4c2a8c193065e64f9a810d9a8c7d4eed5e783fd868ffe",
+        "frequency.bin": "7dcee22e966ef9f91aaf8ac9bfb1e2928046e01a238fdeb9b9cd640533747858",
+        "burst.bin": "e3e7db5bca56c2af7b13d39b570a7c49c49fa98e29fb5e10e9501237c74bb657",
+        "snapshot.bin": "f112a08fce95fd3d0cc138f9ebef478d760a34752f17fde0ce2f76a08ca7f9b0",
+        "snapshot.json": "62b22d473bd75508abe6a21ee24880357ab5f51d723b4d782d325fa2cdc331db"
+      },
+      "label": "dc_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\dc_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "d4e011522375fd5c47399785607c2fa77c00bae9742c65d031aa9215781098e5",
+      "golden_sha256": "281326da8db7b3c3bb72288af6da4c7962d5695826291f42abc832c2b44070f7",
+      "files": {
+        "capture.json": "c7ebb45dd24deb0130f0c5f2481b661d8f34cfc3ad506c0f4b4d464b6939ca6a",
+        "frequency.bin": "7009138b1fa6902763a89a927566f424218f32853acab78e78818c9d43c44f99",
+        "burst.bin": "3dded3230eaff9a21985e002fa3291fd994147a83cfad2f9c551840718bdf20a",
+        "snapshot.bin": "f5d48419e8d9ee81f8c0747716e578fb2ab5eebce241351c0aa453c53543c04a",
+        "snapshot.json": "b8f2f7d806694a35501e13eb62894762f1fae3a3a2c1b9c0a4c36a3a46fd2ea2"
+      },
+      "label": "dc_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\p_fs4_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+      "golden_sha256": "625a080ceec13ac733661a8056a5af408cd214385d6a4bc9ef4230a07535b953",
+      "files": {
+        "capture.json": "5e9631a524ccd5cdd131751cac0059307efd0a11d24fba5314a22e5fdc62abe1",
+        "frequency.bin": "c9f26a364c996282bbc05b2fcff23b150b7e6ad3b48a5dec492d01917d7c8168",
+        "burst.bin": "b8c2b61fef715a6e719b48851da445ba19743491e91c93dbd5a71c526050730b",
+        "snapshot.bin": "5f228cb703f9b32bf4f44bb11d752acf0066915972c75a77811e8249a5f481dd",
+        "snapshot.json": "cd1791a935ac8d60b899c5953a92d82f53750a3b5c6142606ec20c16ccdbfb6f"
+      },
+      "label": "p_fs4_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\p_fs4_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+      "golden_sha256": "04123c01349eb91fc4c36e4e33f3cb39d85bf8c4961d847cd3abc63d7790c683",
+      "files": {
+        "capture.json": "6161541c986c2981eca8195e60acb1302acf2a507bfba9a26999df57a125c530",
+        "frequency.bin": "59c1630494d17b9f5b62e62077b9f5a130a2110d1a5c5645c58bb8727c083043",
+        "burst.bin": "ff3ba81fd6770826ae248efe603de71154ac45bb985a43f8d0f5d94b0db184e6",
+        "snapshot.bin": "45a6456953f3a675a2a4e5a05410d0803617f34b593567c3a6dc5094690ed5dd",
+        "snapshot.json": "6345d0533630e15710a414b1223ca7b7c1e2a9b96d304ebc4721288dfec17c7a"
+      },
+      "label": "p_fs4_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\m_fs4_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
+      "golden_sha256": "8ca9d3410a2692df1a2818c3ca19cae64a0d6128b537cc8e48e5ada982c9eb4a",
+      "files": {
+        "capture.json": "d27692d474a481c08b14810b2ab9826c340d237b88826e9aef66b04266fdf8b6",
+        "frequency.bin": "e73d2540283eb652ce74b42e8631ec01aa3681b7163f99f702ba0cecdc7be790",
+        "burst.bin": "88a166fdac57f9411bf0513e0ac2c09e7f4c9bfae307bbf0164ccddb1a6923ab",
+        "snapshot.bin": "de86727e82b474dfd52139cd6a93227ac96422fdeff65f5b60f10dc064331ce8",
+        "snapshot.json": "9fb2c05218eeebdc0f6691adc9d15a1bbecc5f24d474f5316c186580e7a88c51"
+      },
+      "label": "m_fs4_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\m_fs4_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "64fd8846aaa32bf5a009f868bf3a85dcddf1dbea99346ce7b3015a7bafcddda3",
+      "golden_sha256": "f1766fa555a1b28747aed463fb326172a6f5b9f1ce8f14c0702afdec4873681e",
+      "files": {
+        "capture.json": "1b36407175e75413297513ac63ca47882d6cecff533aadcfb9eda175629fca47",
+        "frequency.bin": "625478cbed270bfcdd1e1c735e6e474a7cce201988d782bbc63a7c251066e37e",
+        "burst.bin": "e75997f2cc8311a54b2ca34fcd7fb5eec2b9a14a513285a2b9fce29d174a8a32",
+        "snapshot.bin": "7d72e371f2ece09bc40576dc8888c53a03eabdb5bc3c92e77f3276a8d0a44d92",
+        "snapshot.json": "ec856c521aa8a7271b6dd6aaa30ead0369908c8b52470b0ccd2925243ab358db"
+      },
+      "label": "m_fs4_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\p_49mhz_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "1ef641a010444d0c21f341efc108ea331816532f11cca45e475b5ceadf0da7d0",
+      "golden_sha256": "ff651b35cb98f086dd20807134f12f382bbc8fc6e6df88b5b742358335234aab",
+      "files": {
+        "capture.json": "9f32de208d1240784d5733866bd26e2512b42fb4721d27755f44d801625ac213",
+        "frequency.bin": "389ffb67dbb4aa3387e2a63def4d71e084913ab918f36fa1631c0c758a35dd0d",
+        "burst.bin": "ddd0565746e254f70edda395e4d01aa8ce8ee20441875cb2709f0ee34e1d4648",
+        "snapshot.bin": "5dd779e5e7f8283fb04cfae3271c7dc0aac880bc02bba9d55dc7695a528b4d02",
+        "snapshot.json": "bb19106c0646c7a7d74c26fd54cc4d231d5efe0bf7408b26d073e49cbc49f8d5"
+      },
+      "label": "p_49mhz_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\p_49mhz_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "1ef641a010444d0c21f341efc108ea331816532f11cca45e475b5ceadf0da7d0",
+      "golden_sha256": "7b1a09ba9837a3bf1a0a0d70a73dfb31dc7b313b7722a84d7018a726306f7701",
+      "files": {
+        "capture.json": "f8d6342eb935447ff0682b79efe90a85b0d00ac9f75e059a4cb60e5453aaab90",
+        "frequency.bin": "93dd2da91df25b9b81e693f494f0265d39a887da6112dab44ee8842b73ea43b6",
+        "burst.bin": "fba582878885343a5919f541eef5cf69444c6313bba041090c05e887a06748c0",
+        "snapshot.bin": "2c33801018263b791ae921d79dde243f4249dac85b9851e55453d10bbdf1a93a",
+        "snapshot.json": "700e1838943567bf11eeccc9d2c6d9c786e2e39ea90dab099cc16a0055f4965e"
+      },
+      "label": "p_49mhz_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\m_49mhz_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "adaf3b616fe981fb4fe4fa2e3188dcc936bc4509b3308118dbafa58b51d3b22c",
+      "golden_sha256": "68cbdcb250953732b21d5abe2cfa979140873fe1758fc0b6d88870b5e50bb30f",
+      "files": {
+        "capture.json": "983589e9a67bab763fd5ebbf910959adf73da5d8079b2638e600d0505cbf7152",
+        "frequency.bin": "569307509654215f44fe5eb685a12425115b2beb8a5a44f80d0143ce7e8ab671",
+        "burst.bin": "8a537fd82026e5992d8570fc490f4a82044a782df61138ba8065a29a87f63afc",
+        "snapshot.bin": "b9ea7acfde2be2ec4cb4bc3c7b5f56bf6541d6691f8c9aab886c8dfee43a557e",
+        "snapshot.json": "84ebac5a57cdce91d9e2c59a98f589e23abeea58a2c92e44a1dc848ad10e117b"
+      },
+      "label": "m_49mhz_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\m_49mhz_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "adaf3b616fe981fb4fe4fa2e3188dcc936bc4509b3308118dbafa58b51d3b22c",
+      "golden_sha256": "c69267646bad1f3815abeb15932d8d181f25366ef8c47ab789f2e3121d4ee62d",
+      "files": {
+        "capture.json": "0ab5ae183a4b5df0afc1f65b663b83c89467c8f02855d479460d7e07a918db39",
+        "frequency.bin": "58011fe9b8c41afeede87194c0bd3f10c36d1a57d9590649edadf7703d14b3f1",
+        "burst.bin": "148e997ac2e50d37843938ad95749803f1b1019980391bdffb831ad6d6f2d9f8",
+        "snapshot.bin": "214e04629be21d5bb9e212b3a907f2f0df8d2cebcd14aa42e9bb264a73c81520",
+        "snapshot.json": "4c0413696556659888eeb3fbcac06a48e0474a39b70cc072e840aecbd4ad2b40"
+      },
+      "label": "m_49mhz_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\fractional_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "5e1920bb4548dcb18920b7e9226d8a476d83d0aaa4fe6a3ff21acb66a01fcd68",
+      "golden_sha256": "4c3e292bff601f31f7f4c6c7febdfb593e318405ae7597041f67a2601ead8e00",
+      "files": {
+        "capture.json": "56cbf952b8f703964e3613003fc2490b6ac00846936d3a672ae9e8caa96af7a7",
+        "frequency.bin": "a8ef862b9eb1a320fb28d19d49f4f5b933a47d0f5fc22e53a52a0999d18969b3",
+        "burst.bin": "2b4c0a27a6de25c959a532915ff95c23c26704e5c6f6d58291ddcca8c9f681ec",
+        "snapshot.bin": "bdc3cd429246d94092acd1d125e0982ca40b8c32b9f7720895353d6780073b7f",
+        "snapshot.json": "6a72254786fba0be44ca589f41cc45475a4f3d624d66170baf125314d2047e43"
+      },
+      "label": "fractional_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\fractional_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "5e1920bb4548dcb18920b7e9226d8a476d83d0aaa4fe6a3ff21acb66a01fcd68",
+      "golden_sha256": "66b35adb1bdd0600f167bf3cb13d50b58c10cd4114386ca203171987b4721f58",
+      "files": {
+        "capture.json": "4087b1d233258381e810c87e36c89c7c145865f50fafa8979c00c4f6a54d6c37",
+        "frequency.bin": "aec39d599d4bc05c368efee5d8594b5f9c3f17778d0ce621931bb2d5f79b9b00",
+        "burst.bin": "929d90367defff37d4fa9fa491bf1ff1398cee73fe9e98c91839d629fa757017",
+        "snapshot.bin": "9dc4d1646d97d82515bf523e26832da996d2fd505834ab3e2e2697115411d196",
+        "snapshot.json": "c84574312cc1d8eda1063d414bf407cde8b5f0865670ce42df84f8ae2d3b3664"
+      },
+      "label": "fractional_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_1_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "b250958d09d90eb15d9afb21eb2be330285c14a710c8213299b4bbcc5ffe5350",
+      "golden_sha256": "5356f7d322d80ac46c6d399e01871dfb4e613dc4eaad697829ab944bb9e74844",
+      "files": {
+        "capture.json": "fc07ba758eea723cd5258b798b72df090a9202520e608a6a93e6689aa601680c",
+        "frequency.bin": "d64aafbd312c92bf53e045725315943b9edcd020cc6c6619002dd5c83e217da0",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "5f8d1bfa3f652410125acc5b97642e1db16a0bd149104f603a01ead5faed5d3c",
+        "snapshot.json": "63f5b99e045540defeee1569fb17fbd6168fbe0bcf74d994dc9c118f9c66d92c"
+      },
+      "label": "amplitude_1_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_1_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "b250958d09d90eb15d9afb21eb2be330285c14a710c8213299b4bbcc5ffe5350",
+      "golden_sha256": "d8b19e32e22a2685c02f12c44024986eb48b9631de3517be2a85ed500e14ca68",
+      "files": {
+        "capture.json": "0b98afd3af6b699ad4f3cf76a623cb0c40280762ac9e2c16e83b6b6ef5d9f5bc",
+        "frequency.bin": "09e545d0d7d490b937fc12eca618e5d221465a18dcfca9fc4751da01eda2588d",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "cf8ffdbc33785cc86bc2c2a09e9189e1a86e7b03f214ce0ffd4f06dbd8794a13",
+        "snapshot.json": "4d9bf81358c61d04a2419e16f853c8aac6785cc8adf777d1961a7c6517d8111d"
+      },
+      "label": "amplitude_1_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_2_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e66ffddd9da6cb413078aad1c7c4aa0d3ca99216639d8bc768d18ee190a6a3d9",
+      "golden_sha256": "3b2c17c2ea7bf2f07d713cc8c0d3c8c28f30ca53841d1561e656d2408bbdec91",
+      "files": {
+        "capture.json": "de0850e23285e56756653293b8aa13ead1a51983305a6153534ccd90e4171b36",
+        "frequency.bin": "34942fcaf09b98b523dfa0b6e197466320cb88677f4541ab91daed22ce911a1a",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "f919019c9f8457e509e5436e9bf457590430123d2b98c9ca010f892dc71f0e82",
+        "snapshot.json": "ab7b53b29a614baab3a93482c913f87d41b8559fc3285ed57856eaf2681de136"
+      },
+      "label": "amplitude_2_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_2_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e66ffddd9da6cb413078aad1c7c4aa0d3ca99216639d8bc768d18ee190a6a3d9",
+      "golden_sha256": "cae81971b9801d11df813e8e589814221c15c9db23f888dfcae5ea32f6379ed9",
+      "files": {
+        "capture.json": "2adb2398fdf4b6017f395ffacee1a684329f323c63bf4e7a96c36893a88e159a",
+        "frequency.bin": "5f34604d208304bf58c0b9fd0706c409d66d24bb50bfdcb6595047a15063fac7",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "a9c1a23df4a81db2f25025b9db6aecdeda42f06803db81d3497624ddb768b514",
+        "snapshot.json": "4a0d5c7e885e8c6fbdb4acd9b348b0edac3c5169ee8c1cf5cac3e822706606bf"
+      },
+      "label": "amplitude_2_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_16_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "7be56f8a5a4c3d0f66d4f2d14c7b3ec78de758b16eda975914bd52a507cb2695",
+      "golden_sha256": "d2ec6dd3bfa6faa1f57f4beca4412fe97caddab9f1314414c101fc449e61a782",
+      "files": {
+        "capture.json": "43dc6bb2375317e61435365adbd0e032357f517eb99c4aa60cb6bc7551bcc62a",
+        "frequency.bin": "f6f9d297d71a0fae8310e4b287b04995fd03e075a303b200551458d2f9cc632d",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "9d34830bf91f776a9a1013cef0ff3c8255d6d043b28a1b6051bd91e96240da3e",
+        "snapshot.json": "c73971ca0f0e7d25c64862f79a93ca04429ec4031c87e74d14042ef1f1fc2507"
+      },
+      "label": "amplitude_16_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_16_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "7be56f8a5a4c3d0f66d4f2d14c7b3ec78de758b16eda975914bd52a507cb2695",
+      "golden_sha256": "fdef5ff37f2b66cc1fef9ba349e8a863b19064cb1652850015565f711b805ce9",
+      "files": {
+        "capture.json": "a577fde39b2e5823faed342e574377491b9d645a67d3ed56a0bff5a6a65f75a3",
+        "frequency.bin": "a7ffebc7588c8181e4705ff9f3553e7775b136bd651500603192d04f8d2c189d",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "fcb4a671c4d48f0d6885b4a3df474ba4889326cd74f2ff787e1b3fa77e30b752",
+        "snapshot.json": "3bfe838eb085fef353ad827b431e0d694dacd3c77eb604be8f0a1b12349a250c"
+      },
+      "label": "amplitude_16_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_256_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "4cdb420ba9529294b2b803b6ef63ab99a4acbaad5777f68b2b421730ce41db8e",
+      "golden_sha256": "5faea32bdc13b444381d1a8287d7fa1688d1467101ea34824f0cacf193140b4e",
+      "files": {
+        "capture.json": "8c1eb4d6a0f29d67757869cbc02080a6a81782842fba7f2810e62bc02761b416",
+        "frequency.bin": "8324d3f8548b0dd87bc370f32148c74a7ec2dd8eaa0b47762dbdc02e3c6aa42f",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "518f7b51dc85b6424730e2e13ba7d82eb1c613c26986da792c68f478161aef12",
+        "snapshot.json": "a059b7f2e0647b11a9469f9f54ac1e851c63f2261d44c2f70882e195ef58fdc6"
+      },
+      "label": "amplitude_256_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_256_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "4cdb420ba9529294b2b803b6ef63ab99a4acbaad5777f68b2b421730ce41db8e",
+      "golden_sha256": "4d0b2fb3a9ea2fb22f0c342e1d0ff483cd9a568cbf54e88d2d90862fce8434a0",
+      "files": {
+        "capture.json": "8f9e9e2830e81eb9c44155fa4b002a380d92db91093a33041f36071226f7b059",
+        "frequency.bin": "ee1ab08d5291b4f7adcae4a4996f6bd4f1a0313963af44deee1577b49a1b61a0",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "1600a6fe94b2350a831d8256f783b962d5080960bbf55e1c450cce474b8deb91",
+        "snapshot.json": "c97c38fa442c826427f2c3e5414cb56a5a1a2ae3c0ffc3ac27d2dbc3a6e97908"
+      },
+      "label": "amplitude_256_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_4096_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "9f68d20ad111ef71b3c74038ce8360e1b622cf83c0e7d4ce762dcd9c04468b33",
+      "golden_sha256": "ff5e7de8d07feae541f5182c4bbb452db037131b70e0e18d51d6bd3ad883bf11",
+      "files": {
+        "capture.json": "0d0323c83b5785b2fb926339ac00a16fa228c2d8113e1a742e1cbdf89b4dcb44",
+        "frequency.bin": "df25f782a673980bb05f80eea927879b18768df7914f9a6a4aa4d44c7f30e859",
+        "burst.bin": "2429327820ee084b0b3825c5604c202086df60c41008d38a2332c5e70c06ceae",
+        "snapshot.bin": "dad1c72a61b0ef62de91787e15aa04b615645b7290db77062d7c082b4ff99107",
+        "snapshot.json": "0620eb8c530d9c4cc062fb71bc5facb456e9a9a3521328bec9ee8fb18b613233"
+      },
+      "label": "amplitude_4096_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_4096_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "9f68d20ad111ef71b3c74038ce8360e1b622cf83c0e7d4ce762dcd9c04468b33",
+      "golden_sha256": "d1569ea2b308a42ae75ba1147b8a6f70b7e13e786866c0d5189eb8c7e1e0c431",
+      "files": {
+        "capture.json": "edb93bd8f81bf7998090685045fcbdd363bdff5f62cee2f31b688feb9621ba21",
+        "frequency.bin": "3bf570e8aaab8ec3ef3f6a84c26682f2dde7416da5ef1504f7125c62dcc4dea1",
+        "burst.bin": "f86c149dff4c9ea4e24cd048fb4da4006ef80701c0341f2c355088cdb5346c04",
+        "snapshot.bin": "a2806d6b0799d47fe7a58f50db0ea76633d698cb02875b7707b01b293f84d381",
+        "snapshot.json": "470f2812f6ec8ee6e643ea552dfcf4fec96b5f80018eb912c0e59ad82ca710a8"
+      },
+      "label": "amplitude_4096_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_30000_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8c8db24f520348d78fc2f829a075d5c2ed919081339a0ad10e5054c47c6d617a",
+      "golden_sha256": "9dbf47b57a6993c252397a00cfda3061299146743e36bb59c85467bceaabb686",
+      "files": {
+        "capture.json": "cc07422ceddeac0225d6a03696f8876c5a343684767a4e70c9ee4d597d9265c4",
+        "frequency.bin": "3109cf51782c70100a0f9c515b4c9bae7a1b5f117d54d03dbef3f09d70fc7d7e",
+        "burst.bin": "6cdf76111afb28f0ee88ee0cd980cdd9669667232cb87a442aedd934515af477",
+        "snapshot.bin": "b193fd33fc0fc61d5bd47cd80723fc398099d2f542e43b71f3c0977f51fe1e07",
+        "snapshot.json": "64bcf1671c6710ebe618a6e7c5af2c6651e54ee4518d1e96f26e861d8f9d99e8"
+      },
+      "label": "amplitude_30000_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\amplitude_30000_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8c8db24f520348d78fc2f829a075d5c2ed919081339a0ad10e5054c47c6d617a",
+      "golden_sha256": "c844332baf2070aa882ee846a124ae0c2700fbdd231366a4098fe25d9ebd0cd8",
+      "files": {
+        "capture.json": "6a77cf737c9e11971d834573a304a45c4241d91d30f9842c56279a65a9ef995f",
+        "frequency.bin": "01856fcdc8e6d4f6b7e766a15284ae3a9c6b6487d809a1f5c59495e714800c17",
+        "burst.bin": "bf23735355be2dccff410f6214c0aa3bd48985756c35fd897afdc719674b0f72",
+        "snapshot.bin": "1210cced82de0a1697ce96de68192d572733576d7408005548aac9364438cdf8",
+        "snapshot.json": "2374a4d8bdeace42486ffe49bf362a1b707cd5c2723608856d173f480df8edf6"
+      },
+      "label": "amplitude_30000_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_1_bins_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 3,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "1732639034d8fee59864596d498736ca3dce8594971ae307c3d9c948e7f22e43",
+      "golden_sha256": "b15b726627c3cfe5b01be01536556cc0a6d765ad73dcd1adba80ae268edbeb79",
+      "files": {
+        "capture.json": "354d9d986d48133edb21d2e8b861dfa0bf2b0df0dfcf85078b109834fa6791a7",
+        "frequency.bin": "a53f05c9bc3940d93473dc35a371a744c091735eeb6de1c7a3c098b6b46d0f4b",
+        "burst.bin": "695e4c7c65e86feac64a178b32170402fa7248e00a0bcd2a1e1b255bab987455",
+        "snapshot.bin": "f474d8d44033c7fa5a438e9ff46353a6cd896e5f00c64e49ed21ad85e4dd1e8f",
+        "snapshot.json": "d5239ac378217fb49c285791227f870a863953be9d1f4a3962b933c2c0c666c0"
+      },
+      "label": "two_tones_1_bins_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 3,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 1,
+        "unmatched_overlapping_detections": 3,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_1_bins_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 3,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "1732639034d8fee59864596d498736ca3dce8594971ae307c3d9c948e7f22e43",
+      "golden_sha256": "0177e2f26eb61d3e6f7de0ab4479964b2c8c64467b093677e1fad9632dc6a243",
+      "files": {
+        "capture.json": "1f83436a2272484d9eed6156c62db4ef4da5fdf1dca6406c8c17bb87585a672e",
+        "frequency.bin": "092e2bf7288b5b3cde7b1fdba2d796f08c540e201e815a1b409d5f84bd384844",
+        "burst.bin": "cfafb8aad5cf464eaf1e8af67a0d32d9832ea6d805f6a7fada8e18f3469e300f",
+        "snapshot.bin": "9096e3a0b0b2977dd7338484a4cbd827f5edc316d11ced7cb4de5518f3046d37",
+        "snapshot.json": "d296dabf5d72e3d9bad1057546fddead060b10857fd4ac0d7f5f075031d99236"
+      },
+      "label": "two_tones_1_bins_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 3,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 1,
+        "unmatched_overlapping_detections": 3,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_2_bins_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 5,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "78a9f67b02aa099c5cceb09825160d96557bd0bb92f44f3f31360d2193061621",
+      "golden_sha256": "4694afa628e53dd03e9e98decb17a9b07dae66269c867d7928d2248e173b9b7b",
+      "files": {
+        "capture.json": "4bd207b14f144d5e12520decf7a76c4cf646c9f88a951f68af89cd6df7686886",
+        "frequency.bin": "103dacb5c936eac5a456995f2a34ba399e80b0f19ced08942e7ea36c506cda57",
+        "burst.bin": "764af2872e3be49049bf6b06e96bb03afb6b6e32168424be4a4ae4210b610a55",
+        "snapshot.bin": "6e05db95929974af136a08d23b0daf1233dfa014c3f3531370e8b2388055a87b",
+        "snapshot.json": "91c70c17724f6ffac42b46e7d7b2c0f48174f210157c42b70dca015af04bc9c8"
+      },
+      "label": "two_tones_2_bins_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 5,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 1,
+        "unmatched_overlapping_detections": 5,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_2_bins_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 5,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "78a9f67b02aa099c5cceb09825160d96557bd0bb92f44f3f31360d2193061621",
+      "golden_sha256": "e988a8d1246476b241523802b0dc144c8e164c974e6aefa0acc8570dbbf5cc2b",
+      "files": {
+        "capture.json": "fc7f47653b6c3d9cc375aa40b71e74c7479d78af51025b2fbbc7e1e880eee823",
+        "frequency.bin": "5d053bae2f64198c3983721e91f47285aefa8721a4584f33c1caf02f04603204",
+        "burst.bin": "5a3cb3a82f38c1a8dd17119b5c765588c1a39842c702219aea28ea6ab1cdae8f",
+        "snapshot.bin": "8cf011f2f2f0e275b1abf25dc818ff66ac68aceb991fd0582be7bdfa538f3851",
+        "snapshot.json": "100faf1032c62e5d119debd9ef782aa49366b0ff9f02f876abd4644e498c3f00"
+      },
+      "label": "two_tones_2_bins_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 5,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 1,
+        "unmatched_overlapping_detections": 5,
+        "detection_rate": 0.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_8_bins_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "ce0c2f3bb5fa477879f6f96e36753089683b2e59fceba4bea82cef0e756bb1b2",
+      "golden_sha256": "8cf3bd731fab02063a7ea99aa073c7fb0d680af0e4f6df28d04cc38d3516022b",
+      "files": {
+        "capture.json": "ce388735a9dc64600f22571cc378d6dc6af9c808c9ae538459ffcc59dbd60ae7",
+        "frequency.bin": "468b04caf24eaadb1b00fd8fb6d6aac4b5eb69d99bbdf3655e69a288503a66a0",
+        "burst.bin": "ddbbb4fed210552304baee48c008a8337b19b303f3789f268e4880a33be8dc46",
+        "snapshot.bin": "5a421874b2b7eeec2b36f3bffe77fb948cb550af6d6ea8fdb6693040ea4cb724",
+        "snapshot.json": "7fd39ad57d4ed373449b0634be7b828f60e73c6502eb87947828e3b6dafae5ff"
+      },
+      "label": "two_tones_8_bins_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\two_tones_8_bins_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "ce0c2f3bb5fa477879f6f96e36753089683b2e59fceba4bea82cef0e756bb1b2",
+      "golden_sha256": "9760ae9485d9fff937a5529c44985b0ca6edc61ba8fdd5aa22da94248d732f1a",
+      "files": {
+        "capture.json": "48c2ac7a5bd8437383a0b317b2ef6963c2cbe0a140eb2c2c08993ce292715370",
+        "frequency.bin": "087dee8cf8955eb58a77d645b310ac4d60286b2f058299b5d3e6bb30c32e3c75",
+        "burst.bin": "d6109c053d310e233789f59c077a3069d7fa0fe755111136ec35e4737deae2b6",
+        "snapshot.bin": "2976faf69b8e5c040dfc976575e3853aee91a9105c61b31d8b98bda20c1bd09d",
+        "snapshot.json": "794971dddb8b5002ad487d8adb11d82573257979cf132c34a3ea97b82a364759"
+      },
+      "label": "two_tones_8_bins_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 0.0,
+        "false_alarms_per_second": null,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\qpsk_sps2_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8e86f4443cb39cc073e1603b50594970f520b01329423a84bf0ba8eb4b540219",
+      "golden_sha256": "cf952280db83693965aefb1d40632f658d3f06df7297aca270b03db24232022f",
+      "files": {
+        "capture.json": "761cf52bc5d2a72663ed9becb3c05f41ce961d4ab2273dd8985d894f265de1b3",
+        "frequency.bin": "88b858f1662edfa36427ce54d455e39a1ad20204caa77399df5c20e8549e703a",
+        "burst.bin": "90a225bd9b6f82ba25ff07640bd1eaed2496137f90126ba507a4cf09d3f01b8b",
+        "snapshot.bin": "82edd8d0bb232802145e8cf7c6a89c04d7794da96485d8719137ff78eeaceec0",
+        "snapshot.json": "1063d0aa6f03cc9779ecb5c9519d0683266b92cb5b622b28deb256c64aee2e20"
+      },
+      "label": "qpsk_sps2_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.61333333333334,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\qpsk_sps2_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8e86f4443cb39cc073e1603b50594970f520b01329423a84bf0ba8eb4b540219",
+      "golden_sha256": "abaa959565bd668b71762e66163eb19f4faa7be4b91c7824ebff1fa343f13889",
+      "files": {
+        "capture.json": "a5cc91864ad162bec8c9f30ea6ba1dfb3004dc1d0dda5b6ed3e93c3ba398406e",
+        "frequency.bin": "687bae0d91d65a59ed8df042c89dfdfd7e3952dc2981d11e81131d534b1827b6",
+        "burst.bin": "bdcd82cb042d5b8e63e195fe34da2adf43e40b8114ebb6fe5b6e3777c2a730e3",
+        "snapshot.bin": "4f0bd2e2cacef388b163dbe397df384d2450a6d7f160abd5deadcda393395cd1",
+        "snapshot.json": "8e3e034feebe7db28b97e47f183ffb6e112b197b89856cd85ef420dc8d70bcdb"
+      },
+      "label": "qpsk_sps2_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.61333333333334,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\qpsk_sps4_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "317bbf7e292d424f3d652fe5a87f4bf5781cf88ba1b6e4106d060147ced050b0",
+      "golden_sha256": "fb55df83ab458d80353ce1d9a573212f29b027c94e028a22dacd03690cd53749",
+      "files": {
+        "capture.json": "4a22452daba631cb0c7371191f8cd5f2f9b0360c01641daa23ec6622ee83b9c2",
+        "frequency.bin": "d0506a16bd7a858d01298f9d8b7fe3a69789e03b5720c5ccf9a49ca1e17b1020",
+        "burst.bin": "f0a4982d562a034f2b6f633b771638c4863beef1f5578ec76eeb946dd621bbd1",
+        "snapshot.bin": "655ebdf048b62550538e2039315cfbe0f0898534bb57bbf055f14bc1e3a9cbf0",
+        "snapshot.json": "8d0083e18e469f57067c5d20f58c83455e9779a1e98e4e1427c6714afc6f4d96"
+      },
+      "label": "qpsk_sps4_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.61333333333334,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\qpsk_sps4_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "317bbf7e292d424f3d652fe5a87f4bf5781cf88ba1b6e4106d060147ced050b0",
+      "golden_sha256": "5d49ab8ee09b2003a1a938aa5903398ad182ec23710e245f42032a417f01b04c",
+      "files": {
+        "capture.json": "a73d178da88fce0173214e6bc1ec8d4e959491cd716f15c5cd1dfa3648acf353",
+        "frequency.bin": "3882f09e186b6e271db18cc0409d4afec595267cbe67b43c585fd9ffc7c3c6d9",
+        "burst.bin": "c0b492fbb2281fb3f42786b18fd7e471507328e980f1439103f747a7484e2366",
+        "snapshot.bin": "05c4084259265ebe21b131f71eadf85b17fe64cb87bea0417f1e163061dc626f",
+        "snapshot.json": "0abbf3867d1d1c792773486640b758275376b0de4e53d6d00e2360afbd11b207"
+      },
+      "label": "qpsk_sps4_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.61333333333334,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha25_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e993a83eafc48a25477b8d17b3eaee51f8f97d127e55370a21b523cfe53320fd",
+      "golden_sha256": "1d64a4c96c7f9e70f69cb650fb0af5aa99bdcb4387a9c7e6f7cfab627da2fe2d",
+      "files": {
+        "capture.json": "75369e9a8d16e77aa043bbbb5e40b2661409122ec7424e8ab6021dabac1be801",
+        "frequency.bin": "18fd8edf23de9e092f752f3ce633e238144f443c70d0912717c41b5815efbc85",
+        "burst.bin": "1ba93aca9a664a571c54a2a0e0ad0fca660201c9dff4583ba5852579df5e25b7",
+        "snapshot.bin": "88504b4ec2e171a9fd889933e7141e8176ee624184be9d315405d9dbce25dfb9",
+        "snapshot.json": "04fb488374c66d0a7221f558b631826173ea114b923b3160a4e9a5eac2472233"
+      },
+      "label": "rrc_alpha25_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 5,
+            "end_error_samples": 10,
+            "length_error_samples": 5,
+            "start_error_us": 0.03333333333333333,
+            "end_error_us": 0.06666666666666667,
+            "length_error_us": 0.03333333333333333,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha25_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e993a83eafc48a25477b8d17b3eaee51f8f97d127e55370a21b523cfe53320fd",
+      "golden_sha256": "02a9798fb9311a79753101a89577ed67dc1bbf671005d49041826c28ead5c899",
+      "files": {
+        "capture.json": "48f90ef12bbb6fbcb5a350e199a19a981cf6b95c9662116a31744128089385ce",
+        "frequency.bin": "a5663c95da7ea48644f23805e1e87dfa650c549657de11014ef960a6ce300c45",
+        "burst.bin": "0fadd9edd9c1cd55b605144ee8bd2022bbb8bbdea89797827a925de94159e34f",
+        "snapshot.bin": "99c0826e45ed039a425f30b6a1da9b345833b3584b2b57124d16342714a26afa",
+        "snapshot.json": "16eeaf037d5f4a4a5976775fff6ba7fee011e99f4a360d1eeabc2443a20b1272"
+      },
+      "label": "rrc_alpha25_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 5,
+            "end_error_samples": 10,
+            "length_error_samples": 5,
+            "start_error_us": 0.03333333333333333,
+            "end_error_us": 0.06666666666666667,
+            "length_error_us": 0.03333333333333333,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha60_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c4d5b4d45d6cfd3fa93a2197396cf11d11d4e9c817f45c2d876c3b1c793ae6df",
+      "golden_sha256": "34add77576010659e6a00ef65216b6aa0370d1ee8c43a85d841788f01c954405",
+      "files": {
+        "capture.json": "1e18ff80ff631dd7e7a4c88c9df76ad24d785d3d54fb3db261cc0fc34318c8d8",
+        "frequency.bin": "71bc54c673dcab55660bf6fd4bf83c229f9b3cda88351d3324dd9101d8a4c6a9",
+        "burst.bin": "9de60b89c0df8d1f0fb4a3bec36444d3bed5e2ce8be8d1f5f15cfb0314d35667",
+        "snapshot.bin": "ccf5f2e5800f4911f4306ab2bd73fbf3836874507d97de1010d75a04b7f81ba5",
+        "snapshot.json": "c2b116469442e503568f4cfaff6cc83a752dc8433547e5cabea294fc1ad0d033"
+      },
+      "label": "rrc_alpha60_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 8,
+            "end_error_samples": 8,
+            "length_error_samples": 0,
+            "start_error_us": 0.05333333333333334,
+            "end_error_us": 0.05333333333333334,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha60_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c4d5b4d45d6cfd3fa93a2197396cf11d11d4e9c817f45c2d876c3b1c793ae6df",
+      "golden_sha256": "fd9db4ce0a091ebd983cd6708d387ce4afd3f83bad945512155368b025ee824c",
+      "files": {
+        "capture.json": "a9ddf0c69f73d4da36ae9dcb8fb39304c3e0116f83ba2679a679ffd03ad14bcb",
+        "frequency.bin": "be8ce856b0f764fb244ad0b409114584021a23e7f47b01beee9ad5f995b2be3f",
+        "burst.bin": "c4aac2518f609520995bf96442885614ddf9fed7c7f70e444754bb8aeb84e1e9",
+        "snapshot.bin": "800583f1d7b49930c6c1094a8868857fdd07322c6b1ec991471c3ea2e07ea3b9",
+        "snapshot.json": "93c443f08676ec3a025bc15e609b9545157ec9b532022e7cfef53d35ce221849"
+      },
+      "label": "rrc_alpha60_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 8,
+            "end_error_samples": 8,
+            "length_error_samples": 0,
+            "start_error_us": 0.05333333333333334,
+            "end_error_us": 0.05333333333333334,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha100_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8bfea2f29750fc42e260cefddd0e6d07c7a91b722591cfb152358c7721356b19",
+      "golden_sha256": "9c8c3f06a8c777cb5d27f840fb03e9d4d93f5c00c88197ddc5b3239917823725",
+      "files": {
+        "capture.json": "6fe0d93a819e7e6ee6d23acb03cadd54ecc5c8628d6d6f3772d14502571e0503",
+        "frequency.bin": "701c5cbe82de9c6b09df650f72b3f2d0a96b9a21c6c2ca340d9d2adcbdc1bb90",
+        "burst.bin": "95eca4e853b24b5cbe96b374d121b271f84aee2645fa5b03d783c82e73026997",
+        "snapshot.bin": "759dfdf2e52488521f1bc3e65f3e9e17b60103d6f44994865b03fa513cb1d07f",
+        "snapshot.json": "f39b73dcb5133ca4ac4e2c484b8c5823d6287932918d808b444045656e4c7f74"
+      },
+      "label": "rrc_alpha100_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 8,
+            "end_error_samples": 8,
+            "length_error_samples": 0,
+            "start_error_us": 0.05333333333333334,
+            "end_error_us": 0.05333333333333334,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\rrc_alpha100_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8bfea2f29750fc42e260cefddd0e6d07c7a91b722591cfb152358c7721356b19",
+      "golden_sha256": "26aec3671806ca8b270e61145d6738671b13b9a0d7e987ae36bde84ed492d84e",
+      "files": {
+        "capture.json": "a33469ca97bf81d3a822b8b779b97e86710a140473aead8e656cd9884a42c7e0",
+        "frequency.bin": "f4828ca28b48d02373ea32ba8b2f9734726cf5fa28a1abc0fe3febc4ae9e59c7",
+        "burst.bin": "c89933cc7a83219ed4cf6ce9eb1b0d856d0e80ca2ab871df451cda4807ce2e15",
+        "snapshot.bin": "a28998600712a54adc785891229ad281696859a4619bd31b8233c8f80125f2b5",
+        "snapshot.json": "e22f13618ddb83710b464573a4a383083216af9b5ea6163b1948d39abd99da9c"
+      },
+      "label": "rrc_alpha100_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 54.48,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 8,
+            "end_error_samples": 8,
+            "length_error_samples": 0,
+            "start_error_us": 0.05333333333333334,
+            "end_error_us": 0.05333333333333334,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_8192_threshold_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "golden_sha256": "d681a9379fcaa0a2bf9c989e3f2ae807e2ba7d5c615df865b30516a41934e3bc",
+      "files": {
+        "capture.json": "07d27c993b1b19c5d23971483884a83dc7c61c2065269877a2bc91fd9b0a9504",
+        "frequency.bin": "1410c58065e8733e0b293f834e8688b45a0f856093c726828f67e6eac729d9eb",
+        "burst.bin": "dd97df769f8852c16706969f3ee9e4880fb78b9c4bfbe52aa7dd0f6a0052f5d5",
+        "snapshot.bin": "8706c3d83c5d7f6a2d2f178757a7fa195304eea887a907f51ef012bf011013dd",
+        "snapshot.json": "f2791250a2008fe76e67cb2f111f970560f1fce4363b6e6571d3daf9d3071789"
+      },
+      "label": "boundary_8192_threshold_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_8192_threshold_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "golden_sha256": "b4343c30519265d41a71c95e825aba664c91f8f59d0f554e9f9fe8584c476774",
+      "files": {
+        "capture.json": "1e934fdefa578054fc2d1ae50013f6e3b7e7f685ea0192bf3290c017c895e807",
+        "frequency.bin": "87c9f2973edd333dfffe917a65276ae98885f8d67bcf2489160510c28fa0a9e8",
+        "burst.bin": "2034425e21994ffaecc6d7bc7f308d1d55748b91419401c912c6d076655efdb5",
+        "snapshot.bin": "1080593dcfe938a840215b362ece516f520ed7063152c5f587b92155c956cf5b",
+        "snapshot.json": "0b579734f2120c6a4091261569cc0f0cf19f070a8714cd1b3c93f03840fb0c7b"
+      },
+      "label": "boundary_8192_threshold_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_8192_digital_zero_rect",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "golden_sha256": "15703fd14b974c24f112c7344baf985db0d243087d0dcbe81fd09c35080fc0af",
+      "files": {
+        "capture.json": "d30640f2015c5e4b293bdff94da55aeb615717bacca46dd446f1dc5b8b07b526",
+        "frequency.bin": "21b06ea60057db0e34b64e15a64e61656452cc632dfa94aca793793f63c91295",
+        "burst.bin": "9406b189fce524576aef8e60ff0776eb5eb07c704a88cdafac2307e83b651f59",
+        "snapshot.bin": "8706c3d83c5d7f6a2d2f178757a7fa195304eea887a907f51ef012bf011013dd",
+        "snapshot.json": "f2791250a2008fe76e67cb2f111f970560f1fce4363b6e6571d3daf9d3071789"
+      },
+      "label": "boundary_8192_digital_zero_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_8192_digital_zero_hann",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "764500fbc5ac0417a5bb200088e4dfd32bebef5f65599aa6ce25b2c859484b2f",
+      "golden_sha256": "b3ce8479629f1365042d95b478140768773dad0cc56c799eece208919c49b24d",
+      "files": {
+        "capture.json": "9d7eba97c72984b148f0be883e0a9a565f5f0891adcd114d5792287a5452ad6a",
+        "frequency.bin": "b18298f1703260faadfe37f943ce3d41f2f0f63e99b49910beecb502ffbbd97a",
+        "burst.bin": "751fa66e85f8a5e0e398934912838f01162b5137b89807ecd8441d93f99866d4",
+        "snapshot.bin": "1080593dcfe938a840215b362ece516f520ed7063152c5f587b92155c956cf5b",
+        "snapshot.json": "0b579734f2120c6a4091261569cc0f0cf19f070a8714cd1b3c93f03840fb0c7b"
+      },
+      "label": "boundary_8192_digital_zero_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_16384_threshold_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c65480037db90394413ed44c051c13bcf4f5c50bfa357f03b0eb95a061d39ec7",
+      "golden_sha256": "1d21414b00da2c4a70b05bd822864efb90c1bee46851996fb75896f22410d2f9",
+      "files": {
+        "capture.json": "7b63c66d159d3b50945f0f34930b350c726c413940fdd08c96260db1f3c6a5a4",
+        "frequency.bin": "ade0e953c79ad72b9c61da559c5667158c7d2885821c34df3c3f9b8c141713f9",
+        "burst.bin": "dfb33a65d829fe6e544c5edb400ce9430d641f60a283355045ac567e137eb57a",
+        "snapshot.bin": "162a6cac4b37a2c7e8872c1d2c4148be7d71b14488191349da4710bda6f91461",
+        "snapshot.json": "c3b062f363cd5751920675643c5fa5d1a9a016054a00ce77270da7832f3012cb"
+      },
+      "label": "boundary_16384_threshold_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_16384_threshold_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c65480037db90394413ed44c051c13bcf4f5c50bfa357f03b0eb95a061d39ec7",
+      "golden_sha256": "74a8901603b4a4e952ff03cc59926e24366b0311ac1cb8332b54b1a44c28698c",
+      "files": {
+        "capture.json": "005269e080b61b094dd911af8841400137fdea081010f47fcecafcc19747ffcd",
+        "frequency.bin": "e5cdab1bfbfcb6bed84975c265ac69126cc31d70d02092ee879c5b910e720dc5",
+        "burst.bin": "603d2cd28138ce7f791d3e67b95ec4aa5c14a88a8f974b7a30762fad467056a8",
+        "snapshot.bin": "21c46f2e61ef123345bd208715dadb3c489cd7ae426723189d5318dce447eb65",
+        "snapshot.json": "cc1490f95a4e388ff427c9480f4b782ca5a093d391afa5b55c6f675b5eb4fcaa"
+      },
+      "label": "boundary_16384_threshold_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_16384_digital_zero_rect",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c65480037db90394413ed44c051c13bcf4f5c50bfa357f03b0eb95a061d39ec7",
+      "golden_sha256": "8e8222df29272fdfefc46682695f1b4fcdc6321af0a3f53e7132d47851dc6a17",
+      "files": {
+        "capture.json": "849e6584389a6b03d2f0f0b6312608918faa1e23c203debe402f028280a5c688",
+        "frequency.bin": "f25c7b75989163b89d058b7539b5d73df3a74384237b24d1b1841d61b79aaf05",
+        "burst.bin": "32d65668c2e65a6e25b788e15029412262481fbb37930d906a865b661eea9856",
+        "snapshot.bin": "162a6cac4b37a2c7e8872c1d2c4148be7d71b14488191349da4710bda6f91461",
+        "snapshot.json": "c3b062f363cd5751920675643c5fa5d1a9a016054a00ce77270da7832f3012cb"
+      },
+      "label": "boundary_16384_digital_zero_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\boundary_16384_digital_zero_hann",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "c65480037db90394413ed44c051c13bcf4f5c50bfa357f03b0eb95a061d39ec7",
+      "golden_sha256": "54c114519fa932cad77e4472f3b74b3c9b3d58692d3c040788913d90cf3840c7",
+      "files": {
+        "capture.json": "c953ccc8c9f5a010472e18019a530bdf856be513dbaaa4a3d32f20d08ca539d1",
+        "frequency.bin": "fc57e8a3a101aff1103b69256d75e4577773aed58045291c89adac1ff450d882",
+        "burst.bin": "47894919243452a655d64b1e72a2f3afdfec74f2e70527c92110bf0c964c6f03",
+        "snapshot.bin": "21c46f2e61ef123345bd208715dadb3c489cd7ae426723189d5318dce447eb65",
+        "snapshot.json": "cc1490f95a4e388ff427c9480f4b782ca5a093d391afa5b55c6f675b5eb4fcaa"
+      },
+      "label": "boundary_16384_digital_zero_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 215.04,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_31_rect",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "adc623f49d31c96569b688f3c3951fd4903a31339176cf360ae728327d683ac1",
+      "golden_sha256": "0369016a1feef11fd5973a5f2b7fde31719cc096255dfcba0da493f1018b35e3",
+      "files": {
+        "capture.json": "7bd1844f30bcc164348ce97e59303822051c24159f8a057a7e109adcf569b6da",
+        "frequency.bin": "6f9738adf563b528ab928ef1e995f3f879625db05141d488167a0e115ad8fbfa",
+        "burst.bin": "22127d564929a6f13bd9a2c790a72dd0f6e37237f474ac3c30b175c9e63b4c08",
+        "snapshot.bin": "365b73047abf8dba3c35ad7a3f4fbd6b28c044f0f5bccfcbcb338c60026f060d",
+        "snapshot.json": "f65d1aa986b329b2d23ed42264134ab2c2cbca14e64786db2c92fb9016ea5b4c"
+      },
+      "label": "digital_gap_31_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 1,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.5,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 543,
+            "length_error_samples": 543,
+            "start_error_us": 0.0,
+            "end_error_us": 3.62,
+            "length_error_us": 3.62,
+            "within_boundary_tolerance": false
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_31_hann",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "adc623f49d31c96569b688f3c3951fd4903a31339176cf360ae728327d683ac1",
+      "golden_sha256": "cf7d46d2166bc6b58eb9ca1c8a7ecfe15e13884a27bea37272b85c08a1f3217e",
+      "files": {
+        "capture.json": "1f48a6d53b1d7f93a67ee39bbcc94246daa459d12db0de1d547ecbe67b65e97f",
+        "frequency.bin": "351c50c75ed259220c05fab4319f03769f7c90cad20f8b0bac06e20d9665cbc8",
+        "burst.bin": "27527268ea701dd79902b84dcd75d397191ba9e2d8f5d3a75627d49222057386",
+        "snapshot.bin": "6d338a71cd8fe163e13c4afbf46afeafc236c71d26b8201de7a427570a53001c",
+        "snapshot.json": "72f94f579586bcd609ba20cd5bec6837e1d105cd2fed02c3ca985564d8e1d842"
+      },
+      "label": "digital_gap_31_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 1,
+        "false_alarms": 0,
+        "merged_detections": 1,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.5,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 543,
+            "length_error_samples": 543,
+            "start_error_us": 0.0,
+            "end_error_us": 3.62,
+            "length_error_us": 3.62,
+            "within_boundary_tolerance": false
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_32_rect",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "2fc66163d937097a72bc64ea631049cf5eb3cc5e05983d9130db156215e9a358",
+      "golden_sha256": "1d53f8ded0f41edf2ae69b8180e0c10d157797f96016e07ab3690039e061c734",
+      "files": {
+        "capture.json": "349da5f51ad3d775c712ed0b26011ed9accffce41e2be814d5925f050c8ffd20",
+        "frequency.bin": "5b15a5058cc719bf2d4e4f586e5c9a4ef52734670edaa9a959312ae78292afd8",
+        "burst.bin": "a8289f3789311608df3c76ddf0207badc381dfc1ee79118b761cf78497986ac5",
+        "snapshot.bin": "5c0fe96dd322c1f630dc350374ab7189f7596862cada059868383dafd5ec76b1",
+        "snapshot.json": "68b36bc3c263bd1471674d0e884a078f8418023d5165b5e2e65701c6af2e70d8"
+      },
+      "label": "digital_gap_32_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_32_hann",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "2fc66163d937097a72bc64ea631049cf5eb3cc5e05983d9130db156215e9a358",
+      "golden_sha256": "09ae491107b231dbe294d19df7edf465af34d8310b3c4a42d2470757ec994390",
+      "files": {
+        "capture.json": "f4365dc85027d4141fb2de1c8be4e15ca137ea15e6f6692bde5da17a65e495d8",
+        "frequency.bin": "fcbac229f60024f984d6f5be14347c7ff41b99519dcfab9501277b1f72933d2e",
+        "burst.bin": "a1e7950316b30ffe2384fa1f0e6c9cac81bcae550dd9af5563cb27634548af50",
+        "snapshot.bin": "cf344dc1745b60a50f31e4a2cf854e629b6978e2a04860c1a9d34887f55e217d",
+        "snapshot.json": "6b5037490776ef58781b337b5bf51e375a8028f404b61bf231b95004c8a6b134"
+      },
+      "label": "digital_gap_32_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_33_rect",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "055a69abe61ea4a28471043b528c0599d670314d9346615b09c28bd0a9886452",
+      "golden_sha256": "a883e1112897dcd53cac134e239074a092f9b1e7b3fba186207a0c0c430bacca",
+      "files": {
+        "capture.json": "1d1854338d0f78499f734709afbfffadbfec0e6ccbf09e204be8a16efbf9fb4e",
+        "frequency.bin": "c164e60eeb0ae5fe1c0f3b2fcab50840fed5447728046ee936877a85181cc4ee",
+        "burst.bin": "d282189deb5d96d7d6e3969ddbb9cd815cb4837a742d441ac0443f55e7e416a0",
+        "snapshot.bin": "371a1873550fb27d1cbd843cb2cc710ce79a4acb4b9d20cb7a686f3a84a91790",
+        "snapshot.json": "93bacb3ded33b6c30b8a84fddbca5c33efadb878e8a9075b25223bfd93044bc2"
+      },
+      "label": "digital_gap_33_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\digital_gap_33_hann",
+      "detector_mode": "digital-zero",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "055a69abe61ea4a28471043b528c0599d670314d9346615b09c28bd0a9886452",
+      "golden_sha256": "841aa5a99ddd3964addf2ea01bf86a6c2a316b0363605a34ba072c5b30150d5b",
+      "files": {
+        "capture.json": "3f4454379546b3bc8f170a528208b0f71057cd6ed32b9026cba8329878f8dccb",
+        "frequency.bin": "746ebcbe31d12056374bc27d90739dda12a3d7317e55e6de9347c257e6d90ef1",
+        "burst.bin": "af9abab661e8fcc138d41508cb77189ae7ebc0cd5d1073e69654d2fbca917326",
+        "snapshot.bin": "87c29cafb40d7440f0ee11016a12070a45c309b0aeef766d3008057dbda0d375",
+        "snapshot.json": "2b02e0045829db23a647bfb6efa5b47341bd51c178835df1dc9b82b621303890"
+      },
+      "label": "digital_gap_33_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 211.62666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 0,
+            "length_error_samples": 0,
+            "start_error_us": 0.0,
+            "end_error_us": 0.0,
+            "length_error_us": 0.0,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_0_91001_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "d681e560904bbb6c8202c220c23035f6e08e93c97f97a4d354f556ddd6f02338",
+      "golden_sha256": "0da2b54a379554a99a56d96f830c29ce033f151b516fa201d21494c6421264a1",
+      "files": {
+        "capture.json": "fa5fe617e1a950ed3cda8118050c352c925a426b5f3dc5476079afcb4a06480d",
+        "frequency.bin": "3cc27f4c66a43d232be07027e540b3b6e0fba71d8ed75ae44237b8a604868c5f",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "edf49156e96f9ba0cd35d86d5bb028f2caaa45c9481acd2acb3469222d001207",
+        "snapshot.json": "16f784f74c707a48a6d094e41a6c477cff141e1e2c66802151db24e13571100e"
+      },
+      "label": "noise_0_91001_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 2,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_0_91002_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "93b460472e6cf041bccab14318edf4964c57f81b41da9efebecaee6b2568083b",
+      "golden_sha256": "cf022271c6f26a3c579cb08bd0727f30383a04e55aacb142d3b0fe7e0980091e",
+      "files": {
+        "capture.json": "695355ac17fc1a4794efae3120ff12f0c42983e3a15acce832cf2c1c1b0ba5fb",
+        "frequency.bin": "3721473a74d52cebce5aab6e54d104519d38d1c01996e56d5d9cdd66fcd15a9a",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "7e88a9b77e5b7d7e70507460d85f41af8c31b956e17a96ae1a8d5832e125c016",
+        "snapshot.json": "916ee5ebbef24e983196291b14464a3062f1486ab5161daa825496e29314b469"
+      },
+      "label": "noise_0_91002_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 2,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_0_91003_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 0,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "0f2fc7e5fd777f6ae39b3095574d93c0588af7c21c58ad137ab42df3755a8f27",
+      "golden_sha256": "a4f3a1e9aed8ac5e0e37ac1906963980baa7d452b7a3db5a0e7b576a9e92372e",
+      "files": {
+        "capture.json": "57da76e8cfe8c2e43d65f3c5533855ddb1128dcd18fc4bf35ae23f658126d10b",
+        "frequency.bin": "2a2103f4a7378463d2dc28db743ce031ec1a8fa2bd254b8dbb61a187b4c0c67a",
+        "burst.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "snapshot.bin": "3a0ea4fd6caecb10e09b0f0fcfb6a211f31f4f44199d5dbf0c0fecb3f9406ef7",
+        "snapshot.json": "29f310a6d9549a150e48cbd0fd79aa8a9039f385b1637b611e4c4d70c3e17e79"
+      },
+      "label": "noise_0_91003_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 0,
+        "matched": 0,
+        "normal_matches": 0,
+        "normal_detection_rate": 0.0,
+        "missed": 2,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 0.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": []
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_10_91001_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "8e3a7e31be31c203b18633947d22ca5c67ae5686dbf2164903792f4d053ec8af",
+      "golden_sha256": "787ef603d526db0a2b6cf90eef84e90a36747ccb1085c49630940c4c3047c347",
+      "files": {
+        "capture.json": "33c777d34047e102654c87344dcd68808ad82a6f35fe4857fb9220616a8f5f30",
+        "frequency.bin": "1d2a95ade463db77102c0e6541bf762a96d27867750ae47ca0f3676e38fab59e",
+        "burst.bin": "baefc61250deb462ce21c399c60191ced1f3e37df6d7f0d9d743ba3a911fc4b7",
+        "snapshot.bin": "b78ac137037c4adefa79fc66bc613bb652ef28cfa5ade8d507f006a1af47ef72",
+        "snapshot.json": "b830648355c12d1ddecb30b81d676294f9bb09e192f1232357ea973eebf64362"
+      },
+      "label": "noise_10_91001_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 5,
+            "end_error_samples": 15,
+            "length_error_samples": 10,
+            "start_error_us": 0.03333333333333333,
+            "end_error_us": 0.1,
+            "length_error_us": 0.06666666666666667,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 6,
+            "end_error_samples": 15,
+            "length_error_samples": 9,
+            "start_error_us": 0.04,
+            "end_error_us": 0.1,
+            "length_error_us": 0.06,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_10_91002_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "ff6c2c1c0c18180a603ca848df9e3ebb30f85825d3c950ef2d8664caf48d5072",
+      "golden_sha256": "8ea1a00fe927ee95003e49c2260c7eab4badfd58effa8dec8ece2dd0d1e99eb8",
+      "files": {
+        "capture.json": "ae3a99ee853370f6bbe3dea6729924ff0dc9ad541a535d8f85c5b351c8dbb260",
+        "frequency.bin": "2f7d94b7dcb2943250d21c7a0387ef22b18769d6f867c9011fe0028965e44dd7",
+        "burst.bin": "38894ffbdd0dccbff741a643f3c77f5e2290957d71f286671cb5750740619886",
+        "snapshot.bin": "9a260451b836a30ce2d33b9b7d18a09900b7128402b9e8a47d4e419a1847c559",
+        "snapshot.json": "ff81c53b6ed111a5a046419ec0b94eb51f949c5f9570008905f38f3fdd2b4908"
+      },
+      "label": "noise_10_91002_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 2,
+            "end_error_samples": 15,
+            "length_error_samples": 13,
+            "start_error_us": 0.013333333333333334,
+            "end_error_us": 0.1,
+            "length_error_us": 0.08666666666666667,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 3,
+            "end_error_samples": 14,
+            "length_error_samples": 11,
+            "start_error_us": 0.02,
+            "end_error_us": 0.09333333333333334,
+            "length_error_us": 0.07333333333333333,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_10_91003_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "b3dc72adcd3fecc9bfd93d5cefd9e03bab7dfbbabd94702f3584ec9be31ceca5",
+      "golden_sha256": "9ade5f2f1c3d31f5e4fc611b950b8994b6b6f75ee45f6c7e29f989086e0faa6d",
+      "files": {
+        "capture.json": "d229b06f0b70c19d191943a7ca74f476b6ccaea54019d00d33cdae1a9a391fef",
+        "frequency.bin": "075a213966e61e20c17d0a0b124eb9e331a4076411b46e6bd00fff2c011f3d1b",
+        "burst.bin": "a63f4ddec8283879193d158dee90f083638673e33423f20489a2d7b459186e5c",
+        "snapshot.bin": "63e791dfa6de61634d53a6017669e354a803ee8413a8bc33387058478bc53c11",
+        "snapshot.json": "a9b6936db93094f09ce9b4b98a26db4f549d648e2dec1ee2a612105aaa3e3b67"
+      },
+      "label": "noise_10_91003_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 4,
+            "end_error_samples": 13,
+            "length_error_samples": 9,
+            "start_error_us": 0.02666666666666667,
+            "end_error_us": 0.08666666666666667,
+            "length_error_us": 0.06,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 6,
+            "end_error_samples": 14,
+            "length_error_samples": 8,
+            "start_error_us": 0.04,
+            "end_error_us": 0.09333333333333334,
+            "length_error_us": 0.05333333333333334,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_20_91001_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "17e0fd1a67a02871cd99b6f1245127e4af20a13eaf1536b90163d20582840044",
+      "golden_sha256": "92da1181e3e9b61567045e5fee0b44118974d687d08bf1d4a0b02841fd63a5a7",
+      "files": {
+        "capture.json": "c12ec0b7ba33168df48c29ee7740cdb004b3cc6104ecaf04eec941ad476260a8",
+        "frequency.bin": "11e7c692ccf21b2cd8dc5625748f1ca15abe93fdbb6e577e58a7c2cf56edd3e4",
+        "burst.bin": "210b5605e88e5ea608d0162cba49e7a96c51d00e4a8fcf954681c75184bf3ec7",
+        "snapshot.bin": "539d0ae31bed74ae77e280cf90848b2dfab7083a4c40b823c1e83b833c90da17",
+        "snapshot.json": "2c39d08b005e7045d34ad5a079050db12043ef0edd28765daa2b747a177d2e9b"
+      },
+      "label": "noise_20_91001_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_20_91002_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "dabfd717d2192c049597fe223fbc01b7cbac175d8d2fd3fb6221ae463340608e",
+      "golden_sha256": "8e6b79f1c142145967ab26cd35c2f0931290082c0f02c540d5378f0effa91fac",
+      "files": {
+        "capture.json": "8ad9eae93743110894ff7883c7de9fdc5b0a37c508ff53952938e079e715dcaf",
+        "frequency.bin": "7152fd2de7b4ba3946851d8aa15b8dd0e63aa2f7a4875c8d73ec95ec4a939ce3",
+        "burst.bin": "f58dfc18d299bd5f8ed7f0a9e65bdf3744cf93eef9c9df655bd22d50f0905af9",
+        "snapshot.bin": "6b2bdbeef4ae260f13248b1502bf454952990db8832370a68f66778a4046fba6",
+        "snapshot.json": "4a890b5ee3a92d8dcc012922b484d91a802059ce62f7999bd524a291f9c5feff"
+      },
+      "label": "noise_20_91002_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\noise_20_91003_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "5d10667b0ad3a33783e5d83e92bc9168df81092211b84368876deee2c70ca1ff",
+      "golden_sha256": "0cf7f7cd2a86200c333273b3ef17594aa3bf928855f25664f3f70323d31f8b0f",
+      "files": {
+        "capture.json": "b95a7d8fd6d4ba344781d4d750faf0f464ad52561e017e63c04ccaa39bf584d3",
+        "frequency.bin": "2f80ec55551a77119be8d1814f16c82aabe7a0be0939cf39e4ddcb4d128bb62b",
+        "burst.bin": "6cab08f1039673146287296eb2b67508512dcf585b4adec0fb1ef828bda0a36c",
+        "snapshot.bin": "883f5149f583b245327ce7cb6ac9cc7b134263786d0298562ae069029b2ffeab",
+        "snapshot.json": "3243e70eec583db29038e887878fab685f05656b97c29c9ea6b7d02ac6aa607f"
+      },
+      "label": "noise_20_91003_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 2,
+        "detected_intervals": 2,
+        "matched": 2,
+        "normal_matches": 2,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 109.22666666666667,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          },
+          {
+            "truth": 1,
+            "detection": 1,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212100_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "b5a70243b2b456ac9475a46c94b2fa4bb62f80a5c3d0eea3bdc7301c783ccca6",
+      "golden_sha256": "a6d9c278f5c73d2fc9e924da114335c2f904048dd61334e26bf3ba1ebbf830ca",
+      "files": {
+        "capture.json": "a061fda7394425b9a18b6dc050fe7829e874c65229579fe647f278d154e21928",
+        "frequency.bin": "2184118f7c642855423224441f4d5ecf5cf2560bfc842a41b5fb17e9c8466aa0",
+        "burst.bin": "5cdc7a0283cf8a43ecee5198929708165fc888feddb6d24fc4d8249f04889838",
+        "snapshot.bin": "ff721faa2677b53304a1f2a24995ea04e6523c7827a73f2cad0559955d2b240b",
+        "snapshot.json": "83e94c7930b5635358f7f8bc168d3167ba3bf7011d79dbba81297affb79e5b51"
+      },
+      "label": "ofdm_qpsk_212100_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212100_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "b5a70243b2b456ac9475a46c94b2fa4bb62f80a5c3d0eea3bdc7301c783ccca6",
+      "golden_sha256": "c8c05a2b7e959c185349d094f4b10f294dcae1bb9c818ff31efb8a5fe962ceec",
+      "files": {
+        "capture.json": "85bb0ad34e6ff73f9c21fb37677410f3387fe727d6a461fab0e5cf5338d9eb62",
+        "frequency.bin": "6ae6f0547d0485e9b7504be0386cc0138d6363174e6eefad225348de76f3a515",
+        "burst.bin": "3457f99912c9474aa5a1b477e77f2e3436c5d221940da7ba8282cec1e10c8cf9",
+        "snapshot.bin": "088e2026764b45156880d11ce8b483ab660f12971fcc71ed7e3b54b10337571b",
+        "snapshot.json": "d0141d2e816b4b167d6b7ca82e2a74f718c7723385fae3e3ede84c5cab64f1a1"
+      },
+      "label": "ofdm_qpsk_212100_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212101_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e133dba0492b78480e122d19ded27f6137dbed6655e583a61fd6e5c378bae4bd",
+      "golden_sha256": "fea875907b94b2835f36dd81b2124617de8929c0665cf8df18acc546a948633b",
+      "files": {
+        "capture.json": "d985d028d5d8c474f270f1b51a6d688775afd2796ffdede35758375854a606bc",
+        "frequency.bin": "d4eb65127ab89103860307fb6eec07a9ad389dbc267997af30ea9d50d4e664e2",
+        "burst.bin": "af47e0f308a15adec26a29c66f94aff269154263027b2f2bc354e506ed7f27e6",
+        "snapshot.bin": "0599a5396f1e7be1f03102f1cba10ae3f35b2f8812257fe5af42fe1d1ac5ef59",
+        "snapshot.json": "37c8b21b33fdeedfd6cea8d36a8a9efd0591bec605b82db1235f9988cfce6cab"
+      },
+      "label": "ofdm_qpsk_212101_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212101_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e133dba0492b78480e122d19ded27f6137dbed6655e583a61fd6e5c378bae4bd",
+      "golden_sha256": "e09d56e9db85d31353b48578c8c55645aeb9f183793c22fb409f100a465add04",
+      "files": {
+        "capture.json": "decc0f9045955cc4b42b50785a538d7928a18d135772886f5dc9f713be0b5133",
+        "frequency.bin": "cddf5148fd39d00413bf15dfd51b6e9bec1895cb193c5a5de619bf15b54da04c",
+        "burst.bin": "d87ad0d19017924caaaf81a27dd301e79d927963ad4f373b1b25c04e8e5de9c2",
+        "snapshot.bin": "7b820a154a7b4362c3f9a51f93a127b46157f32029335286716d6e89b7e4f099",
+        "snapshot.json": "ab2a42fb7d4a3b573dcf0645c3a52189f529a247d9cfa03e0198a77e7aa2cd3a"
+      },
+      "label": "ofdm_qpsk_212101_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212102_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e0053b04f8f5f03211569d96e8f0e5ea45e07da5527a4926591e2d2721587dc5",
+      "golden_sha256": "dae6d676d0b07da6b097bb99d26e93581b2b673881d237430e6b62dcaa10fc32",
+      "files": {
+        "capture.json": "0cd8117dd32d573ffdb92c49bd9ca9e547855bd6288c739ec975a61946790dd0",
+        "frequency.bin": "8e493110323eaa7bb8c70f44d5d4e993e78f38517431b3f5249fc38bee9a3984",
+        "burst.bin": "11786736af6d61cf1c8e77ff207e8f5ed19592aad27cd1fceedcfb82bc041056",
+        "snapshot.bin": "27f7423ac661de64924143a8e8926f7f27158e7fa87059bdb954bfd9d6bbfc25",
+        "snapshot.json": "0402a02da2b2185f82ceefee74f7f1822577203ad83fab6038a5b2b796c1ead2"
+      },
+      "label": "ofdm_qpsk_212102_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qpsk_212102_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e0053b04f8f5f03211569d96e8f0e5ea45e07da5527a4926591e2d2721587dc5",
+      "golden_sha256": "63442bbc6aa2baa2989d0958c8fe4d31770eb1ad8c403296733ea4a280a17fe5",
+      "files": {
+        "capture.json": "3c82fe35a3205a8d0fac3aef07f2d76bf0c0bfeebbf57d4d1900f7b16e752b03",
+        "frequency.bin": "e459ec892df0ebf7dd2cb95fdd2f9cb9107a2a1b39e9ca9f17578d00a7571bd1",
+        "burst.bin": "63ffa4b447884f4775736901f16ed0a18262259792fab4dada5a7cf44de00e3c",
+        "snapshot.bin": "339b465fe31ba3c22e90934575fdff21ffcc69a06e230e382db590ad44951efb",
+        "snapshot.json": "1b2416ee8de56c937b176d8fb21729397512f3ec8c06cfe849c3001bb2dbc328"
+      },
+      "label": "ofdm_qpsk_212102_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212100_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "2f4089d9335a256985b2fc1aaef55427370b2028a8772dc2f496583afe516251",
+      "golden_sha256": "8ac1da5f9a944b312b93dd54d96a518edfe280a66b8767f43bc891896d92685d",
+      "files": {
+        "capture.json": "c1708f84de33873c2171093364d5a04f870eb0422ca7c6e9823cf8e5ab80d08c",
+        "frequency.bin": "598556b0824971a12a10aeaa3203cf8f4f00560f1360b89f4754f0bc6036f4f2",
+        "burst.bin": "7effee737ea50a2d8c552c67a7d27930f76fefa57eb8e43b13eb424ec1658e62",
+        "snapshot.bin": "12093173c333518e131d7f9dda4b85b6ea16aa713867cc2bbc24cfe624075d83",
+        "snapshot.json": "49c379a18cb059241bf8b4e9d97ef0249326d7873e58f7df83867e9af1a9b7e9"
+      },
+      "label": "ofdm_qam16_212100_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212100_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "2f4089d9335a256985b2fc1aaef55427370b2028a8772dc2f496583afe516251",
+      "golden_sha256": "1dc9db5574b65dbea0eb26678b47d4aa682022e727323dc801f9605db49a3505",
+      "files": {
+        "capture.json": "3d263029a7834622c0d27aa468e533ba195f457764fd6a1fb20ccc80d1e8c826",
+        "frequency.bin": "3525728f3c5ff79d5979dbdcd39884cfb0f0f4b2c51b90fcc46670720f38e424",
+        "burst.bin": "24dd14205c9edac7cb3794b891f116703095f19292c22dc1e4821da99efbaa44",
+        "snapshot.bin": "ad7dfd8ad38ee2c2c41a8442f1db212825bbcbffdd4364036e04134c1fe93451",
+        "snapshot.json": "07b4018b056c70d689095dadfa039e74bf6154312644e7bb89f8415efb4a1155"
+      },
+      "label": "ofdm_qam16_212100_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212101_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e522ee1f2e7044380a68ea7b338651d52dbbdd950b8b7b4891a9276ef08b8d61",
+      "golden_sha256": "f7df6bf4f2331ec7f4f1f47952915791e105ee119695108a11e9ea84ffab5de4",
+      "files": {
+        "capture.json": "02ebc9b462da6f9ce8644eb522ee200ff139555c4c9dbb47f9e99f13a921a749",
+        "frequency.bin": "c30e2072573066e5ff3490cbc69d3abe1009d1837801e8ce3a52aa112a7f6fd8",
+        "burst.bin": "1cf0cfc1ecec496e15cac72b8e70c4be7585439acc7e68809fde5467e57cd4b1",
+        "snapshot.bin": "617513dfb01d4c79cee46069900a13803b4d0d74d704780d666697b0a1cd058e",
+        "snapshot.json": "0dc33078bf2e5ac56c3ea16565d05b49f61cf8545c1805ee11f63e146bc82507"
+      },
+      "label": "ofdm_qam16_212101_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212101_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "e522ee1f2e7044380a68ea7b338651d52dbbdd950b8b7b4891a9276ef08b8d61",
+      "golden_sha256": "deb69eef880c0f3929661f5a850949e3808778a0413472bc79d18c5217cce502",
+      "files": {
+        "capture.json": "b90e73f12f73e53e1728c8fd4c002044e0fbf48eca39b659bb45a2bf2792883a",
+        "frequency.bin": "b4ac8efaed103b0181b0fdfd18e3691b781636fb7c7bb2223ad87ac07cc3f3d4",
+        "burst.bin": "3f0e73a1caf9ca06bb4fb4a2e59b6b9da4f8b4769c8d23e68b3467d9db8adf61",
+        "snapshot.bin": "19ea29d3f663136c8180aeb0d5dd11c8c75bd8956f62f0e21055b26248f39e9a",
+        "snapshot.json": "38c259beda91e9ef8499e343c5920a52b7f47069cd776614799962b60cf0e2d4"
+      },
+      "label": "ofdm_qam16_212101_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212102_rect",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "ccd278d78d92eabead2e3cded40e0e81807c550d34b9513a8ef21ed4457a7aa4",
+      "golden_sha256": "50e209c8e5d0dabc94260a1a68b402ce947c0494a971b14f1efea80c4fc56bd1",
+      "files": {
+        "capture.json": "87694ad1b1fd502e4f6762f2f5bd71829ed4eef1421d13cf84e4d4fd188663be",
+        "frequency.bin": "f1cf63aa82dfea894216d287a81c89bf1f266c3fcd84cdc61b781bc2f43fea29",
+        "burst.bin": "ab1cca53bf911922a47971e3afaf3a4bd30859998d9b3218e0106905ffb1f37e",
+        "snapshot.bin": "1a94957a56edd45ac7a675430c0a2f6aaea12f8571c02b6f965af7b404248fe5",
+        "snapshot.json": "6d468c874f6a7ef1f18b52e97f903a2ab2d8c7ac4b6e77421667b11c6cfa7cbb"
+      },
+      "label": "ofdm_qam16_212102_rect",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    },
+    {
+      "status": "PASS",
+      "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+      "folder": "D:\\fft\\fft_phase12_wideband_150m\\reports\\phase12_cold_boot_20261011\\finite\\ofdm_qam16_212102_hann",
+      "detector_mode": "threshold",
+      "gap_min": 32,
+      "hardware_version": 65546,
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 234.42666666666668,
+      "maximum_publish_us": 234.66,
+      "input_sha256": "ccd278d78d92eabead2e3cded40e0e81807c550d34b9513a8ef21ed4457a7aa4",
+      "golden_sha256": "8357b9dcb1d4c4dbae0be0ace5ef9d17bfc393dfb70e16db6c50d2aca006b788",
+      "files": {
+        "capture.json": "bfa975987802bc9c4804fe73b98396b7627029dec6f6ad38838afb3bc0c10bc4",
+        "frequency.bin": "305bbfa3d2b99dadeba4ee70141d40bc10debfacf6afef133582abd5fcdb3836",
+        "burst.bin": "01b6740b33d8af348a722391b0a3d2b195a787b7156ad7e6537ff8d2e49e9264",
+        "snapshot.bin": "a10bcf50da0a74b75fd688a82af93ed8279fcb31d2fe57575bc6d3ed0eeb032f",
+        "snapshot.json": "b82b19edf3d13acfdb984c97917d4e4957a0db51ef4a4dd9237c0cd1961e981c"
+      },
+      "label": "ofdm_qam16_212102_hann",
+      "detection_metrics": {
+        "rule": {
+          "minimum_truth_overlap": 0.5,
+          "boundary_tolerance_samples": 32,
+          "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+        },
+        "known_bursts": 1,
+        "detected_intervals": 1,
+        "matched": 1,
+        "normal_matches": 1,
+        "normal_detection_rate": 1.0,
+        "missed": 0,
+        "false_alarms": 0,
+        "merged_detections": 0,
+        "split_truths": 0,
+        "unmatched_overlapping_detections": 0,
+        "detection_rate": 1.0,
+        "background_observation_us": 44.373333333333335,
+        "false_alarms_per_second": 0.0,
+        "matches": [
+          {
+            "truth": 0,
+            "detection": 0,
+            "start_error_samples": 0,
+            "end_error_samples": 15,
+            "length_error_samples": 15,
+            "start_error_us": 0.0,
+            "end_error_us": 0.1,
+            "length_error_us": 0.1,
+            "within_boundary_tolerance": true
+          }
+        ]
+      }
+    }
+  ],
+  "artifacts": {
+    "iq_analyzer.bit": "58456c64bb90945e8ceabf5350e0822075cb182e83304091b6147356bebc3fa2",
+    "iq_udp.elf": "63843cde66ec2f045295521163d66b9fc559e1ecdd9c6a287c3b9588f126102c"
+  },
+  "summary": {
+    "amplitude": {
+      "windows": 24,
+      "frequency_error_bins": {
+        "count": 12,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "peak_error_vs_quantized": {
+        "count": 24,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_quantized": {
+        "count": 24,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "peak_error_vs_floating": {
+        "count": 24,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_floating": {
+        "count": 24,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      }
+    },
+    "boundary": {
+      "windows": 16,
+      "frequency_error_bins": {
+        "count": 12,
+        "maximum": 13.00004864,
+        "median": 0.0,
+        "p95": 13.00004864
+      },
+      "peak_error_vs_quantized": {
+        "count": 16,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_quantized": {
+        "count": 16,
+        "maximum": 9.525322866466013e-06,
+        "median": 0.0,
+        "p95": 9.525322866466013e-06
+      },
+      "peak_error_vs_floating": {
+        "count": 16,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_floating": {
+        "count": 16,
+        "maximum": 9.525322866466013e-06,
+        "median": 0.0,
+        "p95": 9.525322866466013e-06
+      }
+    },
+    "gap": {
+      "windows": 12,
+      "frequency_error_bins": {
+        "count": 6,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "peak_error_vs_quantized": {
+        "count": 12,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_quantized": {
+        "count": 12,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "peak_error_vs_floating": {
+        "count": 12,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      },
+      "rms_error_vs_floating": {
+        "count": 12,
+        "maximum": 0.0,
+        "median": 0.0,
+        "p95": 0.0
+      }
+    },
+    "integer-tone": {
+      "windows": 32,
+      "frequency_error_bins": {
+        "count": 24,
+        "maximum": 0.5000256,
+        "median": 0.05335722666666667,
+        "p95": 0.5000256
+      },
+      "peak_error_vs_quantized": {
+        "count": 32,
+        "maximum": 1.4893339539412409e-05,
+        "median": 1.1995480235782452e-06,
+        "p95": 1.4893339539412409e-05
+      },
+      "rms_error_vs_quantized": {
+        "count": 32,
+        "maximum": 1.4893339539412409e-05,
+        "median": 2.5698500394355506e-06,
+        "p95": 1.4893339539412409e-05
+      },
+      "peak_error_vs_floating": {
+        "count": 32,
+        "maximum": 0.678741455076306,
+        "median": 7.4466697697062045e-06,
+        "p95": 0.678741455076306
+      },
+      "rms_error_vs_floating": {
+        "count": 32,
+        "maximum": 0.01983642578125,
+        "median": 7.4466697697062045e-06,
+        "p95": 0.01983642578125
+      }
+    },
+    "modulation": {
+      "windows": 8,
+      "frequency_error_bins": {
+        "count": 0
+      },
+      "peak_error_vs_quantized": {
+        "count": 8,
+        "maximum": 1.2774606148013845e-05,
+        "median": 1.2774606148013845e-05,
+        "p95": 1.2774606148013845e-05
+      },
+      "rms_error_vs_quantized": {
+        "count": 8,
+        "maximum": 7.545914741058368e-06,
+        "median": 4.695102234109072e-06,
+        "p95": 7.545914741058368e-06
+      },
+      "peak_error_vs_floating": {
+        "count": 8,
+        "maximum": 0.539154052734375,
+        "median": 0.539154052734375,
+        "p95": 0.539154052734375
+      },
+      "rms_error_vs_floating": {
+        "count": 8,
+        "maximum": 0.5043425412650322,
+        "median": 0.465291899325166,
+        "p95": 0.5043425412650322
+      }
+    },
+    "noise": {
+      "windows": 18,
+      "frequency_error_bins": {
+        "count": 0
+      },
+      "peak_error_vs_quantized": {
+        "count": 18,
+        "maximum": 1.487452391302213e-05,
+        "median": 5.5844211601652205e-06,
+        "p95": 1.3196964027883948e-05
+      },
+      "rms_error_vs_quantized": {
+        "count": 18,
+        "maximum": 1.4843481039861217e-05,
+        "median": 7.891685072536347e-06,
+        "p95": 1.4643270469605341e-05
+      },
+      "peak_error_vs_floating": {
+        "count": 18,
+        "maximum": 0.5637559686692839,
+        "median": 0.2471042194038091,
+        "p95": 0.47215469563207063
+      },
+      "rms_error_vs_floating": {
+        "count": 18,
+        "maximum": 0.004517867339018267,
+        "median": 0.0013576528667726961,
+        "p95": 0.003838977131363207
+      }
+    },
+    "two-tone": {
+      "windows": 12,
+      "frequency_error_bins": {
+        "count": 0
+      },
+      "peak_error_vs_quantized": {
+        "count": 12,
+        "maximum": 1.3837730875820853e-05,
+        "median": 1.1962143616983667e-05,
+        "p95": 1.3837730875820853e-05
+      },
+      "rms_error_vs_quantized": {
+        "count": 12,
+        "maximum": 1.161933960247552e-05,
+        "median": 8.853935469232965e-06,
+        "p95": 1.161933960247552e-05
+      },
+      "peak_error_vs_floating": {
+        "count": 12,
+        "maximum": 0.587982177734375,
+        "median": 0.551361083984375,
+        "p95": 0.587982177734375
+      },
+      "rms_error_vs_floating": {
+        "count": 12,
+        "maximum": 0.0033187412436745944,
+        "median": 0.002830459574397537,
+        "p95": 0.0033187412436745944
+      }
+    },
+    "wideband": {
+      "windows": 36,
+      "frequency_error_bins": {
+        "count": 0
+      },
+      "peak_error_vs_quantized": {
+        "count": 36,
+        "maximum": 1.5033503586892039e-05,
+        "median": 6.339645551634021e-06,
+        "p95": 1.4866411220282316e-05
+      },
+      "rms_error_vs_quantized": {
+        "count": 36,
+        "maximum": 1.4988598195486702e-05,
+        "median": 9.035960374603746e-06,
+        "p95": 1.4174360558172339e-05
+      },
+      "peak_error_vs_floating": {
+        "count": 36,
+        "maximum": 0.6183624267578125,
+        "median": 0.18806430349468428,
+        "p95": 0.48236981649642985
+      },
+      "rms_error_vs_floating": {
+        "count": 36,
+        "maximum": 0.026158033968386007,
+        "median": 0.002647067835823691,
+        "p95": 0.02303273744564649
+      }
+    }
+  },
+  "frequency_records": 158,
+  "burst_records": 88,
+  "maximum_analysis_us": 234.42666666666668,
+  "maximum_publish_us": 234.66,
+  "finished_at": "2026-10-11T15:21:37.930036+08:00"
+}

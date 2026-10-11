@@ -39,6 +39,7 @@ module iq_peripheral(
  wire clk=s_axi_aclk,rst=!s_axi_aresetn;
  reg aw_hold,w_hold;reg [17:0] wa;reg [31:0] wd;reg [3:0] ws;
  reg [1:0] read_delay;reg [17:0] ra;
+ reg [31:0] read_group[0:3];reg [3:0] read_mapped;
  assign s_axi_awready=!aw_hold&&!s_axi_bvalid;
  assign s_axi_wready=!w_hold&&!s_axi_bvalid;
  wire write_fire=aw_hold&&w_hold&&!s_axi_bvalid&&read_delay==0;
@@ -63,8 +64,27 @@ module iq_peripheral(
    roi_l<=roi_h&&roi_h<N&&ton>toff&&kon!=0&&koff!=0&&
    detector_mode<=1&&gap_min>=1&&gap_min<=65535&&
    max_burst>=(detector_mode==1?32'd1:{16'd0,kon})&&max_burst<=1048576;
- reg config_valid;
- always @(posedge clk)if(rst)config_valid<=0;else config_valid<=config_ok;
+ reg config_valid,cfg_replay,cfg_threshold,cfg_detector,cfg_burst;
+ reg [31:0] replay_last;
+ always @(posedge clk)begin
+   replay_last<=replay_length-32'd1;
+   if(rst)begin cfg_replay<=0;cfg_threshold<=0;cfg_detector<=0;cfg_burst<=0;end
+   else begin
+     cfg_replay<=replay_length>=N&&replay_length<=32768&&replay_length[LOGN-1:0]==0&&replay_start<32768&&replay_start+replay_length<=32768&&replay_mode<=1&&window_mode<=1;
+     cfg_threshold<=roi_l<=roi_h&&roi_h<N&&ton>toff&&kon!=0&&koff!=0;
+     cfg_detector<=detector_mode<=1&&gap_min>=1&&gap_min<=65535;
+     cfg_burst<=max_burst<=1048576&&((detector_mode==1&&max_burst>=1)||(detector_mode!=1&&max_burst>={16'd0,kon}));
+   end
+ end
+ reg drain_counts_match;
+ // During DRAINING, issued is fixed and completed/accounted only advance
+ // toward it. Delay the stable equality by one clock to separate the sum
+ // from FSM/error-control fanout. Busy/valid are still checked live.
+ always @(posedge clk)begin
+   if(acquisition_reset)drain_counts_match<=0;
+   else drain_counts_match<=completed==(issued>>LOGN)&&freq_producer+freq_dropped==completed;
+ end
+ always @(posedge clk)if(rst)config_valid<=0;else config_valid<=cfg_replay&&cfg_threshold&&cfg_detector&&cfg_burst;
  reg [63:0] issued;
  reg [14:0] replay_ptr;reg [31:0] replay_pos;
  reg host_bank,active_bank,pending_bank,pending_valid;
@@ -73,13 +93,20 @@ module iq_peripheral(
  reg [31:0] current_block_id,switch_count,stream_write_rejected,stream_errors;
  reg [63:0] last_switch_tick;
  reg loader_target,loader_active,loader_done;
- reg loader_write_allowed;
+ reg loader_write_allowed,loader_expected_last;
+ reg [3:0] loader_word_error_bits;
  reg [31:0] loader_expected,loader_block,loader_expected_crc,loader_received;
  reg [31:0] loader_crc_state,loader_computed_crc,loader_transfers,loader_errors;
  reg [31:0] loader_word;reg [3:0] loader_word_keep;reg loader_word_last;reg [2:0] loader_crc_byte;
  wire [31:0] host_bank_length=host_bank?bank_length1:bank_length0;
- wire host_bank_metadata_valid=host_bank_length>=N&&host_bank_length<=32768&&
-   host_bank_length[LOGN-1:0]==0&&host_bank_length==replay_length;
+ wire bank0_metadata_valid=bank_length0>=N&&bank_length0<=32768&&bank_length0[LOGN-1:0]==0&&bank_length0==replay_length;
+ wire bank1_metadata_valid=bank_length1>=N&&bank_length1<=32768&&bank_length1[LOGN-1:0]==0&&bank_length1==replay_length;
+ wire host_bank_metadata_valid=host_bank?bank1_metadata_valid:bank0_metadata_valid;
+ // Exact circular interval, including full 32-bit counter wrap. Parallel
+ // comparisons replace two subtractions followed by another comparison.
+ function automatic in_modular_interval(input [31:0] value,first,last);
+   in_modular_interval=first<=last?(value>=first&&value<=last):(value>=first||value<=last);
+ endfunction
  function automatic [31:0] crc32_byte(input [31:0] crc,input [7:0] data);
    reg [31:0] c;integer bit_index;
    begin
@@ -89,7 +116,7 @@ module iq_peripheral(
    end
  endfunction
  wire dma_fire=s_axis_iq_tvalid&&s_axis_iq_tready;
- wire [31:0] dma_crc_next=crc32_byte(loader_crc_state,loader_word[(loader_crc_byte-1)*8+:8]);
+ wire [31:0] dma_crc_next=crc32_byte(loader_crc_state,loader_word[7:0]);
  wire [31:0] loader_word_errors=(loader_word_keep!=4'hf ? 32'h2 : 0)|
    (loader_received>=loader_expected ? 32'h4 : 0)|
    (loader_received+1==loader_expected&&!loader_word_last ? 32'h8 : 0);
@@ -105,7 +132,7 @@ module iq_peripheral(
  reg source_valid,source_finish,core_valid,core_finish;
  reg [63:0] core_tick;
  wire issue=run_state==RUNNING;
- wire final_issue=issue&&((replay_mode==0&&replay_pos==replay_length-1)||
+ wire final_issue=issue&&((replay_mode==0&&replay_pos==replay_last)||
    (stop_pending&&issued[LOGN-1:0]==N-1));
  wire bank0_writable=(!active||active_bank!=0)&&(!pending_valid||pending_bank!=0)&&(!loader_active||loader_target!=0);
  wire bank1_writable=(!active||active_bank!=1)&&(!pending_valid||pending_bank!=1)&&(!loader_active||loader_target!=1);
@@ -115,14 +142,28 @@ module iq_peripheral(
  wire [14:0] bank_host_addr=dma_loader_write?loader_received[14:0]:host_ram_addr;
  wire [31:0] bank_host_wdata=dma_loader_write?s_axis_iq_tdata:wd;
  wire [3:0] bank_host_wstrb=dma_loader_write?4'hf:ws;
+ // Address, strobes and data advance with the registered write enables.
+ // Port B replay is unchanged; AXI read response has one extra cycle below.
+ reg [14:0] bank_host_addr_q;
+ reg [31:0] bank_host_wdata_q;
+ reg [3:0] bank_host_wstrb_q;
+ reg bank0_host_we,bank1_host_we;
+ always @(posedge clk)begin
+   bank_host_addr_q<=bank_host_addr;bank_host_wdata_q<=bank_host_wdata;bank_host_wstrb_q<=bank_host_wstrb;
+   if(rst)begin bank0_host_we<=0;bank1_host_we<=0;end
+   else begin
+     bank0_host_we<=(replay_write&&!host_bank)||(dma_loader_write&&!loader_target);
+     bank1_host_we<=(replay_write&&host_bank)||(dma_loader_write&&loader_target);
+   end
+ end
  assign replay_q=active_bank?replay_q1:replay_q0;
  assign host_replay_q=host_bank?host_replay_q1:host_replay_q0;
- iq_replay_bank bank0(.clk(clk),.host_addr(bank_host_addr),
-   .host_we((replay_write&&!host_bank)||(dma_loader_write&&!loader_target)),
-   .host_wstrb(bank_host_wstrb),.host_wdata(bank_host_wdata),.host_q(host_replay_q0),.replay_addr(replay_ptr),.replay_q(replay_q0));
- iq_replay_bank bank1(.clk(clk),.host_addr(bank_host_addr),
-   .host_we((replay_write&&host_bank)||(dma_loader_write&&loader_target)),
-   .host_wstrb(bank_host_wstrb),.host_wdata(bank_host_wdata),.host_q(host_replay_q1),.replay_addr(replay_ptr),.replay_q(replay_q1));
+ iq_replay_bank bank0(.clk(clk),.host_addr(bank_host_addr_q),
+   .host_we(bank0_host_we),
+   .host_wstrb(bank_host_wstrb_q),.host_wdata(bank_host_wdata_q),.host_q(host_replay_q0),.replay_addr(replay_ptr),.replay_q(replay_q0));
+ iq_replay_bank bank1(.clk(clk),.host_addr(bank_host_addr_q),
+   .host_we(bank1_host_we),
+   .host_wstrb(bank_host_wstrb_q),.host_wdata(bank_host_wdata_q),.host_q(host_replay_q1),.replay_addr(replay_ptr),.replay_q(replay_q1));
  reg diagnostic_toggle,diagnostic_busy,diagnostic_valid;
  reg [31:0] diagnostic_sequence;
  wire diagnostic_arrived;wire [223:0] fft_diagnostic;
@@ -171,10 +212,13 @@ module iq_peripheral(
  wire [31:0] strobed_data=merge_bytes(0,wd,ws);
  reg [63:0] tick_snapshot,samples_snapshot;
  reg [31:0] completed_snapshot,latency_snapshot,publish_snapshot;
+ wire [63:0] publish_elapsed=tick-publish_start;
+ reg [31:0] publish_elapsed_low;
+ reg publish_elapsed_high,publish_update;
  always @(posedge clk)begin
    if(rst)begin
      aw_hold<=0;w_hold<=0;wa<=0;wd<=0;ws<=0;s_axi_bvalid<=0;s_axi_bresp<=0;
-     s_axi_rvalid<=0;s_axi_rresp<=0;s_axi_rdata<=0;read_delay<=0;ra<=0;
+     s_axi_rvalid<=0;s_axi_rresp<=0;s_axi_rdata<=0;read_delay<=0;ra<=0;read_mapped<=0;
      diagnostic_toggle<=0;diagnostic_busy<=0;diagnostic_valid<=0;diagnostic_sequence<=0;
      issued_snapshot<=0;accepted_snapshot<=0;rejected_snapshot<=0;high_water_snapshot<=0;
      fft_diagnostic_snapshot<=0;diagnostic_arrival_tick<=0;
@@ -182,7 +226,7 @@ module iq_peripheral(
      host_bank<=0;active_bank<=0;pending_bank<=0;pending_valid<=0;bank_ready<=0;
      bank_length0<=0;bank_length1<=0;bank_block0<=0;bank_block1<=0;bank_crc0<=0;bank_crc1<=0;
      current_block_id<=0;switch_count<=0;stream_write_rejected<=0;stream_errors<=0;last_switch_tick<=0;
-     loader_target<=0;loader_active<=0;loader_done<=0;loader_write_allowed<=0;loader_expected<=0;loader_block<=0;loader_expected_crc<=0;
+     loader_target<=0;loader_active<=0;loader_done<=0;loader_write_allowed<=0;loader_expected_last<=0;loader_word_error_bits<=0;loader_expected<=0;loader_block<=0;loader_expected_crc<=0;
      loader_received<=0;loader_crc_state<=32'hffffffff;loader_computed_crc<=0;loader_transfers<=0;loader_errors<=0;
      loader_word<=0;loader_word_keep<=0;loader_word_last<=0;loader_crc_byte<=0;
      source_valid<=0;source_finish<=0;core_valid<=0;core_finish<=0;core_iq<=0;core_tick<=0;
@@ -192,21 +236,28 @@ module iq_peripheral(
      epoch<=0;config_id<=1;config_dirty<=0;freq_consumer<=0;burst_consumer<=0;host_errors<=0;
      snap_request<=0;snapshot_valid<=0;snapshot_pending<=0;snapshot_window<=0;
      tick_snapshot<=0;samples_snapshot<=0;completed_snapshot<=0;latency_snapshot<=0;publish_snapshot<=0;
-     publish_latency_max<=0;publish_start<=0;freq_busy_previous<=0;
+     publish_latency_max<=0;publish_start<=0;freq_busy_previous<=0;publish_update<=0;
    end else begin
      if(dma_fire)begin
        loader_word<=s_axis_iq_tdata;loader_word_keep<=s_axis_iq_tkeep;
        loader_word_last<=s_axis_iq_tlast;loader_crc_byte<=1;
      end
      if(loader_crc_byte!=0)begin
+       // Fixed byte position removes the subtract/index mux from CRC logic.
+       // Each accepted word still takes the same four CRC processing clocks.
+       loader_word<={8'd0,loader_word[31:8]};
        loader_crc_state<=dma_crc_next;
-       if(loader_crc_byte==3)loader_write_allowed<=(loader_received+32'd1)<loader_expected;
+       if(loader_crc_byte==3)begin
+         loader_write_allowed<=(loader_received+32'd1)<loader_expected;
+         loader_expected_last<=(loader_received+32'd1)==loader_expected;
+         loader_word_error_bits<=loader_word_errors[3:0];
+       end
        if(loader_crc_byte==4)begin
          loader_crc_byte<=0;loader_received<=loader_received+1;
-         if(loader_word_errors!=0)loader_errors<=loader_errors|loader_word_errors;
+         if(loader_word_error_bits!=0)loader_errors<=loader_errors|{28'd0,loader_word_error_bits};
        if(loader_word_last)begin
          loader_active<=0;loader_computed_crc<=dma_crc_next^32'hffffffff;
-         if(loader_received+1==loader_expected&&loader_word_keep==4'hf&&
+         if(loader_expected_last&&loader_word_keep==4'hf&&
              loader_errors==0&&(dma_crc_next^32'hffffffff)==loader_expected_crc)begin
            loader_done<=1;loader_transfers<=loader_transfers+1;
            if(loader_target)begin
@@ -215,8 +266,8 @@ module iq_peripheral(
              bank_length0<=loader_expected;bank_block0<=loader_block;bank_crc0<=loader_expected_crc;bank_ready[0]<=1;
            end
          end else begin
-           loader_errors<=loader_errors|loader_word_errors|
-             (loader_received+1!=loader_expected ? 32'h1 : 0)|
+           loader_errors<=loader_errors|{28'd0,loader_word_error_bits}|
+             (!loader_expected_last ? 32'h1 : 0)|
              ((dma_crc_next^32'hffffffff)!=loader_expected_crc ? 32'h10 : 0);
            if(loader_target)bank_ready[1]<=0;else bank_ready[0]<=0;
          end
@@ -231,10 +282,14 @@ module iq_peripheral(
      core_iq<=replay_q;core_valid<=source_valid;core_finish<=source_finish;core_tick<=tick;
      freq_busy_previous<=freq_busy;
      if(freq_valid&&!freq_busy&&freq_producer-freq_consumer<FREQ_CAP)publish_start<=freq_record[8*32+:64];
-     if(freq_busy_previous&&!freq_busy&&tick-publish_start>publish_latency_max)publish_latency_max<=tick-publish_start;
+     publish_update<=freq_busy_previous&&!freq_busy;
+     if(freq_busy_previous&&!freq_busy)begin
+       publish_elapsed_low<=publish_elapsed[31:0];publish_elapsed_high<=|publish_elapsed[63:32];
+     end
+     if(publish_update&&(publish_elapsed_high||publish_elapsed_low>publish_latency_max))publish_latency_max<=publish_elapsed_low;
      if(acquisition_reset)begin
        diagnostic_toggle<=0;diagnostic_busy<=0;diagnostic_valid<=0;
-       freq_consumer<=0;burst_consumer<=0;publish_latency_max<=0;freq_busy_previous<=0;
+       freq_consumer<=0;burst_consumer<=0;publish_latency_max<=0;freq_busy_previous<=0;publish_update<=0;
        snap_request<=0;snapshot_valid<=0;snapshot_pending<=0;
      end else begin
        if(snap_arrived&&snapshot_pending)begin snapshot_valid<=1;snapshot_pending<=0;snap_request<=0;snapshot_window<=snapshot_window_cdc;end
@@ -249,14 +304,14 @@ module iq_peripheral(
            current_block_id<=pending_bank?bank_block1:bank_block0;
            if(active_bank)bank_ready[1]<=0;else bank_ready[0]<=0;
            switch_count<=switch_count+1;last_switch_tick<=tick;
-         end else if(replay_pos==replay_length-1)begin replay_pos<=0;replay_ptr<=replay_start[14:0];end
+         end else if(replay_pos==replay_last)begin replay_pos<=0;replay_ptr<=replay_start[14:0];end
          else begin replay_pos<=replay_pos+1;replay_ptr<=replay_ptr+1;end
          if(final_issue)begin run_state<=DRAINING;wait_count<=0;end
          if(core_errors!=0)stop_pending<=1;
        end
        DRAINING:begin
          if(wait_count!=65535)wait_count<=wait_count+1;
-         if(wait_count>=1024&&completed==(issued>>LOGN)&&freq_producer+freq_dropped==completed&&
+         if(wait_count>=1024&&drain_counts_match&&
              !freq_valid&&!freq_busy&&!burst_busy)run_state<=STOPPED;
          else if(wait_count==65535)begin host_errors<=host_errors|32'h80000;run_state<=STOPPED;end
        end
@@ -284,8 +339,8 @@ module iq_peripheral(
            end
            if(strobed_data[1])stop_pending<=1;
          end
-         'h054:if(ws==15&&(wd-freq_consumer)<=(freq_producer-freq_consumer))freq_consumer<=wd;else s_axi_bresp<=2;
-         'h05c:if(ws==15&&(wd-burst_consumer)<=(burst_producer-burst_consumer))burst_consumer<=wd;else s_axi_bresp<=2;
+         'h054:if(ws==15&&in_modular_interval(wd,freq_consumer,freq_producer))freq_consumer<=wd;else s_axi_bresp<=2;
+         'h05c:if(ws==15&&in_modular_interval(wd,burst_consumer,burst_producer))burst_consumer<=wd;else s_axi_bresp<=2;
          'h064:host_errors<=host_errors&~strobed_data;
          'h070:if(!active&&config_valid&&strobed_data[0])begin config_id<=config_id+1;config_dirty<=0;end else begin s_axi_bresp<=2;host_errors<=host_errors|32'h200;end
          'h078:begin
@@ -378,87 +433,128 @@ module iq_peripheral(
      if(s_axi_arvalid&&s_axi_arready)begin ra<=s_axi_araddr;read_delay<=1;end
      else if(read_delay!=0)begin
        if(read_delay==2)begin
+         read_delay<=3;
+         read_mapped<=0;
+         read_group[0]<=0;
+         case(ra[6:2])
+           5'd0:begin read_group[0]<=32'h49514131;read_mapped[0]<=1;end
+           5'd1:begin read_group[0]<=iq_build_config::HARDWARE_VERSION;read_mapped[0]<=1;end
+           5'd2:begin read_group[0]<={20'd0,config_dirty[0],snapshot_valid,core_ready,active,5'd0,run_state};read_mapped[0]<=1;end
+           5'd4:begin read_group[0]<=iq_build_config::SAMPLE_RATE_HZ;read_mapped[0]<=1;end
+           5'd5:begin read_group[0]<=iq_build_config::FFT_CLOCK_HZ;read_mapped[0]<=1;end
+           5'd6:begin read_group[0]<=N;read_mapped[0]<=1;end
+           5'd7:begin read_group[0]<=replay_length;read_mapped[0]<=1;end
+           5'd8:begin read_group[0]<=replay_start;read_mapped[0]<=1;end
+           5'd9:begin read_group[0]<=replay_mode;read_mapped[0]<=1;end
+           5'd10:begin read_group[0]<=window_mode;read_mapped[0]<=1;end
+           5'd11:begin read_group[0]<=roi_l;read_mapped[0]<=1;end
+           5'd12:begin read_group[0]<=roi_h;read_mapped[0]<=1;end
+           5'd13:begin read_group[0]<=ton[31:0];read_mapped[0]<=1;end
+           5'd14:begin read_group[0]<={28'd0,ton[35:32]};read_mapped[0]<=1;end
+           5'd15:begin read_group[0]<=toff[31:0];read_mapped[0]<=1;end
+           5'd16:begin read_group[0]<={28'd0,toff[35:32]};read_mapped[0]<=1;end
+           5'd17:begin read_group[0]<={16'd0,kon};read_mapped[0]<=1;end
+           5'd18:begin read_group[0]<={16'd0,koff};read_mapped[0]<=1;end
+           5'd19:begin read_group[0]<=max_burst;read_mapped[0]<=1;end
+           5'd20:begin read_group[0]<=freq_producer;read_mapped[0]<=1;end
+           5'd21:begin read_group[0]<=freq_consumer;read_mapped[0]<=1;end
+           5'd22:begin read_group[0]<=burst_producer;read_mapped[0]<=1;end
+           5'd23:begin read_group[0]<=burst_consumer;read_mapped[0]<=1;end
+           5'd24:begin read_group[0]<=error_status;read_mapped[0]<=1;end
+           5'd26:begin read_group[0]<=epoch;read_mapped[0]<=1;end
+           5'd27:begin read_group[0]<=config_id;read_mapped[0]<=1;end
+           5'd31:begin read_group[0]<={30'd0,snapshot_pending,snapshot_valid};read_mapped[0]<=1;end
+           default:begin end
+         endcase
+         read_group[1]<=0;
+         case(ra[6:2])
+           5'd0:begin read_group[1]<=snapshot_window;read_mapped[1]<=1;end
+           5'd1:begin read_group[1]<=detector_mode;read_mapped[1]<=1;end
+           5'd2:begin read_group[1]<=gap_min;read_mapped[1]<=1;end
+           5'd3:begin read_group[1]<=iq_build_config::CAPABILITIES;read_mapped[1]<=1;end
+           5'd4:begin read_group[1]<=iq_build_config::BUILD_ID[0+:32];read_mapped[1]<=1;end
+           5'd5:begin read_group[1]<=iq_build_config::BUILD_ID[32+:32];read_mapped[1]<=1;end
+           5'd6:begin read_group[1]<=iq_build_config::BUILD_ID[64+:32];read_mapped[1]<=1;end
+           5'd7:begin read_group[1]<=iq_build_config::BUILD_ID[96+:32];read_mapped[1]<=1;end
+           5'd8:begin read_group[1]<=iq_build_config::TIMESTAMP_CLOCK_HZ;read_mapped[1]<=1;end
+           5'd9:begin read_group[1]<=iq_build_config::RECORD_FORMAT_VERSION;read_mapped[1]<=1;end
+           5'd10:begin read_group[1]<=iq_build_config::SCAN_LANES;read_mapped[1]<=1;end
+           default:begin end
+         endcase
+         read_group[2]<=0;
+         case(ra[6:2])
+           5'd4:begin read_group[2]<=tick_snapshot[31:0];read_mapped[2]<=1;end
+           5'd5:begin read_group[2]<=tick_snapshot[63:32];read_mapped[2]<=1;end
+           5'd6:begin read_group[2]<=samples_snapshot[31:0];read_mapped[2]<=1;end
+           5'd7:begin read_group[2]<=samples_snapshot[63:32];read_mapped[2]<=1;end
+           5'd8:begin read_group[2]<=completed_snapshot;read_mapped[2]<=1;end
+           5'd9:begin read_group[2]<=latency_snapshot;read_mapped[2]<=1;end
+           5'd10:begin read_group[2]<=publish_snapshot;read_mapped[2]<=1;end
+           5'd11:begin read_group[2]<=freq_dropped;read_mapped[2]<=1;end
+           5'd12:begin read_group[2]<=burst_dropped;read_mapped[2]<=1;end
+           5'd13:begin read_group[2]<={30'd0,diagnostic_busy,diagnostic_valid};read_mapped[2]<=1;end
+           5'd14:begin read_group[2]<=diagnostic_sequence;read_mapped[2]<=1;end
+           5'd16:begin read_group[2]<=issued_snapshot[31:0];read_mapped[2]<=1;end
+           5'd17:begin read_group[2]<=issued_snapshot[63:32];read_mapped[2]<=1;end
+           5'd18:begin read_group[2]<=accepted_snapshot[31:0];read_mapped[2]<=1;end
+           5'd19:begin read_group[2]<=accepted_snapshot[63:32];read_mapped[2]<=1;end
+           5'd20:begin read_group[2]<=rejected_snapshot;read_mapped[2]<=1;end
+           5'd21:begin read_group[2]<={19'd0,high_water_snapshot};read_mapped[2]<=1;end
+           5'd22:begin read_group[2]<=diagnostic_arrival_tick[31:0];read_mapped[2]<=1;end
+           5'd23:begin read_group[2]<=diagnostic_arrival_tick[63:32];read_mapped[2]<=1;end
+           5'd24:begin read_group[2]<=fft_diagnostic_snapshot[0+:32];read_mapped[2]<=1;end
+           5'd25:begin read_group[2]<=fft_diagnostic_snapshot[32+:32];read_mapped[2]<=1;end
+           5'd26:begin read_group[2]<=fft_diagnostic_snapshot[64+:32];read_mapped[2]<=1;end
+           5'd27:begin read_group[2]<=fft_diagnostic_snapshot[96+:32];read_mapped[2]<=1;end
+           5'd28:begin read_group[2]<=fft_diagnostic_snapshot[128+:32];read_mapped[2]<=1;end
+           5'd29:begin read_group[2]<=fft_diagnostic_snapshot[160+:32];read_mapped[2]<=1;end
+           5'd30:begin read_group[2]<=fft_diagnostic_snapshot[192+:32];read_mapped[2]<=1;end
+           default:begin end
+         endcase
+         read_group[3]<=0;
+         case(ra[6:2])
+           5'd0:begin read_group[3]<={31'd0,host_bank};read_mapped[3]<=1;end
+           5'd1:begin read_group[3]<=0;read_mapped[3]<=1;end
+           5'd2:begin read_group[3]<={24'd0,(!active||host_bank!=active_bank),active,bank_ready,pending_valid,pending_bank,host_bank,active_bank};read_mapped[3]<=1;end
+           5'd3:begin read_group[3]<=bank_length0;read_mapped[3]<=1;end
+           5'd4:begin read_group[3]<=bank_length1;read_mapped[3]<=1;end
+           5'd5:begin read_group[3]<=bank_block0;read_mapped[3]<=1;end
+           5'd6:begin read_group[3]<=bank_block1;read_mapped[3]<=1;end
+           5'd7:begin read_group[3]<=bank_crc0;read_mapped[3]<=1;end
+           5'd8:begin read_group[3]<=bank_crc1;read_mapped[3]<=1;end
+           5'd9:begin read_group[3]<=switch_count;read_mapped[3]<=1;end
+           5'd10:begin read_group[3]<=current_block_id;read_mapped[3]<=1;end
+           5'd11:begin read_group[3]<=last_switch_tick[31:0];read_mapped[3]<=1;end
+           5'd12:begin read_group[3]<=last_switch_tick[63:32];read_mapped[3]<=1;end
+           5'd13:begin read_group[3]<=stream_write_rejected;read_mapped[3]<=1;end
+           5'd14:begin read_group[3]<=stream_errors;read_mapped[3]<=1;end
+           5'd16:begin read_group[3]<=0;read_mapped[3]<=1;end
+           5'd17:begin read_group[3]<={31'd0,loader_target};read_mapped[3]<=1;end
+           5'd18:begin read_group[3]<=loader_expected;read_mapped[3]<=1;end
+           5'd19:begin read_group[3]<=loader_block;read_mapped[3]<=1;end
+           5'd20:begin read_group[3]<=loader_expected_crc;read_mapped[3]<=1;end
+           5'd21:begin read_group[3]<={28'd0,loader_target,(loader_errors!=0),loader_done,loader_active};read_mapped[3]<=1;end
+           5'd22:begin read_group[3]<=loader_received;read_mapped[3]<=1;end
+           5'd23:begin read_group[3]<=loader_computed_crc;read_mapped[3]<=1;end
+           5'd24:begin read_group[3]<=loader_transfers;read_mapped[3]<=1;end
+           5'd25:begin read_group[3]<=loader_errors;read_mapped[3]<=1;end
+           5'd26:begin read_group[3]<=32768;read_mapped[3]<=1;end
+           5'd27:begin read_group[3]<=FREQ_CAP;read_mapped[3]<=1;end
+           5'd28:begin read_group[3]<=128;read_mapped[3]<=1;end
+           5'd29:begin read_group[3]<=1024;read_mapped[3]<=1;end
+           5'd30:begin read_group[3]<=iq_build_config::INPUT_FIFO_DEPTH;read_mapped[3]<=1;end
+           5'd31:begin read_group[3]<=iq_build_config::SNAPSHOT_GROUP;read_mapped[3]<=1;end
+           default:begin end
+         endcase
+       end else if(read_delay==3)begin
          read_delay<=0;s_axi_rvalid<=1;s_axi_rresp<=0;
          if(ra[1:0]!=0)begin s_axi_rdata<=0;s_axi_rresp<=2;end
          else if(ra>=18'h10000&&ra<18'h30000)s_axi_rdata<=host_replay_q;
          else if(ra>=18'h30000&&ra<18'h38000)s_axi_rdata<=freq_read;
          else if(ra>=18'h38000&&ra<18'h3a000)s_axi_rdata<=burst_read;
          else if(ra>=18'h3a000&&ra<18'h3c000)s_axi_rdata<=ra[2]?snapshot_q[63:32]:snapshot_q[31:0];
-         else case(ra)
-           'h000:s_axi_rdata<=32'h49514131;
-           'h004:s_axi_rdata<=iq_build_config::HARDWARE_VERSION;
-           'h008:s_axi_rdata<={20'd0,config_dirty[0],snapshot_valid,core_ready,active,5'd0,run_state};
-           'h010:s_axi_rdata<=iq_build_config::SAMPLE_RATE_HZ;
-           'h014:s_axi_rdata<=iq_build_config::FFT_CLOCK_HZ;
-           'h018:s_axi_rdata<=N;
-           'h01c:s_axi_rdata<=replay_length;
-           'h020:s_axi_rdata<=replay_start;
-           'h024:s_axi_rdata<=replay_mode;
-           'h028:s_axi_rdata<=window_mode;
-           'h02c:s_axi_rdata<=roi_l;
-           'h030:s_axi_rdata<=roi_h;
-           'h034:s_axi_rdata<=ton[31:0];'h038:s_axi_rdata<={28'd0,ton[35:32]};
-           'h03c:s_axi_rdata<=toff[31:0];'h040:s_axi_rdata<={28'd0,toff[35:32]};
-           'h044:s_axi_rdata<={16'd0,kon};'h048:s_axi_rdata<={16'd0,koff};
-           'h04c:s_axi_rdata<=max_burst;
-           'h050:s_axi_rdata<=freq_producer;'h054:s_axi_rdata<=freq_consumer;
-           'h058:s_axi_rdata<=burst_producer;'h05c:s_axi_rdata<=burst_consumer;
-           'h060:s_axi_rdata<=error_status;
-           'h068:s_axi_rdata<=epoch;'h06c:s_axi_rdata<=config_id;
-           'h07c:s_axi_rdata<={30'd0,snapshot_pending,snapshot_valid};
-           'h080:s_axi_rdata<=snapshot_window;
-           'h084:s_axi_rdata<=detector_mode;
-           'h088:s_axi_rdata<=gap_min;
-           'h08c:s_axi_rdata<=iq_build_config::CAPABILITIES;
-           'h090:s_axi_rdata<=iq_build_config::BUILD_ID[0+:32];
-           'h094:s_axi_rdata<=iq_build_config::BUILD_ID[32+:32];
-           'h098:s_axi_rdata<=iq_build_config::BUILD_ID[64+:32];
-           'h09c:s_axi_rdata<=iq_build_config::BUILD_ID[96+:32];
-
-           'h0a0:s_axi_rdata<=iq_build_config::TIMESTAMP_CLOCK_HZ;
-           'h0a4:s_axi_rdata<=iq_build_config::RECORD_FORMAT_VERSION;
-           'h0a8:s_axi_rdata<=iq_build_config::SCAN_LANES;
-           'h180:s_axi_rdata<={31'd0,host_bank};
-           'h184:s_axi_rdata<=0;
-           'h188:s_axi_rdata<={24'd0,(!active||host_bank!=active_bank),active,bank_ready,pending_valid,pending_bank,host_bank,active_bank};
-           'h18c:s_axi_rdata<=bank_length0;'h190:s_axi_rdata<=bank_length1;
-           'h194:s_axi_rdata<=bank_block0;'h198:s_axi_rdata<=bank_block1;
-           'h19c:s_axi_rdata<=bank_crc0;'h1a0:s_axi_rdata<=bank_crc1;
-           'h1a4:s_axi_rdata<=switch_count;'h1a8:s_axi_rdata<=current_block_id;
-           'h1ac:s_axi_rdata<=last_switch_tick[31:0];'h1b0:s_axi_rdata<=last_switch_tick[63:32];
-           'h1b4:s_axi_rdata<=stream_write_rejected;'h1b8:s_axi_rdata<=stream_errors;
-           'h1c0:s_axi_rdata<=0;'h1c4:s_axi_rdata<={31'd0,loader_target};
-           'h1c8:s_axi_rdata<=loader_expected;'h1cc:s_axi_rdata<=loader_block;
-           'h1d0:s_axi_rdata<=loader_expected_crc;
-           'h1d4:s_axi_rdata<={28'd0,loader_target,(loader_errors!=0),loader_done,loader_active};
-           'h1d8:s_axi_rdata<=loader_received;'h1dc:s_axi_rdata<=loader_computed_crc;
-           'h1e0:s_axi_rdata<=loader_transfers;'h1e4:s_axi_rdata<=loader_errors;
-           'h1e8:s_axi_rdata<=32768;
-           'h1ec:s_axi_rdata<=FREQ_CAP;
-           'h1f0:s_axi_rdata<=128;
-           'h1f4:s_axi_rdata<=1024;
-           'h1f8:s_axi_rdata<=iq_build_config::INPUT_FIFO_DEPTH;
-           'h1fc:s_axi_rdata<=iq_build_config::SNAPSHOT_GROUP;
-           'h134:s_axi_rdata<={30'd0,diagnostic_busy,diagnostic_valid};
-           'h138:s_axi_rdata<=diagnostic_sequence;
-           'h140:s_axi_rdata<=issued_snapshot[31:0];'h144:s_axi_rdata<=issued_snapshot[63:32];
-           'h148:s_axi_rdata<=accepted_snapshot[31:0];'h14c:s_axi_rdata<=accepted_snapshot[63:32];
-           'h150:s_axi_rdata<=rejected_snapshot;'h154:s_axi_rdata<={19'd0,high_water_snapshot};
-           'h158:s_axi_rdata<=diagnostic_arrival_tick[31:0];'h15c:s_axi_rdata<=diagnostic_arrival_tick[63:32];
-           'h160:s_axi_rdata<=fft_diagnostic_snapshot[0+:32];
-           'h164:s_axi_rdata<=fft_diagnostic_snapshot[32+:32];
-           'h168:s_axi_rdata<=fft_diagnostic_snapshot[64+:32];
-           'h16c:s_axi_rdata<=fft_diagnostic_snapshot[96+:32];
-           'h170:s_axi_rdata<=fft_diagnostic_snapshot[128+:32];
-           'h174:s_axi_rdata<=fft_diagnostic_snapshot[160+:32];
-           'h178:s_axi_rdata<=fft_diagnostic_snapshot[192+:32];
-
-           'h110:s_axi_rdata<=tick_snapshot[31:0];'h114:s_axi_rdata<=tick_snapshot[63:32];
-           'h118:s_axi_rdata<=samples_snapshot[31:0];'h11c:s_axi_rdata<=samples_snapshot[63:32];
-           'h120:s_axi_rdata<=completed_snapshot;'h124:s_axi_rdata<=latency_snapshot;
-           'h128:s_axi_rdata<=publish_snapshot;'h12c:s_axi_rdata<=freq_dropped;'h130:s_axi_rdata<=burst_dropped;
-           default:begin s_axi_rdata<=0;s_axi_rresp<=2;end
-         endcase
+         else if(ra[17:9]==0&&read_mapped[ra[8:7]])s_axi_rdata<=read_group[ra[8:7]];
+         else begin s_axi_rdata<=0;s_axi_rresp<=2;end
        end else read_delay<=read_delay+1;
      end
    end

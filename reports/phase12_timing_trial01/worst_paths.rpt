@@ -1,0 +1,1808 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Sun Oct 11 12:32:46 2026
+| Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
+| Command      : report_timing -max_paths 20 -file D:/fft/fft_phase12_wideband_150m/reports/worst_paths.rpt
+| Design       : system_wrapper
+| Device       : 7z020-clg400
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Physopt postRoute
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -1.049ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/rb/divide/remnant_reg[61]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.454ns  (logic 4.937ns (66.230%)  route 2.517ns (33.770%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT4=1)
+  Clock Path Skew:        -0.196ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.716ns = ( 9.382 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.027ns
+    Clock Pessimism Removal (CPR):    0.115ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.733     3.027    system_i/iq_0/inst/core/rb/divide/s_axi_aclk
+    SLICE_X64Y49         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X64Y49         FDRE (Prop_fdre_C_Q)         0.456     3.483 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/Q
+                         net (fo=5, routed)           0.821     4.304    system_i/iq_0/inst/core/rb/divide/div_r[8]
+    SLICE_X67Y51         LUT4 (Prop_lut4_I0_O)        0.124     4.428 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_i_4/O
+                         net (fo=1, routed)           0.324     4.752    system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_i_4_n_0
+    SLICE_X65Y52         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     5.278 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_n_0
+    SLICE_X65Y53         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.392 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     5.392    system_i/iq_0/inst/core/rb/divide/quotient1_carry__1_n_0
+    SLICE_X65Y54         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.506 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     5.506    system_i/iq_0/inst/core/rb/divide/quotient1_carry__2_n_0
+    SLICE_X65Y55         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.620 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     5.620    system_i/iq_0/inst/core/rb/divide/quotient1_carry__3_n_0
+    SLICE_X65Y56         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.734 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     5.734    system_i/iq_0/inst/core/rb/divide/quotient1_carry__4_n_0
+    SLICE_X65Y57         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.848 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     5.848    system_i/iq_0/inst/core/rb/divide/quotient1_carry__5_n_0
+    SLICE_X65Y58         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.962 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__6/CO[3]
+                         net (fo=1, routed)           0.000     5.962    system_i/iq_0/inst/core/rb/divide/quotient1_carry__6_n_0
+    SLICE_X65Y59         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.296 f  system_i/iq_0/inst/core/rb/divide/quotient1_carry__7/O[1]
+                         net (fo=65, routed)          1.036     7.332    system_i/iq_0/inst/core/rb/divide/quotient1_carry__7_n_6
+    SLICE_X65Y46         LUT1 (Prop_lut1_I0_O)        0.303     7.635 r  system_i/iq_0/inst/core/rb/divide/remnant[3]_i_2__0/O
+                         net (fo=1, routed)           0.336     7.971    system_i/iq_0/inst/core/rb/divide/remnant[3]_i_2__0_n_0
+    SLICE_X64Y47         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.551 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[3]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.551    system_i/iq_0/inst/core/rb/divide/remnant_reg[3]_i_1__0_n_0
+    SLICE_X64Y48         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.665 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[7]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.665    system_i/iq_0/inst/core/rb/divide/remnant_reg[7]_i_1__0_n_0
+    SLICE_X64Y49         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.779 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[11]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.001     8.779    system_i/iq_0/inst/core/rb/divide/remnant_reg[11]_i_1__0_n_0
+    SLICE_X64Y50         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.893 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[15]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.893    system_i/iq_0/inst/core/rb/divide/remnant_reg[15]_i_1__0_n_0
+    SLICE_X64Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.007 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[19]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.007    system_i/iq_0/inst/core/rb/divide/remnant_reg[19]_i_1__0_n_0
+    SLICE_X64Y52         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.121 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[23]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.121    system_i/iq_0/inst/core/rb/divide/remnant_reg[23]_i_1__0_n_0
+    SLICE_X64Y53         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.235 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[27]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.235    system_i/iq_0/inst/core/rb/divide/remnant_reg[27]_i_1__0_n_0
+    SLICE_X64Y54         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.349 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[31]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.349    system_i/iq_0/inst/core/rb/divide/remnant_reg[31]_i_1__0_n_0
+    SLICE_X64Y55         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.463 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[35]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.463    system_i/iq_0/inst/core/rb/divide/remnant_reg[35]_i_1__0_n_0
+    SLICE_X64Y56         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.577 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[39]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.577    system_i/iq_0/inst/core/rb/divide/remnant_reg[39]_i_1__0_n_0
+    SLICE_X64Y57         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.691 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[43]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.691    system_i/iq_0/inst/core/rb/divide/remnant_reg[43]_i_1__0_n_0
+    SLICE_X64Y58         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.805 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[47]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.805    system_i/iq_0/inst/core/rb/divide/remnant_reg[47]_i_1__0_n_0
+    SLICE_X64Y59         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.919 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[51]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.919    system_i/iq_0/inst/core/rb/divide/remnant_reg[51]_i_1__0_n_0
+    SLICE_X64Y60         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.033 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[55]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000    10.033    system_i/iq_0/inst/core/rb/divide/remnant_reg[55]_i_1__0_n_0
+    SLICE_X64Y61         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.147 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[59]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000    10.147    system_i/iq_0/inst/core/rb/divide/remnant_reg[59]_i_1__0_n_0
+    SLICE_X64Y62         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    10.481 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[63]_i_2/O[1]
+                         net (fo=1, routed)           0.000    10.481    system_i/iq_0/inst/core/rb/divide/remnant_reg[63]_i_2_n_6
+    SLICE_X64Y62         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[61]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.537     9.382    system_i/iq_0/inst/core/rb/divide/s_axi_aclk
+    SLICE_X64Y62         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[61]/C
+                         clock pessimism              0.115     9.497    <hidden>
+                         clock uncertainty           -0.127     9.370    <hidden>
+    SLICE_X64Y62         FDRE (Setup_fdre_C_D)        0.062     9.432    system_i/iq_0/inst/core/rb/divide/remnant_reg[61]
+  -------------------------------------------------------------------
+                         required time                          9.432    <hidden>
+                         arrival time                         -10.481    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.049    <hidden>
+
+Slack (VIOLATED) :        -1.043ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/host_errors_reg[19]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.326ns  (logic 3.717ns (50.735%)  route 3.609ns (49.265%))
+  Logic Levels:           15  (CARRY4=8 LUT2=2 LUT6=5)
+  Clock Path Skew:        -0.051ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.712ns = ( 9.378 - 6.667 ) 
+    Source Clock Delay      (SCD):    2.992ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.698     2.992    system_i/iq_0/inst/freq_ring/s_axi_aclk
+    SLICE_X67Y72         FDRE                                         r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y72         FDRE (Prop_fdre_C_Q)         0.456     3.448 r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/Q
+                         net (fo=2, routed)           0.577     4.025    system_i/iq_0/inst/freq_ring/out[5]_repN
+    SLICE_X65Y72         LUT2 (Prop_lut2_I0_O)        0.124     4.149 r  system_i/iq_0/inst/freq_ring/run_state[2]_i_74/O
+                         net (fo=1, routed)           0.000     4.149    system_i/iq_0/inst/freq_ring/run_state[2]_i_74_n_0
+    SLICE_X65Y72         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.699 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49/CO[3]
+                         net (fo=1, routed)           0.000     4.699    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49_n_0
+    SLICE_X65Y73         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.813 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48/CO[3]
+                         net (fo=1, routed)           0.000     4.813    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48_n_0
+    SLICE_X65Y74         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.927 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34/CO[3]
+                         net (fo=1, routed)           0.009     4.936    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34_n_0
+    SLICE_X65Y75         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.050 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33/CO[3]
+                         net (fo=1, routed)           0.000     5.050    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33_n_0
+    SLICE_X65Y76         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.164 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32/CO[3]
+                         net (fo=1, routed)           0.000     5.164    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32_n_0
+    SLICE_X65Y77         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.278 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22_n_0
+    SLICE_X65Y78         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     5.612 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_21/O[1]
+                         net (fo=1, routed)           0.706     6.318    system_i/iq_0/inst/core/rb/run_state_reg[2]_i_8[1]
+    SLICE_X66Y76         LUT6 (Prop_lut6_I3_O)        0.303     6.621 r  system_i/iq_0/inst/core/rb/run_state[2]_i_12/O
+                         net (fo=1, routed)           0.000     6.621    system_i/iq_0/inst/freq_ring/run_state[2]_i_6_0[0]
+    SLICE_X66Y76         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.574     7.195 f  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_8/CO[2]
+                         net (fo=1, routed)           0.570     7.765    system_i/iq_0/inst/freq_ring/run_state5
+    SLICE_X66Y78         LUT6 (Prop_lut6_I1_O)        0.310     8.075 f  system_i/iq_0/inst/freq_ring/run_state[2]_i_6/O
+                         net (fo=2, routed)           0.328     8.403    system_i/iq_0/inst/freq_ring/busy_reg_1
+    SLICE_X66Y80         LUT2 (Prop_lut2_I0_O)        0.124     8.527 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_11/O
+                         net (fo=5, routed)           0.326     8.853    system_i/iq_0/inst/freq_ring/host_errors[19]_i_11_n_0
+    SLICE_X65Y81         LUT6 (Prop_lut6_I5_O)        0.124     8.977 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_14/O
+                         net (fo=1, routed)           0.304     9.281    system_i/iq_0/inst/freq_ring/host_errors[19]_i_14_n_0
+    SLICE_X66Y81         LUT6 (Prop_lut6_I3_O)        0.124     9.405 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_comp/O
+                         net (fo=1, routed)           0.454     9.860    system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_n_0
+    SLICE_X67Y82         LUT6 (Prop_lut6_I5_O)        0.124     9.984 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_1/O
+                         net (fo=4, routed)           0.335    10.318    system_i/iq_0/inst/freq_ring_n_175
+    SLICE_X64Y82         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[19]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.533     9.378    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y82         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[19]/C
+                         clock pessimism              0.229     9.608    <hidden>
+                         clock uncertainty           -0.127     9.480    <hidden>
+    SLICE_X64Y82         FDRE (Setup_fdre_C_CE)      -0.205     9.275    system_i/iq_0/inst/host_errors_reg[19]
+  -------------------------------------------------------------------
+                         required time                          9.275    <hidden>
+                         arrival time                         -10.318    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.043    <hidden>
+
+Slack (VIOLATED) :        -1.043ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/host_errors_reg[8]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.326ns  (logic 3.717ns (50.735%)  route 3.609ns (49.265%))
+  Logic Levels:           15  (CARRY4=8 LUT2=2 LUT6=5)
+  Clock Path Skew:        -0.051ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.712ns = ( 9.378 - 6.667 ) 
+    Source Clock Delay      (SCD):    2.992ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.698     2.992    system_i/iq_0/inst/freq_ring/s_axi_aclk
+    SLICE_X67Y72         FDRE                                         r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y72         FDRE (Prop_fdre_C_Q)         0.456     3.448 r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/Q
+                         net (fo=2, routed)           0.577     4.025    system_i/iq_0/inst/freq_ring/out[5]_repN
+    SLICE_X65Y72         LUT2 (Prop_lut2_I0_O)        0.124     4.149 r  system_i/iq_0/inst/freq_ring/run_state[2]_i_74/O
+                         net (fo=1, routed)           0.000     4.149    system_i/iq_0/inst/freq_ring/run_state[2]_i_74_n_0
+    SLICE_X65Y72         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.699 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49/CO[3]
+                         net (fo=1, routed)           0.000     4.699    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49_n_0
+    SLICE_X65Y73         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.813 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48/CO[3]
+                         net (fo=1, routed)           0.000     4.813    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48_n_0
+    SLICE_X65Y74         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.927 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34/CO[3]
+                         net (fo=1, routed)           0.009     4.936    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34_n_0
+    SLICE_X65Y75         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.050 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33/CO[3]
+                         net (fo=1, routed)           0.000     5.050    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33_n_0
+    SLICE_X65Y76         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.164 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32/CO[3]
+                         net (fo=1, routed)           0.000     5.164    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32_n_0
+    SLICE_X65Y77         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.278 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22_n_0
+    SLICE_X65Y78         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     5.612 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_21/O[1]
+                         net (fo=1, routed)           0.706     6.318    system_i/iq_0/inst/core/rb/run_state_reg[2]_i_8[1]
+    SLICE_X66Y76         LUT6 (Prop_lut6_I3_O)        0.303     6.621 r  system_i/iq_0/inst/core/rb/run_state[2]_i_12/O
+                         net (fo=1, routed)           0.000     6.621    system_i/iq_0/inst/freq_ring/run_state[2]_i_6_0[0]
+    SLICE_X66Y76         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.574     7.195 f  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_8/CO[2]
+                         net (fo=1, routed)           0.570     7.765    system_i/iq_0/inst/freq_ring/run_state5
+    SLICE_X66Y78         LUT6 (Prop_lut6_I1_O)        0.310     8.075 f  system_i/iq_0/inst/freq_ring/run_state[2]_i_6/O
+                         net (fo=2, routed)           0.328     8.403    system_i/iq_0/inst/freq_ring/busy_reg_1
+    SLICE_X66Y80         LUT2 (Prop_lut2_I0_O)        0.124     8.527 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_11/O
+                         net (fo=5, routed)           0.326     8.853    system_i/iq_0/inst/freq_ring/host_errors[19]_i_11_n_0
+    SLICE_X65Y81         LUT6 (Prop_lut6_I5_O)        0.124     8.977 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_14/O
+                         net (fo=1, routed)           0.304     9.281    system_i/iq_0/inst/freq_ring/host_errors[19]_i_14_n_0
+    SLICE_X66Y81         LUT6 (Prop_lut6_I3_O)        0.124     9.405 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_comp/O
+                         net (fo=1, routed)           0.454     9.860    system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_n_0
+    SLICE_X67Y82         LUT6 (Prop_lut6_I5_O)        0.124     9.984 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_1/O
+                         net (fo=4, routed)           0.335    10.318    system_i/iq_0/inst/freq_ring_n_175
+    SLICE_X64Y82         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[8]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.533     9.378    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y82         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[8]/C
+                         clock pessimism              0.229     9.608    <hidden>
+                         clock uncertainty           -0.127     9.480    <hidden>
+    SLICE_X64Y82         FDRE (Setup_fdre_C_CE)      -0.205     9.275    system_i/iq_0/inst/host_errors_reg[8]
+  -------------------------------------------------------------------
+                         required time                          9.275    <hidden>
+                         arrival time                         -10.318    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.043    <hidden>
+
+Slack (VIOLATED) :        -1.038ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[1]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.309ns  (logic 2.327ns (31.838%)  route 4.982ns (68.162%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.903     9.648    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.772 r  system_i/iq_0/inst/bank_length0[7]_i_1/O
+                         net (fo=8, routed)           0.546    10.318    system_i/iq_0/inst/bank_length03_out[0]
+    SLICE_X64Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[1]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[1]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X64Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[1]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.318    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.038    <hidden>
+
+Slack (VIOLATED) :        -1.028ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/rb/divide/remnant_reg[63]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.433ns  (logic 4.916ns (66.135%)  route 2.517ns (33.865%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT4=1)
+  Clock Path Skew:        -0.196ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.716ns = ( 9.382 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.027ns
+    Clock Pessimism Removal (CPR):    0.115ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.733     3.027    system_i/iq_0/inst/core/rb/divide/s_axi_aclk
+    SLICE_X64Y49         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X64Y49         FDRE (Prop_fdre_C_Q)         0.456     3.483 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[8]/Q
+                         net (fo=5, routed)           0.821     4.304    system_i/iq_0/inst/core/rb/divide/div_r[8]
+    SLICE_X67Y51         LUT4 (Prop_lut4_I0_O)        0.124     4.428 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_i_4/O
+                         net (fo=1, routed)           0.324     4.752    system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_i_4_n_0
+    SLICE_X65Y52         CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.526     5.278 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__0/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/core/rb/divide/quotient1_carry__0_n_0
+    SLICE_X65Y53         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.392 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__1/CO[3]
+                         net (fo=1, routed)           0.000     5.392    system_i/iq_0/inst/core/rb/divide/quotient1_carry__1_n_0
+    SLICE_X65Y54         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.506 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__2/CO[3]
+                         net (fo=1, routed)           0.000     5.506    system_i/iq_0/inst/core/rb/divide/quotient1_carry__2_n_0
+    SLICE_X65Y55         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.620 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__3/CO[3]
+                         net (fo=1, routed)           0.000     5.620    system_i/iq_0/inst/core/rb/divide/quotient1_carry__3_n_0
+    SLICE_X65Y56         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.734 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__4/CO[3]
+                         net (fo=1, routed)           0.000     5.734    system_i/iq_0/inst/core/rb/divide/quotient1_carry__4_n_0
+    SLICE_X65Y57         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.848 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__5/CO[3]
+                         net (fo=1, routed)           0.000     5.848    system_i/iq_0/inst/core/rb/divide/quotient1_carry__5_n_0
+    SLICE_X65Y58         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.962 r  system_i/iq_0/inst/core/rb/divide/quotient1_carry__6/CO[3]
+                         net (fo=1, routed)           0.000     5.962    system_i/iq_0/inst/core/rb/divide/quotient1_carry__6_n_0
+    SLICE_X65Y59         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.296 f  system_i/iq_0/inst/core/rb/divide/quotient1_carry__7/O[1]
+                         net (fo=65, routed)          1.036     7.332    system_i/iq_0/inst/core/rb/divide/quotient1_carry__7_n_6
+    SLICE_X65Y46         LUT1 (Prop_lut1_I0_O)        0.303     7.635 r  system_i/iq_0/inst/core/rb/divide/remnant[3]_i_2__0/O
+                         net (fo=1, routed)           0.336     7.971    system_i/iq_0/inst/core/rb/divide/remnant[3]_i_2__0_n_0
+    SLICE_X64Y47         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.551 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[3]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.551    system_i/iq_0/inst/core/rb/divide/remnant_reg[3]_i_1__0_n_0
+    SLICE_X64Y48         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.665 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[7]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.665    system_i/iq_0/inst/core/rb/divide/remnant_reg[7]_i_1__0_n_0
+    SLICE_X64Y49         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.779 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[11]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.001     8.779    system_i/iq_0/inst/core/rb/divide/remnant_reg[11]_i_1__0_n_0
+    SLICE_X64Y50         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.893 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[15]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     8.893    system_i/iq_0/inst/core/rb/divide/remnant_reg[15]_i_1__0_n_0
+    SLICE_X64Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.007 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[19]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.007    system_i/iq_0/inst/core/rb/divide/remnant_reg[19]_i_1__0_n_0
+    SLICE_X64Y52         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.121 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[23]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.121    system_i/iq_0/inst/core/rb/divide/remnant_reg[23]_i_1__0_n_0
+    SLICE_X64Y53         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.235 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[27]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.235    system_i/iq_0/inst/core/rb/divide/remnant_reg[27]_i_1__0_n_0
+    SLICE_X64Y54         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.349 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[31]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.349    system_i/iq_0/inst/core/rb/divide/remnant_reg[31]_i_1__0_n_0
+    SLICE_X64Y55         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.463 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[35]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.463    system_i/iq_0/inst/core/rb/divide/remnant_reg[35]_i_1__0_n_0
+    SLICE_X64Y56         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.577 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[39]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.577    system_i/iq_0/inst/core/rb/divide/remnant_reg[39]_i_1__0_n_0
+    SLICE_X64Y57         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.691 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[43]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.691    system_i/iq_0/inst/core/rb/divide/remnant_reg[43]_i_1__0_n_0
+    SLICE_X64Y58         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.805 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[47]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.805    system_i/iq_0/inst/core/rb/divide/remnant_reg[47]_i_1__0_n_0
+    SLICE_X64Y59         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.919 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[51]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.919    system_i/iq_0/inst/core/rb/divide/remnant_reg[51]_i_1__0_n_0
+    SLICE_X64Y60         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.033 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[55]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000    10.033    system_i/iq_0/inst/core/rb/divide/remnant_reg[55]_i_1__0_n_0
+    SLICE_X64Y61         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    10.147 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[59]_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000    10.147    system_i/iq_0/inst/core/rb/divide/remnant_reg[59]_i_1__0_n_0
+    SLICE_X64Y62         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    10.460 r  system_i/iq_0/inst/core/rb/divide/remnant_reg[63]_i_2/O[3]
+                         net (fo=1, routed)           0.000    10.460    system_i/iq_0/inst/core/rb/divide/remnant_reg[63]_i_2_n_4
+    SLICE_X64Y62         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[63]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.537     9.382    system_i/iq_0/inst/core/rb/divide/s_axi_aclk
+    SLICE_X64Y62         FDRE                                         r  system_i/iq_0/inst/core/rb/divide/remnant_reg[63]/C
+                         clock pessimism              0.115     9.497    <hidden>
+                         clock uncertainty           -0.127     9.370    <hidden>
+    SLICE_X64Y62         FDRE (Setup_fdre_C_D)        0.062     9.432    system_i/iq_0/inst/core/rb/divide/remnant_reg[63]
+  -------------------------------------------------------------------
+                         required time                          9.432    <hidden>
+                         arrival time                         -10.460    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.028    <hidden>
+
+Slack (VIOLATED) :        -1.021ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/host_errors_reg[12]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.338ns  (logic 3.717ns (50.657%)  route 3.621ns (49.343%))
+  Logic Levels:           15  (CARRY4=8 LUT2=2 LUT6=5)
+  Clock Path Skew:        -0.054ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.709ns = ( 9.375 - 6.667 ) 
+    Source Clock Delay      (SCD):    2.992ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.698     2.992    system_i/iq_0/inst/freq_ring/s_axi_aclk
+    SLICE_X67Y72         FDRE                                         r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y72         FDRE (Prop_fdre_C_Q)         0.456     3.448 r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/Q
+                         net (fo=2, routed)           0.577     4.025    system_i/iq_0/inst/freq_ring/out[5]_repN
+    SLICE_X65Y72         LUT2 (Prop_lut2_I0_O)        0.124     4.149 r  system_i/iq_0/inst/freq_ring/run_state[2]_i_74/O
+                         net (fo=1, routed)           0.000     4.149    system_i/iq_0/inst/freq_ring/run_state[2]_i_74_n_0
+    SLICE_X65Y72         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.699 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49/CO[3]
+                         net (fo=1, routed)           0.000     4.699    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49_n_0
+    SLICE_X65Y73         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.813 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48/CO[3]
+                         net (fo=1, routed)           0.000     4.813    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48_n_0
+    SLICE_X65Y74         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.927 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34/CO[3]
+                         net (fo=1, routed)           0.009     4.936    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34_n_0
+    SLICE_X65Y75         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.050 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33/CO[3]
+                         net (fo=1, routed)           0.000     5.050    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33_n_0
+    SLICE_X65Y76         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.164 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32/CO[3]
+                         net (fo=1, routed)           0.000     5.164    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32_n_0
+    SLICE_X65Y77         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.278 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22_n_0
+    SLICE_X65Y78         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     5.612 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_21/O[1]
+                         net (fo=1, routed)           0.706     6.318    system_i/iq_0/inst/core/rb/run_state_reg[2]_i_8[1]
+    SLICE_X66Y76         LUT6 (Prop_lut6_I3_O)        0.303     6.621 r  system_i/iq_0/inst/core/rb/run_state[2]_i_12/O
+                         net (fo=1, routed)           0.000     6.621    system_i/iq_0/inst/freq_ring/run_state[2]_i_6_0[0]
+    SLICE_X66Y76         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.574     7.195 f  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_8/CO[2]
+                         net (fo=1, routed)           0.570     7.765    system_i/iq_0/inst/freq_ring/run_state5
+    SLICE_X66Y78         LUT6 (Prop_lut6_I1_O)        0.310     8.075 f  system_i/iq_0/inst/freq_ring/run_state[2]_i_6/O
+                         net (fo=2, routed)           0.328     8.403    system_i/iq_0/inst/freq_ring/busy_reg_1
+    SLICE_X66Y80         LUT2 (Prop_lut2_I0_O)        0.124     8.527 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_11/O
+                         net (fo=5, routed)           0.326     8.853    system_i/iq_0/inst/freq_ring/host_errors[19]_i_11_n_0
+    SLICE_X65Y81         LUT6 (Prop_lut6_I5_O)        0.124     8.977 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_14/O
+                         net (fo=1, routed)           0.304     9.281    system_i/iq_0/inst/freq_ring/host_errors[19]_i_14_n_0
+    SLICE_X66Y81         LUT6 (Prop_lut6_I3_O)        0.124     9.405 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_comp/O
+                         net (fo=1, routed)           0.454     9.860    system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_n_0
+    SLICE_X67Y82         LUT6 (Prop_lut6_I5_O)        0.124     9.984 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_1/O
+                         net (fo=4, routed)           0.346    10.330    system_i/iq_0/inst/freq_ring_n_175
+    SLICE_X66Y80         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[12]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.530     9.375    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X66Y80         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[12]/C
+                         clock pessimism              0.229     9.605    <hidden>
+                         clock uncertainty           -0.127     9.477    <hidden>
+    SLICE_X66Y80         FDRE (Setup_fdre_C_CE)      -0.169     9.308    system_i/iq_0/inst/host_errors_reg[12]
+  -------------------------------------------------------------------
+                         required time                          9.308    <hidden>
+                         arrival time                         -10.330    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.021    <hidden>
+
+Slack (VIOLATED) :        -1.021ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/host_errors_reg[9]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.338ns  (logic 3.717ns (50.657%)  route 3.621ns (49.343%))
+  Logic Levels:           15  (CARRY4=8 LUT2=2 LUT6=5)
+  Clock Path Skew:        -0.054ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.709ns = ( 9.375 - 6.667 ) 
+    Source Clock Delay      (SCD):    2.992ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.698     2.992    system_i/iq_0/inst/freq_ring/s_axi_aclk
+    SLICE_X67Y72         FDRE                                         r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X67Y72         FDRE (Prop_fdre_C_Q)         0.456     3.448 r  system_i/iq_0/inst/freq_ring/producer_reg[5]_replica/Q
+                         net (fo=2, routed)           0.577     4.025    system_i/iq_0/inst/freq_ring/out[5]_repN
+    SLICE_X65Y72         LUT2 (Prop_lut2_I0_O)        0.124     4.149 r  system_i/iq_0/inst/freq_ring/run_state[2]_i_74/O
+                         net (fo=1, routed)           0.000     4.149    system_i/iq_0/inst/freq_ring/run_state[2]_i_74_n_0
+    SLICE_X65Y72         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.699 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49/CO[3]
+                         net (fo=1, routed)           0.000     4.699    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_49_n_0
+    SLICE_X65Y73         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.813 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48/CO[3]
+                         net (fo=1, routed)           0.000     4.813    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_48_n_0
+    SLICE_X65Y74         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.927 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34/CO[3]
+                         net (fo=1, routed)           0.009     4.936    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_34_n_0
+    SLICE_X65Y75         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.050 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33/CO[3]
+                         net (fo=1, routed)           0.000     5.050    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_33_n_0
+    SLICE_X65Y76         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.164 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32/CO[3]
+                         net (fo=1, routed)           0.000     5.164    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_32_n_0
+    SLICE_X65Y77         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.278 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22/CO[3]
+                         net (fo=1, routed)           0.000     5.278    system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_22_n_0
+    SLICE_X65Y78         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     5.612 r  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_21/O[1]
+                         net (fo=1, routed)           0.706     6.318    system_i/iq_0/inst/core/rb/run_state_reg[2]_i_8[1]
+    SLICE_X66Y76         LUT6 (Prop_lut6_I3_O)        0.303     6.621 r  system_i/iq_0/inst/core/rb/run_state[2]_i_12/O
+                         net (fo=1, routed)           0.000     6.621    system_i/iq_0/inst/freq_ring/run_state[2]_i_6_0[0]
+    SLICE_X66Y76         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.574     7.195 f  system_i/iq_0/inst/freq_ring/run_state_reg[2]_i_8/CO[2]
+                         net (fo=1, routed)           0.570     7.765    system_i/iq_0/inst/freq_ring/run_state5
+    SLICE_X66Y78         LUT6 (Prop_lut6_I1_O)        0.310     8.075 f  system_i/iq_0/inst/freq_ring/run_state[2]_i_6/O
+                         net (fo=2, routed)           0.328     8.403    system_i/iq_0/inst/freq_ring/busy_reg_1
+    SLICE_X66Y80         LUT2 (Prop_lut2_I0_O)        0.124     8.527 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_11/O
+                         net (fo=5, routed)           0.326     8.853    system_i/iq_0/inst/freq_ring/host_errors[19]_i_11_n_0
+    SLICE_X65Y81         LUT6 (Prop_lut6_I5_O)        0.124     8.977 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_14/O
+                         net (fo=1, routed)           0.304     9.281    system_i/iq_0/inst/freq_ring/host_errors[19]_i_14_n_0
+    SLICE_X66Y81         LUT6 (Prop_lut6_I3_O)        0.124     9.405 f  system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_comp/O
+                         net (fo=1, routed)           0.454     9.860    system_i/iq_0/inst/freq_ring/host_errors[19]_i_7_n_0
+    SLICE_X67Y82         LUT6 (Prop_lut6_I5_O)        0.124     9.984 r  system_i/iq_0/inst/freq_ring/host_errors[19]_i_1/O
+                         net (fo=4, routed)           0.346    10.330    system_i/iq_0/inst/freq_ring_n_175
+    SLICE_X66Y80         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[9]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.530     9.375    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X66Y80         FDRE                                         r  system_i/iq_0/inst/host_errors_reg[9]/C
+                         clock pessimism              0.229     9.605    <hidden>
+                         clock uncertainty           -0.127     9.477    <hidden>
+    SLICE_X66Y80         FDRE (Setup_fdre_C_CE)      -0.169     9.308    system_i/iq_0/inst/host_errors_reg[9]
+  -------------------------------------------------------------------
+                         required time                          9.308    <hidden>
+                         arrival time                         -10.330    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.021    <hidden>
+
+Slack (VIOLATED) :        -1.015ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/tm/confirm_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/tm/threshold_burst_data_reg[157]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.577ns  (logic 3.265ns (43.093%)  route 4.312ns (56.907%))
+  Logic Levels:           9  (CARRY4=5 LUT3=1 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.059ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.786ns = ( 9.452 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.074ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.780     3.074    system_i/iq_0/inst/core/tm/s_axi_aclk
+    SLICE_X91Y57         FDRE                                         r  system_i/iq_0/inst/core/tm/confirm_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y57         FDRE (Prop_fdre_C_Q)         0.456     3.530 r  system_i/iq_0/inst/core/tm/confirm_reg[1]/Q
+                         net (fo=3, routed)           0.424     3.954    system_i/iq_0/inst/core/tm/confirm_reg_n_0_[1]
+    SLICE_X91Y58         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.656     4.610 r  system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_83/CO[3]
+                         net (fo=1, routed)           0.000     4.610    system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_83_n_0
+    SLICE_X91Y59         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     4.724 r  system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_64/CO[3]
+                         net (fo=1, routed)           0.000     4.724    system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_64_n_0
+    SLICE_X91Y60         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     5.058 r  system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_37/O[1]
+                         net (fo=4, routed)           0.894     5.952    system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_37_n_6
+    SLICE_X90Y58         LUT4 (Prop_lut4_I0_O)        0.303     6.255 r  system_i/iq_0/inst/core/tm/tail_peak[31]_i_35/O
+                         net (fo=1, routed)           0.000     6.255    system_i/iq_0/inst/core/tm/tail_peak[31]_i_35_n_0
+    SLICE_X90Y58         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     6.788 r  system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_7/CO[3]
+                         net (fo=1, routed)           0.000     6.788    system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_7_n_0
+    SLICE_X90Y59         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     7.042 f  system_i/iq_0/inst/core/tm/tail_peak_reg[31]_i_2/CO[0]
+                         net (fo=9, routed)           0.692     7.734    system_i/iq_0/inst/core/tm/threshold_burst_valid2
+    SLICE_X97Y60         LUT6 (Prop_lut6_I1_O)        0.367     8.101 r  system_i/iq_0/inst/core/tm/threshold_burst_data[266]_i_2/O
+                         net (fo=64, routed)          1.461     9.561    system_i/iq_0/inst/core/tm/threshold_burst_data0_out[266]
+    SLICE_X95Y47         LUT6 (Prop_lut6_I0_O)        0.124     9.685 r  system_i/iq_0/inst/core/tm/threshold_burst_data[157]_i_2/O
+                         net (fo=1, routed)           0.842    10.527    system_i/iq_0/inst/core/tm/threshold_burst_data[157]_i_2_n_0
+    SLICE_X96Y58         LUT3 (Prop_lut3_I2_O)        0.124    10.651 r  system_i/iq_0/inst/core/tm/threshold_burst_data[157]_i_1/O
+                         net (fo=1, routed)           0.000    10.651    system_i/iq_0/inst/core/tm/threshold_burst_data0_out[157]
+    SLICE_X96Y58         FDRE                                         r  system_i/iq_0/inst/core/tm/threshold_burst_data_reg[157]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.607     9.452    system_i/iq_0/inst/core/tm/s_axi_aclk
+    SLICE_X96Y58         FDRE                                         r  system_i/iq_0/inst/core/tm/threshold_burst_data_reg[157]/C
+                         clock pessimism              0.229     9.682    <hidden>
+                         clock uncertainty           -0.127     9.554    <hidden>
+    SLICE_X96Y58         FDRE (Setup_fdre_C_D)        0.081     9.635    system_i/iq_0/inst/core/tm/threshold_burst_data_reg[157]
+  -------------------------------------------------------------------
+                         required time                          9.635    <hidden>
+                         arrival time                         -10.651    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -1.015    <hidden>
+
+Slack (VIOLATED) :        -0.990ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[17]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.971ns  (logic 2.131ns (30.570%)  route 4.840ns (69.430%))
+  Logic Levels:           8  (CARRY4=2 LUT4=1 LUT5=1 LUT6=4)
+  Clock Path Skew:        -0.353ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.199ns
+    Clock Pessimism Removal (CPR):    0.129ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.905     3.199    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X59Y100        FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y100        FDRE (Prop_fdre_C_Q)         0.419     3.618 r  system_i/iq_0/inst/loader_crc_byte_reg[2]/Q
+                         net (fo=22, routed)          1.083     4.701    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[2]
+    SLICE_X56Y101        LUT6 (Prop_lut6_I5_O)        0.297     4.998 r  system_i/iq_0/inst/loader_computed_crc[31]_i_4/O
+                         net (fo=18, routed)          0.653     5.651    system_i/iq_0/inst/loader_computed_crc[31]_i_4_n_0
+    SLICE_X59Y100        LUT4 (Prop_lut4_I1_O)        0.124     5.775 r  system_i/iq_0/inst/loader_computed_crc[30]_i_2/O
+                         net (fo=8, routed)           0.336     6.111    system_i/iq_0/inst/loader_computed_crc[30]_i_2_n_0
+    SLICE_X59Y98         LUT6 (Prop_lut6_I5_O)        0.124     6.235 r  system_i/iq_0/inst/loader_computed_crc[19]_i_2/O
+                         net (fo=4, routed)           0.629     6.864    system_i/iq_0/inst/loader_computed_crc[19]_i_2_n_0
+    SLICE_X58Y96         LUT6 (Prop_lut6_I0_O)        0.124     6.988 r  system_i/iq_0/inst/loader_transfers[0]_i_14/O
+                         net (fo=1, routed)           0.000     6.988    system_i/iq_0/inst/loader_transfers[0]_i_14_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.380     7.368 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.368    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.597 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.309    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.619 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.654    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.778 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.392    10.170    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[17]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[17]/C
+                         clock pessimism              0.129     9.512    <hidden>
+                         clock uncertainty           -0.127     9.385    <hidden>
+    SLICE_X60Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.180    system_i/iq_0/inst/bank_length0_reg[17]
+  -------------------------------------------------------------------
+                         required time                          9.180    <hidden>
+                         arrival time                         -10.170    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.990    <hidden>
+
+Slack (VIOLATED) :        -0.990ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[18]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.971ns  (logic 2.131ns (30.570%)  route 4.840ns (69.430%))
+  Logic Levels:           8  (CARRY4=2 LUT4=1 LUT5=1 LUT6=4)
+  Clock Path Skew:        -0.353ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.199ns
+    Clock Pessimism Removal (CPR):    0.129ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.905     3.199    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X59Y100        FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y100        FDRE (Prop_fdre_C_Q)         0.419     3.618 r  system_i/iq_0/inst/loader_crc_byte_reg[2]/Q
+                         net (fo=22, routed)          1.083     4.701    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[2]
+    SLICE_X56Y101        LUT6 (Prop_lut6_I5_O)        0.297     4.998 r  system_i/iq_0/inst/loader_computed_crc[31]_i_4/O
+                         net (fo=18, routed)          0.653     5.651    system_i/iq_0/inst/loader_computed_crc[31]_i_4_n_0
+    SLICE_X59Y100        LUT4 (Prop_lut4_I1_O)        0.124     5.775 r  system_i/iq_0/inst/loader_computed_crc[30]_i_2/O
+                         net (fo=8, routed)           0.336     6.111    system_i/iq_0/inst/loader_computed_crc[30]_i_2_n_0
+    SLICE_X59Y98         LUT6 (Prop_lut6_I5_O)        0.124     6.235 r  system_i/iq_0/inst/loader_computed_crc[19]_i_2/O
+                         net (fo=4, routed)           0.629     6.864    system_i/iq_0/inst/loader_computed_crc[19]_i_2_n_0
+    SLICE_X58Y96         LUT6 (Prop_lut6_I0_O)        0.124     6.988 r  system_i/iq_0/inst/loader_transfers[0]_i_14/O
+                         net (fo=1, routed)           0.000     6.988    system_i/iq_0/inst/loader_transfers[0]_i_14_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.380     7.368 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.368    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.597 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.309    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.619 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.654    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.778 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.392    10.170    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[18]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[18]/C
+                         clock pessimism              0.129     9.512    <hidden>
+                         clock uncertainty           -0.127     9.385    <hidden>
+    SLICE_X60Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.180    system_i/iq_0/inst/bank_length0_reg[18]
+  -------------------------------------------------------------------
+                         required time                          9.180    <hidden>
+                         arrival time                         -10.170    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.990    <hidden>
+
+Slack (VIOLATED) :        -0.990ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[19]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.971ns  (logic 2.131ns (30.570%)  route 4.840ns (69.430%))
+  Logic Levels:           8  (CARRY4=2 LUT4=1 LUT5=1 LUT6=4)
+  Clock Path Skew:        -0.353ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.199ns
+    Clock Pessimism Removal (CPR):    0.129ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.905     3.199    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X59Y100        FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[2]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y100        FDRE (Prop_fdre_C_Q)         0.419     3.618 r  system_i/iq_0/inst/loader_crc_byte_reg[2]/Q
+                         net (fo=22, routed)          1.083     4.701    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[2]
+    SLICE_X56Y101        LUT6 (Prop_lut6_I5_O)        0.297     4.998 r  system_i/iq_0/inst/loader_computed_crc[31]_i_4/O
+                         net (fo=18, routed)          0.653     5.651    system_i/iq_0/inst/loader_computed_crc[31]_i_4_n_0
+    SLICE_X59Y100        LUT4 (Prop_lut4_I1_O)        0.124     5.775 r  system_i/iq_0/inst/loader_computed_crc[30]_i_2/O
+                         net (fo=8, routed)           0.336     6.111    system_i/iq_0/inst/loader_computed_crc[30]_i_2_n_0
+    SLICE_X59Y98         LUT6 (Prop_lut6_I5_O)        0.124     6.235 r  system_i/iq_0/inst/loader_computed_crc[19]_i_2/O
+                         net (fo=4, routed)           0.629     6.864    system_i/iq_0/inst/loader_computed_crc[19]_i_2_n_0
+    SLICE_X58Y96         LUT6 (Prop_lut6_I0_O)        0.124     6.988 r  system_i/iq_0/inst/loader_transfers[0]_i_14/O
+                         net (fo=1, routed)           0.000     6.988    system_i/iq_0/inst/loader_transfers[0]_i_14_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.380     7.368 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.368    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.597 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.309    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.619 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.654    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.778 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.392    10.170    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[19]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X60Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[19]/C
+                         clock pessimism              0.129     9.512    <hidden>
+                         clock uncertainty           -0.127     9.385    <hidden>
+    SLICE_X60Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.180    system_i/iq_0/inst/bank_length0_reg[19]
+  -------------------------------------------------------------------
+                         required time                          9.180    <hidden>
+                         arrival time                         -10.170    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.990    <hidden>
+
+Slack (VIOLATED) :        -0.977ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[10]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.249ns  (logic 2.327ns (32.102%)  route 4.922ns (67.898%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.911     9.655    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X60Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.779 r  system_i/iq_0/inst/bank_length0[15]_i_1/O
+                         net (fo=8, routed)           0.478    10.258    system_i/iq_0/inst/bank_length03_out[8]
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[10]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[10]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X65Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[10]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.977    <hidden>
+
+Slack (VIOLATED) :        -0.977ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[11]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.249ns  (logic 2.327ns (32.102%)  route 4.922ns (67.898%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.911     9.655    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X60Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.779 r  system_i/iq_0/inst/bank_length0[15]_i_1/O
+                         net (fo=8, routed)           0.478    10.258    system_i/iq_0/inst/bank_length03_out[8]
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[11]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[11]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X65Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[11]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.977    <hidden>
+
+Slack (VIOLATED) :        -0.977ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[12]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.249ns  (logic 2.327ns (32.102%)  route 4.922ns (67.898%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.911     9.655    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X60Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.779 r  system_i/iq_0/inst/bank_length0[15]_i_1/O
+                         net (fo=8, routed)           0.478    10.258    system_i/iq_0/inst/bank_length03_out[8]
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[12]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[12]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X65Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[12]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.977    <hidden>
+
+Slack (VIOLATED) :        -0.977ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[13]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.249ns  (logic 2.327ns (32.102%)  route 4.922ns (67.898%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.911     9.655    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X60Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.779 r  system_i/iq_0/inst/bank_length0[15]_i_1/O
+                         net (fo=8, routed)           0.478    10.258    system_i/iq_0/inst/bank_length03_out[8]
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[13]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[13]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X65Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[13]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.977    <hidden>
+
+Slack (VIOLATED) :        -0.977ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[15]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.249ns  (logic 2.327ns (32.102%)  route 4.922ns (67.898%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.063ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.717ns = ( 9.383 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          0.911     9.655    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X60Y88         LUT5 (Prop_lut5_I3_O)        0.124     9.779 r  system_i/iq_0/inst/bank_length0[15]_i_1/O
+                         net (fo=8, routed)           0.478    10.258    system_i/iq_0/inst/bank_length03_out[8]
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[15]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.538     9.383    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X65Y88         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[15]/C
+                         clock pessimism              0.229     9.613    <hidden>
+                         clock uncertainty           -0.127     9.485    <hidden>
+    SLICE_X65Y88         FDRE (Setup_fdre_C_CE)      -0.205     9.280    system_i/iq_0/inst/bank_length0_reg[15]
+  -------------------------------------------------------------------
+                         required time                          9.280    <hidden>
+                         arrival time                         -10.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.977    <hidden>
+
+Slack (VIOLATED) :        -0.968ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[16]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.240ns  (logic 2.327ns (32.140%)  route 4.913ns (67.860%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.718ns = ( 9.384 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.780    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.904 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.346    10.249    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[16]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.539     9.384    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[16]/C
+                         clock pessimism              0.229     9.614    <hidden>
+                         clock uncertainty           -0.127     9.486    <hidden>
+    SLICE_X64Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.281    system_i/iq_0/inst/bank_length0_reg[16]
+  -------------------------------------------------------------------
+                         required time                          9.281    <hidden>
+                         arrival time                         -10.249    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.968    <hidden>
+
+Slack (VIOLATED) :        -0.968ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[20]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.240ns  (logic 2.327ns (32.140%)  route 4.913ns (67.860%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.718ns = ( 9.384 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.780    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.904 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.346    10.249    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[20]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.539     9.384    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[20]/C
+                         clock pessimism              0.229     9.614    <hidden>
+                         clock uncertainty           -0.127     9.486    <hidden>
+    SLICE_X64Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.281    system_i/iq_0/inst/bank_length0_reg[20]
+  -------------------------------------------------------------------
+                         required time                          9.281    <hidden>
+                         arrival time                         -10.249    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.968    <hidden>
+
+Slack (VIOLATED) :        -0.968ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[21]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.240ns  (logic 2.327ns (32.140%)  route 4.913ns (67.860%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.718ns = ( 9.384 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.780    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.904 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.346    10.249    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[21]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.539     9.384    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[21]/C
+                         clock pessimism              0.229     9.614    <hidden>
+                         clock uncertainty           -0.127     9.486    <hidden>
+    SLICE_X64Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.281    system_i/iq_0/inst/bank_length0_reg[21]
+  -------------------------------------------------------------------
+                         required time                          9.281    <hidden>
+                         arrival time                         -10.249    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.968    <hidden>
+
+Slack (VIOLATED) :        -0.968ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/bank_length0_reg[22]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        7.240ns  (logic 2.327ns (32.140%)  route 4.913ns (67.860%))
+  Logic Levels:           9  (CARRY4=3 LUT5=3 LUT6=3)
+  Clock Path Skew:        -0.062ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.718ns = ( 9.384 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.009ns
+    Clock Pessimism Removal (CPR):    0.229ns
+  Clock Uncertainty:      0.127ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.245ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.980     3.274    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.287    -1.013 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.206     1.193    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.715     3.009    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X62Y99         FDRE                                         r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y99         FDRE (Prop_fdre_C_Q)         0.518     3.527 r  system_i/iq_0/inst/loader_crc_byte_reg[1]_replica_3/Q
+                         net (fo=1, routed)           0.942     4.469    system_i/iq_0/inst/loader_crc_byte_reg_n_0_[1]_repN_3
+    SLICE_X58Y99         LUT5 (Prop_lut5_I2_O)        0.124     4.593 r  system_i/iq_0/inst/loader_computed_crc[30]_i_6/O
+                         net (fo=1, routed)           0.305     4.898    system_i/iq_0/inst/loader_computed_crc[30]_i_6_n_0
+    SLICE_X55Y99         LUT6 (Prop_lut6_I1_O)        0.124     5.022 r  system_i/iq_0/inst/loader_computed_crc[30]_i_4/O
+                         net (fo=16, routed)          0.912     5.934    system_i/iq_0/inst/loader_computed_crc[30]_i_4_n_0
+    SLICE_X57Y100        LUT5 (Prop_lut5_I3_O)        0.124     6.058 r  system_i/iq_0/inst/loader_computed_crc[4]_i_2/O
+                         net (fo=4, routed)           0.662     6.720    system_i/iq_0/inst/loader_computed_crc[4]_i_2_n_0
+    SLICE_X58Y95         LUT6 (Prop_lut6_I3_O)        0.124     6.844 r  system_i/iq_0/inst/loader_transfers[0]_i_19_comp/O
+                         net (fo=1, routed)           0.000     6.844    system_i/iq_0/inst/loader_transfers[0]_i_19_n_0
+    SLICE_X58Y95         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.377 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_12/CO[3]
+                         net (fo=1, routed)           0.000     7.377    system_i/iq_0/inst/loader_transfers_reg[0]_i_12_n_0
+    SLICE_X58Y96         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.494 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_8/CO[3]
+                         net (fo=1, routed)           0.000     7.494    system_i/iq_0/inst/loader_transfers_reg[0]_i_8_n_0
+    SLICE_X58Y97         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     7.723 r  system_i/iq_0/inst/loader_transfers_reg[0]_i_6/CO[2]
+                         net (fo=3, routed)           0.712     8.435    system_i/iq_0/inst/bank_ready2
+    SLICE_X61Y96         LUT6 (Prop_lut6_I4_O)        0.310     8.745 r  system_i/iq_0/inst/loader_transfers[0]_i_1_comp/O
+                         net (fo=48, routed)          1.035     9.780    system_i/iq_0/inst/loader_transfers[0]
+    SLICE_X61Y90         LUT5 (Prop_lut5_I3_O)        0.124     9.904 r  system_i/iq_0/inst/bank_length0[23]_i_1/O
+                         net (fo=8, routed)           0.346    10.249    system_i/iq_0/inst/bank_length03_out[17]
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[22]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, routed)           1.088     7.755    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, routed)           1.770     9.616    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.873     5.743 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           2.012     7.755    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.846 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=13437, routed)       1.539     9.384    system_i/iq_0/inst/s_axi_aclk
+    SLICE_X64Y90         FDRE                                         r  system_i/iq_0/inst/bank_length0_reg[22]/C
+                         clock pessimism              0.229     9.614    <hidden>
+                         clock uncertainty           -0.127     9.486    <hidden>
+    SLICE_X64Y90         FDRE (Setup_fdre_C_CE)      -0.205     9.281    system_i/iq_0/inst/bank_length0_reg[22]
+  -------------------------------------------------------------------
+                         required time                          9.281    <hidden>
+                         arrival time                         -10.249    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.968    <hidden>
+
+
+
+

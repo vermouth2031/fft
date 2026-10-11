@@ -1,0 +1,61 @@
+{
+  "status": "FAIL",
+  "started_at": "2026-10-11T14:50:35+08:00",
+  "board": "192.168.1.10",
+  "build_id": "444262675c923ecdf987042ee08f3da0",
+  "hardware": {
+    "hardware_version": 65546,
+    "hardware_version_hex": "0x0001000a",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 150000000,
+    "build_id": "444262675c923ecdf987042ee08f3da0",
+    "timestamp_clock_hz": 150000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 150000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "power_supply": "USER_CONFIRMED_USB_ONLY",
+  "artifacts": {
+    "iq_analyzer.bit": "58456c64bb90945e8ceabf5350e0822075cb182e83304091b6147356bebc3fa2",
+    "iq_analyzer.xsa": "c17127536d5b119267b0fbeb52fe8d1364357f29b312db0515d90caf9878feca",
+    "iq_udp.elf": "63843cde66ec2f045295521163d66b9fc559e1ecdd9c6a287c3b9588f126102c",
+    "zynq_fsbl.elf": "ae5c9092d71f7e4bf132df4ee3ff762b251eaaeb8c67ea69808b766cd42660ea",
+    "BOOT_udp.BIN": "2fbc3840b6df16408e66b4d7b80eb1d65a57cd7b033410c740c3b3357560491d",
+    "ps7_init.tcl": "6e02c3e55740782746fd178227fc3397fea79126bef658a9340b1524c1bf17a8"
+  },
+  "image_sha256": "2fbc3840b6df16408e66b4d7b80eb1d65a57cd7b033410c740c3b3357560491d",
+  "image_bytes": 4296596,
+  "image_crc32": "841cd3eb",
+  "original_boot_backup": "B0542847.BIN",
+  "temporary": "N0542847.BIN",
+  "acceptance_sha256": "34e6b39e753cc31c2a0da46d4f5f4fc438660d8ace5598d33d2356b4a0ee2404",
+  "maintenance_elf_sha256": "6e404cd58528e39780ad6b14c12438daae9cad62c9ea765ec40d5559105496e2",
+  "sd_write_verified": false,
+  "boot_medium_verified": false,
+  "physical_cold_boot": "NOT_PERFORMED",
+  "sources": {
+    "scripts/phase12_sd_install.py": "3d8fb68bb543585455be34f5dccae9accca2c9b87d577b58b6a66d71344979ab",
+    "scripts/maintenance/sd_boot_writer.c": "9c7359eca10fe94e9a9e259cea36c8b38f11c0b23ca243b9f8af9bb794edded1",
+    "scripts/maintenance/sd_boot_writer.tcl": "3ce210fd92ef378550d8ecc6ccde29a586ab5899b6e122563ececbf3b8d8c8c7",
+    "scripts/maintenance/sd_boot_reset.tcl": "8ab1927b2c2fe20d9547cf0921f017050513f5954ba16caae84544612b6541a4"
+  },
+  "boot_mode": 5,
+  "error": "Writer did not export readback",
+  "recovery": "Preserve named B/N files. If a writer timed out, inspect mailbox before any reset; CPU may still be writing.",
+  "finished_at": "2026-10-11T14:51:09+08:00",
+  "files": {
+    "boot_mode.log": "3c2e0bd0d5adfffb0c87d89f4461845af097b2f03abf2852a67a31f3f28fd685",
+    "control.bin": "1f8f2ab97367a060d24cb5140f8ac5e3debb9c445949f0014bfb594c1f05346c",
+    "mailbox.bin": "27fca088ec3b3125f70f96da207b9c8ed60939e8a9ca9b27095347debb557665",
+    "maintenance_plan.json": "71e07cc87bdf34d96b5301005f1c99a96079d6efedf481795d65c66cfbf3d5e4",
+    "read_boot_mode.tcl": "ce61c956c166ce5fd5cd08970ec50a7b955692f6408c1f86a5eaa38705017a85",
+    "write.log": "5a89e372e86ab6613e33d3f4c317afcc2b1687445d066b87265f877f0509bb51"
+  }
+}

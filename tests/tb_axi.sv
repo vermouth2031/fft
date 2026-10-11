@@ -64,8 +64,23 @@ module tb_axi;
      rready=1;@(negedge clk);rready=0;
    end
  endtask
+ reg [31:0] ack_first,ack_last,ack_value,ack_delta,ack_span;
+ integer ack_case;
  integer n,j;reg [31:0] value,producer,dma_crc;reg [31:0] records[0:31];
  initial begin
+   for(ack_case=0;ack_case<65536;ack_case=ack_case+1)begin
+     ack_first=(ack_case<32768?32'hffff0000:32'h7fff0000)+ack_case;
+     ack_last=ack_first+(ack_case%513)-256;
+     case(ack_case%8)
+       0:ack_value=ack_first-1;1:ack_value=ack_first;2:ack_value=ack_first+1;
+       3:ack_value=ack_last-1;4:ack_value=ack_last;5:ack_value=ack_last+1;
+       6:ack_value=ack_case*32'd2654435761;7:ack_value=~ack_first;
+     endcase
+     ack_delta=ack_value-ack_first;ack_span=ack_last-ack_first;
+     if(dut.in_modular_interval(ack_value,ack_first,ack_last)!==(ack_delta<=ack_span))
+       $fatal(1,"Circular ACK interval mismatch %0d",ack_case);
+   end
+   $display("ACK_INTERVAL_PASS cases=65536 wrap_future_consumer_boundaries");
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
    rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
