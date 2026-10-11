@@ -4,11 +4,11 @@
 
 - 本地工程：`D:/fft/fft_phase12_wideband_150m`
 - 开发分支：`phase12/wideband-150m`
-- 本地已验收实现提交：`1a4a5d9d2e369eb7714f9c996228523c63d84d57`；尚未推送。
+- 本地已验收实现提交：`1a4a5d9d2e369eb7714f9c996228523c63d84d57`；已推送。
 - 基线实现与版本登记：`162250cac5f53dce8e46875858307158f4941c1d`，Phase11 分支保留。
 - 硬件 build ID：`444262675c923ecdf987042ee08f3da0`
 - 网络启动文件 SHA-256：`2fbc3840b6df16408e66b4d7b80eb1d65a57cd7b033410c740c3b3357560491d`
-- 计划发布标签：`v2026.10.11-phase12-wideband150-usb-sd-validated`，当前已完成验收和发布准备，尚未上传。
+- 固定发布：[v2026.10.11-phase12-wideband150-usb-sd-validated](https://github.com/vermouth2031/fft/releases/tag/v2026.10.11-phase12-wideband150-usb-sd-validated)，标签提交 `d9aa27fea7e5ab2edfa2944321c0557d2c0c75d0`，7 个附件重新下载散列核对通过。
 - 本次真实断电冷启动通过：仅网口确认版本和 epoch=0，79 项数值检查及 300.016 秒最宽带连续运行通过。9595 次切换、2746788 条频域记录，DMA 错误、丢样、记录缺口和 UDP 丢包均为 0。断电后未下载、未 JTAG 操作、未软件复位。
 
 最终时钟为输入/时间戳 150 MHz、FFT 150 MHz。180 MHz FFT 的两次候选时序失败且未部署，不能作为已实现指标。setup/hold 为 +0.097/+0.010 ns；LUT 22765、FF 28377、BRAM 128、DSP 49、MMCM 1、BUFG 4。LUT/FF 相比基线增加约 0.64%/2.14%；频率格宽由 7.62939453125 增至 9.1552734375 kHz。
@@ -39,3 +39,5 @@ python scripts/verify_phase12_cold_boot.py
 ```
 
 两条离线核查均已通过；冷启动证据限定为本次用户确认的物理断电及其后的网口测试。离线检查与 GitHub Actions 检查源文件和实测证据的散列对应关系；云端不会重新执行 Vivado 综合或真板测试。
+
+发布已完成，分支、标签及 [草稿 PR #7](https://github.com/vermouth2031/fft/pull/7) 的自动检查通过。发布标签固定验收快照，随后分支增加发布回执；标签中的 VERSION.json 保留上传前 PREPARED 状态，分支元数据记录实际发布结果。main 和历史发布未修改。[完整发布回执](../reports/phase12_github_publication_20261011.json)记录附件散列与检查地址。

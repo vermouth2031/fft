@@ -1,6 +1,6 @@
 # Phase 12：150 MSPS 数字 IQ 宽带优化
 
-当前构建 `444262675c923ecdf987042ee08f3da0` 已通过完整仿真、布局布线和 USB 供电真板 RAM/JTAG 验收。SD 启动文件已经写入、完整读回校验通过，并已从 SD 完成系统复位启动；用户于 2026-10-11 确认实际拔 USB 断电后重新上电，仅通过网口验证自动启动成功；冷启动后 79 项数值检查及 300 秒最宽带连续运行全部通过。GitHub 发布准备中。
+当前构建 `444262675c923ecdf987042ee08f3da0` 已通过完整仿真、布局布线和 USB 供电真板 RAM/JTAG 验收。SD 启动文件已经写入、完整读回校验通过，并已从 SD 完成系统复位启动；用户于 2026-10-11 确认实际拔 USB 断电后重新上电，仅通过网口验证自动启动成功；冷启动后 79 项数值检查及 300 秒最宽带连续运行全部通过。GitHub 已发布：[v2026.10.11-phase12-wideband150-usb-sd-validated](https://github.com/vermouth2031/fft/releases/tag/v2026.10.11-phase12-wideband150-usb-sd-validated)，7 个附件重新下载校验通过，分支/标签/PR 的自动检查均成功。发布回执见 `reports/phase12_github_publication_20261011.json`。
 
 工程：`D:/fft/fft_phase12_wideband_150m`，分支 `phase12/wideband-150m`。Phase11 工程及发布保留。
 
