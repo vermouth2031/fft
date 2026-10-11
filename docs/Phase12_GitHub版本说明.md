@@ -4,6 +4,7 @@
 
 - 本地工程：`D:/fft/fft_phase12_wideband_150m`
 - 开发分支：`phase12/wideband-150m`
+- 本地已验收实现提交：`1a4a5d9d2e369eb7714f9c996228523c63d84d57`；尚未推送。
 - 基线实现与版本登记：`162250cac5f53dce8e46875858307158f4941c1d`，Phase11 分支保留。
 - 硬件 build ID：`444262675c923ecdf987042ee08f3da0`
 - 网络启动文件 SHA-256：`2fbc3840b6df16408e66b4d7b80eb1d65a57cd7b033410c740c3b3357560491d`

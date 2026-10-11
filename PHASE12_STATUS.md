@@ -26,6 +26,7 @@
 - 300 秒 RAM/JTAG 连续测试：9393 次切换、2746839 条频域记录，DMA 错误、丢样、记录缺口和 UDP 丢包均为 0，样本守恒通过。测得连续宽带 148.214722～148.645020 MHz。
 - `reports/phase12_comparison.json`：同板、同波形口径 Phase11/Phase12 对照。
 - `reports/phase12_sd_install_20261011_retry/installation.json`：SD 写入及系统复位启动通过。旧 Phase11 `BOOT.BIN` 保留为 `B5EDFF26.BIN`；旧 Phase10 备份 `B2F71552.BIN` 未改动。
+- `reports/phase12_sd_deployment.json`：SD 系统复位启动后，79 项测量及 80896 个快照值全部通过，最大分析/发布时间仍为 234.426667/234.660000 µs，最终状态空闲、错误为 0。本次物理断电操作提示已发出，等待用户确认；此前 Phase11 的断电确认不能用于 Phase12。
 - 启动文件 SHA-256：`2fbc3840b6df16408e66b4d7b80eb1d65a57cd7b033410c740c3b3357560491d`。
 
 首次 SD 安装在挂载阶段报 FR_NOT_READY，写入字节数为 0，没有覆盖旧文件。恢复同一已验收 RAM 程序后重试成功，未更换 bitstream、固件、维护程序或 BSP。确切瞬态原因未确定，不能据此归因于 USB 供电，也不能称为已修复某个已定位的驱动缺陷。失败日志保留在 `reports/phase12_sd_install_20261011`。
