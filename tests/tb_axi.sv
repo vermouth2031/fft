@@ -11,10 +11,98 @@ module tb_axi;
  reg [31:0] wdata=0;reg [3:0] wstrb=15;
  wire awready,wready,bvalid,arready,rvalid;wire [1:0] bresp,rresp;wire [31:0] rdata;
  reg [31:0] axis_data=0;reg [3:0] axis_keep=15;reg axis_valid=0,axis_last=0;wire axis_ready;
+ reg ack_expected=0,ack_seen=0;
+ reg [31:0] ack_check_first,ack_check_last,ack_check_delta,ack_check_span;
+ integer ack_pipeline_checks=0;
+ integer capacity_page_checks=0;
+ wire [31:iq_build_config::FREQUENCY_RECORDS_LOG2] expected_freq_page=dut.freq_consumer[31:iq_build_config::FREQUENCY_RECORDS_LOG2]+1'b1;
+ wire [24:0] expected_burst_page=dut.burst_consumer[31:7]+1'b1;
+ wire [31:0] frequency_used=dut.freq_producer-dut.freq_consumer;
+ wire [31:0] burst_used=dut.burst_producer-dut.burst_consumer;
+ always @(negedge clk)if(resetn)begin
+   if(dut.freq_consumer_next_page!==expected_freq_page||dut.burst_consumer_next_page!==expected_burst_page)
+     $fatal(1,"Consumer page metadata is not atomic with ACK/reset");
+   if(dut.freq_ring.has_space!==(frequency_used<iq_build_config::FREQUENCY_RECORDS)||dut.burst_ring.has_space!==(burst_used<128))
+     $fatal(1,"Registered page capacity differs from unsigned modulo occupancy");
+   capacity_page_checks=capacity_page_checks+1;
+ end
+ always @(posedge clk)begin
+   if(!resetn)ack_seen<=0;
+   else begin
+     if(dut.ack_check)begin
+       if(dut.write_fire)$fatal(1,"ACK executed before validation was registered");
+       ack_check_first=dut.frequency_ack_address?dut.freq_consumer:dut.burst_consumer;
+       ack_check_last=dut.frequency_ack_address?dut.freq_producer:dut.burst_producer;
+       ack_check_delta=dut.acknowledgment_data-ack_check_first;
+       ack_check_span=ack_check_last-ack_check_first;
+       ack_expected<=dut.ws==15&&(ack_check_delta<=ack_check_span);ack_seen<=1;
+     end
+     if(dut.write_fire&&dut.ack_command)begin
+       if(!ack_seen||!dut.ack_checked||dut.ack_valid!==ack_expected)$fatal(1,"ACK snapshot/decision mismatch");
+       ack_seen<=0;ack_pipeline_checks=ack_pipeline_checks+1;
+     end
+   end
+ end
  // Exercise the precomputed BRAM guard on every valid/invalid DMA word.
  always @(posedge clk)if(resetn&&dut.dma_fire)
    if(dut.loader_write_allowed!==(dut.loader_received<dut.loader_expected))
      $fatal(1,"DMA precomputed range check disagrees with full counter comparison");
+ always @(posedge clk)if(resetn&&dut.commit_busy)begin
+   if(!dut.loader_active||axis_ready)$fatal(1,"terminal DMA lost ownership");
+   if(dut.loader_target?dut.bank1_writable:dut.bank0_writable)$fatal(1,"terminal bank writable");
+ end
+ always @(posedge clk)if(resetn&&dut.issue)begin
+   if(dut.max_burst>1048576||dut.max_burst==0||{11'd0,dut.core_max_burst}!==dut.max_burst)
+     $fatal(1,"local burst limit differs from legal acquisition configuration");
+ end
+ always @(posedge clk)if(resetn&&dut.w_hold)
+   if(dut.acknowledgment_data!==dut.wd)$fatal(1,"Acknowledgment data copy mismatch");
+ always @(posedge clk)if(resetn&&dut.aw_hold)begin
+   if(dut.control_address!==(dut.wa==18'h00c)||dut.frequency_ack_address!==(dut.wa==18'h054)||dut.burst_ack_address!==(dut.wa==18'h05c))
+     $fatal(1,"Control/ACK AW predecode mismatch");
+   if(dut.metadata_address!=={dut.wa==18'h1a0,dut.wa==18'h19c,dut.wa==18'h198,dut.wa==18'h194,dut.wa==18'h190,dut.wa==18'h18c})
+     $fatal(1,"Metadata AW predecode mismatch");
+   if(dut.config_address[0] !== (dut.wa==18'h01c))$fatal(1,"AW predecode mismatch 01c");
+   if(dut.config_address[1] !== (dut.wa==18'h020))$fatal(1,"AW predecode mismatch 020");
+   if(dut.config_address[2] !== (dut.wa==18'h024))$fatal(1,"AW predecode mismatch 024");
+   if(dut.config_address[3] !== (dut.wa==18'h028))$fatal(1,"AW predecode mismatch 028");
+   if(dut.config_address[4] !== (dut.wa==18'h02c))$fatal(1,"AW predecode mismatch 02c");
+   if(dut.config_address[5] !== (dut.wa==18'h030))$fatal(1,"AW predecode mismatch 030");
+   if(dut.config_address[6] !== (dut.wa==18'h034))$fatal(1,"AW predecode mismatch 034");
+   if(dut.config_address[7] !== (dut.wa==18'h038))$fatal(1,"AW predecode mismatch 038");
+   if(dut.config_address[8] !== (dut.wa==18'h03c))$fatal(1,"AW predecode mismatch 03c");
+   if(dut.config_address[9] !== (dut.wa==18'h040))$fatal(1,"AW predecode mismatch 040");
+   if(dut.config_address[10] !== (dut.wa==18'h044))$fatal(1,"AW predecode mismatch 044");
+   if(dut.config_address[11] !== (dut.wa==18'h048))$fatal(1,"AW predecode mismatch 048");
+   if(dut.config_address[12] !== (dut.wa==18'h04c))$fatal(1,"AW predecode mismatch 04c");
+   if(dut.config_address[13] !== (dut.wa==18'h084))$fatal(1,"AW predecode mismatch 084");
+   if(dut.config_address[14] !== (dut.wa==18'h088))$fatal(1,"AW predecode mismatch 088");
+ end
+ // Independent issued-sample scoreboard: each accepted read must emerge
+ // from the same bank/address two source registers later, even at a switch.
+ reg [31:0] expected_replay_1,expected_replay_2;
+ reg expected_valid_1=0,expected_valid_2=0;
+ integer replay_checked=0,replay_switches=0;
+ reg previous_issue_bank=0;
+ always @(posedge clk)begin
+   if(!resetn)begin expected_valid_1<=0;expected_valid_2<=0;previous_issue_bank<=0;end
+   else begin
+     if(dut.core_valid!==expected_valid_2)$fatal(1,"Replay valid pipeline mismatch");
+     if(dut.core_valid)begin
+       if(dut.core_iq!==expected_replay_2)$fatal(1,"Replay bank/address alignment mismatch got=%h expected=%h",dut.core_iq,expected_replay_2);
+       replay_checked=replay_checked+1;
+     end
+     expected_valid_1<=dut.issue;expected_valid_2<=expected_valid_1;
+     expected_replay_2<=expected_replay_1;
+     if(dut.issue)begin
+       expected_replay_1<=dut.active_bank?dut.bank1.mem[dut.replay_ptr]:dut.bank0.mem[dut.replay_ptr];
+       if(dut.active_bank!=previous_issue_bank)replay_switches=replay_switches+1;
+       previous_issue_bank<=dut.active_bank;
+       if({dut.bank1_replay_en,dut.bank0_replay_en}!==(dut.active_bank?2'b10:2'b01))
+         $fatal(1,"Replay must enable exactly the issuing bank");
+     end else if(dut.bank0_replay_en||dut.bank1_replay_en)$fatal(1,"Idle replay port enabled");
+   end
+ end
  iq_peripheral dut(.s_axi_aclk(clk),.s_axi_aresetn(resetn),.fft_clk(fft_clk),
  .s_axi_awaddr(awaddr),.s_axi_awprot(3'd0),.s_axi_awvalid(awvalid),.s_axi_awready(awready),
  .s_axi_wdata(wdata),.s_axi_wstrb(wstrb),.s_axi_wvalid(wvalid),.s_axi_wready(wready),
@@ -64,11 +152,14 @@ module tb_axi;
      rready=1;@(negedge clk);rready=0;
    end
  endtask
- reg [31:0] ack_first,ack_last,ack_value,ack_delta,ack_span;
+ reg [31:0] ack_first,ack_last,ack_value,ack_delta,ack_span,compare_a,compare_b;
  integer ack_case;
  integer n,j;reg [31:0] value,producer,dma_crc;reg [31:0] records[0:31];
  initial begin
    for(ack_case=0;ack_case<65536;ack_case=ack_case+1)begin
+     compare_a=ack_case*32'd2654435761;
+     compare_b=ack_case[0]?(compare_a+(ack_case%19)-9):(ack_case*32'd2246822519);
+     if(dut.ge32(compare_a,compare_b)!==(compare_a>=compare_b))$fatal(1,"Segmented unsigned comparison mismatch");
      ack_first=(ack_case<32768?32'hffff0000:32'h7fff0000)+ack_case;
      ack_last=ack_first+(ack_case%513)-256;
      case(ack_case%8)
@@ -81,6 +172,7 @@ module tb_axi;
        $fatal(1,"Circular ACK interval mismatch %0d",ack_case);
    end
    $display("ACK_INTERVAL_PASS cases=65536 wrap_future_consumer_boundaries");
+   $display("SEGMENTED_COMPARE_PASS cases=65536 distributed_unsigned_pairs");
    repeat(20)@(negedge clk);resetn=1;
    rd('h000,value,0);if(value!==32'h49514131)$fatal(1,"magic");
    rd('h004,value,0);if(value!==iq_build_config::HARDWARE_VERSION)$fatal(1,"version");
@@ -89,6 +181,23 @@ module tb_axi;
    rd('h1ec,value,0);if(value!=iq_build_config::FREQUENCY_RECORDS)$fatal(1,"frequency ring capacity");
    rd('h084,value,0);if(value!==0)$fatal(1,"default detector mode");
    rd('h088,value,0);if(value!==32)$fatal(1,"default gap");
+   wr('h054,32'hffffffff,0,3,0); // Zero strobe remains a no-op through ACK staging.
+   wr('h05c,0,1,-3,2); // Partial ACK writes remain rejected.
+   wr('h054,1,15,2,2); // Empty queue cannot acknowledge a future record.
+   rd('h054,value,0);if(value!=0)$fatal(1,"Rejected/empty ACK changed consumer");
+   // Synthetic producer positions exercise real ACK handshakes at the
+   // upper-page and 32-bit wrap boundaries without billions of records.
+   force dut.freq_ring.producer=32'hfffffff0;
+   force dut.burst_ring.producer=32'hfffffff0;
+   wr('h054,32'hfffffff0,15,-3,0);wr('h05c,32'hfffffff0,15,3,0);
+   force dut.freq_ring.producer=32'h00000100;
+   force dut.burst_ring.producer=32'h00000100;
+   wr('h054,32'h0000007f,15,3,0);wr('h05c,32'h00000080,15,-3,0);
+   wr('h054,32'h00000100,15,-3,0);wr('h05c,32'h00000100,15,3,0);
+   wr('h054,32'h00000101,15,0,2);wr('h05c,32'hffffffff,15,0,2);
+   @(negedge clk);resetn=0;
+   release dut.freq_ring.producer;release dut.burst_ring.producer;
+   repeat(20)@(negedge clk);resetn=1;
    wr('h08c,0,15,0,2); // Capability register is read-only.
    wr('h084,2,15,0,0);wr('h070,1,15,0,2); // Reserved detector mode.
    wr('h084,1,15,0,0);wr('h088,0,15,0,0);wr('h070,1,15,0,2);
@@ -178,6 +287,16 @@ module tb_axi;
    rd('h1d8,value,0);if(value!=N+1)$fatal(1,"overlong received count %d",value);
    if(dut.bank1.mem[N]!==32'hcafef00d)$fatal(1,"overlong DMA wrote outside declared block");
    rd('h1d4,value,0);if(value[1]||!value[2])$fatal(1,"overlong block became ready");
+   // Loader ownership rejects host metadata/ready/clear mutations, including
+   // status clear while busy; explicit abort releases ownership without ready.
+   wr('h1c0,5,15,0,0);axis_send(32'h12345678,0);
+   wr('h190,N,15,0,2);wr('h184,1,15,0,2);wr('h184,8,15,0,2);
+   wr('h1c0,4,15,0,2);
+   if(!dut.loader_active||dut.bank_ready[1])$fatal(1,"host changed loader ownership");
+   wr('h1c0,2,15,0,0);
+   if(dut.loader_active||dut.bank_ready[1])$fatal(1,"abort did not release incomplete bank");
+   rd('h1e4,value,0);if(!(value&32'h20))$fatal(1,"abort flag missing");
+   wr('h184,16,15,0,0);
    // Load the inactive bank through the DMA-facing stream while analysis continues.
    dma_crc=32'hffffffff;for(n=0;n<N;n=n+1)dma_crc=crc_word(dma_crc,32'h12345678);dma_crc=dma_crc^32'hffffffff;
    wr('h1c8,N,15,0,0);wr('h1cc,22,15,0,0);wr('h1d0,dma_crc,15,0,0);wr('h1c0,5,15,0,0);
@@ -199,6 +318,11 @@ module tb_axi;
    rd('h1b4,value,0);if(value!=2)$fatal(1,"write reject count");
    wr('h180,0,15,0,0);wr('h10000,32'h87654321,15,0,0);
    wr('h00c,2,15,0,0);wait(dut.run_state==0);
+   if(replay_checked<2*N||replay_switches<1)$fatal(1,"Insufficient replay alignment coverage");
+   if(ack_pipeline_checks<5)$fatal(1,"Insufficient pipelined ACK coverage");
+   $display("ACK_PIPELINE_PASS transactions=%0d captured_modular_validation single_execution",ack_pipeline_checks);
+   $display("CAPACITY_PAGE_METADATA_PASS cycles=%0d ack_reset_wrap_atomic",capacity_page_checks);
+   $display("REPLAY_PIPELINE_SCOREBOARD_PASS samples=%0d switches=%0d",replay_checked,replay_switches);
    $display("AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast overlong_dma_write_guard dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame");$finish;
  end
  initial begin #4000000;$fatal(1,"AXI timeout");end

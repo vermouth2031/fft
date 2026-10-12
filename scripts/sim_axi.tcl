@@ -1,3 +1,10 @@
+# A successful preflight may be reused only at identical compilation inputs.
+# Cache misses, including a new sample clock or FFT IP, execute the full recipe.
+set phase13_root [file normalize [file join [file dirname [info script]] ..]]
+if {![catch {exec python $phase13_root/scripts/phase13_axi_cache.py reuse} phase13_axi_proof]} {
+ puts $phase13_axi_proof
+ return
+}
 set root [file normalize [file join [file dirname [info script]] ..]]
 create_project axi_test $root/build/axi_test -part xc7z020clg400-1 -force
 set_property simulator_language Mixed [current_project]

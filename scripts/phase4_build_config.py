@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 GENERATED=ROOT/'rtl/iq_build_config.sv'
 CLOCK_ATTRIBUTES=ROOT/'rtl/iq_clock_attributes.svh'
-VALID_CLOCK_PROFILES={(100000000,125000000),(125000000,125000000),(125000000,150000000),(150000000,180000000),(150000000,150000000)}
+VALID_CLOCK_PROFILES={(100000000,125000000),(125000000,125000000),(125000000,150000000),(150000000,180000000),(150000000,150000000),(160000000,160000000)}
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');a=parser.parse_args()
