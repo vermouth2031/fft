@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-10-12T22:15:40.658113+08:00",
+  "scope": "Observed commanded system-reset control during Trial09 RAM programming; not a physical cycle",
+  "before_new_marker": "0x0A100000",
+  "after_new_marker": "0x5A000000",
+  "previous_phase12_marker_readback": "0x5A000000",
+  "retained_low_reboot_state_nibble": "0xa000000",
+  "previous_readback_file": "reports/phase13_diagnostics_20261012/baseline_full_monitor/reset_after.log",
+  "program_log": "build/logs/phase13_program_trial09_board.log",
+  "program_log_sha256": "58c7bb7b5c14ae45c8775a77983db0e4de9476251f038fe74d734662857310c0",
+  "interpretation": "The low reboot-state nibble 0x0A survived this commanded warm reset, unlike the earlier Trial05 events read as0x00400000. This supports the reset-class distinction, but does not identify an electrical root cause."
+}

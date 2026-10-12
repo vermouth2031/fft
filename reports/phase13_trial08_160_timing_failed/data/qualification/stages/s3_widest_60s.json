@@ -1,0 +1,56 @@
+{
+  "schema": "iq-qualification-spec-v1",
+  "stage": "s3_widest_60s",
+  "cases": [
+    {
+      "id": "wide_a100_hann_60s",
+      "category": "wideband-continuous",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "cyclic",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 91001,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          28672
+        ]
+      ],
+      "signal": {
+        "kind": "rrc-qpsk",
+        "sps": 2,
+        "amplitude": 24000,
+        "normalization": "peak",
+        "rolloff": 1.0,
+        "span_symbols": 10,
+        "carrier_hz": 0
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "alpha1.0_support100mhz_candidate_actual80mhz",
+      "seconds": 60,
+      "seam": "quiet",
+      "truth_basis": "shaped"
+    }
+  ]
+}

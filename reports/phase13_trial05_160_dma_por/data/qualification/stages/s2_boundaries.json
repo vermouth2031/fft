@@ -1,0 +1,5612 @@
+{
+  "schema": "iq-qualification-spec-v1",
+  "stage": "s2_boundaries",
+  "cases": [
+    {
+      "id": "length_64_30_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr30"
+    },
+    {
+      "id": "length_64_10_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr10"
+    },
+    {
+      "id": "length_64_30_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr30"
+    },
+    {
+      "id": "length_64_10_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr10"
+    },
+    {
+      "id": "length_64_30_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr30"
+    },
+    {
+      "id": "length_64_10_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length64_snr10"
+    },
+    {
+      "id": "zero_length_64",
+      "category": "zero-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8240
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "zero_length64"
+    },
+    {
+      "id": "length_512_30_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr30"
+    },
+    {
+      "id": "length_512_10_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr10"
+    },
+    {
+      "id": "length_512_30_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr30"
+    },
+    {
+      "id": "length_512_10_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr10"
+    },
+    {
+      "id": "length_512_30_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr30"
+    },
+    {
+      "id": "length_512_10_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length512_snr10"
+    },
+    {
+      "id": "zero_length_512",
+      "category": "zero-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          8688
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "zero_length512"
+    },
+    {
+      "id": "length_4096_30_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr30"
+    },
+    {
+      "id": "length_4096_10_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr10"
+    },
+    {
+      "id": "length_4096_30_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr30"
+    },
+    {
+      "id": "length_4096_10_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr10"
+    },
+    {
+      "id": "length_4096_30_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr30"
+    },
+    {
+      "id": "length_4096_10_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length4096_snr10"
+    },
+    {
+      "id": "zero_length_4096",
+      "category": "zero-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "zero_length4096"
+    },
+    {
+      "id": "length_24576_30_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr30"
+    },
+    {
+      "id": "length_24576_10_83001",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr10"
+    },
+    {
+      "id": "length_24576_30_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr30"
+    },
+    {
+      "id": "length_24576_10_83002",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr10"
+    },
+    {
+      "id": "length_24576_30_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr30"
+    },
+    {
+      "id": "length_24576_10_83003",
+      "category": "noise-length",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 83003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "length24576_snr10"
+    },
+    {
+      "id": "zero_length_24576",
+      "category": "zero-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          26624
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "zero_length24576"
+    },
+    {
+      "id": "gap_7_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4615,
+          5127
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap7_threshold"
+    },
+    {
+      "id": "gap_7_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4615,
+          5127
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap7_digital-zero"
+    },
+    {
+      "id": "gap_8_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4616,
+          5128
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap8_threshold"
+    },
+    {
+      "id": "gap_8_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4616,
+          5128
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap8_digital-zero"
+    },
+    {
+      "id": "gap_15_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4623,
+          5135
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap15_threshold"
+    },
+    {
+      "id": "gap_15_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4623,
+          5135
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap15_digital-zero"
+    },
+    {
+      "id": "gap_31_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4639,
+          5151
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap31_threshold"
+    },
+    {
+      "id": "gap_31_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4639,
+          5151
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap31_digital-zero"
+    },
+    {
+      "id": "gap_32_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4640,
+          5152
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap32_threshold"
+    },
+    {
+      "id": "gap_32_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4640,
+          5152
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap32_digital-zero"
+    },
+    {
+      "id": "gap_33_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4641,
+          5153
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap33_threshold"
+    },
+    {
+      "id": "gap_33_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4641,
+          5153
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap33_digital-zero"
+    },
+    {
+      "id": "gap_64_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4672,
+          5184
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap64_threshold"
+    },
+    {
+      "id": "gap_64_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4672,
+          5184
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap64_digital-zero"
+    },
+    {
+      "id": "gap_256_threshold",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4864,
+          5376
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap256_threshold"
+    },
+    {
+      "id": "gap_256_digital_zero",
+      "category": "gap-boundary",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": null,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          4096,
+          4608
+        ],
+        [
+          4864,
+          5376
+        ]
+      ],
+      "signal": {
+        "kind": "tone",
+        "tones": [
+          {
+            "bin": 2048,
+            "amplitude": 8192
+          }
+        ]
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "gap256_digital-zero"
+    },
+    {
+      "id": "offset_0_0_256_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp256"
+    },
+    {
+      "id": "offset_0_0_256_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp256"
+    },
+    {
+      "id": "offset_0_0_256_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp256"
+    },
+    {
+      "id": "offset_0_0_1024_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp1024"
+    },
+    {
+      "id": "offset_0_0_1024_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp1024"
+    },
+    {
+      "id": "offset_0_0_1024_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp1024"
+    },
+    {
+      "id": "offset_0_0_8192_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp8192"
+    },
+    {
+      "id": "offset_0_0_8192_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp8192"
+    },
+    {
+      "id": "offset_0_0_8192_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(0, 0)_amp8192"
+    },
+    {
+      "id": "offset_32_0_256_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp256"
+    },
+    {
+      "id": "offset_32_0_256_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp256"
+    },
+    {
+      "id": "offset_32_0_256_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp256"
+    },
+    {
+      "id": "offset_32_0_1024_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp1024"
+    },
+    {
+      "id": "offset_32_0_1024_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp1024"
+    },
+    {
+      "id": "offset_32_0_1024_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp1024"
+    },
+    {
+      "id": "offset_32_0_8192_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp8192"
+    },
+    {
+      "id": "offset_32_0_8192_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp8192"
+    },
+    {
+      "id": "offset_32_0_8192_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        32,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(32, 0)_amp8192"
+    },
+    {
+      "id": "offset_128_128_256_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp256"
+    },
+    {
+      "id": "offset_128_128_256_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp256"
+    },
+    {
+      "id": "offset_128_128_256_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp256"
+    },
+    {
+      "id": "offset_128_128_1024_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp1024"
+    },
+    {
+      "id": "offset_128_128_1024_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp1024"
+    },
+    {
+      "id": "offset_128_128_1024_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp1024"
+    },
+    {
+      "id": "offset_128_128_8192_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp8192"
+    },
+    {
+      "id": "offset_128_128_8192_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp8192"
+    },
+    {
+      "id": "offset_128_128_8192_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        128,
+        128
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(128, 128)_amp8192"
+    },
+    {
+      "id": "offset_512_m512_256_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp256"
+    },
+    {
+      "id": "offset_512_m512_256_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp256"
+    },
+    {
+      "id": "offset_512_m512_256_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp256"
+    },
+    {
+      "id": "offset_512_m512_1024_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp1024"
+    },
+    {
+      "id": "offset_512_m512_1024_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp1024"
+    },
+    {
+      "id": "offset_512_m512_1024_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp1024"
+    },
+    {
+      "id": "offset_512_m512_8192_84001",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp8192"
+    },
+    {
+      "id": "offset_512_m512_8192_84002",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp8192"
+    },
+    {
+      "id": "offset_512_m512_8192_84003",
+      "category": "offset",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 84003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 20
+      },
+      "offset_iq": [
+        512,
+        -512
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "offset(512, -512)_amp8192"
+    },
+    {
+      "id": "digital_zero_noise_30",
+      "category": "digital-zero-inapplicable",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 85001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "digital-zero-inapplicable"
+    },
+    {
+      "id": "digital_zero_noise_10",
+      "category": "digital-zero-inapplicable",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 85001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "digital-zero-inapplicable"
+    },
+    {
+      "id": "low_amplitude_256_30_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr30"
+    },
+    {
+      "id": "low_amplitude_256_30_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr30"
+    },
+    {
+      "id": "low_amplitude_256_30_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr30"
+    },
+    {
+      "id": "low_amplitude_256_10_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr10"
+    },
+    {
+      "id": "low_amplitude_256_10_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr10"
+    },
+    {
+      "id": "low_amplitude_256_10_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr10"
+    },
+    {
+      "id": "low_amplitude_256_0_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr0"
+    },
+    {
+      "id": "low_amplitude_256_0_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr0"
+    },
+    {
+      "id": "low_amplitude_256_0_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 256,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp256_snr0"
+    },
+    {
+      "id": "low_amplitude_1024_30_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr30"
+    },
+    {
+      "id": "low_amplitude_1024_30_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr30"
+    },
+    {
+      "id": "low_amplitude_1024_30_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 30
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr30"
+    },
+    {
+      "id": "low_amplitude_1024_10_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr10"
+    },
+    {
+      "id": "low_amplitude_1024_10_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr10"
+    },
+    {
+      "id": "low_amplitude_1024_10_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 10
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr10"
+    },
+    {
+      "id": "low_amplitude_1024_0_86001",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86001,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr0"
+    },
+    {
+      "id": "low_amplitude_1024_0_86002",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86002,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr0"
+    },
+    {
+      "id": "low_amplitude_1024_0_86003",
+      "category": "noise-low-amplitude",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 86003,
+      "noise": {
+        "kind": "awgn",
+        "snr_db": 0
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          2048,
+          6144
+        ],
+        [
+          10240,
+          14336
+        ],
+        [
+          18432,
+          22528
+        ],
+        [
+          26624,
+          30720
+        ]
+      ],
+      "signal": {
+        "kind": "qpsk",
+        "sps": 2,
+        "amplitude": 1024,
+        "normalization": "rms"
+      },
+      "threshold_policy": {
+        "kind": "quiet-prefix",
+        "samples": 1024,
+        "on_multiple": 4,
+        "off_multiple": 2
+      },
+      "statistics_group": "amp1024_snr0"
+    },
+    {
+      "id": "shaped_boundaries_threshold",
+      "category": "shaped-boundaries",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "threshold",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 87001,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "rrc-qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "peak",
+        "rolloff": 0.25,
+        "span_symbols": 10,
+        "carrier_hz": 0
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "shaped-boundaries",
+      "truth_basis": "shaped"
+    },
+    {
+      "id": "shaped_boundaries_digital_zero",
+      "category": "shaped-boundaries",
+      "sample_rate_hz": 100000000,
+      "fft_length": 8192,
+      "samples": 32768,
+      "replay": "finite",
+      "windows": [
+        "hann"
+      ],
+      "detector": {
+        "mode": "digital-zero",
+        "ton": 1048576,
+        "toff": 262144,
+        "kon": 8,
+        "koff": 32,
+        "gap_min": 32,
+        "max_burst_samples": 1048576
+      },
+      "seed": 87001,
+      "noise": {
+        "kind": "none"
+      },
+      "offset_iq": [
+        0,
+        0
+      ],
+      "design_intervals": [
+        [
+          8176,
+          12272
+        ]
+      ],
+      "signal": {
+        "kind": "rrc-qpsk",
+        "sps": 2,
+        "amplitude": 8192,
+        "normalization": "peak",
+        "rolloff": 0.25,
+        "span_symbols": 10,
+        "carrier_hz": 0
+      },
+      "threshold_policy": {
+        "kind": "fixed"
+      },
+      "statistics_group": "shaped-boundaries",
+      "truth_basis": "shaped"
+    }
+  ]
+}

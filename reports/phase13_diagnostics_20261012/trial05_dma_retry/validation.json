@@ -1,0 +1,59 @@
+{
+  "status": "FAIL",
+  "started_at": "2026-10-12T18:01:31.842321+08:00",
+  "board": "192.168.1.10",
+  "switches_requested": 1000,
+  "samples_per_bank": 32768,
+  "minimum_upload_mbps": 8.0,
+  "scope": "Real board: PC writes DDR, AXI DMA loads inactive PL bank, active bank runs at 160 MSPS",
+  "faults": [
+    {
+      "name": "packet_crc_corruption",
+      "status": "REJECTED"
+    },
+    {
+      "name": "out_of_order_offset",
+      "status": "REJECTED"
+    },
+    {
+      "name": "incomplete_commit",
+      "status": "REJECTED"
+    },
+    {
+      "name": "active_bank_write",
+      "status": "REJECTED_BY_FIRMWARE"
+    }
+  ],
+  "signals": [
+    "single",
+    "dual",
+    "chirp",
+    "qpsk",
+    "ofdm",
+    "noise"
+  ],
+  "artifacts": {
+    "iq_analyzer.bit": "265607986e67948c5ac3a6b1669662b979c2bc7f544b36ef68beb99145ae33bb",
+    "iq_udp.elf": "ef4389bc15b4a91c733b84cb4d74255de7790eb7cd5cc1407fb4edc7a96a06fe"
+  },
+  "hardware": {
+    "hardware_version": 65547,
+    "hardware_version_hex": "0x0001000b",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 160000000,
+    "build_id": "cd4c4966906062a371f14ecf655f2a53",
+    "timestamp_clock_hz": 160000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 160000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "finished_at": "2026-10-12T18:01:36.655197+08:00",
+  "error": "No command reply from board; check firmware, board IP, cable and local network configuration"
+}
