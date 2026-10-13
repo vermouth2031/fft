@@ -52,3 +52,5 @@ python scripts/verify_phase13_cold_boot.py
 ```
 
 这些脚本及GitHub Actions核对源码、产物散列与归档实测证据，不会在云端重新运行Vivado或真板。最终发布清单分别记录实现提交与打包时的源码提交；发布标签固定验收快照，后续分支回执记录实际上传、下载校验和CI结果。
+
+Phase13 已发布至 [固定版本](https://github.com/vermouth2031/fft/releases/tag/v2026.10.13-phase13-structure160-usb-sd-validated)，标签提交 `cb04c3bb36940ad93665691d92cb46f533961107`；7 个附件重新下载核对 SHA-256 全部一致，源码包逐文件匹配该提交，完整证据包解压后离线验证通过。分支、标签及 [草稿 PR](https://github.com/vermouth2031/fft/pull/8) 的自动检查全部通过。标签中的 VERSION.json 保留上传前 PREPARED 状态，分支后续回执记录实际发布结果。 [完整发布回执](../reports/phase13_github_publication_20261013.json)。

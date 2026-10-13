@@ -8,7 +8,7 @@ I/Q 各16 bit，FFT16384点，板内回放160 MSPS，FFT时钟160 MHz。宽带�
 
 本轮1000次切换和300秒连续运行均未复现第五版的意外重启，测试后CPU复位标记仍保留。电气根因尚未确定，板载平均采样不能排除短时供电扰动。旧SD启动文件保留为`B1CF665D.BIN`。
 
-详细进度见[Phase13状态](PHASE13_STATUS.md)，证据见[RAM验收](reports/phase13_acceptance.json)、[SD安装与复验](reports/phase13_sd_deployment.json)、[指标对照](reports/phase13_comparison.json)。下载文件与版本对应关系见 [Phase13 GitHub 版本说明](docs/Phase13_GitHub版本说明.md)。下方内容为历史基线。
+详细进度见[Phase13状态](PHASE13_STATUS.md)，证据见[RAM验收](reports/phase13_acceptance.json)、[SD安装与复验](reports/phase13_sd_deployment.json)、[指标对照](reports/phase13_comparison.json)。下载文件与版本对应关系见 [Phase13 GitHub 版本说明](docs/Phase13_GitHub版本说明.md)。Phase13 已发布至 [固定版本](https://github.com/vermouth2031/fft/releases/tag/v2026.10.13-phase13-structure160-usb-sd-validated)，标签提交 `cb04c3bb36940ad93665691d92cb46f533961107`；7 个附件重新下载核对 SHA-256 全部一致，源码包逐文件匹配该提交，完整证据包解压后离线验证通过。分支、标签及 [草稿 PR](https://github.com/vermouth2031/fft/pull/8) 的自动检查全部通过。标签中的 VERSION.json 保留上传前 PREPARED 状态，分支后续回执记录实际发布结果。 下方内容为历史基线。
 
 # 历史基线 Phase 12：150 MSPS 数字 IQ 宽带优化
 
