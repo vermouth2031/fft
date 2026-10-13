@@ -1,6 +1,6 @@
 # Phase13：160 MSPS 电路结构优化
 
-第九版构建 `4757a33c02eed50a403db87d09cb091f` 已通过完整仿真、布局布线、软件构建，以及 USB 供电真板的 79 项数值、272 项宽带、1000 次 DMA 切换和 60/300 秒持续运行测试。SD 完整读回校验、系统复位启动及启动后 79 项数值复验也已通过。**当前等待本版本首次真实断电验证，尚未发布 Phase13 冷启动验证版。**
+第九版构建 `4757a33c02eed50a403db87d09cb091f` 已通过完整仿真、布局布线、软件构建，以及 USB 供电真板的 79 项数值、272 项宽带、1000 次 DMA 切换和 60/300 秒持续运行测试。SD 完整读回校验、系统复位启动及启动后 79 项数值复验也已通过。2026-10-13 用户确认真实断电再上电后，仅通过网口确认自动启动到第九版 `4757a33c02eed50a403db87d09cb091f`，初始 epoch=0、错误=0。未使用 JTAG、下载程序或执行系统复位。冷启动后的 79 项数值检查（80896 个快照值）及 300.000 秒满带 OFDM 持续运行全部通过，完成 8091 次 Bank 切换；频域记录缺口、UDP 丢包和 DMA 错误均为 0。实测最大分析/发布时间为 219.775/219.993750 µs。完整证据见 [冷启动验收](reports/phase13_boot_acceptance.json)。
 
 I/Q 各16 bit，FFT16384点，板内回放160 MSPS，FFT时钟160 MHz。宽带矩阵主组99%占用带宽为158.154297～158.593750 MHz；300秒连续测试为158.095703～158.554688 MHz。最大分析/发布时间为219.775/219.993750 µs。资源为LUT22708、FF28413、BRAM128、DSP49，建立/保持余量为+0.007/+0.050 ns。
 
@@ -8,7 +8,7 @@ I/Q 各16 bit，FFT16384点，板内回放160 MSPS，FFT时钟160 MHz。宽带�
 
 本轮1000次切换和300秒连续运行均未复现第五版的意外重启，测试后CPU复位标记仍保留。电气根因尚未确定，板载平均采样不能排除短时供电扰动。旧SD启动文件保留为`B1CF665D.BIN`。
 
-详细进度见[Phase13状态](PHASE13_STATUS.md)，证据见[RAM验收](reports/phase13_acceptance.json)、[SD安装与复验](reports/phase13_sd_deployment.json)、[指标对照](reports/phase13_comparison.json)。下方内容为历史基线。
+详细进度见[Phase13状态](PHASE13_STATUS.md)，证据见[RAM验收](reports/phase13_acceptance.json)、[SD安装与复验](reports/phase13_sd_deployment.json)、[指标对照](reports/phase13_comparison.json)。下载文件与版本对应关系见 [Phase13 GitHub 版本说明](docs/Phase13_GitHub版本说明.md)。下方内容为历史基线。
 
 # 历史基线 Phase 12：150 MSPS 数字 IQ 宽带优化
 
