@@ -38,6 +38,18 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
  reg [31:0] bpeak,tail_peak;
  // Length of the next detector sample, including start confirmation samples.
  reg [31:0] next_burst_length;
+ reg [31:0] maximum_previous;
+ reg burst_limit_reached;
+ // Predict the next registered length comparison without delaying detector
+ // samples or burst emission. Configuration is fixed during acquisition.
+ always @(posedge clk)begin
+   maximum_previous<=max_burst-32'd1;
+   if(rst)burst_limit_reached<=0;
+   else if(detector_valid[2]&&state==IDLE&&above_on)burst_limit_reached<=max_burst<=2;
+   else if(detector_valid[2]&&state!=IDLE)
+     burst_limit_reached<=next_burst_length>=maximum_previous&&next_burst_length!=32'hffffffff;
+   else burst_limit_reached<=next_burst_length>=max_burst;
+ end
  wire [31:0] merged_peak=(bpeak>tail_peak?bpeak:tail_peak)>p_detector?(bpeak>tail_peak?bpeak:tail_peak):p_detector;
  reg threshold_burst_valid;reg [287:0] threshold_burst_data;
  wire digital_burst_valid;wire [287:0] digital_burst_data;
@@ -104,12 +116,12 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
          START_CAND: if(above_on) begin
            benergy<=benergy+p_detector;if(p_detector>bpeak)bpeak<=p_detector;confirm<=confirm+1;
            if(confirm>=on_last)begin
-             if(next_burst_length>=max_burst)emit_burst(n_detector+1,benergy+p_detector,p_detector>bpeak?p_detector:bpeak,32'h400);
+             if(burst_limit_reached)emit_burst(n_detector+1,benergy+p_detector,p_detector>bpeak?p_detector:bpeak,32'h400);
              else state<=ACTIVE;
            end
          end else state<=IDLE;
          ACTIVE: begin
-           if(next_burst_length>=max_burst) emit_burst(n_detector+1,benergy+p_detector,p_detector>bpeak?p_detector:bpeak,32'h400);
+           if(burst_limit_reached) emit_burst(n_detector+1,benergy+p_detector,p_detector>bpeak?p_detector:bpeak,32'h400);
            else if(below_off) begin
              if(koff==1) emit_burst(n_detector,benergy,bpeak,0);
              else begin be<=n_detector;confirm<=1;tail_energy<=p_detector;tail_peak<=p_detector;state<=END_CAND;end
@@ -117,7 +129,7 @@ module time_measure(input wire clk,rst,input wire valid,input wire [31:0] iq,
          end
          END_CAND: begin
            if(below_off && confirm>=off_last) emit_burst(be,benergy,bpeak,0);
-           else if(next_burst_length>=max_burst) emit_burst(n_detector+1,benergy+tail_energy+p_detector,merged_peak,32'h400);
+           else if(burst_limit_reached) emit_burst(n_detector+1,benergy+tail_energy+p_detector,merged_peak,32'h400);
            else if(below_off) begin
              confirm<=confirm+1;tail_energy<=tail_energy+p_detector;if(p_detector>tail_peak)tail_peak<=p_detector;
            end else begin benergy<=benergy+tail_energy+p_detector;bpeak<=merged_peak;state<=ACTIVE;end

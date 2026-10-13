@@ -18,11 +18,19 @@ module digital_burst_measure(
  // The peripheral locks configuration during acquisition and resets this
  // detector before accepting samples. Precompute on every clock (including
  // reset) so configuration arithmetic is outside the sample decision path.
- reg [15:0] gap_last;
+ reg [15:0] gap_last,gap_penultimate;
+ reg gap_confirm;
  reg [31:0] length_last;
  always @(posedge clk)begin
-   gap_last<=gap_min-16'd1;
+   gap_last<=gap_min-16'd1;gap_penultimate<=gap_min-16'd2;
    length_last<=max_burst-32'd1;
+ end
+ // Predict the comparison for the next zero count, preserving gaps of one,
+ // valid stalls and saturation. The wide payload enable uses this single bit.
+ always @(posedge clk)begin
+   if(rst||!enable)gap_confirm<=gap_min<=1;
+   else if(valid)gap_confirm<=gap_last==0||(power==0&&zeros>=gap_penultimate);
+   else gap_confirm<=zeros>=gap_last;
  end
  reg [31:0] length,peak,burst_id;
  reg [63:0] start_sample,last_nonzero,energy,observed_end;
@@ -65,7 +73,7 @@ module digital_burst_measure(
          end
        end else begin
          // A confirmed gap wins if confirmation and the size limit coincide.
-         if(power==0&&zeros>=gap_last)begin
+         if(power==0&&gap_confirm)begin
            if(has_nonzero)emit(last_nonzero+1,energy,peak,base_flags);
            active<=0;length<=0;has_nonzero<=0;
          end else if(length>=length_last)begin

@@ -21,6 +21,8 @@ module tb_phase12_time_equivalence;
  integer comparisons=0,bursts=0,windows=0,c,n,count;
  always @(negedge clk)if(!rst)begin
   comparisons=comparisons+1;
+  if(dut.state!=0 && dut.burst_limit_reached!==(dut.next_burst_length>=max_burst))
+    $fatal(1,"Predicted burst limit mismatch case=%0d",c);
   if({wv,bv,samples}!=={rwv,rbv,rsamples})$fatal(1,"Time control mismatch case=%0d",c);
   if(wv)begin windows=windows+1;if(wd!==rwd)$fatal(1,"Window mismatch");end
   if(bv)begin bursts=bursts+1;if(bd!==rbd)$fatal(1,"Burst mismatch case=%0d",c);end

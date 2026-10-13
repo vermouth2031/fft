@@ -1,0 +1,84 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 12 10:55:14 2026
+# Process ID         : 15292
+# Current directory  : D:/fft/fft_phase13_structure_opt
+# Command line       : vivado.exe -mode batch -notrace -nojournal -log D:\fft\fft_phase13_structure_opt\build\logs\sim_phase13_commit.log -source scripts/sim_phase13_commit.tcl
+# Log file           : D:/fft/fft_phase13_structure_opt/build/logs/sim_phase13_commit.log
+# Journal file       : 
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 15835 MB
+# Total Virtual      : 32680 MB
+# Available Virtual  : 2716 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_phase13_commit.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 614.711 ; gain = 272.781
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Vivado 12-28535] Process started - Mon Oct 12 10:55:31 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_phase13_commit'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'D:/fft/fft_phase13_structure_opt/build/commit_test/commit_test.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from 'D:/VivadoMM/2026.1/Vivado/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_phase13_commit' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'D:/fft/fft_phase13_structure_opt/build/commit_test/commit_test.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -L uvm -prj tb_phase13_commit_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase13_structure_opt/rtl/iq_bank_metadata.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module iq_bank_metadata
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase13_structure_opt/rtl/iq_dma_commit.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module iq_dma_commit
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/fft/fft_phase13_structure_opt/tests/tb_phase13_commit.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_phase13_commit
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/fft/fft_phase13_structure_opt/build/commit_test/commit_test.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'D:/fft/fft_phase13_structure_opt/build/commit_test/commit_test.sim/sim_1/behav/xsim'
+"xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase13_commit_behav xil_defaultlib.tb_phase13_commit xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: D:/VivadoMM/2026.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_phase13_commit_behav xil_defaultlib.tb_phase13_commit xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.iq_dma_commit
+Compiling module xil_defaultlib.iq_bank_metadata
+Compiling module xil_defaultlib.tb_phase13_commit
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_phase13_commit_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'D:/fft/fft_phase13_structure_opt/build/commit_test/commit_test.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_phase13_commit_behav -key {Behavioral:sim_1:Functional:tb_phase13_commit} -tclbatch {tb_phase13_commit.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_phase13_commit.tcl
+PHASE13_COMMIT_PASS transactions=64 cancel_stages=3 atomic_metadata byte_strobes captured_payload single_completion
+$finish called at time : 3818750 ps : File "D:/fft/fft_phase13_structure_opt/tests/tb_phase13_commit.sv" Line 54
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_phase13_commit_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:10 . Memory (MB): peak = 634.973 ; gain = 20.262
+INFO: [Simtcl 6-16] Simulation closed
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 12 10:55:42 2026...

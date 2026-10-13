@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "D:\fft\fft_phase13_structure_opt\scripts\phase13_dma_validation.py", line 152, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\fft\fft_phase13_structure_opt\scripts\phase13_dma_validation.py", line 94, in main
+    status=client.stream_status();bank=1-status['active_bank'];begin=time.monotonic()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase13_structure_opt\host\iq_client.py", line 246, in stream_status
+    values=self.request(8,[])
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\fft\fft_phase13_structure_opt\host\iq_client.py", line 151, in request
+    raise TimeoutError('No command reply from board; check firmware, board IP, cable and local network configuration')
+TimeoutError: No command reply from board; check firmware, board IP, cable and local network configuration

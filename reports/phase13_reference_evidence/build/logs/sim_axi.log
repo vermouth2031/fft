@@ -1,0 +1,34 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 22-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 12 22:04:54 2026
+# Process ID         : 45144
+# Current directory  : D:/fft/fft_phase13_structure_opt
+# Command line       : vivado.exe -mode batch -notrace -nojournal -log D:\fft\fft_phase13_structure_opt\build\logs\sim_axi.log -source scripts/sim_axi.tcl
+# Log file           : D:/fft/fft_phase13_structure_opt/build/logs/sim_axi.log
+# Journal file       : 
+# Running On         : LAPTOP-ATE8I1GS
+# Platform           : Windows 11
+# Operating System   : 26100
+# Processor Detail   : AMD Ryzen 9 7945HX with Radeon Graphics        
+# CPU Frequency      : 2495 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 16844 MB
+# Swap memory        : 18413 MB
+# Total Virtual      : 35258 MB
+# Available Virtual  : 6771 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/LENOVO/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+source scripts/sim_axi.tcl -notrace
+ACK_INTERVAL_PASS cases=65536 wrap_future_consumer_boundaries
+SEGMENTED_COMPARE_PASS cases=65536 distributed_unsigned_pairs
+ACK_PIPELINE_PASS transactions=16 captured_modular_validation single_execution
+CAPACITY_PAGE_METADATA_PASS cycles=322423 ack_reset_wrap_atomic
+REPLAY_PIPELINE_SCOREBOARD_PASS samples=245760 switches=1
+AXI_PASS independent_aw_w wstrb response_stalls ddr_dma_crc_tlast overlong_dma_write_guard dual_bank_boundary_switch block_identity rect_hann_restart snapshot consumer_bounds abort digital_zero_config exact_frame
+PHASE13_AXI_REUSE_PASS manifest_sha256=f6214afb4ac1d532d718277ced8356e2d58691437635ef5f27556c21cbc6e6b8
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 12 22:05:02 2026...

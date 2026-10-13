@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "scope": "Exact frequency, burst, flags, sequences, timestamps and available snapshot",
+  "folder": "D:\\fft\\fft_phase13_structure_opt\\reports\\phase13_ram_trial09_20261012\\finite\\rrc_alpha60_hann",
+  "detector_mode": "threshold",
+  "gap_min": 32,
+  "hardware_version": 65547,
+  "frequency_records": 2,
+  "burst_records": 1,
+  "exact_snapshot_values": 1024,
+  "maximum_analysis_us": 219.775,
+  "maximum_publish_us": 219.99375,
+  "input_sha256": "c4d5b4d45d6cfd3fa93a2197396cf11d11d4e9c817f45c2d876c3b1c793ae6df",
+  "golden_sha256": "d7229a6560e0512dd626c2419faeece0553ad8361d504b7401e456b3455ee2cf",
+  "files": {
+    "capture.json": "5422470eedcb5728fbaf284f6fbfbaee09001fd78946d582241fcb9448322633",
+    "frequency.bin": "c97d6ff1fc8b17b857c20974d9b422b9edc04fc0df6000f248b45ea55ee5c5ba",
+    "burst.bin": "66fa5234331b1039e446516e44932274210aa213812653371a6eca76089a3774",
+    "snapshot.bin": "800583f1d7b49930c6c1094a8868857fdd07322c6b1ec991471c3ea2e07ea3b9",
+    "snapshot.json": "93c443f08676ec3a025bc15e609b9545157ec9b532022e7cfef53d35ce221849"
+  },
+  "label": "rrc_alpha60_hann",
+  "detection_metrics": {
+    "rule": {
+      "minimum_truth_overlap": 0.5,
+      "boundary_tolerance_samples": 32,
+      "tie_break": "descending IoU, descending intersection, earlier truth, earlier detection"
+    },
+    "known_bursts": 1,
+    "detected_intervals": 1,
+    "matched": 1,
+    "normal_matches": 1,
+    "normal_detection_rate": 1.0,
+    "missed": 0,
+    "false_alarms": 0,
+    "merged_detections": 0,
+    "split_truths": 0,
+    "unmatched_overlapping_detections": 0,
+    "detection_rate": 1.0,
+    "background_observation_us": 51.075,
+    "false_alarms_per_second": 0.0,
+    "matches": [
+      {
+        "truth": 0,
+        "detection": 0,
+        "start_error_samples": 8,
+        "end_error_samples": 8,
+        "length_error_samples": 0,
+        "start_error_us": 0.05,
+        "end_error_us": 0.05,
+        "length_error_us": 0.0,
+        "within_boundary_tolerance": true
+      }
+    ]
+  }
+}

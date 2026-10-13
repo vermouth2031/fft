@@ -11,12 +11,14 @@ module tb_units;
  reg [287:0] golden[0:255];
  reg push=0;reg [1023:0] record_data=0;reg [31:0] consumer=0;
  wire [31:0] producer,dropped,read_data;wire busy;reg [12:0] read_addr=0;
- record_ring ring(.clk(clk),.rst(rst),.push(push),.record_data(record_data),.consumer(consumer),.producer(producer),.dropped(dropped),.busy(busy),.read_addr(read_addr),.read_data(read_data));
+ wire [23:0] consumer_page256=consumer[31:8]+1'b1;
+ wire [24:0] consumer_page128=consumer[31:7]+1'b1;
+ record_ring ring(.clk(clk),.rst(rst),.push(push),.record_data(record_data),.consumer(consumer),.consumer_next_page(consumer_page256),.producer(producer),.dropped(dropped),.busy(busy),.read_addr(read_addr),.read_data(read_data));
  integer n,w;
  reg [31:0] test_producer=0;
  wire [31:0] test_occupancy=test_producer-consumer;
  record_ring #(.WORDS_LOG2(4),.RECORDS_LOG2(7)) ring128(.clk(clk),.rst(rst),.push(1'b0),
- .record_data(512'd0),.consumer(consumer),.producer(),.dropped(),.busy(),.read_addr(11'd0),.read_data());
+ .record_data(512'd0),.consumer(consumer),.consumer_next_page(consumer_page128),.producer(),.dropped(),.busy(),.read_addr(11'd0),.read_data());
  task push_record(input integer id);
    begin
      @(negedge clk);for(w=0;w<32;w=w+1)record_data[w*32+:32]=(id<<8)|w;push=1;
@@ -36,6 +38,14 @@ module tb_units;
          $fatal(1,"ring capacity equivalence p=%h c=%h",test_producer,consumer);
      end
    end
+   // Spread tests across every page-carry boundary, not just the 2^32 wrap.
+   for(n=0;n<65536;n=n+1)begin
+     consumer=n*32'd2654435761;
+     test_producer=consumer+(n%515)-257;#1;
+     if(ring.has_space!==(test_occupancy<256)||ring128.has_space!==(test_occupancy<128))
+       $fatal(1,"lookahead page capacity mismatch p=%h c=%h",test_producer,consumer);
+   end
+   $display("CAPACITY_LOOKAHEAD_PASS 65536_distributed_counter_pairs");
    release ring.producer;release ring128.producer;consumer=0;
    repeat(4)@(negedge clk);rst=0;
    for(n=0;n<256;n=n+1)begin

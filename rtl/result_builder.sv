@@ -42,6 +42,18 @@ module result_builder #(
  // add/multiply/round chain; results settle while the two roots execute.
  reg signed [LOGN+1:0] dp,dl,dh,dc;
  reg [LOGN:0] dw;
+ // Remove exact powers of two before multiplying. At 160 MHz the reduced
+ // constant is 78125 and fits one DSP multiplier. The extra register settles
+ // during the existing square-root work and does not delay publication.
+ function automatic integer rate_trailing_zeros(input integer value);
+   integer k;begin rate_trailing_zeros=0;
+     for(k=0;k<30;k=k+1)if((value & ((1<<(k+1))-1))==0)rate_trailing_zeros=k+1;
+   end
+ endfunction
+ localparam integer RATE_SHIFT=rate_trailing_zeros(SAMPLE_RATE_HZ);
+ localparam integer RATE_WIDTH=$clog2((SAMPLE_RATE_HZ>>RATE_SHIFT)+1)+1;
+ localparam signed [RATE_WIDTH-1:0] RATE_FACTOR=SAMPLE_RATE_HZ>>RATE_SHIFT;
+ reg signed [47:0] pp_small,pl_small,ph_small,pc_small,pw_small;
  reg signed [47:0] pp,pl,ph,pc;
  reg [47:0] pw;
  reg [31:0] hz_peak,hz_low,hz_high,hz_center,hz_width;
@@ -56,7 +68,9 @@ module result_builder #(
    dh<=$signed({2'd0,fr[32+:LOGN]})-$signed(N/2);
    dc<=$signed({2'd0,fr[48+:LOGN]})+$signed({2'd0,fr[32+:LOGN]})-$signed(N);
    dw<={1'b0,fr[32+:LOGN]}-{1'b0,fr[48+:LOGN]};
-   pp<=dp*$signed(SAMPLE_RATE_HZ);pl<=dl*$signed(SAMPLE_RATE_HZ);ph<=dh*$signed(SAMPLE_RATE_HZ);pc<=dc*$signed(SAMPLE_RATE_HZ);pw<=dw*SAMPLE_RATE_HZ;
+   pp_small<=dp*RATE_FACTOR;pl_small<=dl*RATE_FACTOR;ph_small<=dh*RATE_FACTOR;pc_small<=dc*RATE_FACTOR;
+   pw_small<=$signed({1'b0,dw})*RATE_FACTOR;
+   pp<=pp_small<<<RATE_SHIFT;pl<=pl_small<<<RATE_SHIFT;ph<=ph_small<<<RATE_SHIFT;pc<=pc_small<<<RATE_SHIFT;pw<=pw_small<<RATE_SHIFT;
    hz_peak<=round_hz(pp,0);hz_low<=round_hz(pl,0);hz_high<=round_hz(ph,0);hz_center<=round_hz(pc,1);
    hz_width<=(pw+48'(N/2))>>LOGN;
  end

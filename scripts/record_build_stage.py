@@ -38,7 +38,7 @@ def inputs(stage):
         files += list((ROOT / 'data/vectors').glob('*.bin'))
         files += [p for p in (ROOT / 'data/qualification').rglob('*') if p.suffix in ('.json', '.bin')]
         files += [ROOT / 'scripts' / name for name in
-                  ('validate_measurements.py', 'verify_board_capture.py', 'qualification_capture.py', 'analyze_latency.py', 'run.ps1','phase9_python_validation.py','sim_core_parallel.py')]
+                  ('validate_measurements.py', 'verify_board_capture.py', 'qualification_capture.py', 'analyze_latency.py', 'run.ps1','phase9_python_validation.py','sim_core_parallel.py','phase13_axi_cache.py')]
     else:
         raise ValueError(stage)
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(set(files)) if p.is_file()}
@@ -125,7 +125,7 @@ def main():
             evidence_paths = [ROOT / 'reports' / name for name in (
                 'hardware_validation.json', 'timing_summary.rpt', 'utilization_flat.rpt',
                 'cdc.rpt', 'drc.rpt', 'bus_skew.rpt', 'worst_paths.rpt',
-                'phase12_clock_generation.json', 'clock_interaction.rpt')]
+                'phase13_clock_generation.json', 'clock_interaction.rpt')]
             evidence_paths += [ROOT / 'build/board/iq_board.srcs/sources_1/bd/system/system.bd',
                 ROOT / 'build/board/iq_board.gen/sources_1/bd/system/ip/system_fft_clock_0/system_fft_clock_0_clk_wiz.v']
         else:
@@ -138,8 +138,13 @@ def main():
                               ROOT / 'reports/phase2_latency_validation.json',
                               ROOT / 'build/vivado16k/iq_analyzer.sim/sim_1/behav/xsim/latency_events.csv']
             evidence_paths += [ROOT / 'build/logs' / (name + '.log') for name in (
-                'sim_units', 'sim_phase12_math_ranges', 'sim_phase12_time_equivalence', 'sim_phase11_window', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
+                'sim_units', 'sim_phase13_commit', 'sim_phase12_math_ranges', 'sim_phase12_time_equivalence', 'sim_phase11_window', 'sim_builder', 'sim_measurements', 'sim_digital_burst',
                 'sim_spectrum_edges', 'sim_core', 'sim_axi')]
+            axi_log = (ROOT/'build/logs/sim_axi.log').read_text(errors='replace')
+            if 'PHASE13_AXI_REUSE_PASS' in axi_log:
+                from phase13_axi_cache import reuse
+                reuse()
+                evidence_paths += list((ROOT/'build/phase13_axi_cache').iterdir())
         record = dict(stage=args.stage, captured_at=datetime.datetime.now().astimezone().isoformat(),
                       inputs=inputs(args.stage), artifacts=artifacts,
                       evidence={p.relative_to(ROOT).as_posix(): sha(p) for p in evidence_paths},

@@ -1,0 +1,108 @@
+{
+  "status": "BOARD_COMPARISON_PASS",
+  "created_at": "2026-10-12T22:24:29.687738+08:00",
+  "baseline_build_id": "444262675c923ecdf987042ee08f3da0",
+  "candidate_build_id": "4757a33c02eed50a403db87d09cb091f",
+  "metrics": {
+    "i_bits": {
+      "before": 16,
+      "after": 16,
+      "change_percent": 0.0
+    },
+    "q_bits": {
+      "before": 16,
+      "after": 16,
+      "change_percent": 0.0
+    },
+    "sample_rate_hz": {
+      "before": 150000000,
+      "after": 160000000,
+      "change_percent": 6.666666666666665
+    },
+    "fft_points": {
+      "before": 16384,
+      "after": 16384,
+      "change_percent": 0.0
+    },
+    "maximum_analysis_us": {
+      "before": 234.42666666666668,
+      "after": 219.775,
+      "change_percent": -6.25
+    },
+    "maximum_publish_us": {
+      "before": 234.66,
+      "after": 219.99375,
+      "change_percent": -6.25
+    },
+    "minimum_primary_99_percent_bandwidth_hz": {
+      "before": 148269653,
+      "after": 158154297,
+      "change_percent": 6.66666698140852
+    },
+    "maximum_primary_99_percent_bandwidth_hz": {
+      "before": 148681641,
+      "after": 158593750,
+      "change_percent": 6.666666397635468
+    }
+  },
+  "resources": {
+    "Slice LUTs": {
+      "before": 22765.0,
+      "after": 22708.0,
+      "change_percent": -0.25038436195914393
+    },
+    "LUT as Memory": {
+      "before": 5741.0,
+      "after": 5740.0,
+      "change_percent": -0.017418568193694473
+    },
+    "Slice Registers": {
+      "before": 28377.0,
+      "after": 28413.0,
+      "change_percent": 0.12686330478908214
+    },
+    "Block RAM Tile": {
+      "before": 128.0,
+      "after": 128.0,
+      "change_percent": 0.0
+    },
+    "DSPs": {
+      "before": 49.0,
+      "after": 49.0,
+      "change_percent": 0.0
+    }
+  },
+  "frequency_bin_spacing_hz": {
+    "before": 9155.2734375,
+    "after": 9765.625,
+    "change_percent": 6.666666666666665
+  },
+  "timing": {
+    "status": "PASS",
+    "setup_slack_ns": 0.007,
+    "hold_slack_ns": 0.05,
+    "cdc_critical": 0,
+    "unconstrained_internal_endpoints": 0,
+    "board_tested": false,
+    "tool": "2026.1"
+  },
+  "measurement_definition": "Equal-tail 99% occupied bandwidth of the same quantized I16/Q16 OFDM matrix, without interpolation",
+  "input_scope": "FPGA replay-bank consumption rate; network upload of continuously unique samples at this rate is not claimed",
+  "tradeoffs": [
+    "Fixed FFT size increases frequency-bin spacing when Fs rises.",
+    "Terminal DMA commit adds three clocks; sample replay datapath is unchanged.",
+    "Control pipelining budget: LUT <= 23400, FF <= 29200, BRAM <= 128, DSP <= 49."
+  ],
+  "physical_cold_boot": "NOT_ESTABLISHED_BY_THIS_REPORT",
+  "files": {
+    "reports/phase13_baseline.json": "f80492a4385d6e45bb85bf0e4f65138e45b67eff370a580a1edbb524b1e8dcd1",
+    "reports/phase12_acceptance.json": "34e6b39e753cc31c2a0da46d4f5f4fc438660d8ace5598d33d2356b4a0ee2404",
+    "reports/phase13_ram_trial09_20261012/finite/validation.json": "4b130d784b584d597055bcc8ab99d1c17c1210718625ee5eaa55bc26df23827f",
+    "reports/phase13_wideband_trial09_20261012/validation.json": "ddebecd6ff95135627528dde46f062d09aeb0e7c4c38d61c5c04873bd8f171e1",
+    "reports/phase12_wideband_20261011/validation.json": "aa0d5af9e2e8e9e027c4d2db96414bef3563a8dd1b2c63d536834b6a80577848",
+    "reports/phase12_ram_20261011/continuous300/stability.json": "0bd96a9952a1e7e07d78565c386d166e0cde7a621405c5923d5d2cce989e8f33",
+    "reports/phase13_ram_trial09_20261012/dma1000/validation.json": "0ce0c503d252a09f61645584ef7f39e5c0fa0b10da44c2b26d3ce8bf0aa490d9",
+    "reports/phase13_ram_trial09_20261012/continuous60/stability.json": "afa73fd456b28cd54ad8d151ee443867289b9c5577d4d2ecd987e0320cd0c1f2",
+    "reports/phase13_ram_trial09_20261012/continuous300/stability.json": "2c47aa7f8238d14a60c8f96bda460824d8f32e6341598a3de7a50f0d3f92f6d0"
+  }
+}

@@ -3,18 +3,23 @@
 module iq_replay_bank(
  input wire clk,
  input wire [14:0] host_addr,
- input wire host_we,
+ input wire host_en,host_we,
  input wire [3:0] host_wstrb,
  input wire [31:0] host_wdata,
  output reg [31:0] host_q,
+ input wire replay_en,
  input wire [14:0] replay_addr,
  output reg [31:0] replay_q);
  (* ram_style="block" *) reg [31:0] mem[0:32767];
- integer byte_lane;
- always @(posedge clk)begin
-   host_q<=mem[host_addr];
-   replay_q<=mem[replay_addr];
-   if(host_we)for(byte_lane=0;byte_lane<4;byte_lane=byte_lane+1)
-     if(host_wstrb[byte_lane])mem[host_addr][byte_lane*8+:8]<=host_wdata[byte_lane*8+:8];
- end
+ // Keep each byte read/write pair in the same process. This lets synthesis
+ // infer the native A-port enable for byte-write BRAM instead of a held
+ // fabric output with an always-enabled memory port.
+ genvar lane;
+ generate for(lane=0;lane<4;lane=lane+1)begin:bytes
+   always @(posedge clk)if(host_en)begin
+     if(host_we&&host_wstrb[lane])mem[host_addr][lane*8+:8]<=host_wdata[lane*8+:8];
+     host_q[lane*8+:8]<=mem[host_addr][lane*8+:8];
+   end
+ end endgenerate
+ always @(posedge clk)if(replay_en)replay_q<=mem[replay_addr];
 endmodule

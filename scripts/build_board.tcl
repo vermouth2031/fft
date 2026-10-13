@@ -87,10 +87,10 @@ set actual_fft_hz [get_property CONFIG.FREQ_HZ $fft_output_pin]
 if {$actual_sample_hz != $sample_rate_hz} {error "FCLK_CLK0 mismatch: requested $sample_rate_hz, got $actual_sample_hz"}
 if {$actual_fft_hz != $fft_clock_hz} {error "FFT physical clock mismatch: requested $fft_clock_hz, got $actual_fft_hz"}
 file mkdir $root/reports
-set clock_report [open $root/reports/phase12_clock_generation.json w]
+set clock_report [open $root/reports/phase13_clock_generation.json w]
 puts $clock_report "\{\"source_hz\":$actual_sample_hz,\"fft_hz\":$actual_fft_hz,\"ps_fclk1_hz\":[get_property CONFIG.FREQ_HZ [get_bd_pins ps7/FCLK_CLK1]],\"pl_mmcm\":[expr {$fft_clock_mhz != $ps_fft_clock_mhz ? {true} : {false}}],\"cpu_ddr_io_plls_preserved\":true\}"
 close $clock_report
-puts "PHASE12_DDR_DMA_CONFIGURATION_PASS sample_hz=$actual_sample_hz fft_hz=$actual_fft_hz"
+puts "PHASE13_DDR_DMA_CONFIGURATION_PASS sample_hz=$actual_sample_hz fft_hz=$actual_fft_hz"
 save_bd_design
 generate_target all [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd]
 make_wrapper -files [get_files $root/build/board/iq_board.srcs/sources_1/bd/system/system.bd] -top

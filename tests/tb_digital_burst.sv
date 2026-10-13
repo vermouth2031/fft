@@ -15,6 +15,8 @@ module tb_digital_burst;
  integer total_samples=0,total_bursts=0;
  reg [31:0] word;
  always @(posedge clk)if(!rst)begin
+   if(dut.digital_detector.gap_confirm !== (dut.digital_detector.zeros>=dut.digital_detector.gap_last))
+     $fatal(1,"Digital gap prediction mismatch case=%0d",c);
    if(bv)begin
      if(count>=expected_count||bd!==expected[count])
        $fatal(1,"digital case=%0d burst=%0d got=%h expected=%h",c,count,bd,expected[count]);

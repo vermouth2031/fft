@@ -1,0 +1,105 @@
+{
+  "baseline_phase12": {
+    "test_status": "PASS",
+    "build_id": "444262675c923ecdf987042ee08f3da0",
+    "sample_rate_hz": 150000000,
+    "started_at": "2026-10-12T20:55:28.390577+08:00",
+    "finished_at": "2026-10-12T20:56:25.102331+08:00",
+    "completed_transitions": 1000,
+    "full_interval_covered": true,
+    "active_nonzero_samples": 267,
+    "channels": {
+      "vp_vn": {
+        "min": 0.113,
+        "max": 0.148,
+        "mean": 0.1415430711610487
+      },
+      "temperature": {
+        "min": 52.3,
+        "max": 58.3,
+        "mean": 56.453932584269666
+      },
+      "vccint": {
+        "min": 0.96,
+        "max": 0.986,
+        "mean": 0.9711722846441947
+      },
+      "vccpint": {
+        "min": 0.955,
+        "max": 0.984,
+        "mean": 0.9691123595505617
+      },
+      "vccbram": {
+        "min": 0.96,
+        "max": 0.983,
+        "mean": 0.9719925093632958
+      },
+      "vccoddr": {
+        "min": 1.321,
+        "max": 1.338,
+        "mean": 1.331808988764045
+      }
+    },
+    "sampling_gap_ms": {
+      "min": 203,
+      "median": 210,
+      "max": 269
+    },
+    "source_files": {
+      "reports/phase13_ram_trial09_20261012/dma_monitor/baseline_control/validation.json": "b8af4bb87beb692716785dd414adac05e1a643b96bc18afe027135a53804fd52",
+      "reports/phase13_ram_trial09_20261012/dma_monitor/baseline_control/imon.csv": "f6d83550045ef7408041048e2fbf7943cffac12d531c7ea1f03f30548378386e"
+    }
+  },
+  "candidate_trial09": {
+    "test_status": "PASS",
+    "build_id": "4757a33c02eed50a403db87d09cb091f",
+    "sample_rate_hz": 160000000,
+    "started_at": "2026-10-12T22:17:37.237122+08:00",
+    "finished_at": "2026-10-12T22:18:25.676980+08:00",
+    "completed_transitions": 1000,
+    "full_interval_covered": true,
+    "active_nonzero_samples": 226,
+    "channels": {
+      "vp_vn": {
+        "min": 0.115,
+        "max": 0.148,
+        "mean": 0.14034070796460177
+      },
+      "temperature": {
+        "min": 52.2,
+        "max": 56.6,
+        "mean": 55.36681415929203
+      },
+      "vccint": {
+        "min": 0.96,
+        "max": 0.982,
+        "mean": 0.9712743362831858
+      },
+      "vccpint": {
+        "min": 0.957,
+        "max": 0.979,
+        "mean": 0.9691548672566371
+      },
+      "vccbram": {
+        "min": 0.962,
+        "max": 0.985,
+        "mean": 0.9728407079646018
+      },
+      "vccoddr": {
+        "min": 1.321,
+        "max": 1.336,
+        "mean": 1.3321681415929203
+      }
+    },
+    "sampling_gap_ms": {
+      "min": 202,
+      "median": 216,
+      "max": 232
+    },
+    "source_files": {
+      "reports/phase13_ram_trial09_20261012/dma1000/validation.json": "0ce0c503d252a09f61645584ef7f39e5c0fa0b10da44c2b26d3ce8bf0aa490d9",
+      "reports/phase13_ram_trial09_20261012/dma_monitor/imon.csv": "d708e1da2137dde2370fdc483e1ae6034e11ea9be3320b2ae863e347e66fa821"
+    }
+  },
+  "scope": "Both1000-switch DMA tests passed and monitor intervals cover the complete tests. XADC readings are averaged and sampled about every0.2s, so brief disturbances cannot be ruled out. Clock rate, implementation, acquisition date/time and temperature differ. VPVN is a raw board monitor voltage; these observations do not isolate a gating power saving or identify the root cause of Trial05 POR."
+}

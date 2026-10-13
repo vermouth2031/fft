@@ -1,0 +1,1622 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Fri Oct  9 23:06:31 2026
+| Host         : LAPTOP-ATE8I1GS running 64-bit major release  (build 9200)
+| Command      : report_timing -max_paths 12 -file D:/fft/fft_phase11_latency_opt/reports/phase11_150_pipelined_physopt_paths.rpt
+| Design       : system_wrapper
+| Device       : 7z020-clg400
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Physopt postPlace
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -0.277ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[63]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.831ns  (logic 4.964ns (72.669%)  route 1.867ns (27.331%))
+  Logic Levels:           27  (CARRY4=25 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.057ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.772ns = ( 9.439 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.508 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.508    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_0
+    SLICE_X74Y30         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.622 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.622    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1_n_0
+    SLICE_X74Y31         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.223     9.845 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[63]_i_2/O[0]
+                         net (fo=1, routed)           0.000     9.845    system_i/iq_0/inst/core/sm/div200/remainder_reg[63]_i_2_n_7
+    SLICE_X74Y31         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[63]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.549     9.439    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y31         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[63]/C
+                         clock pessimism              0.185     9.624    <hidden>
+                         clock uncertainty           -0.118     9.506    <hidden>
+    SLICE_X74Y31         FDRE (Setup_fdre_C_D)        0.062     9.568    system_i/iq_0/inst/core/sm/div200/remainder_reg[63]
+  -------------------------------------------------------------------
+                         required time                          9.568    <hidden>
+                         arrival time                          -9.845    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.277    <hidden>
+
+Slack (VIOLATED) :        -0.275ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[60]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.828ns  (logic 4.961ns (72.657%)  route 1.867ns (27.343%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.508 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.508    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_0
+    SLICE_X74Y30         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     9.842 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1/O[1]
+                         net (fo=1, routed)           0.000     9.842    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1_n_6
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[60]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[60]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y30         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[60]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.842    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.275    <hidden>
+
+Slack (VIOLATED) :        -0.254ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[62]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.807ns  (logic 4.940ns (72.572%)  route 1.867ns (27.428%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.508 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.508    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_0
+    SLICE_X74Y30         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313     9.821 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1/O[3]
+                         net (fo=1, routed)           0.000     9.821    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1_n_4
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y30         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.821    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.254    <hidden>
+
+Slack (VIOLATED) :        -0.180ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[61]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.733ns  (logic 4.866ns (72.271%)  route 1.867ns (27.729%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.508 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.508    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_0
+    SLICE_X74Y30         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239     9.747 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1/O[2]
+                         net (fo=1, routed)           0.000     9.747    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1_n_5
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[61]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[61]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y30         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[61]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.747    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.180    <hidden>
+
+Slack (VIOLATED) :        -0.164ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[59]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.717ns  (logic 4.850ns (72.205%)  route 1.867ns (27.795%))
+  Logic Levels:           26  (CARRY4=24 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.508 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.508    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_0
+    SLICE_X74Y30         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.223     9.731 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1/O[0]
+                         net (fo=1, routed)           0.000     9.731    system_i/iq_0/inst/core/sm/div200/remainder_reg[62]_i_1_n_7
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[59]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y30         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[59]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y30         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[59]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.731    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.164    <hidden>
+
+Slack (VIOLATED) :        -0.161ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[56]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.714ns  (logic 4.847ns (72.192%)  route 1.867ns (27.808%))
+  Logic Levels:           25  (CARRY4=23 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     9.728 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/O[1]
+                         net (fo=1, routed)           0.000     9.728    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_6
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[56]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[56]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y29         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[56]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.728    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.161    <hidden>
+
+Slack (VIOLATED) :        -0.140ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[58]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.693ns  (logic 4.826ns (72.105%)  route 1.867ns (27.895%))
+  Logic Levels:           25  (CARRY4=23 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313     9.707 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/O[3]
+                         net (fo=1, routed)           0.000     9.707    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_4
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y29         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.707    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.140    <hidden>
+
+Slack (VIOLATED) :        -0.066ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[57]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.619ns  (logic 4.752ns (71.793%)  route 1.867ns (28.207%))
+  Logic Levels:           25  (CARRY4=23 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239     9.633 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/O[2]
+                         net (fo=1, routed)           0.000     9.633    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_5
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[57]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[57]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y29         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[57]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.633    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.066    <hidden>
+
+Slack (VIOLATED) :        -0.050ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[55]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.603ns  (logic 4.736ns (71.725%)  route 1.867ns (28.275%))
+  Logic Levels:           25  (CARRY4=23 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.058ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.771ns = ( 9.438 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.394 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.394    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_0
+    SLICE_X74Y29         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.223     9.617 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1/O[0]
+                         net (fo=1, routed)           0.000     9.617    system_i/iq_0/inst/core/sm/div200/remainder_reg[58]_i_1_n_7
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[55]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.548     9.438    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y29         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[55]/C
+                         clock pessimism              0.185     9.623    <hidden>
+                         clock uncertainty           -0.118     9.505    <hidden>
+    SLICE_X74Y29         FDRE (Setup_fdre_C_D)        0.062     9.567    system_i/iq_0/inst/core/sm/div200/remainder_reg[55]
+  -------------------------------------------------------------------
+                         required time                          9.567    <hidden>
+                         arrival time                          -9.617    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.050    <hidden>
+
+Slack (VIOLATED) :        -0.048ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[52]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.600ns  (logic 4.733ns (71.712%)  route 1.867ns (28.288%))
+  Logic Levels:           24  (CARRY4=22 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.059ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.770ns = ( 9.437 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     9.614 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/O[1]
+                         net (fo=1, routed)           0.000     9.614    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_6
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[52]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.547     9.437    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[52]/C
+                         clock pessimism              0.185     9.622    <hidden>
+                         clock uncertainty           -0.118     9.504    <hidden>
+    SLICE_X74Y28         FDRE (Setup_fdre_C_D)        0.062     9.566    system_i/iq_0/inst/core/sm/div200/remainder_reg[52]
+  -------------------------------------------------------------------
+                         required time                          9.566    <hidden>
+                         arrival time                          -9.614    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.048    <hidden>
+
+Slack (VIOLATED) :        -0.027ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[54]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.579ns  (logic 4.712ns (71.622%)  route 1.867ns (28.378%))
+  Logic Levels:           24  (CARRY4=22 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.059ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.770ns = ( 9.437 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313     9.593 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/O[3]
+                         net (fo=1, routed)           0.000     9.593    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_4
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.547     9.437    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]/C
+                         clock pessimism              0.185     9.622    <hidden>
+                         clock uncertainty           -0.118     9.504    <hidden>
+    SLICE_X74Y28         FDRE (Setup_fdre_C_D)        0.062     9.566    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]
+  -------------------------------------------------------------------
+                         required time                          9.566    <hidden>
+                         arrival time                          -9.593    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.027    <hidden>
+
+Slack (MET) :             0.047ns  (required time - arrival time)
+  Source:                 system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Destination:            system_i/iq_0/inst/core/sm/div200/remainder_reg[53]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_system_fft_clock_0  {rise@0.000ns fall@3.333ns period=6.667ns})
+  Path Group:             clk_out1_system_fft_clock_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            6.667ns  (clk_out1_system_fft_clock_0 rise@6.667ns - clk_out1_system_fft_clock_0 rise@0.000ns)
+  Data Path Delay:        6.505ns  (logic 4.638ns (71.299%)  route 1.867ns (28.701%))
+  Logic Levels:           24  (CARRY4=22 LUT1=1 LUT3=1)
+  Clock Path Skew:        -0.059ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.770ns = ( 9.437 - 6.667 ) 
+    Source Clock Delay      (SCD):    3.014ns
+    Clock Pessimism Removal (CPR):    0.185ns
+  Clock Uncertainty:      0.118ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.225ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      0.000     0.000 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     0.000 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.193     1.193    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.101     1.294 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        2.051     3.345    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.359    -1.014 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.206     1.192    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.101     1.293 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.721     3.014    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X73Y19         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y19         FDRE (Prop_fdre_C_Q)         0.456     3.470 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[2]_replica/Q
+                         net (fo=2, estimated)        0.793     4.263    system_i/iq_0/inst/core/sm/div200/remainder[2]_repN
+    SLICE_X73Y16         LUT3 (Prop_lut3_I0_O)        0.124     4.387 r  system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73/O
+                         net (fo=1, routed)           0.000     4.387    system_i/iq_0/inst/core/sm/div200/quotient[0]_i_73_n_0
+    SLICE_X73Y16         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     4.937 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58/CO[3]
+                         net (fo=1, estimated)        0.000     4.937    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_58_n_0
+    SLICE_X73Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.051 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49/CO[3]
+                         net (fo=1, estimated)        0.000     5.051    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_49_n_0
+    SLICE_X73Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.165 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40/CO[3]
+                         net (fo=1, estimated)        0.000     5.165    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_40_n_0
+    SLICE_X73Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.279 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31/CO[3]
+                         net (fo=1, estimated)        0.000     5.279    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_31_n_0
+    SLICE_X73Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.393 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22/CO[3]
+                         net (fo=1, estimated)        0.000     5.393    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_22_n_0
+    SLICE_X73Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.507 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13/CO[3]
+                         net (fo=1, estimated)        0.000     5.507    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_13_n_0
+    SLICE_X73Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.621 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4/CO[3]
+                         net (fo=1, estimated)        0.000     5.621    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_4_n_0
+    SLICE_X73Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.735 r  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2/CO[3]
+                         net (fo=1, estimated)        0.000     5.735    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_2_n_0
+    SLICE_X73Y24         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     6.069 f  system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1/O[1]
+                         net (fo=62, estimated)       0.534     6.603    system_i/iq_0/inst/core/sm/div200/quotient_reg[0]_i_1_n_6
+    SLICE_X71Y22         LUT1 (Prop_lut1_I0_O)        0.303     6.906 r  system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2/O
+                         net (fo=1, estimated)        0.531     7.437    system_i/iq_0/inst/core/sm/div200/remainder[6]_i_2_n_0
+    SLICE_X74Y16         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580     8.017 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.017    system_i/iq_0/inst/core/sm/div200/remainder_reg[6]_i_1_n_0
+    SLICE_X74Y17         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.131 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.131    system_i/iq_0/inst/core/sm/div200/remainder_reg[10]_i_1_n_0
+    SLICE_X74Y18         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.245 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.245    system_i/iq_0/inst/core/sm/div200/remainder_reg[14]_i_1_n_0
+    SLICE_X74Y19         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.359 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.359    system_i/iq_0/inst/core/sm/div200/remainder_reg[18]_i_1_n_0
+    SLICE_X74Y20         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.473 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.473    system_i/iq_0/inst/core/sm/div200/remainder_reg[22]_i_1_n_0
+    SLICE_X74Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.587 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.587    system_i/iq_0/inst/core/sm/div200/remainder_reg[26]_i_1_n_0
+    SLICE_X74Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.701 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.701    system_i/iq_0/inst/core/sm/div200/remainder_reg[30]_i_1_n_0
+    SLICE_X74Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.815 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     8.815    system_i/iq_0/inst/core/sm/div200/remainder_reg[34]_i_1_n_0
+    SLICE_X74Y24         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     8.929 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1/CO[3]
+                         net (fo=1, estimated)        0.009     8.938    system_i/iq_0/inst/core/sm/div200/remainder_reg[38]_i_1_n_0
+    SLICE_X74Y25         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.052 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.052    system_i/iq_0/inst/core/sm/div200/remainder_reg[42]_i_1_n_0
+    SLICE_X74Y26         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.166 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.166    system_i/iq_0/inst/core/sm/div200/remainder_reg[46]_i_1_n_0
+    SLICE_X74Y27         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     9.280 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1/CO[3]
+                         net (fo=1, estimated)        0.000     9.280    system_i/iq_0/inst/core/sm/div200/remainder_reg[50]_i_1_n_0
+    SLICE_X74Y28         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239     9.519 r  system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1/O[2]
+                         net (fo=1, routed)           0.000     9.519    system_i/iq_0/inst/core/sm/div200/remainder_reg[54]_i_1_n_5
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[53]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_system_fft_clock_0 rise edge)
+                                                      6.667     6.667 r  <hidden>
+    PS7_X0Y0             PS7                          0.000     6.667 r  system_i/ps7/inst/PS7_i/FCLKCLK[1]
+                         net (fo=1, estimated)        1.133     7.800    system_i/ps7/inst/FCLK_CLK_unbuffered[1]
+    BUFGCTRL_X0Y19       BUFG (Prop_bufg_I_O)         0.091     7.891 r  system_i/ps7/inst/buffer_fclk_clk_1.FCLK_CLK_1_BUFG/O
+                         net (fo=1, estimated)        1.855     9.746    system_i/fft_clock/inst/clk_in1
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -4.043     5.703 r  system_i/fft_clock/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, estimated)        2.096     7.799    system_i/fft_clock/inst/clk_out1_system_fft_clock_0
+    BUFGCTRL_X0Y17       BUFG (Prop_bufg_I_O)         0.091     7.890 r  system_i/fft_clock/inst/clkout1_buf/O
+                         net (fo=22466, estimated)    1.547     9.437    system_i/iq_0/inst/core/sm/div200/fft_clk
+    SLICE_X74Y28         FDRE                                         r  system_i/iq_0/inst/core/sm/div200/remainder_reg[53]/C
+                         clock pessimism              0.185     9.622    <hidden>
+                         clock uncertainty           -0.118     9.504    <hidden>
+    SLICE_X74Y28         FDRE (Setup_fdre_C_D)        0.062     9.566    system_i/iq_0/inst/core/sm/div200/remainder_reg[53]
+  -------------------------------------------------------------------
+                         required time                          9.566    <hidden>
+                         arrival time                          -9.519    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.047    <hidden>
+
+
+
+
