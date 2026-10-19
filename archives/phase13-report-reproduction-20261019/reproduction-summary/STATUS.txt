@@ -1,0 +1,14 @@
+COMPLETE: Phase13 fresh source build and full real-board reproduction.
+Completed at: 2026-10-13T18:00:46.703414+08:00
+Source commit: cb04c3bb36940ad93665691d92cb46f533961107
+User-confirmed power: USB.
+Cold start: actual second physical-cycle confirmation, network-only initial epoch 0, finite79 PASS, continuous300 PASS.
+RAM/JTAG: finite79, wideband272, GUI, DMA1000 plus 4 fault cases, continuous60/300 all PASS.
+SD: old BOOT.BIN backed up as B319177A.BIN; new network BOOT installed and complete readback verified; reset finite79 PASS.
+Packaging: 7 files in release/phase13_sd_verified. Extracted evidence validation PASS (9962 RAM files, 1039 cold files).
+Final board state: idle, errors 0, epoch 80. No acquisition worker remains active.
+Final report: reproduction/复现结果.txt; structured result: reproduction/result.json.
+GUI launcher: Open_Reproduced_IQ_Monitor.cmd.
+Original checkout clean and implementation source unchanged.
+Failed initial cold-start check (epoch79) retained in reproduction/cold_initial_attempt_epoch79; final accepted cold campaign began at epoch0.
+All work complete; no pending user action.

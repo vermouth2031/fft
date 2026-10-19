@@ -1,0 +1,311 @@
+{
+  "tool": "Vivado 2026.1 / XSim",
+  "capture_date": "2026-10-14",
+  "project": "D:\\fft\\fft_phase13_reproduction_20261013",
+  "scope": "完整核心16用例数据来自2026-10-13归档。本次核心case0～3逐例PASS后主动停止，冻结WDB供截图；其他列出的单元与AXI测试完成。",
+  "core_wdb_note": "核心WDB为运行中冻结的代表波形快照；仅承诺所列截图信号和时间段可读，不作为全量信号归档。",
+  "clocks": {
+    "core_axi_commit": "160 MHz",
+    "spectrum_shared_hann": "125 MHz",
+    "builder_digital_math": "100 MHz",
+    "time_equivalence": "6.666 ns周期，约150 MHz"
+  },
+  "images": [
+    {
+      "file": "图3-1_FFT输入窗口边界.png",
+      "type": "Vivado 原生波形截图",
+      "job": "core",
+      "clock": "160 MHz",
+      "section": "3.2 第1段",
+      "caption": "16383→0；末点标志经四级流水。",
+      "sha256": "d5165d9cd6b66a759d73291a8139535df20f7e965fae1cb7fb41322e9416a455"
+    },
+    {
+      "file": "图3-2_FFT输出窗口边界.png",
+      "type": "Vivado 原生波形截图",
+      "job": "core",
+      "clock": "160 MHz",
+      "section": "3.2 第1段",
+      "caption": "XK_INDEX=0x3FFF 时 fft_last=1，随后下一窗口。",
+      "sha256": "6898fd8eb00ce95f6bc1303d77812ff827cc34c5c4ca6b1b873cab70610b266b"
+    },
+    {
+      "file": "图3-3a_累计功率阈值与边界定位.png",
+      "type": "Vivado 原生波形截图",
+      "job": "spectrum",
+      "clock": "125 MHz 单元测试",
+      "section": "3.3 第1段",
+      "caption": "case28：总功率20000；阈值100/19900；下上界2000/2008。",
+      "sha256": "651f75c5eb7d7da47d690cdf020e5d06156f0388e79197ff42a2dc172dd42e22"
+    },
+    {
+      "file": "图3-3b_八路边界逐频点校核.png",
+      "type": "依据仿真数据整理的图表（非软件截图）",
+      "job": "spectrum",
+      "clock": "125 MHz 单元测试",
+      "section": "3.3 第2段",
+      "caption": "case28～35 实测边界与参考值逐项一致。",
+      "sha256": "09736774e93a1dcdaf49104168e94680abfade30a50215870f9f314bddd86f81"
+    },
+    {
+      "file": "图3-4a_定点幅度结果波形.png",
+      "type": "Vivado 原生波形截图",
+      "job": "builder",
+      "clock": "100 MHz 单元测试",
+      "section": "3.4 第1段",
+      "caption": "fv 有效时峰值和 RMS 均为0x20000000。",
+      "sha256": "f42468d5fc735aefb88015cbe54cb222f48c71dc397faa049d06c660927a04bd"
+    },
+    {
+      "file": "图3-4b_幅度参考值与实际输出.png",
+      "type": "依据仿真数据整理的图表（非软件截图）",
+      "job": "builder",
+      "clock": "100 MHz 单元测试",
+      "section": "3.4 第1段",
+      "caption": "16384点；窗口能量1099511627776；Q16.16对应8192。",
+      "sha256": "64ef7330e20d6d31947bb279db1a44f5d60f91aa67c8f43116f8e8c8df366a40"
+    },
+    {
+      "file": "图3-5_门限结束确认与候选终点.png",
+      "type": "Vivado 原生波形截图",
+      "job": "core",
+      "clock": "160 MHz",
+      "section": "3.4 第2段",
+      "caption": "case3：状态2→3→0，确认完成；候选终点26639保持；起点2048。",
+      "sha256": "cf257b560343b2bce597947288120f9368256e6194d5736ac6f4cd9d297f7d7f"
+    },
+    {
+      "file": "图3-6_31点零间隙合并.png",
+      "type": "Vivado 原生波形截图",
+      "job": "digital",
+      "clock": "100 MHz 单元测试",
+      "section": "3.4 第3段",
+      "caption": "case42：一个结束脉冲，区间[32,68)。last_nonzero=67，故开区间终点为68。",
+      "sha256": "7ecfaf6188a49d2f88be50f32a756a8b042bce79162238e464a19c7616aa49e4"
+    },
+    {
+      "file": "图3-7_32点零间隙分离.png",
+      "type": "Vivado 原生波形截图",
+      "job": "digital",
+      "clock": "100 MHz 单元测试",
+      "section": "3.4 第3段",
+      "caption": "case43：两个结束脉冲，区间[32,34)、[66,69)。空拍不计样本。",
+      "sha256": "882cbaf56a6f6127c3e28012fa5c01711525fccb65b9d1a75e4de46552c1599d"
+    },
+    {
+      "file": "图3-8_DMA提前末字拒绝.png",
+      "type": "Vivado 原生波形截图",
+      "job": "axi",
+      "clock": "160 MHz",
+      "section": "3.5 第1段",
+      "caption": "提前TLAST：期望16384、实际1；loader_done=0；loader_errors=0x11；状态读回0xC。",
+      "sha256": "86c66b97e8fc778149e09ee9b811d21daf101e1b4cc6692d788fdbe50e1e73b9"
+    },
+    {
+      "file": "图3-9_16384点窗口边界切换.png",
+      "type": "Vivado 原生波形截图",
+      "job": "axi",
+      "clock": "160 MHz",
+      "section": "3.5 第1段",
+      "caption": "issued=180223→180224=11×16384；Bank 0→1；block_id 11→22；pending清零。",
+      "sha256": "ff36ebeaf99e841584e8fc4c46f0f35613d247b03f02945470d68471eb9c1c0f"
+    },
+    {
+      "file": "图3-10a_连续窗口事件与分析时延.png",
+      "type": "依据仿真数据整理的图表（非软件截图）",
+      "job": "archive",
+      "clock": "160 MHz",
+      "section": "3.5 时延段",
+      "caption": "10月13日完整核心事件数据：连续4窗；首样本至分析完成219.775μs。",
+      "sha256": "1dc8034f16a5dfb1e057c7ef7976752d78b5c3a9ddad8ed076961ab6e3285683"
+    },
+    {
+      "file": "图3-10b_首窗口事件时间表.png",
+      "type": "依据仿真数据整理的图表（非软件截图）",
+      "job": "archive",
+      "clock": "160 MHz",
+      "section": "3.5 时延段",
+      "caption": "首样本0.334375μs，分析完成220.109375μs；bank_ready解释为元数据锁存。",
+      "sha256": "0555b6a00c5a4f6d0a8096da85e2ad0b53ce956011efc81961ea72fa19733947"
+    },
+    {
+      "file": "图3-11_共享功率谱保护与延迟队列.png",
+      "type": "Vivado 原生波形截图",
+      "job": "shared",
+      "clock": "125 MHz 单元测试",
+      "section": "3.3 新增段",
+      "caption": "扫描期间保护旧谱、缓存新数据；保护解除后排队回写；观测峰值2123<2560。",
+      "sha256": "ac58c032ec5b70ada8dd822bb97b326dfdc2da86752e66260a8d54726f387da2"
+    },
+    {
+      "file": "图3-12_Hann重构与参考实现等价.png",
+      "type": "Vivado 原生波形截图",
+      "job": "hann",
+      "clock": "125 MHz 单元测试",
+      "section": "3.2 新增段",
+      "caption": "输入空拍和后压下新旧ready/valid/data一致；全测试98333次比较。",
+      "sha256": "508b4fbc9649500666610fc0d1c3287ff27e0ba651c101c946d6eb405b8460b9"
+    },
+    {
+      "file": "图3-13_分阶段提交与异常拒绝.png",
+      "type": "Vivado 原生波形截图",
+      "job": "commit",
+      "clock": "160 MHz",
+      "section": "3.5 新增段",
+      "caption": "state：0空闲、1检查、2路由、3完成；捕获数据不随后续输入改变；异常不发布Bank。",
+      "sha256": "0e05ccdb034dc25a7d98ad52228631be6b7eeb0c3fafa4018101fc99a45bef74"
+    },
+    {
+      "file": "图3-14_ACK检查与单次提交.png",
+      "type": "Vivado 原生波形截图",
+      "job": "axi",
+      "clock": "160 MHz",
+      "section": "3.5 新增段",
+      "caption": "ACK检查结果寄存，下一拍consumer从0到1；producer=1，单次执行。",
+      "sha256": "2fef3cf63909af60b070a52a49eb0838ef359ac4cf5b36adc1194f25489abf30"
+    },
+    {
+      "file": "图3-15_当前版本功能验证汇总.png",
+      "type": "依据仿真数据整理的图表（非软件截图）",
+      "job": "summary",
+      "clock": "各测试平台分别定义",
+      "section": "3.5 末尾",
+      "caption": "完整核心归档与本次补录分开标注；新增单元、等价性、事务检查均通过。",
+      "sha256": "b7ca622be19d1b5949caadea258929fe021b1983eafc9e1c180be81a2d7bdc31"
+    }
+  ],
+  "sources": [
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\analyzer_core.sv",
+      "sha256": "9dc712b4f31e2a4e2daa67330091122470639ee09b5fab68b6a38a82e3d2196e"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\digital_burst_measure.sv",
+      "sha256": "5386efc36674129f5271350d272a1fca58352571bb332911dc2b3987bae5f6d2"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_bank_metadata.sv",
+      "sha256": "8327e12081f1ae1d0554bf08511cb9fca9ee79837bcfb90169b2fce170710bb1"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_build_config.sv",
+      "sha256": "4ff0a61b572f3024747a175b0c833dc65b9e306c533b8c3baf2d95ab783647f2"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_clock_attributes.svh",
+      "sha256": "7a123dccce3500ce76dbd18cab5bb10d90490d8472b30b5fd93ca00db3df7380"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_dma_commit.sv",
+      "sha256": "1da6700f66276e2072286b7037bf76b8a79d7c5fb2f1eb1d19e0e284d478f4ee"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_peripheral.sv",
+      "sha256": "82ad6ea95f5c9fd226b65cc33622ce88602ef43dbd94dda2777be56b42f93d78"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\iq_replay_bank.sv",
+      "sha256": "795389b9086907881ce0af0fd8f1ec4968a9ec8f370b311f132ba7a1a3a69157"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\math_units.sv",
+      "sha256": "9ee6d9b7bb5d371d6cafe68558f5a9f35c8a0065aaf59975a42dcf5b26cb5962"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\record_ring.sv",
+      "sha256": "393061c9772b87931f4c41e7318d0d92fc7ef0ce0f1957b9d99004166c5f7785"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\result_builder.sv",
+      "sha256": "b0d87e6f0b49ac9a04d8d083766ae09cd76791b3d69458db0287fdbca9ca620c"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\small_fifo.sv",
+      "sha256": "ed6f49e0a6f8da1f24549c6d3db628847345488cf1fd8b1aeae123c7398b621b"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\spectrum_lane.sv",
+      "sha256": "7664436e96b45652215736685d86e227eda92899784b9f8c31cd36c0427fb540"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\spectrum_measure.sv",
+      "sha256": "8e33dd26d6dd2bf0e1b1512be11dd646069b3800ad3d2a0e503b95447cc19800"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\spectrum_store.sv",
+      "sha256": "cd7c877bb8a16418a5830a80af7727a6450528c9c7728b1c8081aabb16425dc5"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\time_measure.sv",
+      "sha256": "61d6ab10a21e30f81a1e9d7e53571ea06e88395915f9a5de194bf9a2504e776c"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\rtl\\window_fft.sv",
+      "sha256": "9a2e31051fd45a2a4fe9bb16219a90ed1cb4dbc9777b06f53f6974dbd1c99e71"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\reference\\phase10_window_fft.sv",
+      "sha256": "16d60e1a34c11c3383d724893dcd83e34909b16b55df008e46408c28b53e01c7"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\reference\\phase11_time_measure.sv",
+      "sha256": "972ad22d8991f2fb017a35a796b25fe6c5e35b83db821b61346ac2a58f926e57"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\reference\\phase9_spectrum_measure.sv",
+      "sha256": "a5af10620b6d9a84b81044e01e324c80b0cd5784c9d2b25ab54bc33ed2dc19b9"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_axi.sv",
+      "sha256": "435a66ad3261a6c97a0eeba2693b0168355b6f457485ac7fb11529500978c166"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_burst_edges.sv",
+      "sha256": "48fb82f71e8a684456cf108f99454c9e2e8321902f523283f4bf26ae6876b694"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_core.sv",
+      "sha256": "7e4bea168f91dcefdaf1cb34e544408ed79d02b3585fd8d26c6bbc3cb493453a"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_digital_burst.sv",
+      "sha256": "4cc9a91c8201076aab46e8380bdec48faac633822319ade3f3af8bca31121550"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_measurements.sv",
+      "sha256": "889177a94c7a2443189963956ea297a89d9c22cd1327da3df1b60c62d8ce21cb"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_phase10_equivalence.sv",
+      "sha256": "2a28acdc401aaeb2c8e8db81b42b23d8abb8c1e890b131da52cac98b1861de93"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_phase11_window.sv",
+      "sha256": "609134b6bf1044f15fa91be21fcec03e101bf6365b0763140fd27ed3512de34e"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_phase12_math_ranges.sv",
+      "sha256": "a6d7fd0eca4e0aac7897b9f84388a1755a87ed6355b9d59a6982e8649747c55d"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_phase12_time_equivalence.sv",
+      "sha256": "e83650391e5961068b2427f1b3b74a4cf2f615fc5025380bc5a800e0264fc433"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_phase13_commit.sv",
+      "sha256": "0a369fbc85b1c0e94ce07a3011d5ee524172a432fa5b0ebb413f8c01b9e746d8"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_result_builder.sv",
+      "sha256": "a0d49da26c6ecaf52fbab8200ef343191b2c2840b64a74eee98073342fbdd7a7"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_spectrum_edges.sv",
+      "sha256": "5411d6e0d607f925fe713898daa55f3e90a09d8f72b6d96dda299b7b91a4b63e"
+    },
+    {
+      "file": "D:\\fft\\fft_phase13_reproduction_20261013\\tests\\tb_units.sv",
+      "sha256": "e7666e4e75588f71a64964a1480c17b700b924888f17cd342c154a2cd4b98594"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿file,type,job,clock,section,caption,sha256
+图3-1_FFT输入窗口边界.png,Vivado 原生波形截图,core,160 MHz,3.2 第1段,16383→0；末点标志经四级流水。,d5165d9cd6b66a759d73291a8139535df20f7e965fae1cb7fb41322e9416a455
+图3-2_FFT输出窗口边界.png,Vivado 原生波形截图,core,160 MHz,3.2 第1段,XK_INDEX=0x3FFF 时 fft_last=1，随后下一窗口。,6898fd8eb00ce95f6bc1303d77812ff827cc34c5c4ca6b1b873cab70610b266b
+图3-3a_累计功率阈值与边界定位.png,Vivado 原生波形截图,spectrum,125 MHz 单元测试,3.3 第1段,case28：总功率20000；阈值100/19900；下上界2000/2008。,651f75c5eb7d7da47d690cdf020e5d06156f0388e79197ff42a2dc172dd42e22
+图3-3b_八路边界逐频点校核.png,依据仿真数据整理的图表（非软件截图）,spectrum,125 MHz 单元测试,3.3 第2段,case28～35 实测边界与参考值逐项一致。,09736774e93a1dcdaf49104168e94680abfade30a50215870f9f314bddd86f81
+图3-4a_定点幅度结果波形.png,Vivado 原生波形截图,builder,100 MHz 单元测试,3.4 第1段,fv 有效时峰值和 RMS 均为0x20000000。,f42468d5fc735aefb88015cbe54cb222f48c71dc397faa049d06c660927a04bd
+图3-4b_幅度参考值与实际输出.png,依据仿真数据整理的图表（非软件截图）,builder,100 MHz 单元测试,3.4 第1段,16384点；窗口能量1099511627776；Q16.16对应8192。,64ef7330e20d6d31947bb279db1a44f5d60f91aa67c8f43116f8e8c8df366a40
+图3-5_门限结束确认与候选终点.png,Vivado 原生波形截图,core,160 MHz,3.4 第2段,case3：状态2→3→0，确认完成；候选终点26639保持；起点2048。,cf257b560343b2bce597947288120f9368256e6194d5736ac6f4cd9d297f7d7f
+图3-6_31点零间隙合并.png,Vivado 原生波形截图,digital,100 MHz 单元测试,3.4 第3段,"case42：一个结束脉冲，区间[32,68)。last_nonzero=67，故开区间终点为68。",7ecfaf6188a49d2f88be50f32a756a8b042bce79162238e464a19c7616aa49e4
+图3-7_32点零间隙分离.png,Vivado 原生波形截图,digital,100 MHz 单元测试,3.4 第3段,"case43：两个结束脉冲，区间[32,34)、[66,69)。空拍不计样本。",882cbaf56a6f6127c3e28012fa5c01711525fccb65b9d1a75e4de46552c1599d
+图3-8_DMA提前末字拒绝.png,Vivado 原生波形截图,axi,160 MHz,3.5 第1段,提前TLAST：期望16384、实际1；loader_done=0；loader_errors=0x11；状态读回0xC。,86c66b97e8fc778149e09ee9b811d21daf101e1b4cc6692d788fdbe50e1e73b9
+图3-9_16384点窗口边界切换.png,Vivado 原生波形截图,axi,160 MHz,3.5 第1段,issued=180223→180224=11×16384；Bank 0→1；block_id 11→22；pending清零。,ff36ebeaf99e841584e8fc4c46f0f35613d247b03f02945470d68471eb9c1c0f
+图3-10a_连续窗口事件与分析时延.png,依据仿真数据整理的图表（非软件截图）,archive,160 MHz,3.5 时延段,10月13日完整核心事件数据：连续4窗；首样本至分析完成219.775μs。,1dc8034f16a5dfb1e057c7ef7976752d78b5c3a9ddad8ed076961ab6e3285683
+图3-10b_首窗口事件时间表.png,依据仿真数据整理的图表（非软件截图）,archive,160 MHz,3.5 时延段,首样本0.334375μs，分析完成220.109375μs；bank_ready解释为元数据锁存。,0555b6a00c5a4f6d0a8096da85e2ad0b53ce956011efc81961ea72fa19733947
+图3-11_共享功率谱保护与延迟队列.png,Vivado 原生波形截图,shared,125 MHz 单元测试,3.3 新增段,扫描期间保护旧谱、缓存新数据；保护解除后排队回写；观测峰值2123<2560。,ac58c032ec5b70ada8dd822bb97b326dfdc2da86752e66260a8d54726f387da2
+图3-12_Hann重构与参考实现等价.png,Vivado 原生波形截图,hann,125 MHz 单元测试,3.2 新增段,输入空拍和后压下新旧ready/valid/data一致；全测试98333次比较。,508b4fbc9649500666610fc0d1c3287ff27e0ba651c101c946d6eb405b8460b9
+图3-13_分阶段提交与异常拒绝.png,Vivado 原生波形截图,commit,160 MHz,3.5 新增段,state：0空闲、1检查、2路由、3完成；捕获数据不随后续输入改变；异常不发布Bank。,0e05ccdb034dc25a7d98ad52228631be6b7eeb0c3fafa4018101fc99a45bef74
+图3-14_ACK检查与单次提交.png,Vivado 原生波形截图,axi,160 MHz,3.5 新增段,ACK检查结果寄存，下一拍consumer从0到1；producer=1，单次执行。,2fef3cf63909af60b070a52a49eb0838ef359ac4cf5b36adc1194f25489abf30
+图3-15_当前版本功能验证汇总.png,依据仿真数据整理的图表（非软件截图）,summary,各测试平台分别定义,3.5 末尾,完整核心归档与本次补录分开标注；新增单元、等价性、事务检查均通过。,b7ca622be19d1b5949caadea258929fe021b1983eafc9e1c180be81a2d7bdc31

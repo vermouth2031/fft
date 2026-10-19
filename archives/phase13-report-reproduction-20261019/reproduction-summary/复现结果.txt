@@ -1,0 +1,54 @@
+Phase13 项目本机完整复现记录
+生成时间：2026-10-13T18:00:16.417910+08:00
+完成状态：COMPLETE
+复现目录：D:\fft\fft_phase13_reproduction_20261013
+原工程保留于：D:\fft\fft_phase13_structure_opt
+源码提交：cb04c3bb36940ad93665691d92cb46f533961107
+硬件 Build ID：4757a33c02eed50a403db87d09cb091f
+实现源码变更：无；本次辅助调度脚本位于 .local，未改变 RTL/固件/上位机。
+供电条件：USB 供电（用户已确认）；补充确认见 reproduction/test_context.json，先前封存的报告保留原记录。
+
+本次新执行的验证：
+- 完整数值/RTL 仿真：1048576 个 FFT 复数输出、64 条频域记录，PASS。
+- 最终时序：建立余量 0.007 ns，保持余量 0.05 ns；关键 CDC 0。
+- 新 XSA、FSBL、网络/SD 固件和 BOOT 均由本次构建产生，绑定与散列检查通过。
+- 真板数值矩阵 79 项、宽带矩阵 272 项通过。
+- DMA 1000 次切换及 4 类故障注入通过；60/300 秒持续 OFDM 测试通过。
+- GUI 实际采集、窗口边界停止和离线回看：PASS
+- SD 安装/完整读回/系统复位：SD_INSTALL_RESET_NUMERICAL_PASS
+- 用户实际断电后冷启动复验：SD_PHYSICAL_COLD_BOOT_PASS
+- 冷启动复验覆盖 79 项数值测试、300.016 秒连续测试。
+- 最终交付包解压后的离线证据核验：PASS
+- 冷启动初检曾读到 epoch=79，已拒绝并保留记录；第二次实际断电确认后以 epoch=0 开始复验。
+- GUI 使用实际 32768 点回放输入的新生成参考，完整检查频域、突发、序列、时间戳和快照。
+
+本次测得的主要指标：
+I16/Q16；板内 160 MSPS 回放；16384 点 FFT。
+硬件分析最大 219.775 µs；结果入环最大 219.99375 µs。
+主组满带子集 99% 占用带宽 158.154297～158.593750 MHz。
+
+使用入口：双击 Open_Reproduced_IQ_Monitor.cmd；板卡 192.168.1.10，电脑有线网卡 192.168.1.20/24。
+网络启动镜像：artifacts/BOOT_udp.BIN；不要将 SD 自测版 artifacts/BOOT.BIN 误作网络镜像。
+网络 BOOT SHA-256：83e0b3b408358cc4856eb9681552b5284ea21399d24d9c18648f80cec535546f
+数据、报告、截图：reports/reproduction_ram、reports/reproduction_wideband、reports/reproduction_gui。
+完整散列和结构化结果：reproduction/result.json。
+最终交付包：release/phase13_sd_verified（网络 SD 启动包、源码包、证据包和 SHA256SUMS.txt）。
+SD 原网络镜像备份文件：B319177A.BIN（保存在板卡 SD 根目录）。
+
+本次过程中的两项测试调度修正：
+1. 离线 UDP 单元测试不应继承真板网卡源地址；清除该环境变量后 7 项 Python 检查全部通过，已完成的 RTL 仿真保持原始结果。
+2. 原 GUI 测试默认查找旧版长向量的 golden 参考；本次辅助脚本针对实际 32768 点回放文件重新生成显式参考后通过，生产 GUI/校验器未修改。
+失败日志分别保存在 reproduction/failed_python_attempt 和 reproduction/failed_gui_attempt，未删除。
+
+可审查的执行入口（已执行步骤无需重复；辅助脚本会拒绝覆盖既有证据）：
+- .local/reproduce_build.py：Reference、Hardware、Software、Sim 全流程；离线测试清除 IQ_CLIENT_SOURCE_IP。
+- .local/inspect_final_netlist.py：检查最终布局布线网表中的回放 BRAM 使能连接。
+- scripts/run.ps1 -Action Package：绑定新软硬件及仿真记录、生成 BOOT。
+- .local/reproduce_ram.py：JTAG 下载、本次数值矩阵、宽带、GUI、DMA 与持续运行验收。
+- .local/reproduce_sd.py：备份旧 SD 镜像、写入新网络 BOOT、完整读回、系统复位与 79 项复验。
+- .local/reproduce_cold.py：仅在新的实际断电确认后执行网络冷启动验收，79 项数值与 300 秒持续测试。
+- scripts/package_phase13_cold_boot.py：只有冷启动验收通过后才生成完整冷启动发行包。
+
+范围：160 MSPS 是 FPGA 内部回放处理速率，不是网口持续输入全新数据速率；没有外部 ADC/射频链路。
+保留既有低信噪比、低幅度及 Hann 边界突发的算法限制。物理冷启动只能在用户实际断电确认后记为通过。
+GitHub 发布和历史候选实验未作为本次复现操作；本次交付为本机新构建、新测量及本地归档。

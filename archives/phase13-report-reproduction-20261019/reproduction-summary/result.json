@@ -1,0 +1,112 @@
+{
+  "created_at": "2026-10-13T18:00:16.417910+08:00",
+  "status": "COMPLETE",
+  "source_commit": "cb04c3bb36940ad93665691d92cb46f533961107",
+  "implementation_changed_files": [],
+  "build_id": "4757a33c02eed50a403db87d09cb091f",
+  "power_supply": "USER_CONFIRMED_USB_ONLY",
+  "power_supply_context": {
+    "power_supply": "USER_CONFIRMED_USB_ONLY",
+    "user_confirmation": "USB 供电",
+    "received_at": "2026-10-13T17:47:41.232492+08:00",
+    "scope": "Late user confirmation; previously sealed RAM/SD records remain unchanged."
+  },
+  "hardware": {
+    "hardware_version": 65547,
+    "hardware_version_hex": "0x0001000b",
+    "hardware_capabilities": 31,
+    "sample_rate_hz": 160000000,
+    "build_id": "4757a33c02eed50a403db87d09cb091f",
+    "timestamp_clock_hz": 160000000,
+    "record_format_version": 1,
+    "scan_lanes": 8,
+    "fft_clock_hz": 160000000,
+    "fft_length": 16384,
+    "replay_bank_samples": 32768,
+    "frequency_ring_records": 128,
+    "burst_ring_records": 128,
+    "snapshot_points": 1024,
+    "input_fifo_depth": 4096,
+    "snapshot_group": 16
+  },
+  "timing": {
+    "status": "PASS",
+    "setup_slack_ns": 0.007,
+    "hold_slack_ns": 0.05,
+    "cdc_critical": 0,
+    "unconstrained_internal_endpoints": 0,
+    "board_tested": false,
+    "tool": "2026.1"
+  },
+  "simulation": {
+    "status": "PASS",
+    "frequency_records": 64,
+    "burst_records": 14,
+    "exact_fft_points": 1048576,
+    "maximum_analysis_latency_cycles": 35164,
+    "maximum_analysis_latency_us": 219.775,
+    "oracle": "AMD FFT bit-accurate C model + independent integer time/burst reference"
+  },
+  "finite_case_count": 79,
+  "wideband_case_count": 272,
+  "minimum_primary_bandwidth_hz": 158154297,
+  "maximum_primary_bandwidth_hz": 158593750,
+  "maximum_analysis_us": 219.775,
+  "maximum_publish_us": 219.99375,
+  "dma_switches": 1000,
+  "continuous_seconds": [
+    60.01599999994505,
+    300.01599999994505
+  ],
+  "gui_status": "PASS",
+  "sd_status": "SD_INSTALL_RESET_NUMERICAL_PASS",
+  "cold_status": "SD_PHYSICAL_COLD_BOOT_PASS",
+  "cold_case_count": 79,
+  "cold_continuous_seconds": 300.01600000006147,
+  "portable_package_validation": {
+    "status": "PASS",
+    "evidence_files": 9962,
+    "cold_files": 1039,
+    "boot_sha256": "83e0b3b408358cc4856eb9681552b5284ea21399d24d9c18648f80cec535546f",
+    "evidence_archive_sha256": "12d439f9fd87a0fbc3008bf25682850ac56cc589aefd9fb767e77a2cd1d023e7",
+    "extraction": "D:\\fft\\fft_phase13_reproduction_20261013\\reproduction\\portable_verification"
+  },
+  "artifacts": {
+    "BOOT.BIN": {
+      "bytes": 4335140,
+      "sha256": "4853e6a8081b7ba996e296f7c3470f2ac1a8df02bd7f10e9c0eab46b82d7fddd"
+    },
+    "BOOT_sd.BIN": {
+      "bytes": 4335140,
+      "sha256": "4853e6a8081b7ba996e296f7c3470f2ac1a8df02bd7f10e9c0eab46b82d7fddd"
+    },
+    "BOOT_udp.BIN": {
+      "bytes": 4296660,
+      "sha256": "83e0b3b408358cc4856eb9681552b5284ea21399d24d9c18648f80cec535546f"
+    },
+    "iq_analyzer.bit": {
+      "bytes": 4045769,
+      "sha256": "b3f9f2ac6cf1236934841785e2072f844104763460265829add85b39091ad7ae"
+    },
+    "iq_analyzer.xsa": {
+      "bytes": 1161298,
+      "sha256": "8f6a95f75e55d6eabc9349796613213412b8ea2fe8c64b4b20d42e795917dcb1"
+    },
+    "iq_sd.elf": {
+      "bytes": 551528,
+      "sha256": "b63f0571fd1e04e5746c055bfc91f020ef0cc75d891bafc46ad6dae2976eee69"
+    },
+    "iq_udp.elf": {
+      "bytes": 868420,
+      "sha256": "1c952c5861da32070c4d0a299bf19bf20c4d3d64898a2b6a730ad5c3ead2cbf9"
+    },
+    "ps7_init.tcl": {
+      "bytes": 35921,
+      "sha256": "6e02c3e55740782746fd178227fc3397fea79126bef658a9340b1524c1bf17a8"
+    },
+    "zynq_fsbl.elf": {
+      "bytes": 588100,
+      "sha256": "91f246d70b29d215c66007c88df417517b2d7f05ee352d16e6b6d30d3ab5ed6b"
+    }
+  }
+}
