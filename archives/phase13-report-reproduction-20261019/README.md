@@ -45,3 +45,19 @@
 未重复收入 portable_verification 解压副本及 inherited_release 副本；已有封装验证包与原发布标签可恢复相应内容。仿真缓存（.Xil、xsim.dir、__pycache__）及第四章工作区中旧报告副本未收入，具体排除路径见清单。本归档没有更新 main，也没有改变原工程分支或原发布附件。
 
 仓库内逐文件清单采用无损 gzip 压缩，解压内容与 Release 附件 `file-manifest.json` 完全一致。
+
+## 大包分卷下载
+
+受上传链路影响，Release 中两个大 ZIP 使用 `.zip.part001` 等连续分卷传输。分卷内容按顺序拼接后与本归档清单中的原 ZIP 完全一致。报告 Word/PDF 和实板截图 ZIP 可直接下载使用。
+
+请先下载全部 Release 附件，再运行：
+
+```powershell
+gh release download v2026.10.19-phase13-report-reproduction --repo vermouth2031/fft --dir phase13_archive
+cd phase13_archive
+python restore_archives.py
+```
+
+[下载说明](DOWNLOAD_README.txt)、[恢复脚本](restore_archives.py)、[分卷清单](split-manifest.json) 和 [分卷 SHA-256](SPLIT_SHA256SUMS.txt) 提供传输与恢复校验。脚本先校验每卷，再合并并校验完整 ZIP；它不会删除分卷。固定发布标签保留原归档数据提交，分支后续提交补充下载方式和发布回执。
+
+[发布回执](publication-receipt.json)：100 个附件已逐一重新下载并验证 SHA-256，两个分卷包已还原并与原 ZIP 散列一致；原归档提交的分支和标签自动检查均通过。
