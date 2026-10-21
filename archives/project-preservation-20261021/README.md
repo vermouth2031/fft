@@ -52,4 +52,9 @@ git clone restored_fft/_recovery/reproduction-all-refs.bundle reproduced_git
 
 ## 完整性
 
-`SHA256SUMS.txt` 校验本次附件，`supplement-parts.json` 校验每卷和原始 ZIP，`backup-manifest.json.gz` 记录每个恢复路径的源文件、大小、散列和实际储存位置。旧归档 100 个附件的服务器 SHA-256 已与此前逐一回下载的回执比对。本次发布完成后，新增附件会逐一重新下载验证，并生成发布回执。
+`SHA256SUMS.txt` 校验本次附件，`supplement-parts.json` 校验每卷和原始 ZIP，`backup-manifest.json.gz` 记录每个恢复路径的源文件、大小、散列和实际储存位置。旧归档 100 个附件的服务器 SHA-256 已与此前逐一回下载的回执比对。本次新增附件已逐一重新下载并通过 SHA-256 校验，分卷拼接散列一致。
+
+
+## 完成验收
+
+发布共 175 个附件；116,583 个文件已在独立空目录实际恢复并逐一校验 SHA-256，两份 Git bundle 均成功克隆并通过完整性检查。详见 [发布回执](publication-receipt.json)、[恢复验收](restore-verification.json) 和 [最终状态](FINAL_STATUS.json)。没有删除任何本地原文件。
