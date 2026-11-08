@@ -94,7 +94,7 @@ class Monitor:
         if not raw or len(raw)%4 or len(raw)>131072:raise ValueError('IQ 文件需包含 1～32768 对 I16,Q16')
         v=list(struct.iter_unpack('<hh',raw));stride=max(1,len(v)//1000)
         power=[max(math.hypot(*x) for x in v[i:i+stride]) for i in range(0,len(v),stride)]
-        self.draw(self.env,power,'装载的 IQ 文件包络（输入参考，非硬件采样回读）','码值','0 µs',f'{cycles_to_us(len(v),self.sample_rate_hz):.2f} µs')
+        self.draw(self.env,power,'装载的 IQ 文件包络','码值','0 µs',f'{cycles_to_us(len(v),self.sample_rate_hz):.2f} µs')
 
     def show_update(self,u):
         r=u['record'];b=u.get('latest_burst');meta=u.get('metadata')
@@ -219,9 +219,9 @@ class Monitor:
     def poll(self):
         while not self.messages.empty():
             kind,data=self.messages.get()
-            if kind=='update':self.show_update(data);self.status.set('正在接收硬件结果；显示刷新不等于输入采样速率。')
+            if kind=='update':self.show_update(data);self.status.set('正在接收硬件结果。')
             else:
-                self.status.set(data);self.set_busy(False)
+                self.status.set('' if kind=='done' else data);self.set_busy(False)
                 self.connection_note.set('采集完成 · 请查看核验结果' if kind=='done' else '采集异常 · 请查看错误信息')
         self.root.after(150,self.poll)
 

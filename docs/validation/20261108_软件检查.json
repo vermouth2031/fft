@@ -1,0 +1,40 @@
+{
+  "schema": "software-publication-validation-v1",
+  "date": "2026-11-08",
+  "scope": "Offline software and portable package validation; historical hardware evidence is checked in a separate frozen checkout.",
+  "new_board_access": false,
+  "hardware_build_id": "4757a33c02eed50a403db87d09cb091f",
+  "local_checks": {
+    "python_syntax": "PASS",
+    "powershell_parser_and_python_resolution": "PASS",
+    "host_protocol_tests": 12,
+    "digital_zero_reference_tests": 9,
+    "detector_host_tests": 13,
+    "ofdm_generation_tests": 1,
+    "hidden_tk_interface_and_settings": "PASS",
+    "five_signal_archive_files": 140,
+    "five_signal_archive_links": 23,
+    "iq_files": 22,
+    "finite_reference_scenarios": 53,
+    "portable_source_bindings": 31,
+    "relocated_stdlib_only_check": "PASS",
+    "modified_input_and_escaping_binding_rejected": true,
+    "deterministic_inputs_rebuilt": 22,
+    "historical_saved_capture_compatibility_cases": 3,
+    "cyclic_capture_rejected_by_finite_reference_wrapper": true,
+    "private_fixture_full_amd_reference_regeneration": "PASS",
+    "unique_amd_windows_recomputed_in_private_fixture": 78,
+    "published_reference_numerical_values_changed": false
+  },
+  "historical_evidence": {
+    "immutable_commit": "0f224112cf0480e7e4eefcb2077350f2634b4135",
+    "ram_evidence_files_verified": 9916,
+    "sd_cold_boot_evidence_files_verified": 1034,
+    "new_hardware_validation_performed": false
+  },
+  "not_performed": [
+    "FPGA or firmware rebuild",
+    "Programming or deployment",
+    "New board capture, SD write or physical cold boot"
+  ]
+}

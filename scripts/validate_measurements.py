@@ -1,18 +1,14 @@
-"""Prepare or verify explicit finite S1 matrices; never programs FPGA or SD.
+"""Prepare finite measurement references for current Phase13 board validation.
 
 prepare --manifest ... --out ...
-capture --references ... --out ... --board 192.168.1.10
-verify --run ...
+This entry point never accesses a board or installs an SD image.
 """
 from __future__ import annotations
 import argparse
-import contextlib
 import csv
-import datetime
 import json
 from pathlib import Path
 import sys
-from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'tests'), str(ROOT / 'host')]
@@ -21,12 +17,7 @@ import iq_client
 from fft_reference import FFTReference, FS, N, digest
 from generate_qualification_vectors import validate_case, waveform
 from generate_qualification_vectors import waveform_details
-from qualification_capture import capture as capture_configured
-from detection_metrics import evaluate as evaluate_detection
-from verify_board_capture import verify as verify_capture, require
-from package_release import check as check_build
-from package_validated import check_board
-from record_boot_stage import verify_boot
+from verify_board_capture import require
 from phase4_identity import check_identity
 from build_rates import FFT_CLOCK_HZ
 
@@ -249,133 +240,8 @@ def write_errors(out, rows):
             writer.writerows(rows)
 
 
-def capture_matrix(index_path, out, board, port):
-    index_path, out = Path(index_path).resolve(), Path(out).resolve()
-    index = load_index(index_path)
-    check_build()
-    verify_boot()
-    accepted = check_board()
-    require(accepted['board'] == board, 'Qualification target differs from accepted deployment')
-    out.mkdir(parents=True, exist_ok=False)
-    report = dict(status='RUNNING', scope='Manifest-driven measurement qualification; no hardware/SD modification',
-        started_at=datetime.datetime.now().astimezone().isoformat(), references=str(index_path),
-        references_sha256=digest(index_path), bindings=bindings(), legacy_cases=[], cases=[],
-        hardware_identity_limit='Register version and local build evidence; no runtime bitstream hash register',
-        artifacts={str(p):digest(p) for p in (ROOT/'artifacts').glob('*') if p.is_file()},
-        build_evidence={str(ROOT/'reports'/name):digest(ROOT/'reports'/name) for name in
-            ('hardware_provenance.json','simulation_provenance.json','boot_provenance.json',
-             'current_board_validation.json','current_deployment.json')})
-    errors = []
-    current = None
-    try:
-        info = configuration(board, port)
-        require(info['state'] & 7 == 0, 'Another controller is running the board')
-        check_identity(info['hardware'])
-        require(info['hardware'] == accepted['hardware'], 'Hardware differs from board acceptance')
-        report['initial_hardware'] = info
-        save(out/'measurement_validation.json', report)
-        # Gate each new matrix by fresh finite captures of all 16 legacy combinations.
-        legacy = read(ROOT/'data/golden_results.json')['cases']
-        for case in legacy:
-            current = 'legacy_'+case['name']+'_'+case['mode']
-            folder = out/current
-            print('LEGACY_START', current, flush=True)
-            with (out/(current+'.log')).open('w', encoding='utf-8') as log, contextlib.redirect_stdout(log):
-                iq_client.capture(SimpleNamespace(board=board, port=port, vector=str(ROOT/'data/vectors'/(case['name']+'.bin')),
-                    out=str(folder), window=case['mode'], cyclic=False, seconds=1, detector='threshold', gap_min=32))
-            verified = verify_capture(folder)
-            save(folder/'measurement_validation.json', verified)
-            report['legacy_cases'].append(verified)
-            save(out/'measurement_validation.json', report)
-        for row in index['cases']:
-            current = row['label']
-            case, folder = row['case'], out/current
-            reference_path = index_path.parent/row['reference']
-            oracle = read(reference_path)
-            print('QUALIFICATION_START', current, flush=True)
-            with (out/(current+'.log')).open('w', encoding='utf-8') as log, contextlib.redirect_stdout(log):
-                capture_configured(SimpleNamespace(board=board, port=port, vector=row['vector'], out=str(folder),
-                    window=oracle['mode'], cyclic=case['replay']=='cyclic', seconds=case.get('seconds',1),
-                    detector=case['applied_detector']['mode'], gap_min=case['applied_detector']['gap_min']),case['applied_detector'])
-            save(folder/'configuration.json', configuration(board, port))
-            verify_configuration(folder, case, oracle['mode'])
-            verified = verify_capture(folder, row['vector'], qualification=reference_path)
-            case_errors = error_rows(folder, case, oracle)
-            targets = [r for r in case_errors if r['normal_frequency_statistic']]
-            verified.update(case_id=case['id'], label=current, reference_sha256=digest(reference_path),
-                configuration_sha256=digest(folder/'configuration.json'),
-                algorithm_frequency_target=('NOT_APPLICABLE' if not targets else
-                    'PASS' if all(abs(r['frequency_error_bins'])<=1 and r['nearest_bin_match']
-                    for r in targets) else 'FAIL'), algorithm_frequency_samples=len(targets))
-            if case['replay']=='finite':
-                burst_bytes=(folder/'burst.bin').read_bytes()
-                intervals=[]
-                for offset in range(0,len(burst_bytes),64):
-                    b=iq_client.decode_record(burst_bytes[offset:offset+64],'burst')
-                    intervals.append([b['start_sample'],b['end_sample_exclusive']])
-                metric=evaluate_detection(case['measurement_design']['truth_intervals'],intervals,case['samples'])
-                metric['applicability']='NOT_APPLICABLE' if (case['applied_detector']['mode']=='digital-zero' and
-                    (case['noise']['kind']!='none' or case['offset_iq']!=[0,0])) else 'APPLICABLE'
-                metric['seed']=case['seed'];metric['noise']=case['noise'];metric['offset_iq']=case['offset_iq']
-                metric['detector']=case['applied_detector'];metric['design']=case['measurement_design']
-                save(folder/'detection_metrics.json',metric)
-                verified['detection_metrics_sha256']=digest(folder/'detection_metrics.json')
-                verified['detection_metrics']=metric
-            save(folder/'measurement_validation.json', verified)
-            errors.extend(case_errors)
-            report['cases'].append(verified)
-            save(out/'measurement_validation.json', report)
-        check_bindings(report['bindings'])
-        check_bindings(report['artifacts'])
-        check_bindings(report['build_evidence'])
-        report['status'] = 'PASS'
-    except Exception as error:
-        report.update(status='FAIL', failed_case=current, error=str(error))
-        raise
-    finally:
-        report['finished_at'] = datetime.datetime.now().astimezone().isoformat()
-        report['summary'] = summarize(errors)
-        report['algorithm_frequency_target'] = 'PASS' if report['status']=='PASS' and all(
-            c['algorithm_frequency_target'] in ('PASS','NOT_APPLICABLE') for c in report['cases']) else 'NOT_PASS'
-        write_errors(out, errors)
-        if (out/'errors.csv').exists():
-            report['errors_sha256'] = digest(out/'errors.csv')
-        save(out/'measurement_validation.json', report)
-    return report
 
 
-def verify_run(out):
-    out = Path(out).resolve()
-    report = read(out/'measurement_validation.json')
-    require(report['status']=='PASS', 'Capture matrix did not complete')
-    for field in ('bindings','artifacts','build_evidence'):
-        check_bindings(report[field])
-    index_path = Path(report['references'])
-    require(digest(index_path)==report['references_sha256'], 'Reference index changed')
-    index = load_index(index_path)
-    require(len(report['legacy_cases'])==16 and len(report['cases'])==len(index['cases']), 'Matrix incomplete')
-    for legacy in report['legacy_cases']:
-        for name, value in legacy['files'].items():
-            require(digest(Path(legacy['folder'])/name)==value, 'Legacy capture changed')
-        require(verify_capture(legacy['folder'])==legacy, 'Legacy verification differs')
-    errors = []
-    for row, previous in zip(index['cases'], report['cases']):
-        require(row['label']==previous['label'], 'Case sequence mismatch')
-        folder = out/row['label']
-        require(digest(folder/'configuration.json')==previous['configuration_sha256'], 'Readback changed')
-        require(read(folder/'measurement_validation.json')==previous, 'Case report changed')
-        if 'detection_metrics_sha256' in previous:
-            require(digest(folder/'detection_metrics.json')==previous['detection_metrics_sha256'],'Detection metrics changed')
-        for name, value in previous['files'].items():
-            require(digest(folder/name)==value, 'Capture file changed')
-        oracle = read(index_path.parent/row['reference'])
-        verify_configuration(folder, row['case'], oracle['mode'])
-        actual = verify_capture(folder, row['vector'], qualification=index_path.parent/row['reference'])
-        require(all(previous[k]==v for k,v in actual.items()), 'Numerical verification changed')
-        errors.extend(error_rows(folder,row['case'],oracle))
-    require(summarize(errors)==report['summary'], 'Error summary changed')
-    require(digest(out/'errors.csv')==report['errors_sha256'], 'Error table changed')
-    return report
 
 
 def main():
@@ -384,22 +250,8 @@ def main():
     p = sub.add_parser('prepare')
     p.add_argument('--manifest', type=Path, required=True)
     p.add_argument('--out', type=Path, required=True)
-    p = sub.add_parser('capture')
-    p.add_argument('--references', type=Path, required=True)
-    p.add_argument('--out', type=Path, required=True)
-    p.add_argument('--board', default='192.168.1.10')
-    p.add_argument('--port', type=int, default=5001)
-    p = sub.add_parser('verify')
-    p.add_argument('--run', type=Path, required=True)
     args = parser.parse_args()
-    if args.command=='prepare':
-        print(prepare(args.manifest, args.out))
-    elif args.command=='capture':
-        result = capture_matrix(args.references, args.out, args.board, args.port)
-        print('QUALIFICATION_'+result['status'], args.out)
-    else:
-        result = verify_run(args.run)
-        print('QUALIFICATION_REVERIFY_'+result['status'], args.run)
+    print(prepare(args.manifest, args.out))
 
 
 if __name__=='__main__':

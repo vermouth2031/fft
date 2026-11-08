@@ -124,9 +124,6 @@ def build(app):
     for canvas,prompt in [(app.env,'选择 IQ 文件后显示输入包络'),(app.spec,'采集或打开记录后显示板端频谱')]:
         canvas.create_text(20,22,text=prompt,anchor='nw',fill=MUTED,font=('Microsoft YaHei UI',11))
         canvas.bind('<Configure>',lambda e:app.draw(e.widget,*e.widget._last_plot) if hasattr(e.widget,'_last_plot') else None)
-    plot_note=ttk.Label(plots,text='输入包络来自装载文件；频谱为板端分组取最大值的 1024 点快照，99% 带宽使用硬件当前 FFT 的全部频点计算。',style='Muted.TLabel',font=('Microsoft YaHei UI',9),wraplength=800)
-    plot_note.grid(row=2,column=0,sticky='w',pady=(8,0))
-    plots.bind('<Configure>',lambda e:plot_note.configure(wraplength=max(300,e.width-12)),add='+')
 
     page,app.requirements_viewport=scroll_page(app,app.pages['requirements'])
     ttk.Label(page,text='按当前记录对照赛题数值要求',font=('Microsoft YaHei UI',13,'bold')).pack(anchor='w',pady=(0,8))
@@ -137,10 +134,6 @@ def build(app):
     for key,title,target in [('bits','I / Q 位宽','每路 ≥ 12 bit'),('rate','IQ 数据速率','≥ 100 MSPS'),('fft','FFT 点数','≥ 8192 点'),
                              ('latency','分析处理时间','≤ 2000 µs'),('width','数字 IQ 带宽','MHz，越高越好')]:
         app.requirements.insert('', 'end',iid=key,values=(title,target,'—','等待记录'))
-    ttk.Label(page,text='计时从窗口首个 IQ 被 PL 接受到分析完成，不含电脑上传、网络往返和绘图。\n'
-              '当前输入为板内回放；位宽表示数字格式。帧长度是包络长度，谱峰不等于宽带调制载频。\n'
-              '数值满足门槛不等于赛方认定或整套验收通过；采集完整性与数值参考核验见“数据与校验”。',
-              style='Muted.TLabel',justify='left',wraplength=800).pack(anchor='w',pady=16)
 
     settings,viewport=scroll_page(app,app.pages['settings'])
     basic=ttk.LabelFrame(settings,text='常用采集参数',padding=14);basic.pack(fill='x',pady=(0,12))
@@ -157,7 +150,6 @@ def build(app):
     detector=field(basic,2,0,'长度检测模式',app.detector,['threshold','digital-zero'])
     detector.bind('<<ComboboxSelected>>',lambda e:app.detector_selected())
     field(basic,2,2,'零间隔确认 / 点',app.gap_min,width=9)
-    ttk.Label(basic,text='rect：矩形窗 / hann：Hann 窗；threshold：门限检测 / digital-zero：数字零背景测长。',style='Muted.TLabel',wraplength=690,font=('Microsoft YaHei UI',9)).grid(row=3,column=0,columnspan=4,sticky='w',pady=(6,0))
     advanced=ttk.LabelFrame(settings,text='高级门限参数 · 用于 threshold 模式',padding=14);advanced.pack(fill='x')
     profile=field(advanced,0,0,'门限档位',app.threshold_profile,['legacy','robust'])
     profile.bind('<<ComboboxSelected>>',lambda e:app.threshold_policy.set('quiet-prefix' if app.threshold_profile.get()=='robust' else 'fixed'))
@@ -166,9 +158,13 @@ def build(app):
     manual=ttk.Frame(advanced);manual.grid(row=2,column=0,columnspan=4,sticky='w')
     for col,name in enumerate(('ton','toff','kon','koff')):
         field(manual,0,col*2,name,app.threshold_values[name],width=9)
-    ttk.Label(advanced,text='留空沿用档位。ton/toff 是 16 点能量门限，kon/koff 是开启/关闭确认点数。\n'
-              'robust 为带噪档位；quiet-prefix 需要输入确有前导静默。切换到数字零模式会清除门限覆盖。',
-              style='Muted.TLabel',justify='left',wraplength=690,font=('Microsoft YaHei UI',9)).grid(row=3,column=0,columnspan=4,sticky='w',pady=(6,0))
+    threshold_help=ttk.Label(advanced,text=(
+        '固定默认参数（legacy＋fixed）：ton＝1048576，toff＝262144；连续 8 点满足开启条件确认开始，连续 32 点满足关闭条件确认结束。\n'
+        '原有背景估计规则（legacy＋quiet-prefix）：ton＝背景能量的 4 倍，toff＝背景能量的 2 倍；开启确认 8 点，关闭确认 32 点。\n'
+        '带噪背景估计规则（robust＋quiet-prefix）：ton＝背景能量的 3 倍，toff＝背景能量的 1.75 倍；开启确认 16 点，关闭确认 8 点。'),
+        style='Muted.TLabel',font=('Microsoft YaHei UI',9),justify='left',wraplength=690)
+    threshold_help.grid(row=3,column=0,columnspan=4,sticky='ew',pady=(8,0))
+    advanced.bind('<Configure>',lambda event:threshold_help.configure(wraplength=max(180,event.width-36)))
     app.settings_viewport=viewport
 
     details=app.pages['details']

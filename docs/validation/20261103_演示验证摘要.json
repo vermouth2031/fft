@@ -1,0 +1,131 @@
+{
+  "schema": "historical-validation-summary-v1",
+  "source_file": "20261103/validation.json (historical local archive)",
+  "source_sha256": "28454d0f8b5e4c17cb600db88459e1baa8acd38c507f304d84654120646259ac",
+  "summary_only": true,
+  "full_capture_evidence_included": false,
+  "new_board_test_performed_for_this_release": false,
+  "status": "PASS",
+  "started_at": "2026-11-03T20:37:44.291690+08:00",
+  "finished_at": "2026-11-03T20:40:24.452440+08:00",
+  "scope": "Offline exact comparison of newly captured board records to AMD fixed-point FFT, digital-zero/threshold interval references, and input provenance. No board access.",
+  "expected_hardware": {
+    "build_id": "4757a33c02eed50a403db87d09cb091f",
+    "sample_rate_hz": 160000000,
+    "fft_length": 16384
+  },
+  "summary": {
+    "requested_cases": 9,
+    "checked_cases": 9,
+    "passed_cases": 9,
+    "failed_cases": 0,
+    "exact_frequency_records": 18,
+    "exact_burst_records": 10,
+    "exact_snapshot_values": 9216,
+    "maximum_analysis_us": 219.775,
+    "maximum_publish_us": 219.99375
+  },
+  "capture_files_unchanged": true,
+  "cases": [
+    {
+      "case": "amp_steps",
+      "input_sha256": "b8543398ac3212cf62a34f1314bff002f4e72db2dba3368f6eeb177ea94703a3",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "dual_wide",
+      "input_sha256": "0dd044aaabfbf89a091dbce10f4ac44292aebcd7c0524eb4e6772ea496d1ab64",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "chirp",
+      "input_sha256": "46325f6c094476df388b67eea4bed1743187575f974c7d2d23f8c987a6fb1a99",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "cross_burst",
+      "input_sha256": "edc78f2f6d65048ff8971736019c1ae117d95a1ce3270f86756435c622df0534",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "ofdm_narrow",
+      "input_sha256": "17f54639daf41a67eefbf9b037790f6fc328cafb1d1577367617a72bc9d71792",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "ofdm_wide",
+      "input_sha256": "f3f0c6f29a72418774cfed01d81181442602ddb76e1c854b0086ed059d8d035d",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "shifted_ofdm",
+      "input_sha256": "06fd8f014606cf21c021d34b91aa1bcf6bc565f4653acb71be1e054265b78889",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "noise_10db",
+      "input_sha256": "8e3a7e31be31c203b18633947d22ca5c67ae5686dbf2164903792f4d053ec8af",
+      "status": "PASS",
+      "detector_mode": "threshold",
+      "frequency_records": 2,
+      "burst_records": 2,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    },
+    {
+      "case": "chirp_rect",
+      "input_sha256": "46325f6c094476df388b67eea4bed1743187575f974c7d2d23f8c987a6fb1a99",
+      "status": "PASS",
+      "detector_mode": "digital-zero",
+      "frequency_records": 2,
+      "burst_records": 1,
+      "exact_snapshot_values": 1024,
+      "maximum_analysis_us": 219.775,
+      "maximum_publish_us": 219.99375
+    }
+  ],
+  "note": "原报告的摘要摘录；删除本机绝对路径，未更改原始报告；不能代替完整采集证据包。"
+}

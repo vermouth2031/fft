@@ -1,0 +1,39 @@
+历史批次原文：2026-11-02；本次 GitHub 整理没有重新执行板卡测试。
+文中 reproduction/ 为原批次归档索引，并非本仓库本次新增附件。
+
+Phase13 本次构建、实板复现与提交包校验摘要
+整理时间：2026-11-02T19:31:18+08:00
+状态：PASS
+实板报告：reproduction/project/reproduction/board_validation.json
+报告SHA-256：dbfebd907df5bd1d376b79d8c2df7d3f56c4cc036acefbcddb7b77aaa6bcdfac
+本次方式：JTAG/RAM加载验证；未写物理SD/QSPI，未执行本次物理断电冷启动。
+原始来源与提交副本逐文件一致：336 个文件；复现工程实现散列一致。
+已批准的可选插图元数据差异：[{"path": "data/vectors/reference_manifest.json", "field": "figure", "original": null, "reproduced": "software_reference_examples.png", "project_sha256": "9900d6248c4591a067641f5a8e5b48bad5b5ea3e1cebf6e430a50b683f96a027", "scope": "Optional reference illustration only; all other JSON values identical"}]
+镜像散列与本次实板报告一致：9 项；02中交付其中五件文件。
+正式PDF/PPT与真实照片保持原始SHA-256。
+工程ZIP：351 个文件，顶层仅三个规定目录，逐文件SHA-256和ZIP CRC检查通过。
+工程ZIP SHA-256：1d4a5008193bb265c6e50e7e36e632164d6b640267c023bf80672c71e3873ae8
+注意：PPT封面姓名占位尚需参赛者填写；03照片为历史报告实拍。
+本轮测量概要（只统计各阶段最新通过结果，不重复累计失败重试）：
+79项有限数值：PASS；频域记录158条，突发记录88条；最大分析219.775000 μs，最大发布219.993750 μs。
+272项宽带：PASS；主组满带99% OBW为158.154297～158.593750 MHz。
+1000次动态切换：PASS；实际完成1000次；样本/记录守恒通过；最大分析219.775000 μs。
+60s连续运行：PASS；实际60.016000s，完成586252窗；样本/记录守恒通过；最大分析219.775000 μs。
+300s连续运行：PASS；实际300.000000s，完成2929827窗；样本/记录守恒通过；最大分析219.775000 μs。
+首次网络失败及恢复连接后的探测失败，保留在reproduction/evidence中的归档报告与原始日志内。
+本次PASS来自重新加载后的完整新实板批次；未将此前失败批次计入通过数量。
+以下是本次逐阶段状态与日志索引，完整原始数据见上方实板报告：
+build_gate：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/build_gate_attempt_001.log
+program：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/program_attempt_001.log
+programmed_identity：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/programmed_identity_attempt_001.log
+programmed_reset_marker：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/programmed_reset_marker_attempt_001.log
+finite_spec：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/finite_spec_attempt_001.log
+finite_vectors：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/finite_vectors_attempt_001.log
+finite_references：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/finite_references_attempt_001.log
+finite：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/finite_attempt_001.log
+wideband：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/wideband_attempt_001.log
+dma1000：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/dma1000_attempt_001.log
+continuous60：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/continuous60_attempt_001.log
+continuous300：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/continuous300_attempt_001.log
+final_identity：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/final_identity_attempt_001.log
+final_reset_marker：PASS；日志：reproduction/project/reproduction/board_20261102_191353_958133/final_reset_marker_attempt_001.log
