@@ -1,0 +1,40 @@
+本文件夹的工具不是上位机启动入口
+
+日常演示只需从仓库根目录运行 Open_IQ_Monitor.cmd，选择
+examples/iq_showcase 根目录或“对照补充”内的 IQ .bin。
+各项采集设置见上一级“先看我_现场演示路线.txt”和“文件说明与参数对照.txt”。
+
+以下命令从仓库根目录执行，均不连接开发板。
+
+python -B scripts/check_iq_showcase.py
+仅需 Python 3.11+ 标准库，检查22个输入、53组引用、源码绑定、合法设置、
+精确时域RMS/峰值和参考元数据；不会重新计算AMD FFT。
+
+python -B examples/iq_showcase/tools/verify_saved_capture.py "实际采集目录"
+需要NumPy。读取已经保存的capture.json、frequency.bin、burst.bin和快照，
+按输入SHA、实际检测参数及窗函数匹配有限回放参考。
+先校验仓库相对绑定，再用临时绝对绑定副本调用原工程验证器。
+仅另存showcase_validation.json，不改原始采集文件；循环采集被明确拒绝数值核验。
+新参数没有对应参考时，不会因此直接判成硬件错误。
+
+python -B examples/iq_showcase/tools/generate_iq_showcase.py --inputs-only
+需要NumPy。重新合成并验证全部22个输入，保留既有参考。
+八份历史PPT输入以本包对应规范bin作为种子，不依赖原电脑的历史PPT文件夹。
+
+python -B examples/iq_showcase/tools/generate_iq_showcase.py
+完整重建需要NumPy、Matplotlib和tests/fft_reference.py使用的AMD位精确模型。
+模型不随本包分发。工具自动定位所属仓库，也可传--project；
+可用--source-demos指定包含vectors子目录的历史输入目录，默认直接用本包种子；
+--out必须位于所属仓库内部。
+生成器会核对所有输入及新算数值与已审阅版本一致，拒绝覆盖内容不同的同名IQ。
+它不重新生成手写演示路线或本文件。
+
+settings_cases.py
+需要NumPy；定义零间隔阶梯、背景强弱双段、确认点数和31/32点边界输入。
+直接运行时用仓库中原区间参考生成settings_validation.json，不连接板卡。
+
+manifest.json记录的project相对演示包；输入和reference_file相对演示包；
+参考JSON的bindings相对仓库根。“参考结果”是软件预期，不是板端采集记录。
+portable.py提供安全路径解析和临时绑定适配，不修改原验证器。
+
+本次发布没有重新完成实板、DMA切换、稳定性或冷启动测试。

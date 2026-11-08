@@ -1,3 +1,39 @@
+# 基于 Zynq 的数字 IQ 信号实时分析系统
+
+当前软件快照：**2026-11-08，Phase13 上位机与 IQ 演示版**。包含最新版 Python/Tkinter 上位机、采集设置说明、22 份 IQ 演示文件、53 组有限回放参考场景，以及最终 PPT、报告和逐页讲稿。
+
+硬件沿用 Zybo Z7-20 / Phase13 Trial09：I/Q 各 16 bit、板内回放 160 MSPS、16384 点 FFT，构建 ID `4757a33c02eed50a403db87d09cb091f`。本次发布完成软件与资料整理、离线检查；没有重新烧录或开展新的板卡测试。历史板测结论与本次软件检查分别保存。
+
+| 入口 | 内容 |
+| --- | --- |
+| [最新版固定下载](https://github.com/vermouth2031/fft/releases/tag/v2026.11.08-phase13-gui-iq-showcase) | 软件、演示数据、答辩资料与 SHA-256 |
+| [IQ 演示包](examples/iq_showcase/README.md) | 22 份信号、现场路线、参数对照与独立参考 |
+| [零基础使用手册](docs/零基础使用手册.md) | IQ、RMS、突发、FFT 窗口、门限和全部界面说明 |
+| [最终 PPT](docs/presentation/PPT.pptx) / [报告](docs/presentation/报告.pdf) / [讲稿](docs/presentation/逐页演讲稿_约7分钟.docx) | 原始文件与 [来源散列](docs/presentation/sources.json) |
+| [版本与协作方式](docs/GitHub版本管理.md) | 分支、固定版本、软件检查与硬件证据关系 |
+
+在 Windows 安装带 Tk 的 Python 3.12 后，双击 `Open_IQ_Monitor.cmd`，或在仓库根目录运行 `python host/monitor.py`。打开界面、选择输入、查看输入包络无需板卡；实际开始采集需要运行配套网络固件的 Zybo。默认板卡 IP 为 `192.168.1.10`，电脑直连网卡可设为 `192.168.1.20/24`。
+
+演示时选择 `examples/iq_showcase/` 下的 IQ `.bin` 文件，并按包内路线切换 `hann/rect`、单次/循环、`digital-zero/threshold`、`legacy/robust`、`fixed/quiet-prefix` 及确认点数。`favorites.json` 对照本地常用的四份信号命名。GUI 只展示最新 FFT 窗和最近突发，两者可能对应不同时间范围。
+
+离线检查入口：
+
+```powershell
+python scripts/check_iq_showcase.py
+python tests/test_host_protocol.py
+python tests/test_frame_length_reference.py
+python tests/test_detector_host.py
+python scripts/check_five_signals_archive.py
+```
+
+采集、阈值配置和读取已有记录均由上位机与 `host/iq_client.py` 提供；具体命令可运行 `python host/iq_client.py --help`。精确重新生成 AMD FFT 参考需要本机安装相应 Vivado C model，完整 FPGA/固件重建需要 Vivado/Vitis 2026.1；这些操作不包含在 GitHub 的日常离线软件检查中。便携构建入口见 [support 说明](support/README.txt)。
+
+本项目以数字 IQ 文件回放作为输入，160 MSPS 指板内回放处理速率。四项测量为幅度、突发包络长度、谱峰频率和 99% 占用带宽；没有集成外部 ADC/RF 采集前端。`VERSION.json` 保留历史硬件发布身份，本次软件身份见 [SOFTWARE_RELEASE.json](SOFTWARE_RELEASE.json)。
+
+下面保留历史阶段说明，便于追溯原始实现和验收。
+
+---
+
 # Phase13：160 MSPS 电路结构优化
 
 第九版构建 `4757a33c02eed50a403db87d09cb091f` 已通过完整仿真、布局布线、软件构建，以及 USB 供电真板的 79 项数值、272 项宽带、1000 次 DMA 切换和 60/300 秒持续运行测试。SD 完整读回校验、系统复位启动及启动后 79 项数值复验也已通过。2026-10-13 用户确认真实断电再上电后，仅通过网口确认自动启动到第九版 `4757a33c02eed50a403db87d09cb091f`，初始 epoch=0、错误=0。未使用 JTAG、下载程序或执行系统复位。冷启动后的 79 项数值检查（80896 个快照值）及 300.000 秒满带 OFDM 持续运行全部通过，完成 8091 次 Bank 切换；频域记录缺口、UDP 丢包和 DMA 错误均为 0。实测最大分析/发布时间为 219.775/219.993750 µs。完整证据见 [冷启动验收](reports/phase13_boot_acceptance.json)。
@@ -76,7 +112,7 @@ Phase 9 实板矩阵入口为 `tests/phase9_specs.py` 和 `scripts/phase9_board_
 ## 历史与接口资料
 
 - [变更记录](CHANGELOG.md)、[版本元数据](VERSION.json)、[GitHub维护说明](docs/GitHub维护说明.md)。
-- [第八阶段完整验收报告](reports/第八阶段完整验收报告.md)、[第八阶段冷启动验证](reports/第八阶段冷启动验证报告.md)。
+- [第八阶段早期优化进度](reports/第八阶段优化进度报告.md)（该文档记录 2026-10-03 当时状态）。
 - [第七阶段完整验收报告](reports/第七阶段完整验收报告.md)、[第六阶段完整验收报告](reports/第六阶段完整验收报告.md)。
 - [寄存器和吞吐计数](docs/phase4_registers.md)、[帧长度误差分析](reports/帧长度定义与误差分析.md)。Phase 9 新容量寄存器见当前状态文档。
 - [电路设计说明](reports/最终电路设计说明.md)、[第三方声明](THIRD_PARTY_NOTICES.md)。

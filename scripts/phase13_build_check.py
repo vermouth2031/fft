@@ -4,9 +4,21 @@ import re
 import csv
 from pathlib import Path
 from record_build_stage import verify, sha
-from verify_phase11_evidence import CLOCK_MODULE, mmcm_hz
 
 ROOT = Path(__file__).resolve().parents[1]
+CLOCK_MODULE = 'build/board/iq_board.gen/sources_1/bd/system/ip/system_fft_clock_0/system_fft_clock_0_clk_wiz.v'
+
+def require(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+def mmcm_hz(text):
+    def parameter(name):
+        match = re.search(r'\.' + name + r'\s*\(\s*([\d.]+)\s*\)', text)
+        require(match is not None, 'Missing MMCM parameter: ' + name)
+        return float(match[1])
+    return (1e9 / parameter('CLKIN1_PERIOD') * parameter('CLKFBOUT_MULT_F') /
+            parameter('DIVCLK_DIVIDE') / parameter('CLKOUT0_DIVIDE_F'))
 
 def check():
     verify('simulation')

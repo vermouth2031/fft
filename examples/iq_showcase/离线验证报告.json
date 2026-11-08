@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "scope": "Input format/range/source hashes, AMD spectral references, independent finite interval references",
+  "iq_files": 22,
+  "scenarios": 53,
+  "fft_windows_evaluated": 78,
+  "snapshot_reference_values": 79872,
+  "new_board_test_performed": false,
+  "package_integrity_audit": {
+    "status": "PASS",
+    "iq_files": 22,
+    "iq_pairs": 638976,
+    "iq_bytes": 2555904,
+    "historical_inputs_byte_identical": 8,
+    "references_checked": 53,
+    "reference_bindings_intact": true,
+    "independent_settings_scenarios_checked": 16,
+    "software_preview_images_reviewed": 3
+  },
+  "saved_historical_capture_compatibility": {
+    "schema": "showcase-wrapper-compatibility-check-v1",
+    "board_access": false,
+    "scope": "Offline use of new demo references against private copies of archived real finite captures; original archives unchanged",
+    "original_archive_files": 15,
+    "original_archives_unchanged": true,
+    "finite_checks": [
+      {
+        "case": "dual_wide",
+        "status": "PASS",
+        "capture_files_unchanged": true,
+        "frequency_records": 2,
+        "burst_records": 1,
+        "exact_snapshot_values": 1024
+      },
+      {
+        "case": "cross_burst",
+        "status": "PASS",
+        "capture_files_unchanged": true,
+        "frequency_records": 2,
+        "burst_records": 1,
+        "exact_snapshot_values": 1024
+      },
+      {
+        "case": "noise_10db",
+        "status": "PASS",
+        "capture_files_unchanged": true,
+        "frequency_records": 2,
+        "burst_records": 2,
+        "exact_snapshot_values": 1024
+      }
+    ],
+    "cyclic_rejection": {
+      "status": "FAIL",
+      "rejected_before_validation": true,
+      "error": "本演示包保存的是有限回放参考，不支持对循环采集进行完整数值核验。本次未执行数值核验，也不会输出 PASS。请按说明取消循环，重新保存一次有限采集。"
+    },
+    "status": "PASS"
+  },
+  "publication_scope": "Repackaging only. Historical validation retained; current portable integrity is checked by scripts/check_iq_showcase.py."
+}

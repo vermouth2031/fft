@@ -1,0 +1,37 @@
+{
+  "schema": "iq-showcase-favorites-v1",
+  "files": [
+    {
+      "slot": "01",
+      "case_id": "overview",
+      "file": "01_综合_跨窗双音幅度阶梯.bin",
+      "sha256": "117632e4c49f12e37c3bf15ea17d78d2a2e08748b060895dcdecc37ad3a63cdb",
+      "title": "跨窗双音与幅度阶梯综合展示",
+      "intent": "一份文件同时展示可见幅度阶梯、正负双峰、谱峰与中心区别、跨窗完整测长、窗口RMS与突发RMS区别。"
+    },
+    {
+      "slot": "02",
+      "case_id": "ofdm_narrow",
+      "file": "06_PPT_窄带OFDM_约40MHz.bin",
+      "sha256": "17f54639daf41a67eefbf9b037790f6fc328cafb1d1577367617a72bc9d71792",
+      "title": "PPT窄带OFDM",
+      "intent": "与07号比较同级RMS约6000但频带宽度明显不同；与08号比较频移前后。"
+    },
+    {
+      "slot": "03",
+      "case_id": "settings_zero_gaps",
+      "file": "11_设置切换_零间隔与幅度频率阶梯.bin",
+      "sha256": "3f473243c24c8f137171773dc049dccd28d03ba444d9e2aad4ef23e7f216f963",
+      "title": "零背景三段阶梯与1024点间隙",
+      "intent": "同一文件展示数字零模式、gap分段与合并、幅度阶梯、跨FFT窗活动、矩形/Hann切换。"
+    },
+    {
+      "slot": "04",
+      "case_id": "settings_background",
+      "file": "12_设置切换_背景中的强弱双突发.bin",
+      "sha256": "fdc09f3c145d4cb0545ae6cb478f4990c17507f53d47dd275769d28fc21bd5e8",
+      "title": "恒功率随机背景中的强弱两段",
+      "intent": "同一文件切换fixed、legacy+quiet-prefix、robust+quiet-prefix、手动门限、错误前导长度与digital-zero，观察计数/末条长度/标志变化。"
+    }
+  ]
+}

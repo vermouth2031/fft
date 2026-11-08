@@ -7,6 +7,7 @@ permissions:
   contents: read
 jobs:
   python-host:
+    name: Current software and portable demo (offline)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,7 +15,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check Python syntax
-        run: python -m compileall -q host scripts tests
+        run: python -m compileall -q host scripts tests support examples/iq_showcase/tools
       - name: Check UDP protocol and socket recovery
         run: python tests/test_host_protocol.py
       - name: Check independent digital waveform interval reference
@@ -23,7 +24,24 @@ jobs:
         run: python tests/test_detector_host.py
       - name: Check archived five-signal evidence and report links
         run: python scripts/check_five_signals_archive.py
-      - name: Check Phase 13 source and RAM/JTAG board evidence integrity
+      - name: Check portable IQ showcase files and references
+        run: python scripts/check_iq_showcase.py
+
+  frozen-phase13-hardware-evidence:
+    name: Frozen Phase 13 hardware evidence (historical, no new board test)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the immutable historical source and evidence
+        uses: actions/checkout@v4
+        with:
+          ref: 0f224112cf0480e7e4eefcb2077350f2634b4135
+          path: frozen-phase13
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen Phase 13 source and RAM/JTAG evidence hashes
+        working-directory: frozen-phase13
         run: python scripts/verify_phase13_evidence.py
-      - name: Check Phase 13 SD installation and physical cold-boot evidence
+      - name: Verify frozen Phase 13 SD and physical cold-boot evidence hashes
+        working-directory: frozen-phase13
         run: python scripts/verify_phase13_cold_boot.py

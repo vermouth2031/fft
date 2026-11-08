@@ -1,0 +1,5930 @@
+{
+  "schema": "iq-gui-showcase-pack-v1",
+  "sample_rate_hz": 160000000,
+  "fft_length": 16384,
+  "format": "little-endian interleaved signed I16/Q16, 4 bytes per pair",
+  "project": "../..",
+  "cases": [
+    {
+      "id": "overview",
+      "file": "01_综合_跨窗双音幅度阶梯.bin",
+      "title": "跨窗双音与幅度阶梯综合展示",
+      "intent": "一份文件同时展示可见幅度阶梯、正负双峰、谱峰与中心区别、跨窗完整测长、窗口RMS与突发RMS区别。",
+      "ppt_pages": [
+        6,
+        18,
+        19,
+        25
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_definition": {
+        "active_interval": [
+          8192,
+          28672
+        ],
+        "active_samples": 20480,
+        "active_length_us": 128,
+        "first_scale": 0.5,
+        "second_scale": 1.5,
+        "tones_hz": [
+          -30000000,
+          20000000
+        ]
+      },
+      "notes": [
+        "两个FFT窗的活动占比不同，窗口RMS比值不是3；PPT约1:3用02号文件及其低高幅对照。",
+        "默认顶部显示窗1，频谱快照可能属于窗0；本文件两窗都有相同两主频，但功率及谱形不完全相同。"
+      ],
+      "sha256": "117632e4c49f12e37c3bf15ea17d78d2a2e08748b060895dcdecc37ad3a63cdb",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -15697,
+        "component_max": 18432,
+        "input_nonzero_samples": 20480,
+        "clipping_applied": false,
+        "window_rms": [
+          3238.0664176325968,
+          11897.799985711645
+        ],
+        "window_peaks": [
+          6144.0,
+          18432.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 3238.06640625,
+            "peak_codes": 6144.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.214844,
+            "center_mhz": -5.058594,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 11897.79997253418,
+            "peak_codes": 18432.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.117188,
+            "center_mhz": -5.039063,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 3238.06640625,
+            "peak_codes": 6144.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.273438,
+            "center_mhz": -5.078125,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 11897.79997253418,
+            "peak_codes": 18432.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.039063,
+            "center_mhz": -5.009766,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann＋数字零：综合主演示",
+          "request": {
+            "label": "Hann＋数字零：综合主演示",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/overview__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 8192,
+              "end": 28672,
+              "length_samples": 20480,
+              "length_us": 128.0,
+              "rms_codes": 11028.788452148438,
+              "peak_codes": 18432.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 8192,
+            "end": 28672,
+            "length_samples": 20480,
+            "length_us": 128.0,
+            "rms_codes": 11028.788452148438,
+            "peak_codes": 18432.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 11897.79997253418,
+            "peak_codes": 18432.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.039063,
+            "center_mhz": -5.009766,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形＋数字零：保持128us测长，频谱变化",
+          "request": {
+            "label": "矩形＋数字零：保持128us测长，频谱变化",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/overview__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 8192,
+              "end": 28672,
+              "length_samples": 20480,
+              "length_us": 128.0,
+              "rms_codes": 11028.788452148438,
+              "peak_codes": 18432.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 8192,
+            "end": 28672,
+            "length_samples": 20480,
+            "length_us": 128.0,
+            "rms_codes": 11028.788452148438,
+            "peak_codes": 18432.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 11897.79997253418,
+            "peak_codes": 18432.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.117188,
+            "center_mhz": -5.039063,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形＋默认门限：对比滑动功率边界",
+          "request": {
+            "label": "矩形＋默认门限：对比滑动功率边界",
+            "window": "rect",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/overview__03.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 8192,
+              "end": 28687,
+              "length_samples": 20495,
+              "length_us": 128.09375,
+              "rms_codes": 11024.75180053711,
+              "peak_codes": 18432.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 8192,
+            "end": 28687,
+            "length_samples": 20495,
+            "length_us": 128.09375,
+            "rms_codes": 11024.75180053711,
+            "peak_codes": 18432.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 11897.79997253418,
+            "peak_codes": 18432.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.117188,
+            "center_mhz": -5.039063,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "amp_steps",
+      "file": "02_PPT_20MHz幅度阶跃1比3.bin",
+      "title": "PPT二十兆赫幅度阶跃",
+      "intent": "上图显示4096到12288的1:3阶跃；两窗精确幅度可看frequency.csv，卡片稳定对比请用补充02A/02B。",
+      "ppt_pages": [
+        9,
+        18
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "02_PPT_20MHz幅度阶跃1比3.bin",
+      "source_sha256": "b8543398ac3212cf62a34f1314bff002f4e72db2dba3368f6eeb177ea94703a3",
+      "sha256": "b8543398ac3212cf62a34f1314bff002f4e72db2dba3368f6eeb177ea94703a3",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -12288,
+        "component_max": 12288,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          4095.781244158433,
+          12288.050821835008
+        ],
+        "window_peaks": [
+          4096.0,
+          12288.101643459822
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：PPT设置",
+          "request": {
+            "label": "Hann：PPT设置",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_steps__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 9158.91960144043,
+              "peak_codes": 12288.101638793945,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 9158.91960144043,
+            "peak_codes": 12288.101638793945,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：时域幅度不变",
+          "request": {
+            "label": "矩形：时域幅度不变",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_steps__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 9158.91960144043,
+              "peak_codes": 12288.101638793945,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 9158.91960144043,
+            "peak_codes": 12288.101638793945,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        }
+      ],
+      "historical_source_name": "amp_steps.bin"
+    },
+    {
+      "id": "dual",
+      "file": "03_PPT_正负双音_负30与正20MHz.bin",
+      "title": "PPT正负双音",
+      "intent": "显示两座相距50MHz的谱峰；较强峰在-30MHz，带宽中心约-5MHz，展示谱峰与中心不同。",
+      "ppt_pages": [
+        18
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "03_PPT_正负双音_负30与正20MHz.bin",
+      "source_sha256": "0dd044aaabfbf89a091dbce10f4ac44292aebcd7c0524eb4e6772ea496d1ab64",
+      "sha256": "0dd044aaabfbf89a091dbce10f4ac44292aebcd7c0524eb4e6772ea496d1ab64",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -10465,
+        "component_max": 12288,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          9159.078624512402,
+          9159.078624512402
+        ],
+        "window_peaks": [
+          12288.0,
+          12288.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.0,
+            "center_mhz": -5.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.0,
+            "center_mhz": -5.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.019531,
+            "center_mhz": -5.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.019531,
+            "center_mhz": -5.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：PPT设置",
+          "request": {
+            "label": "Hann：PPT设置",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/dual__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 9159.07861328125,
+              "peak_codes": 12288.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.019531,
+            "center_mhz": -5.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：带宽50MHz对比",
+          "request": {
+            "label": "矩形：带宽50MHz对比",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/dual__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 9159.07861328125,
+              "peak_codes": 12288.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 9159.07861328125,
+            "peak_codes": 12288.0,
+            "peak_mhz": -30.0,
+            "bandwidth_mhz": 50.0,
+            "center_mhz": -5.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "dual_wide.bin"
+    },
+    {
+      "id": "chirp",
+      "file": "04_PPT_线性扫频_负50到正50MHz.bin",
+      "title": "PPT线性扫频",
+      "intent": "最醒目的rect/hann对比：同一恒包络输入，99%带宽约98.77MHz与67.77MHz，时域RMS保持。",
+      "ppt_pages": [
+        9,
+        19
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "04_PPT_线性扫频_负50到正50MHz.bin",
+      "source_sha256": "46325f6c094476df388b67eea4bed1743187575f974c7d2d23f8c987a6fb1a99",
+      "notes": [
+        "FFT频谱显示该窗的功率分布，不显示扫频先后顺序。"
+      ],
+      "sha256": "46325f6c094476df388b67eea4bed1743187575f974c7d2d23f8c987a6fb1a99",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          8191.997209295155,
+          8191.997209295155
+        ],
+        "window_peaks": [
+          8192.69979921149,
+          8192.69979921149
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -49.150391,
+            "bandwidth_mhz": 98.769531,
+            "center_mhz": 0.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -49.150391,
+            "bandwidth_mhz": 98.769531,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -0.019531,
+            "bandwidth_mhz": 67.773438,
+            "center_mhz": 0.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -0.019531,
+            "bandwidth_mhz": 67.773438,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "矩形：讲稿98.769531MHz",
+          "request": {
+            "label": "矩形：讲稿98.769531MHz",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/chirp__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 8191.997207641602,
+              "peak_codes": 8192.699798583984,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -49.150391,
+            "bandwidth_mhz": 98.769531,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "Hann：对比频谱加权",
+          "request": {
+            "label": "Hann：对比频谱加权",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/chirp__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 8191.997207641602,
+              "peak_codes": 8192.699798583984,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8191.997207641602,
+            "peak_codes": 8192.699798583984,
+            "peak_mhz": -0.019531,
+            "bandwidth_mhz": 67.773438,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "chirp.bin"
+    },
+    {
+      "id": "cross",
+      "file": "05_PPT_跨窗突发_8192点51.2us.bin",
+      "title": "PPT跨窗8192点突发",
+      "intent": "数字零检测完整[12288,20480)，一条51.2us；窗口RMS4096，突发RMS8192，峰8192。",
+      "ppt_pages": [
+        12,
+        19,
+        25
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "05_PPT_跨窗突发_8192点51.2us.bin",
+      "source_sha256": "edc78f2f6d65048ff8971736019c1ae117d95a1ce3270f86756435c622df0534",
+      "sha256": "edc78f2f6d65048ff8971736019c1ae117d95a1ce3270f86756435c622df0534",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 8192,
+        "clipping_applied": false,
+        "window_rms": [
+          4096.0,
+          4096.0
+        ],
+        "window_peaks": [
+          8192.0,
+          8192.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.748047,
+            "center_mhz": 39.985352,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.748047,
+            "center_mhz": 39.985352,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "矩形＋数字零：PPT设置",
+          "request": {
+            "label": "矩形＋数字零：PPT设置",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/cross__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 12288,
+              "end": 20480,
+              "length_samples": 8192,
+              "length_us": 51.2,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 12288,
+            "end": 20480,
+            "length_samples": 8192,
+            "length_us": 51.2,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "Hann＋数字零：长度不变、频谱变",
+          "request": {
+            "label": "Hann＋数字零：长度不变、频谱变",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/cross__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 12288,
+              "end": 20480,
+              "length_samples": 8192,
+              "length_us": 51.2,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 12288,
+            "end": 20480,
+            "length_samples": 8192,
+            "length_us": 51.2,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.748047,
+            "center_mhz": 39.985352,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形＋默认门限：边界响应对比",
+          "request": {
+            "label": "矩形＋默认门限：边界响应对比",
+            "window": "rect",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/cross__03.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 12288,
+              "end": 20495,
+              "length_samples": 8207,
+              "length_us": 51.29375,
+              "rms_codes": 8184.510269165039,
+              "peak_codes": 8192.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 12288,
+            "end": 20495,
+            "length_samples": 8207,
+            "length_us": 51.29375,
+            "rms_codes": 8184.510269165039,
+            "peak_codes": 8192.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "cross_burst.bin"
+    },
+    {
+      "id": "ofdm_narrow",
+      "file": "06_PPT_窄带OFDM_约40MHz.bin",
+      "title": "PPT窄带OFDM",
+      "intent": "与07号比较同级RMS约6000但频带宽度明显不同；与08号比较频移前后。",
+      "ppt_pages": [
+        20,
+        21
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "06_PPT_窄带OFDM_约40MHz.bin",
+      "source_sha256": "17f54639daf41a67eefbf9b037790f6fc328cafb1d1577367617a72bc9d71792",
+      "sha256": "17f54639daf41a67eefbf9b037790f6fc328cafb1d1577367617a72bc9d71792",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -15872,
+        "component_max": 16505,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          6000.0013375496965,
+          6000.0013375496965
+        ],
+        "window_peaks": [
+          18314.143714626684,
+          18314.143714626684
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -19.980469,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 0.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -19.980469,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -18.876953,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": -0.009766,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -18.876953,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": -0.009766,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：PPT设置",
+          "request": {
+            "label": "Hann：PPT设置",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_narrow__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001327514648,
+              "peak_codes": 18314.14370727539,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -18.876953,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": -0.009766,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_narrow__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001327514648,
+              "peak_codes": 18314.14370727539,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001327514648,
+            "peak_codes": 18314.14370727539,
+            "peak_mhz": -19.980469,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "ofdm_narrow.bin"
+    },
+    {
+      "id": "ofdm_wide",
+      "file": "07_PPT_宽带OFDM_约140MHz.bin",
+      "title": "PPT宽带OFDM",
+      "intent": "Hann参考99%带宽138.330078MHz；与06号比较频谱平台展宽、峰值与RMS差异。",
+      "ppt_pages": [
+        20
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "07_PPT_宽带OFDM_约140MHz.bin",
+      "source_sha256": "f3f0c6f29a72418774cfed01d81181442602ddb76e1c854b0086ed059d8d035d",
+      "sha256": "f3f0c6f29a72418774cfed01d81181442602ddb76e1c854b0086ed059d8d035d",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -17362,
+        "component_max": 17422,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          5999.999789708451,
+          5999.999789708451
+        ],
+        "window_peaks": [
+          17778.348320358673,
+          17778.348320358673
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -64.755859,
+            "bandwidth_mhz": 138.613281,
+            "center_mhz": 0.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -64.755859,
+            "bandwidth_mhz": 138.613281,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -69.677734,
+            "bandwidth_mhz": 138.330078,
+            "center_mhz": 0.004883,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -69.677734,
+            "bandwidth_mhz": 138.330078,
+            "center_mhz": 0.004883,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：PPT设置",
+          "request": {
+            "label": "Hann：PPT设置",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_wide__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 5999.999786376953,
+              "peak_codes": 17778.34831237793,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -69.677734,
+            "bandwidth_mhz": 138.330078,
+            "center_mhz": 0.004883,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_wide__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 5999.999786376953,
+              "peak_codes": 17778.34831237793,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 5999.999786376953,
+            "peak_codes": 17778.34831237793,
+            "peak_mhz": -64.755859,
+            "bandwidth_mhz": 138.613281,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "ofdm_wide.bin"
+    },
+    {
+      "id": "ofdm_shift",
+      "file": "08_PPT_OFDM整体移频正25MHz.bin",
+      "title": "PPT窄OFDM整体移频",
+      "intent": "与06号对比：包络近似保持、带宽保持，中心与谱峰均平移约25MHz。",
+      "ppt_pages": [
+        21
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "08_PPT_OFDM整体移频正25MHz.bin",
+      "source_sha256": "06fd8f014606cf21c021d34b91aa1bcf6bc565f4653acb71be1e054265b78889",
+      "sha256": "06fd8f014606cf21c021d34b91aa1bcf6bc565f4653acb71be1e054265b78889",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -18161,
+        "component_max": 17320,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          6000.001425526768,
+          6000.001425526768
+        ],
+        "window_peaks": [
+          18314.08447070178,
+          18314.08447070178
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 5.029297,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 25.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 5.029297,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 25.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 6.123047,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": 24.990234,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 6.123047,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": 24.990234,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：PPT设置",
+          "request": {
+            "label": "Hann：PPT设置",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_shift__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001419067383,
+              "peak_codes": 18314.08445739746,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 6.123047,
+            "bandwidth_mhz": 39.511719,
+            "center_mhz": 24.990234,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/ofdm_shift__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001419067383,
+              "peak_codes": 18314.08445739746,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001419067383,
+            "peak_codes": 18314.08445739746,
+            "peak_mhz": 5.029297,
+            "bandwidth_mhz": 39.609375,
+            "center_mhz": 25.0,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "shifted_ofdm.bin"
+    },
+    {
+      "id": "fullband",
+      "file": "09_满带OFDM_展示约158MHz带宽.bin",
+      "title": "接近全频带的OFDM",
+      "intent": "配合赛题指标页展示接近160MHz复IQ频谱跨度的输入；RMS约6000。",
+      "ppt_pages": [
+        4,
+        17
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_definition": {
+        "seed": 20261107,
+        "modulation": "QPSK OFDM",
+        "active_subcarriers": 16382,
+        "subcarrier_bounds_hz": [
+          -79990234.375,
+          79990234.375
+        ],
+        "dc_and_nyquist_excluded": true,
+        "target_rms": 6000
+      },
+      "sha256": "f46bd3282c98e054eabe2b688d3086f0a3321727ebc178c34cb937a2a3e2e5ff",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -17048,
+        "component_max": 17633,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          6000.001416030716,
+          6000.001416030716
+        ],
+        "window_peaks": [
+          18994.51710362756,
+          18994.51710362756
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -77.929688,
+            "bandwidth_mhz": 158.398438,
+            "center_mhz": 0.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -77.929688,
+            "bandwidth_mhz": 158.398438,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -73.876953,
+            "bandwidth_mhz": 158.349609,
+            "center_mhz": 0.063477,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -73.876953,
+            "bandwidth_mhz": 158.349609,
+            "center_mhz": 0.063477,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：接近满屏频谱",
+          "request": {
+            "label": "Hann：接近满屏频谱",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/fullband__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001403808594,
+              "peak_codes": 18994.51708984375,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -73.876953,
+            "bandwidth_mhz": 158.349609,
+            "center_mhz": 0.063477,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：满带对照",
+          "request": {
+            "label": "矩形：满带对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/fullband__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6000.001403808594,
+              "peak_codes": 18994.51708984375,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6000.001403808594,
+            "peak_codes": 18994.51708984375,
+            "peak_mhz": -77.929688,
+            "bandwidth_mhz": 158.398438,
+            "center_mhz": 0.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "noise_10db",
+      "file": "10_PPT_10dB含噪双突发.bin",
+      "title": "PPT十dB含噪双突发",
+      "intent": "原PPT固定门限下2条突发，末条8202点51.2625us，比8192点真值多10点。",
+      "ppt_pages": [
+        21,
+        27
+      ],
+      "provenance": "unchanged historical PPT input",
+      "source_file": "10_PPT_10dB含噪双突发.bin",
+      "source_sha256": "8e3a7e31be31c203b18633947d22ca5c67ae5686dbf2164903792f4d053ec8af",
+      "notes": [
+        "PPT顶部特意显示窗0：RMS6333.691、99%带宽145.595703MHz；普通GUI最后窗1为RMS6348.014、150.742188MHz。",
+        "两者是同一输入的不同窗口。原PPT第二段长度51.2625us仍由末条突发给出。",
+        "希望卡片重现PPT窗0，可选补充10A单窗文件；该文件只包含第一段突发。"
+      ],
+      "sha256": "8e3a7e31be31c203b18633947d22ca5c67ae5686dbf2164903792f4d053ec8af",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "historical input byte-identical",
+      "input_statistics": {
+        "component_min": -13645,
+        "component_max": 12723,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          6333.691178695289,
+          6348.014026825857
+        ],
+        "window_peaks": [
+          15033.389271884102,
+          15074.93406287404
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 6333.691177368164,
+            "peak_codes": 15033.389266967773,
+            "peak_mhz": -19.960938,
+            "bandwidth_mhz": 150.537109,
+            "center_mhz": 0.004883,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -3.027344,
+            "bandwidth_mhz": 150.654297,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 6333.691177368164,
+            "peak_codes": 15033.389266967773,
+            "peak_mhz": -19.53125,
+            "bandwidth_mhz": 145.595703,
+            "center_mhz": -0.209961,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -2.724609,
+            "bandwidth_mhz": 150.742188,
+            "center_mhz": -0.195313,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "PPT原门限：两条突发",
+          "request": {
+            "label": "PPT原门限：两条突发",
+            "window": "hann",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": 415107548,
+            "toff": 207553774,
+            "kon": 8,
+            "koff": 32,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 415107548,
+            "toff": 207553774,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": 415107548,
+              "toff": 207553774,
+              "kon": 8,
+              "koff": 32
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/noise_10db__01.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 4102,
+              "end": 12303,
+              "length_samples": 8201,
+              "length_us": 51.25625,
+              "rms_codes": 8567.962997436523,
+              "peak_codes": 15033.389266967773,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 16389,
+              "end": 24591,
+              "length_samples": 8202,
+              "length_us": 51.2625,
+              "rms_codes": 8587.888656616211,
+              "peak_codes": 15074.934051513672,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 16389,
+            "end": 24591,
+            "length_samples": 8202,
+            "length_us": 51.2625,
+            "rms_codes": 8587.888656616211,
+            "peak_codes": 15074.934051513672,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -2.724609,
+            "bandwidth_mhz": 150.742188,
+            "center_mhz": -0.195313,
+            "flags": []
+          }
+        },
+        {
+          "label": "legacy＋quiet-prefix：重新估计",
+          "request": {
+            "label": "legacy＋quiet-prefix：重新估计",
+            "window": "hann",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "quiet-prefix",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 415107548,
+            "toff": 207553774,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "quiet-prefix",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1",
+            "quiet_interval": [
+              0,
+              1024
+            ],
+            "quiet_interval_assumption": "User-declared leading background; no automatic silence detection",
+            "estimated_background_power": 6486055.4248046875,
+            "on_multiple": 4.0,
+            "off_multiple": 2.0
+          },
+          "reference_file": "参考结果/noise_10db__02.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 4102,
+              "end": 12303,
+              "length_samples": 8201,
+              "length_us": 51.25625,
+              "rms_codes": 8567.962997436523,
+              "peak_codes": 15033.389266967773,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 16389,
+              "end": 24591,
+              "length_samples": 8202,
+              "length_us": 51.2625,
+              "rms_codes": 8587.888656616211,
+              "peak_codes": 15074.934051513672,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 16389,
+            "end": 24591,
+            "length_samples": 8202,
+            "length_us": 51.2625,
+            "rms_codes": 8587.888656616211,
+            "peak_codes": 15074.934051513672,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -2.724609,
+            "bandwidth_mhz": 150.742188,
+            "center_mhz": -0.195313,
+            "flags": []
+          }
+        },
+        {
+          "label": "robust＋quiet-prefix：带噪预设",
+          "request": {
+            "label": "robust＋quiet-prefix：带噪预设",
+            "window": "hann",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "robust",
+            "threshold_policy": "quiet-prefix",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 311330661,
+            "toff": 181609552,
+            "kon": 16,
+            "koff": 8,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "robust",
+            "policy": "quiet-prefix",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1",
+            "quiet_interval": [
+              0,
+              1024
+            ],
+            "quiet_interval_assumption": "User-declared leading background; no automatic silence detection",
+            "estimated_background_power": 6486055.4248046875,
+            "on_multiple": 3.0,
+            "off_multiple": 1.75
+          },
+          "reference_file": "参考结果/noise_10db__03.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 4100,
+              "end": 12303,
+              "length_samples": 8203,
+              "length_us": 51.26875,
+              "rms_codes": 8567.987380981445,
+              "peak_codes": 15033.389266967773,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 16387,
+              "end": 24591,
+              "length_samples": 8204,
+              "length_us": 51.275,
+              "rms_codes": 8587.792190551758,
+              "peak_codes": 15074.934051513672,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 16387,
+            "end": 24591,
+            "length_samples": 8204,
+            "length_us": 51.275,
+            "rms_codes": 8587.792190551758,
+            "peak_codes": 15074.934051513672,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -2.724609,
+            "bandwidth_mhz": 150.742188,
+            "center_mhz": -0.195313,
+            "flags": []
+          }
+        },
+        {
+          "label": "数字零反例：非零背景无法分段",
+          "request": {
+            "label": "数字零反例：非零背景无法分段",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/noise_10db__04.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 6340.856643676758,
+              "peak_codes": 15074.934051513672,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 6340.856643676758,
+            "peak_codes": 15074.934051513672,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 6348.014022827148,
+            "peak_codes": 15074.934051513672,
+            "peak_mhz": -2.724609,
+            "bandwidth_mhz": 150.742188,
+            "center_mhz": -0.195313,
+            "flags": []
+          }
+        }
+      ],
+      "historical_source_name": "noise_10db.bin"
+    },
+    {
+      "id": "settings_zero_gaps",
+      "file": "11_设置切换_零间隔与幅度频率阶梯.bin",
+      "title": "零背景三段阶梯与1024点间隙",
+      "intent": "同一文件展示数字零模式、gap分段与合并、幅度阶梯、跨FFT窗活动、矩形/Hann切换。",
+      "ppt_pages": [
+        12,
+        15,
+        18,
+        19,
+        25
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_intervals": [
+        {
+          "start": 3072,
+          "end": 8192,
+          "amplitude": 4096,
+          "frequency_hz": -20000000
+        },
+        {
+          "start": 9216,
+          "end": 14336,
+          "amplitude": 8192,
+          "frequency_hz": 20000000
+        },
+        {
+          "start": 15360,
+          "end": 28672,
+          "amplitude": 12288,
+          "frequency_hz": 40000000
+        }
+      ],
+      "sha256": "3f473243c24c8f137171773dc049dccd28d03ba444d9e2aad4ef23e7f216f963",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -12288,
+        "component_max": 12288,
+        "input_nonzero_samples": 23552,
+        "clipping_applied": false,
+        "window_rms": [
+          5970.963432520752,
+          10641.720161703182
+        ],
+        "window_peaks": [
+          12288.0,
+          12288.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 5970.963424682617,
+            "peak_codes": 12288.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 60.458984,
+            "center_mhz": 10.180664,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.273438,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 5970.963424682617,
+            "peak_codes": 12288.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 40.361328,
+            "center_mhz": 0.102539,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.078125,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "数字零gap32：分为3段，末段83.2us",
+          "request": {
+            "label": "数字零gap32：分为3段，末段83.2us",
+            "detector": "digital-zero",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_zero_gaps__01.json",
+          "burst_count": 3,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 8192,
+              "length_samples": 5120,
+              "length_us": 32.0,
+              "rms_codes": 4095.781234741211,
+              "peak_codes": 4096.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            },
+            {
+              "start": 9216,
+              "end": 14336,
+              "length_samples": 5120,
+              "length_us": 32.0,
+              "rms_codes": 8192.269577026367,
+              "peak_codes": 8192.539154052734,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            },
+            {
+              "start": 15360,
+              "end": 28672,
+              "length_samples": 13312,
+              "length_us": 83.2,
+              "rms_codes": 12288.0,
+              "peak_codes": 12288.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 15360,
+            "end": 28672,
+            "length_samples": 13312,
+            "length_us": 83.2,
+            "rms_codes": 12288.0,
+            "peak_codes": 12288.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.273438,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "数字零gap2048：合为1段，总长160us",
+          "request": {
+            "label": "数字零gap2048：合为1段，总长160us",
+            "detector": "digital-zero",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 2048,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 2048
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_zero_gaps__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 28672,
+              "length_samples": 25600,
+              "length_us": 160.0,
+              "rms_codes": 9761.921524047852,
+              "peak_codes": 12288.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 3072,
+            "end": 28672,
+            "length_samples": 25600,
+            "length_us": 160.0,
+            "rms_codes": 9761.921524047852,
+            "peak_codes": 12288.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.273438,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "门限默认：与数字零边界对比，计入滑动响应",
+          "request": {
+            "label": "门限默认：与数字零边界对比，计入滑动响应",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": "门限结果通常比非零支撑区间多15点；不是koff直接加32点。"
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_zero_gaps__03.json",
+          "burst_count": 3,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 8207,
+              "length_samples": 5135,
+              "length_us": 32.09375,
+              "rms_codes": 4089.794708251953,
+              "peak_codes": 4096.0,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 9216,
+              "end": 14351,
+              "length_samples": 5135,
+              "length_us": 32.09375,
+              "rms_codes": 8180.295486450195,
+              "peak_codes": 8192.539154052734,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 15360,
+              "end": 28687,
+              "length_samples": 13327,
+              "length_us": 83.29375,
+              "rms_codes": 12281.082763671875,
+              "peak_codes": 12288.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 15360,
+            "end": 28687,
+            "length_samples": 13327,
+            "length_us": 83.29375,
+            "rms_codes": 12281.082763671875,
+            "peak_codes": 12288.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.273438,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "Hann＋数字零gap32：对比时域不变",
+          "request": {
+            "label": "Hann＋数字零gap32：对比时域不变",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_zero_gaps__04.json",
+          "burst_count": 3,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 8192,
+              "length_samples": 5120,
+              "length_us": 32.0,
+              "rms_codes": 4095.781234741211,
+              "peak_codes": 4096.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            },
+            {
+              "start": 9216,
+              "end": 14336,
+              "length_samples": 5120,
+              "length_us": 32.0,
+              "rms_codes": 8192.269577026367,
+              "peak_codes": 8192.539154052734,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            },
+            {
+              "start": 15360,
+              "end": 28672,
+              "length_samples": 13312,
+              "length_us": 83.2,
+              "rms_codes": 12288.0,
+              "peak_codes": 12288.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 15360,
+            "end": 28672,
+            "length_samples": 13312,
+            "length_us": 83.2,
+            "rms_codes": 12288.0,
+            "peak_codes": 12288.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 10641.720153808594,
+            "peak_codes": 12288.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.078125,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "settings_background",
+      "file": "12_设置切换_背景中的强弱双突发.bin",
+      "title": "恒功率随机背景中的强弱两段",
+      "intent": "同一文件切换fixed、legacy+quiet-prefix、robust+quiet-prefix、手动门限、错误前导长度与digital-zero，观察计数/末条长度/标志变化。",
+      "ppt_pages": [
+        18,
+        21,
+        27
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_intervals": [
+        {
+          "start": 4096,
+          "end": 12288,
+          "coherent_amplitude": 6000
+        },
+        {
+          "start": 18432,
+          "end": 28672,
+          "coherent_amplitude": 1600
+        }
+      ],
+      "background": {
+        "kind": "random-sign orthogonal constant-power background; not circular Gaussian AWGN",
+        "amplitude": 1024,
+        "sample_power": 1048576,
+        "seed": 20261107,
+        "valid_quiet_prefix": [
+          0,
+          4096
+        ],
+        "frequency_hz": 40000000
+      },
+      "sha256": "fdc09f3c145d4cb0545ae6cb478f4990c17507f53d47dd275769d28fc21bd5e8",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -6000,
+        "component_max": 6000,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          4364.46743601095,
+          1627.4446227137807
+        ],
+        "window_peaks": [
+          6086.75414321952,
+          1899.6252261959462
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4364.467422485352,
+            "peak_codes": 6086.754135131836,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 131.474609,
+            "center_mhz": 0.170898,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4364.467422485352,
+            "peak_codes": 6086.754135131836,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 108.515625,
+            "center_mhz": -0.771484,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 154.794922,
+            "center_mhz": -0.053711,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "legacy+fixed默认：背景被误作连续活动",
+          "request": {
+            "label": "legacy+fixed默认：背景被误作连续活动",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_background__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 1,
+              "end": 32768,
+              "length_samples": 32767,
+              "length_us": 204.79375,
+              "rms_codes": 3293.7630462646484,
+              "peak_codes": 6086.754135131836,
+              "flags": [
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 256
+            }
+          ],
+          "last_burst": {
+            "start": 1,
+            "end": 32768,
+            "length_samples": 32767,
+            "length_us": 204.79375,
+            "rms_codes": 3293.7630462646484,
+            "peak_codes": 6086.754135131836,
+            "flags": [
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 256
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        },
+        {
+          "label": "legacy+quiet：只检出强段",
+          "request": {
+            "label": "legacy+quiet：只检出强段",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "quiet-prefix",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 67108864,
+            "toff": 33554432,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "quiet-prefix",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1",
+            "quiet_interval": [
+              0,
+              1024
+            ],
+            "quiet_interval_assumption": "User-declared leading background; no automatic silence detection",
+            "estimated_background_power": 1048576.0,
+            "on_multiple": 4.0,
+            "off_multiple": 2.0
+          },
+          "reference_file": "参考结果/settings_background__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 4097,
+              "end": 12303,
+              "length_samples": 8206,
+              "length_us": 51.2875,
+              "rms_codes": 6081.346099853516,
+              "peak_codes": 6086.754135131836,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 4097,
+            "end": 12303,
+            "length_samples": 8206,
+            "length_us": 51.2875,
+            "rms_codes": 6081.346099853516,
+            "peak_codes": 6086.754135131836,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        },
+        {
+          "label": "robust+quiet：强弱两段都检出",
+          "request": {
+            "label": "robust+quiet：强弱两段都检出",
+            "detector": "threshold",
+            "threshold_profile": "robust",
+            "threshold_policy": "quiet-prefix",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 50331648,
+            "toff": 29360128,
+            "kon": 16,
+            "koff": 8,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "robust",
+            "policy": "quiet-prefix",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1",
+            "quiet_interval": [
+              0,
+              1024
+            ],
+            "quiet_interval_assumption": "User-declared leading background; no automatic silence detection",
+            "estimated_background_power": 1048576.0,
+            "on_multiple": 3.0,
+            "off_multiple": 1.75
+          },
+          "reference_file": "参考结果/settings_background__03.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 4096,
+              "end": 12303,
+              "length_samples": 8207,
+              "length_us": 51.29375,
+              "rms_codes": 6081.346755981445,
+              "peak_codes": 6086.754135131836,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 18445,
+              "end": 28683,
+              "length_samples": 10238,
+              "length_us": 63.9875,
+              "rms_codes": 1898.901107788086,
+              "peak_codes": 1899.6252136230469,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 18445,
+            "end": 28683,
+            "length_samples": 10238,
+            "length_us": 63.9875,
+            "rms_codes": 1898.901107788086,
+            "peak_codes": 1899.6252136230469,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        },
+        {
+          "label": "手动fixed恢复两段：ton50331648/toff29360128/kon16/koff8",
+          "request": {
+            "label": "手动fixed恢复两段：ton50331648/toff29360128/kon16/koff8",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": 50331648,
+            "toff": 29360128,
+            "kon": 16,
+            "koff": 8,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 50331648,
+            "toff": 29360128,
+            "kon": 16,
+            "koff": 8,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": 50331648,
+              "toff": 29360128,
+              "kon": 16,
+              "koff": 8
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_background__04.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 4096,
+              "end": 12303,
+              "length_samples": 8207,
+              "length_us": 51.29375,
+              "rms_codes": 6081.346755981445,
+              "peak_codes": 6086.754135131836,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 18445,
+              "end": 28683,
+              "length_samples": 10238,
+              "length_us": 63.9875,
+              "rms_codes": 1898.901107788086,
+              "peak_codes": 1899.6252136230469,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 18445,
+            "end": 28683,
+            "length_samples": 10238,
+            "length_us": 63.9875,
+            "rms_codes": 1898.901107788086,
+            "peak_codes": 1899.6252136230469,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        },
+        {
+          "label": "错误前导8192：把强信号当背景，可能全部漏检",
+          "request": {
+            "label": "错误前导8192：把强信号当背景，可能全部漏检",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "quiet-prefix",
+            "gap_min": 32,
+            "quiet_samples": 8192,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": "这是有意演示错误配置；前8192点包含强信号，不是有效背景声明。"
+          },
+          "applied_detector": {
+            "ton": 1219108864,
+            "toff": 609554432,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "quiet-prefix",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1",
+            "quiet_interval": [
+              0,
+              8192
+            ],
+            "quiet_interval_assumption": "User-declared leading background; no automatic silence detection",
+            "estimated_background_power": 19048576.0,
+            "on_multiple": 4.0,
+            "off_multiple": 2.0
+          },
+          "reference_file": "参考结果/settings_background__05.json",
+          "burst_count": 0,
+          "bursts": [],
+          "last_burst": null,
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        },
+        {
+          "label": "digital-zero：背景不为零，无法分出两段",
+          "request": {
+            "label": "digital-zero：背景不为零，无法分出两段",
+            "detector": "digital-zero",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_background__06.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 3293.7176513671875,
+              "peak_codes": 6086.754135131836,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 3293.7176513671875,
+            "peak_codes": 6086.754135131836,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 1627.4446105957031,
+            "peak_codes": 1899.6252136230469,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 155.908203,
+            "center_mhz": -0.014648,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "settings_confirmation",
+      "file": "13_设置切换_kon拒短与koff合并.bin",
+      "title": "512点短脉冲与1024点长段间隙",
+      "intent": "把确认参数放大到可见尺度：kon1024拒绝短脉冲，koff2048合并两个长段；通过记录计数与最后长度观察。",
+      "ppt_pages": [
+        12,
+        15,
+        25
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_intervals": [
+        {
+          "start": 3072,
+          "end": 3584,
+          "amplitude": 14000,
+          "frequency_hz": 40000000
+        },
+        {
+          "start": 8192,
+          "end": 14336,
+          "amplitude": 6144,
+          "frequency_hz": 40000000
+        },
+        {
+          "start": 15360,
+          "end": 27648,
+          "amplitude": 10000,
+          "frequency_hz": 40000000
+        }
+      ],
+      "sha256": "bf0d871ca62571c8efb055532e05c4b29b05d72a91f16d9b2497dc4655ee4c65",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -14000,
+        "component_max": 14000,
+        "input_nonzero_samples": 18944,
+        "clipping_applied": false,
+        "window_rms": [
+          5150.803432475364,
+          8291.5619758885
+        ],
+        "window_peaks": [
+          14000.0,
+          10000.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 5150.803421020508,
+            "peak_codes": 14000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 2.480469,
+            "center_mhz": 39.931641,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.292969,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 5150.803421020508,
+            "peak_codes": 14000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.074219,
+            "center_mhz": 40.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.136719,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "默认kon8/koff32：3条突发",
+          "request": {
+            "label": "默认kon8/koff32：3条突发",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_confirmation__01.json",
+          "burst_count": 3,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 3599,
+              "length_samples": 527,
+              "length_us": 3.29375,
+              "rms_codes": 13799.320709228516,
+              "peak_codes": 14000.0,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 8192,
+              "end": 14351,
+              "length_samples": 6159,
+              "length_us": 38.49375,
+              "rms_codes": 6136.513702392578,
+              "peak_codes": 6144.0,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 15360,
+              "end": 27663,
+              "length_samples": 12303,
+              "length_us": 76.89375,
+              "rms_codes": 9993.902053833008,
+              "peak_codes": 10000.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 15360,
+            "end": 27663,
+            "length_samples": 12303,
+            "length_us": 76.89375,
+            "rms_codes": 9993.902053833008,
+            "peak_codes": 10000.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.292969,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "kon1024：短脉冲被拒，剩2条",
+          "request": {
+            "label": "kon1024：短脉冲被拒，剩2条",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": 1024,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 1024,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": 1024,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_confirmation__02.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 8192,
+              "end": 14351,
+              "length_samples": 6159,
+              "length_us": 38.49375,
+              "rms_codes": 6136.513702392578,
+              "peak_codes": 6144.0,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 15360,
+              "end": 27663,
+              "length_samples": 12303,
+              "length_us": 76.89375,
+              "rms_codes": 9993.902053833008,
+              "peak_codes": 10000.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 15360,
+            "end": 27663,
+            "length_samples": 12303,
+            "length_us": 76.89375,
+            "rms_codes": 9993.902053833008,
+            "peak_codes": 10000.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.292969,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "koff2048：长段合并，末条约121.69us",
+          "request": {
+            "label": "koff2048：长段合并，末条约121.69us",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": 2048,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 2048,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": 2048
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_confirmation__03.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 3072,
+              "end": 3599,
+              "length_samples": 527,
+              "length_us": 3.29375,
+              "rms_codes": 13799.320709228516,
+              "peak_codes": 14000.0,
+              "flags": [],
+              "flags_raw": 0
+            },
+            {
+              "start": 8192,
+              "end": 27663,
+              "length_samples": 19471,
+              "length_us": 121.69375,
+              "rms_codes": 8661.449615478516,
+              "peak_codes": 10000.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 8192,
+            "end": 27663,
+            "length_samples": 19471,
+            "length_us": 121.69375,
+            "rms_codes": 8661.449615478516,
+            "peak_codes": 10000.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.292969,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "kon1024+koff2048：拒短且合长，剩1条",
+          "request": {
+            "label": "kon1024+koff2048：拒短且合长，剩1条",
+            "detector": "threshold",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": 1024,
+            "koff": 2048,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 1024,
+            "koff": 2048,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": 1024,
+              "koff": 2048
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/settings_confirmation__04.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 8192,
+              "end": 27663,
+              "length_samples": 19471,
+              "length_us": 121.69375,
+              "rms_codes": 8661.449615478516,
+              "peak_codes": 10000.0,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 8192,
+            "end": 27663,
+            "length_samples": 19471,
+            "length_us": 121.69375,
+            "rms_codes": 8661.449615478516,
+            "peak_codes": 10000.0,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8291.561965942383,
+            "peak_codes": 10000.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.292969,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary_gap31",
+      "file": "对照补充/15A_精细边界_内部31点零.bin",
+      "title": "数字零31点间隙边界补充",
+      "intent": "固定gap_min32，比较31点内部零间隔。约0.2us间隙只用于数字结果精细边界展示，不承诺包络图肉眼分辨。",
+      "ppt_pages": [
+        15
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_intervals": [
+        {
+          "start": 12288,
+          "end": 16384,
+          "amplitude": 8192
+        },
+        {
+          "start": 16415,
+          "end": 24607,
+          "amplitude": 8192
+        }
+      ],
+      "sha256": "e1ab6ca2d125ded8230929148e8dbf39eb550f018b7028b77e00a383ab8e3583",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 12288,
+        "clipping_applied": false,
+        "window_rms": [
+          4096.0,
+          5792.618751480198
+        ],
+        "window_peaks": [
+          8192.0,
+          8192.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.410156,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.748047,
+            "center_mhz": 39.985352,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.527344,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "数字零gap32：内部31零",
+          "request": {
+            "label": "数字零gap32：内部31零",
+            "detector": "digital-zero",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/boundary_gap31__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 12288,
+              "end": 24607,
+              "length_samples": 12319,
+              "length_us": 76.99375,
+              "rms_codes": 8181.686172485352,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 12288,
+            "end": 24607,
+            "length_samples": 12319,
+            "length_us": 76.99375,
+            "rms_codes": 8181.686172485352,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.410156,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary_gap32",
+      "file": "对照补充/15B_精细边界_内部32点零.bin",
+      "title": "数字零32点间隙边界补充",
+      "intent": "固定gap_min32，比较32点内部零间隔。约0.2us间隙只用于数字结果精细边界展示，不承诺包络图肉眼分辨。",
+      "ppt_pages": [
+        15
+      ],
+      "provenance": "new deterministic software-validated input",
+      "input_intervals": [
+        {
+          "start": 12288,
+          "end": 16384,
+          "amplitude": 8192
+        },
+        {
+          "start": 16416,
+          "end": 24608,
+          "amplitude": 8192
+        }
+      ],
+      "sha256": "2f0828c8ba75edf0f8fc84f2d2847eae89b6b4535a4fc6865701dd1c0d642dc4",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 12288,
+        "clipping_applied": false,
+        "window_rms": [
+          4096.0,
+          5792.618751480198
+        ],
+        "window_peaks": [
+          8192.0,
+          8192.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.800781,
+            "center_mhz": 40.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.410156,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4096.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 1.748047,
+            "center_mhz": 39.985352,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.527344,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "数字零gap32：内部32零",
+          "request": {
+            "label": "数字零gap32：内部32零",
+            "detector": "digital-zero",
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "gap_min": 32,
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "window": "rect",
+            "cyclic": false,
+            "seconds": 10,
+            "note": ""
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/boundary_gap32__01.json",
+          "burst_count": 2,
+          "bursts": [
+            {
+              "start": 12288,
+              "end": 16384,
+              "length_samples": 4096,
+              "length_us": 25.6,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            },
+            {
+              "start": 16416,
+              "end": 24608,
+              "length_samples": 8192,
+              "length_us": 51.2,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO"
+              ],
+              "flags_raw": 4096
+            }
+          ],
+          "last_burst": {
+            "start": 16416,
+            "end": 24608,
+            "length_samples": 8192,
+            "length_us": 51.2,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO"
+            ],
+            "flags_raw": 4096
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 5792.618743896484,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.410156,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuous",
+      "file": "14_连续40MHz单音_窗函数与截断标志.bin",
+      "title": "连续单音与状态标志",
+      "intent": "矩形窗单bin带宽0与Hann约19.531kHz；单次起点未确认/停止截断；循环可展示停止与长度上限分段。",
+      "ppt_pages": [
+        12,
+        25
+      ],
+      "provenance": "new deterministic software-validated input",
+      "notes": [
+        "循环测试只有完整性检查；本包独立数值参考限定单次有限回放。最后一条通常显示停止截断，长度上限分段记录可在burst.csv查看。"
+      ],
+      "sha256": "5fa67fb8aa9c75a5d0ffc98042298930762a128d5a319673d9892ac3db762f4c",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 32768,
+        "clipping_applied": false,
+        "window_rms": [
+          8192.0,
+          8192.0
+        ],
+        "window_peaks": [
+          8192.0,
+          8192.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 40.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 40.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 40.0,
+            "flags": []
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "矩形：单bin与截断",
+          "request": {
+            "label": "矩形：单bin与截断",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/continuous__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 40.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        },
+        {
+          "label": "Hann：主瓣展宽与截断",
+          "request": {
+            "label": "Hann：主瓣展宽与截断",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/continuous__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 32768,
+              "length_samples": 32768,
+              "length_us": 204.8,
+              "rms_codes": 8192.0,
+              "peak_codes": 8192.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 32768,
+            "length_samples": 32768,
+            "length_us": 204.8,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 8192.0,
+            "peak_codes": 8192.0,
+            "peak_mhz": 40.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 40.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "zero",
+      "file": "15_全零_无功率标志与空突发.bin",
+      "title": "全零输入",
+      "intent": "RMS/峰值为0、NO_POWER、没有突发，长度显示横线。",
+      "ppt_pages": [
+        15
+      ],
+      "provenance": "new deterministic software-validated input",
+      "sha256": "fa43239bcee7b97ca62f007cc68487560a39e19f74f3dde7486db3f98df8e471",
+      "samples": 32768,
+      "bytes": 131072,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": 0,
+        "component_max": 0,
+        "input_nonzero_samples": 0,
+        "clipping_applied": false,
+        "window_rms": [
+          0.0,
+          0.0
+        ],
+        "window_peaks": [
+          0.0,
+          0.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          },
+          {
+            "window_id": 1,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "矩形：无功率",
+          "request": {
+            "label": "矩形：无功率",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/zero__01.json",
+          "burst_count": 0,
+          "bursts": [],
+          "last_burst": null,
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          }
+        },
+        {
+          "label": "Hann：无功率",
+          "request": {
+            "label": "Hann：无功率",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/zero__02.json",
+          "burst_count": 0,
+          "bursts": [],
+          "last_burst": null,
+          "last_window": {
+            "window_id": 1,
+            "rms_codes": 0.0,
+            "peak_codes": 0.0,
+            "peak_mhz": 0.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 0.0,
+            "flags": [
+              "NO_POWER"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amp_low",
+      "file": "对照补充/02A_20MHz低幅4096_单窗口.bin",
+      "title": "幅度阶跃低平台单窗",
+      "intent": "辅助稳定卡片对照，避免两窗变化快于GUI刷新。",
+      "ppt_pages": [
+        9,
+        18
+      ],
+      "provenance": "new single-window companion; software reference only",
+      "sha256": "55dd3d808bfe610f8d49fc15f5df4de46f3ceb6b5e23d2189449fb6c167061c4",
+      "samples": 16384,
+      "bytes": 65536,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -4096,
+        "component_max": 4096,
+        "input_nonzero_samples": 16384,
+        "clipping_applied": false,
+        "window_rms": [
+          4095.781244158433
+        ],
+        "window_peaks": [
+          4096.0
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：稳定卡片对照",
+          "request": {
+            "label": "Hann：稳定卡片对照",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_low__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 4095.781234741211,
+              "peak_codes": 4096.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_low__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 4095.781234741211,
+              "peak_codes": 4096.0,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 4095.781234741211,
+            "peak_codes": 4096.0,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amp_high",
+      "file": "对照补充/02B_20MHz高幅12288_单窗口.bin",
+      "title": "幅度阶跃高平台单窗",
+      "intent": "辅助稳定卡片对照，避免两窗变化快于GUI刷新。",
+      "ppt_pages": [
+        9,
+        18
+      ],
+      "provenance": "new single-window companion; software reference only",
+      "sha256": "c3a168fda2c1e3ba6337c26ed4b713dc0e3fad65d2f3571abaacd27b634a3ff6",
+      "samples": 16384,
+      "bytes": 65536,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -12288,
+        "component_max": 12288,
+        "input_nonzero_samples": 16384,
+        "clipping_applied": false,
+        "window_rms": [
+          12288.050821835008
+        ],
+        "window_peaks": [
+          12288.101643459822
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：稳定卡片对照",
+          "request": {
+            "label": "Hann：稳定卡片对照",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_high__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 12288.050811767578,
+              "peak_codes": 12288.101638793945,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/amp_high__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 12288.050811767578,
+              "peak_codes": 12288.101638793945,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 12288.050811767578,
+            "peak_codes": 12288.101638793945,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tone_coherent",
+      "file": "对照补充/02C_相干20MHz单音_幅度8192.bin",
+      "title": "相干20MHz单音",
+      "intent": "辅助稳定卡片对照，避免两窗变化快于GUI刷新。",
+      "ppt_pages": [
+        9,
+        18
+      ],
+      "provenance": "new single-window companion; software reference only",
+      "sha256": "09fc745edda55cdd146f3e5c49d9e2fb2f04d79fefea0ae0e1b058fe1a1b8a26",
+      "samples": 16384,
+      "bytes": 65536,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 16384,
+        "clipping_applied": false,
+        "window_rms": [
+          8192.269587849267
+        ],
+        "window_peaks": [
+          8192.53916682734
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：稳定卡片对照",
+          "request": {
+            "label": "Hann：稳定卡片对照",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/tone_coherent__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 8192.269577026367,
+              "peak_codes": 8192.539154052734,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.019531,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/tone_coherent__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 8192.269577026367,
+              "peak_codes": 8192.539154052734,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 8192.269577026367,
+            "peak_codes": 8192.539154052734,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.0,
+            "center_mhz": 20.0,
+            "flags": [
+              "RESOLUTION_LIMITED"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tone_fractional",
+      "file": "对照补充/02D_非整数频点单音_窗函数泄漏对比.bin",
+      "title": "非整数bin单音",
+      "intent": "辅助稳定卡片对照，避免两窗变化快于GUI刷新。",
+      "ppt_pages": [
+        9,
+        18
+      ],
+      "provenance": "new single-window companion; software reference only",
+      "sha256": "5764217d67a70f6b03221899eaca66fe13692e54ae243e8f09b562d61336884b",
+      "samples": 16384,
+      "bytes": 65536,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -8192,
+        "component_max": 8192,
+        "input_nonzero_samples": 16384,
+        "clipping_applied": false,
+        "window_rms": [
+          8191.999467428756
+        ],
+        "window_peaks": [
+          8192.692658705073
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.332031,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.029297,
+            "center_mhz": 20.004883,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "Hann：稳定卡片对照",
+          "request": {
+            "label": "Hann：稳定卡片对照",
+            "window": "hann",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/tone_fractional__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 8191.999465942383,
+              "peak_codes": 8192.692657470703,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.029297,
+            "center_mhz": 20.004883,
+            "flags": []
+          }
+        },
+        {
+          "label": "矩形：窗函数对照",
+          "request": {
+            "label": "矩形：窗函数对照",
+            "window": "rect",
+            "detector": "digital-zero",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": null,
+            "toff": null,
+            "kon": null,
+            "koff": null,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 1048576,
+            "toff": 262144,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "digital-zero",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": null,
+              "toff": null,
+              "kon": null,
+              "koff": null
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/tone_fractional__02.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 0,
+              "end": 16384,
+              "length_samples": 16384,
+              "length_us": 102.4,
+              "rms_codes": 8191.999465942383,
+              "peak_codes": 8192.692657470703,
+              "flags": [
+                "DIGITAL_ZERO",
+                "START_UNCONFIRMED",
+                "CAPTURE_TRUNCATED"
+              ],
+              "flags_raw": 12544
+            }
+          ],
+          "last_burst": {
+            "start": 0,
+            "end": 16384,
+            "length_samples": 16384,
+            "length_us": 102.4,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "flags": [
+              "DIGITAL_ZERO",
+              "START_UNCONFIRMED",
+              "CAPTURE_TRUNCATED"
+            ],
+            "flags_raw": 12544
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 8191.999465942383,
+            "peak_codes": 8192.692657470703,
+            "peak_mhz": 20.0,
+            "bandwidth_mhz": 0.332031,
+            "center_mhz": 20.0,
+            "flags": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "noise_first",
+      "file": "对照补充/10A_含噪PPT窗口0_单窗口.bin",
+      "title": "含噪PPT窗0单窗",
+      "intent": "辅助稳定卡片对照，避免两窗变化快于GUI刷新。",
+      "ppt_pages": [
+        18,
+        21
+      ],
+      "provenance": "new single-window companion; software reference only",
+      "sha256": "e02b98b62f4b8ffbc9b36841cd6e0e61470a1572ac86fd825eff107f1fb8a136",
+      "samples": 16384,
+      "bytes": 65536,
+      "source_status": "new input; no new board capture",
+      "input_statistics": {
+        "component_min": -13645,
+        "component_max": 12723,
+        "input_nonzero_samples": 16384,
+        "clipping_applied": false,
+        "window_rms": [
+          6333.691178695289
+        ],
+        "window_peaks": [
+          15033.389271884102
+        ]
+      },
+      "spectral_by_mode": {
+        "rect": [
+          {
+            "window_id": 0,
+            "rms_codes": 6333.691177368164,
+            "peak_codes": 15033.389266967773,
+            "peak_mhz": -19.960938,
+            "bandwidth_mhz": 150.537109,
+            "center_mhz": 0.004883,
+            "flags": []
+          }
+        ],
+        "hann": [
+          {
+            "window_id": 0,
+            "rms_codes": 6333.691177368164,
+            "peak_codes": 15033.389266967773,
+            "peak_mhz": -19.53125,
+            "bandwidth_mhz": 145.595703,
+            "center_mhz": -0.209961,
+            "flags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "label": "PPT原门限，单窗0",
+          "request": {
+            "label": "PPT原门限，单窗0",
+            "window": "hann",
+            "detector": "threshold",
+            "gap_min": 32,
+            "threshold_profile": "legacy",
+            "threshold_policy": "fixed",
+            "quiet_samples": 1024,
+            "ton": 415107548,
+            "toff": 207553774,
+            "kon": 8,
+            "koff": 32,
+            "cyclic": false,
+            "seconds": 10
+          },
+          "applied_detector": {
+            "ton": 415107548,
+            "toff": 207553774,
+            "kon": 8,
+            "koff": 32,
+            "max_burst_samples": 1048576,
+            "mode": "threshold",
+            "gap_min": 32
+          },
+          "threshold_estimate": {
+            "profile": "legacy",
+            "policy": "fixed",
+            "requested_parameters": {
+              "ton": 415107548,
+              "toff": 207553774,
+              "kon": 8,
+              "koff": 32
+            },
+            "algorithm": "sliding-energy-16-v1"
+          },
+          "reference_file": "参考结果/noise_first__01.json",
+          "burst_count": 1,
+          "bursts": [
+            {
+              "start": 4102,
+              "end": 12303,
+              "length_samples": 8201,
+              "length_us": 51.25625,
+              "rms_codes": 8567.962997436523,
+              "peak_codes": 15033.389266967773,
+              "flags": [],
+              "flags_raw": 0
+            }
+          ],
+          "last_burst": {
+            "start": 4102,
+            "end": 12303,
+            "length_samples": 8201,
+            "length_us": 51.25625,
+            "rms_codes": 8567.962997436523,
+            "peak_codes": 15033.389266967773,
+            "flags": [],
+            "flags_raw": 0
+          },
+          "last_window": {
+            "window_id": 0,
+            "rms_codes": 6333.691177368164,
+            "peak_codes": 15033.389266967773,
+            "peak_mhz": -19.53125,
+            "bandwidth_mhz": 145.595703,
+            "center_mhz": -0.209961,
+            "flags": []
+          }
+        }
+      ]
+    }
+  ],
+  "source_materials": {
+    "ppt": {
+      "title": "PPT.pptx",
+      "sha256": "5e8247e504774a72d7b363b0502aa3c5dc3f617959367af4411016b660ea31da",
+      "repository_file": "docs/presentation/PPT.pptx"
+    },
+    "speech": {
+      "title": "逐页演讲稿_约7分钟.docx",
+      "sha256": "dde358e4cdb6d3f2ad13557b042c3bb05cd951bac6a5ccfbd82915263c191021",
+      "repository_file": "docs/presentation/逐页演讲稿_约7分钟.docx"
+    }
+  },
+  "oracle": {
+    "oracle": "AMD xfft v9.1 bit-accurate C model",
+    "nfft": 14,
+    "sample_rate_hz": 160000000,
+    "input_width": 24,
+    "twiddle_width": 18,
+    "scaling_schedule": [
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "rounding": "convergent",
+    "archive_sha256": "0cc9c30d468ed4f42309498adfc50f3629a674813429cc3dcb4f3ab0c1e2fde6",
+    "dll_sha256": "c9a7f993a73d81cc94f0c9a27af6a66ad5859ff80a8546a526c7a44d49bb4ba1",
+    "hann_sha256": "d3af29c3e2da0160aa70219514f57dab51309ec0cf60a7fd0827e86bc4683452",
+    "interface_sha256": "576a84dae344e51a366f0eddb99dc2b20149169075ed794dbf5d5aedc6099bb8"
+  },
+  "validation": {
+    "status": "PASS",
+    "scope": "Input format/range/source hashes, AMD spectral references, independent finite interval references",
+    "iq_files": 22,
+    "scenarios": 53,
+    "fft_windows_evaluated": 78,
+    "snapshot_reference_values": 79872,
+    "new_board_test_performed": false
+  },
+  "binding_base": "repository",
+  "publication": {
+    "schema": "iq-showcase-publication-v1",
+    "provenance_file": "publication_provenance.json",
+    "paths": "Pack files are pack-relative; reference bindings are repository-relative; project is relative to this pack.",
+    "original_numerical_values_preserved": true,
+    "new_board_test_performed": false
+  }
+}
